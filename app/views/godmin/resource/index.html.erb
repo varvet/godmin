@@ -6,7 +6,7 @@
         <tr>
           <% attrs_for_index.each do |attr| %>
             <th>
-              <%= attr_header attr %>
+              <%= column_header resource_class, attr %>
             </th>
           <% end %>
           <th></th>
@@ -17,7 +17,7 @@
           <tr>
             <% attrs_for_index.each do |attr| %>
               <td>
-                <%= resource.send(attr.to_s) %>
+                <%= column resource_class, resource, attr %>
               </td>
             <% end %>
             <td>
@@ -30,13 +30,6 @@
     </table>
   </div>
   <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Filter</h3>
-      </div>
-      <div class="panel-body">
-        <%= render partial: 'filter_form' %>
-      </div>
-    </div>
+    <%= render partial: 'filters' %>
   </div>
 </div>
