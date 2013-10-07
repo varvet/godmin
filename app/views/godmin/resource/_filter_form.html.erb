@@ -10,7 +10,7 @@
   <div class="form-actions">
     <div class="col-lg-8 col-lg-offset-4">
       <%= submit_tag "Filtrera", class: "btn btn-primary" %>
-      <%= link_to "Rensa", admin_psalms_path, class: "btn btn-danger" %>
+      <%= link_to "Rensa", url_for([:admin, resource_class]), class: "btn btn-danger" %>
     </div>
   </div>
 <% end %>
