@@ -2,13 +2,13 @@
 <html>
 <head>
   <title>Godmin</title>
-  <%= stylesheet_link_tag    "godmin/application", media: "all" %>
+  <%= stylesheet_link_tag "godmin/application", media: "all" %>
   <%= javascript_include_tag "godmin/application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
   <div class="container">
-    
+
     <%= render 'godmin/shared/nav_bar' %>
 
     <%= yield %>
