@@ -9,7 +9,14 @@
 <body>
   <div class="container">
 
-    <%= render 'godmin/shared/nav_bar' %>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <%= link_to 'Godmin', godmin.root_path, class: "navbar-brand" %>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <%= render partial: 'layouts/godmin/nav' %>
+      </div>
+    </nav>
 
     <%= yield %>
 

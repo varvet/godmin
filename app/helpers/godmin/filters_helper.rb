@@ -1,5 +1,6 @@
 module Godmin
   module FiltersHelper
+
     def filter_input_tag(name, options)
       case options[:as]
       when :string
