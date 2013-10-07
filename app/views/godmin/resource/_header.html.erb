@@ -1,0 +1,4 @@
+<h3>
+  <%= resource_class.to_s.pluralize %>
+  <%= link_to 'New', [:new, :admin, resource_class.to_s.underscore.to_sym], class: 'btn btn-default' %>
+</h3>

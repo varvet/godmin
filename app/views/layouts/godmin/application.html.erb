@@ -7,8 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="container">
 
-<%= yield %>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Verbum</a>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li><%= link_to 'Dashboard', "#" %></li>
+          <li><%= link_to 'Psalms', "#" %></li>
+          <li><%= link_to 'Occasion Templates', "#" %></li>
+          <li><%= link_to 'Occasion', "#" %></li>
+        </ul>
+      </div>
+    </nav>
 
+    <%= yield %>
+
+  </div>
 </body>
 </html>

@@ -1,0 +1,12 @@
+<h1>
+  <%= resource_class %> <%= resource.id %>
+  <small><%= link_to 'Edit', [:edit, :admin, resource], class: "btn btn-primary" %></small>
+</h1>
+<table class="table">
+  <% resource.attributes.sort.each do |key, value| %>
+  <tr>
+    <th><%= key %></th>
+    <td><%= value %></td>
+  </tr>
+  <% end %>
+</table>

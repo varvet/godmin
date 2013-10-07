@@ -1,0 +1,8 @@
+<%= simple_form_for [:admin, resource], html: { role: "form" } do |f| %>
+  <% attrs_for_form.each do |attr| %>
+    <div class="form-group">
+      <%= f.input attr, input_html: { class: "form-control" } %>
+    </div>
+  <% end %>
+  <%= f.button :submit, class: "btn btn-primary" %>
+<% end %>
