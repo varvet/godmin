@@ -1,2 +1,6 @@
-<h1>Editing <%= resource_class.to_s.titlecase %> <%= resource.id %></h1>
+<ol class="breadcrumb">
+  <li><%= link_to resource_class.to_s.pluralize.titlecase, url_for([:admin, resource_class]) %></li>
+  <li class="active"><%= resource.to_s %></li>
+</ol>
+
 <%= render 'form' %>
