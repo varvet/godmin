@@ -23,6 +23,7 @@
             <td>
               <%= link_to 'Show', [:admin, resource], class: 'btn btn-default btn-xs' %>
               <%= link_to 'Edit', [:edit, :admin, resource], class: 'btn btn-default btn-xs' %>
+              <%= link_to 'Destroy', [:admin, resource], method: :delete, data: { confirm: "Är du säker?" }, class: 'btn btn-danger btn-xs' %>
             </td>
           </tr>
         <% end %>
