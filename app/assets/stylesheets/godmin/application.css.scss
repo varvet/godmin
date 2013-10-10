@@ -10,7 +10,6 @@
  *
  *= require_self
  */
-
 @import 'bootstrap';
 @import 'godmin/bootstrap-chosen';
 
@@ -30,3 +29,14 @@ footer {
   font-size: 10px;
   text-transform: uppercase;
 }
+
+// .btn {
+//   &.btn-primary {
+//     color: #049cdb;
+//     background-color: inherit;
+//   }
+//   &.btn-danger {
+//     color: #9d261d;
+//     background-color: inherit;
+//   }
+// }

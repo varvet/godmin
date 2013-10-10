@@ -10,9 +10,9 @@ module Godmin
         else
           direction = 'desc'
         end
-        header = link_to attr.titlecase, url_for(params.merge(order: "#{attr}_#{direction}"))
+        header = link_to resource_class.human_attribute_name(attr), url_for(params.merge(order: "#{attr}_#{direction}"))
       else
-        header = attr.titlecase
+        header = resource_class.human_attribute_name(attr)
       end
 
       header
