@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
-  <li><%= link_to resource_class.to_s.pluralize.titlecase, url_for([:admin, resource_class]) %></li>
-  <li class="active">New <%= resource_class.to_s.titlecase %></li>
+  <li><%= link_to resource_class.model_name.human(:count => 2), url_for([:admin, resource_class]) %></li>
+  <li class="active">Lägg till ny</li>
 </ol>
 
 <%= render 'form' %>
