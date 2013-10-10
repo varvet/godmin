@@ -11,7 +11,7 @@
 
     <nav class="navbar navbar-default" role="navigation">
       <div class="navbar-header">
-        <%= link_to 'Godmin', '#', class: 'navbar-brand' %>
+        <%= link_to 'Godmin', godmin.root_path, class: 'navbar-brand' %>
       </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <%= render_partial 'shared/nav' %>
@@ -28,7 +28,6 @@
         <%= flash[:notice] %>
       </div>
     <% end %>
-
 
     <%= yield %>
 

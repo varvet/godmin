@@ -19,7 +19,7 @@ module Godmin
     end
 
     def column(resource_class, resource, attr)
-      template_name = "admin/#{resource_class.to_s.pluralize.underscore}/columns/#{attr}"
+      template_name = "admin/#{resource_class.to_s.pluralize.underscore}/column_#{attr}"
       if lookup_context.exists?(template_name, nil, true)
         render partial: template_name, locals: { resource: resource }
       else
