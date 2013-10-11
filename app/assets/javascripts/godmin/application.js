@@ -17,4 +17,7 @@
 
 $(function(){
   $('.chosen').chosen();
+  $('.chosen-with-deselect').chosen({
+    allow_single_deselect: true
+  });
 });
