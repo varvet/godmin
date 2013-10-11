@@ -34,7 +34,7 @@ module Godmin
         ),
         :name => "filter[#{name}]",
         :include_blank => true,
-        :class => 'form-control chosen'
+        :class => 'form-control chosen-with-deselect'
       )
     end
 
