@@ -17,11 +17,11 @@
           <tr>
             <% attrs_for_index.each do |attr| %>
               <td>
-                <%= column resource_class, resource, attr %>
+                <%= column resource, attr %>
               </td>
             <% end %>
             <td>
-              <%= render partial: 'column_actions', locals: { resource: resource } %>
+              <%= render partial: 'columns/actions', locals: { resource: resource } %>
             </td>
           </tr>
         <% end %>

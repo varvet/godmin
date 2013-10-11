@@ -1,6 +1,8 @@
 class Godmin::ResourceController < Godmin::ApplicationController
   inherit_resources
 
+  before_action :prepend_resource_view_paths
+
   helper_method :attrs_for_index
   helper_method :attrs_for_form
   helper_method :filter_map
@@ -27,6 +29,7 @@ class Godmin::ResourceController < Godmin::ApplicationController
 
   protected
 
+
   def collection
     @collection = end_of_association_chain.all # just do it
 
@@ -50,5 +53,13 @@ class Godmin::ResourceController < Godmin::ApplicationController
     column = order.join('_')
 
     @collection = @collection.order("#{column} #{direction}")
+  end
+
+
+  private
+
+  def prepend_resource_view_paths
+     prepend_view_path "app/views/admin/resource"
+     prepend_view_path "app/views/admin/#{resource_class.to_s.downcase.pluralize}"
   end
 end
