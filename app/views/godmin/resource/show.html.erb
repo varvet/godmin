@@ -5,7 +5,7 @@
 <table class="table">
   <% resource.attributes.sort.each do |key, value| %>
   <tr>
-    <th><%= key %></th>
+    <th><%= resource_class.human_attribute_name(key) %></th>
     <td><%= value %></td>
   </tr>
   <% end %>
