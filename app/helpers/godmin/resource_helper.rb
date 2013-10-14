@@ -27,7 +27,7 @@ module Godmin
         value = resource.send(attr.to_s)
 
         if value.is_a?(Date) || value.is_a?(Time)
-          localize value
+          localize value, format: :long
         else
           value
         end
