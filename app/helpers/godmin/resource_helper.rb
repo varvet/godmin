@@ -25,9 +25,10 @@ module Godmin
         render partial: template_name, locals: { resource: resource }
       else
         value = resource.send(attr.to_s)
+        value = localize(value, format: :long) if value.is_a?(Date) || value.is_a?(Time)
 
-        if value.is_a?(Date) || value.is_a?(Time)
-          localize value, format: :long
+        if resource.class.primary_key == attr.to_s
+          link_to "##{value}", [:admin, resource]
         else
           value
         end

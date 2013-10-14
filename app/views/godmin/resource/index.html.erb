@@ -1,32 +1,34 @@
 <%= render partial: 'header', locals: { resource_class: resource_class } %>
 <div class="row">
   <div class="col-md-8">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <% attrs_for_index.each do |attr| %>
-            <th>
-              <%= column_header resource_class, attr %>
-            </th>
-          <% end %>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% collection.each do |resource| %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead>
           <tr>
             <% attrs_for_index.each do |attr| %>
-              <td>
-                <%= column resource, attr %>
-              </td>
+              <th>
+                <%= column_header resource_class, attr %>
+              </th>
             <% end %>
-            <td>
-              <%= render partial: 'columns/actions', locals: { resource: resource } %>
-            </td>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% collection.each do |resource| %>
+            <tr>
+              <% attrs_for_index.each do |attr| %>
+                <td>
+                  <%= column resource, attr %>
+                </td>
+              <% end %>
+              <td style="width: 10em;">
+                <%= render partial: 'columns/actions', locals: { resource: resource } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="col-md-4">
     <%= render partial: 'filters' %>
