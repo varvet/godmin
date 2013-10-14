@@ -24,7 +24,13 @@ module Godmin
       if lookup_context.exists?(template_name, nil, true)
         render partial: template_name, locals: { resource: resource }
       else
-        resource.send(attr.to_s)
+        value = resource.send(attr.to_s)
+
+        if value.is_a?(Date) || value.is_a?(Time)
+          localize value
+        else
+          value
+        end
       end
     end
 

@@ -7,16 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="container">
 
-    <nav class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
       <div class="navbar-header">
         <%= link_to 'Godmin', godmin.root_path, class: 'navbar-brand' %>
       </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <%= render partial: 'shared/nav' %>
       </div>
-    </nav>
+    </div>
+  </nav>
+
+  <div class="container">
 
     <% if flash[:alert] %>
       <div class="alert alert-danger">
@@ -32,10 +35,11 @@
     <%= yield %>
 
     <footer>
-      Godmin <%= Godmin::VERSION %> |
+      Powered by Godmin <%= Godmin::VERSION %> |
       Mounted as <%= Godmin.mounted_as %>
     </footer>
 
   </div>
+
 </body>
 </html>
