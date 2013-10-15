@@ -1,4 +1,5 @@
 require 'inherited_resources'
+require 'kaminari'
 require 'godmin/engine'
 require 'godmin/version'
 require 'godmin/rails'

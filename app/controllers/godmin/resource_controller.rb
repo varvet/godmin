@@ -29,9 +29,8 @@ class Godmin::ResourceController < Godmin::ApplicationController
 
   protected
 
-
   def collection
-    @collection = end_of_association_chain.all # just do it
+    @collection = end_of_association_chain.page params[:page]
 
     apply_filters params[:filter] if params[:filter]
     apply_order params[:order] if params[:order]
