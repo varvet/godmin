@@ -1,39 +1,41 @@
 <%= render partial: 'header', locals: { resource_class: resource_class } %>
-<div class="row">
-  <div class="col-md-8">
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <% attrs_for_index.each do |attr| %>
-              <th>
-                <%= column_header resource_class, attr %>
-              </th>
-            <% end %>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% collection.each do |resource| %>
+<% if can? :read, resource_class %>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
             <tr>
               <% attrs_for_index.each do |attr| %>
-                <td>
-                  <%= column resource, attr %>
-                </td>
+                <th>
+                  <%= column_header resource_class, attr %>
+                </th>
               <% end %>
-              <td style="width: 10em;">
-                <%= render partial: 'columns/actions', locals: { resource: resource } %>
-              </td>
+              <th></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% collection.each do |resource| %>
+              <tr>
+                <% attrs_for_index.each do |attr| %>
+                  <td>
+                    <%= column resource, attr %>
+                  </td>
+                <% end %>
+                <td style="width: 10em;">
+                  <%= render partial: 'columns/actions', locals: { resource: resource } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
 
-      <%= paginate collection %>
+        <%= paginate collection %>
 
+      </div>
+    </div>
+    <div class="col-md-4">
+      <%= render partial: 'filters' %>
     </div>
   </div>
-  <div class="col-md-4">
-    <%= render partial: 'filters' %>
-  </div>
-</div>
+<% end %>

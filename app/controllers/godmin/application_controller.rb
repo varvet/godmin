@@ -3,6 +3,10 @@ module Godmin
     before_filter :authenticate_user
     before_filter :prepend_view_paths
 
+    def current_ability
+        @current_ability ||= Admin::Ability.new(Godmin.current_user_method)
+    end
+
     private
 
     def authenticate_user
