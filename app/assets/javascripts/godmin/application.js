@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require godmin/batch_actions
 //= require godmin/chosen.jquery
 
 $(function(){

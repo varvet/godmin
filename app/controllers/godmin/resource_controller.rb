@@ -6,26 +6,73 @@ class Godmin::ResourceController < Godmin::ApplicationController
 
   helper_method :attrs_for_index
   helper_method :attrs_for_form
+  helper_method :batch_process_map
   helper_method :filter_map
 
+  # Initializes the batch process map
+  def self.batch_process_map
+    @batch_process_map ||= {}
+  end
+
+  # Macro method for defining a batch process
+  def self.batch_processes(attr, options = {})
+    defaults = {
+      label: attr.to_s.titlecase
+    }
+    batch_process_map[attr] = defaults.merge(options)
+  end
+
+  # Initializes the filter map
   def self.filter_map
     @filter_map ||= {}
   end
 
+  # Macro method for defining a filter
   def self.filters(attr, options = {})
-    filter_map[attr] = { as: :string }.merge(options)
+    defaults = {
+      as: :string
+    }
+    filter_map[attr] = defaults.merge(options)
   end
 
+  # Gives the view access to the list of column names
+  # to be printed in the index view
   def attrs_for_index
     []
   end
 
+  # Gives the view access to the list of attributes
+  # to be included in the default form
   def attrs_for_form
     []
   end
 
+  # Gives the view access to the batch process map
+  def batch_process_map
+    self.class.batch_process_map
+  end
+
+  # Gives the view access to the filter map
   def filter_map
     self.class.filter_map
+  end
+
+  # All batch actions are routed to this action
+  def batch_action
+    action = params[:batch_process][:action]
+    items = params[:batch_process][:items]
+
+    if items.nil?
+      items = []
+    else
+      items = resource_class.where(id: items.keys.map{|x| x.to_i })
+    end
+
+    if batch_process_map.key?(action.to_sym)
+      self.send("batch_process_#{action}", items)
+    end
+
+    redirect_to [:admin, resource_class]
   end
 
   protected
@@ -54,7 +101,6 @@ class Godmin::ResourceController < Godmin::ApplicationController
 
     @collection = @collection.order("#{column} #{direction}")
   end
-
 
   private
 

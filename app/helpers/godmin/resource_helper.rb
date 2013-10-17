@@ -35,5 +35,16 @@ module Godmin
       end
     end
 
+    def batch_action_url_for(resource_class, batch_process_map)
+      if batch_process_map.empty?
+        ""
+      else
+        namespace = Godmin.mounted_as
+        controller = resource_class.to_s.pluralize.downcase
+        action = 'batch_action'
+        url_for("#{action}_#{namespace}_#{controller}".to_sym)
+      end
+    end
+
   end
 end
