@@ -62,14 +62,10 @@ class Godmin::ResourceController < Godmin::ApplicationController
     action = params[:batch_process][:action]
     items = params[:batch_process][:items]
 
-    if items.nil?
-      items = []
-    else
-      items = resource_class.where(id: items.keys.map{|x| x.to_i })
-    end
-
-    if batch_process_map.key?(action.to_sym)
-      self.send("batch_process_#{action}", items)
+    if items
+      if batch_process_map.key?(action.to_sym)
+        self.send("batch_process_#{action}", resource_class.find(items.keys))
+      end
     end
 
     redirect_to [:admin, resource_class]
