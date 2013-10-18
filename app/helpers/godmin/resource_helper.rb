@@ -35,5 +35,12 @@ module Godmin
       end
     end
 
+    def batch_action_url_for(resource_class)
+      url_for(
+        controller: resource_class.to_s.pluralize.downcase,
+        action: 'batch_action'
+      )
+    end
+
   end
 end
