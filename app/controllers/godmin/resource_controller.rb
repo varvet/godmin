@@ -60,6 +60,6 @@ class Godmin::ResourceController < Godmin::ApplicationController
 
   def prepend_resource_view_paths
      prepend_view_path "app/views/admin/resource"
-     prepend_view_path "app/views/admin/#{resource_class.to_s.downcase.pluralize}"
+     prepend_view_path "app/views/admin/#{resource_class.to_s.underscore.pluralize}"
   end
 end
