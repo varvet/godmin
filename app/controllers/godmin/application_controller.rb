@@ -4,7 +4,11 @@ module Godmin
     before_filter :prepend_view_paths
 
     def current_ability
-      @current_ability ||= Admin::Ability.new(send(Godmin.current_user_method))
+      u = nil
+      if Godmin.current_user_method != false
+        u = send(Godmin.current_user_method)
+      end
+      @current_ability ||= Admin::Ability.new(u)
     end
 
     private

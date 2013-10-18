@@ -3,4 +3,6 @@
   <li class="active">Lägg till ny</li>
 </ol>
 
+<%= render('errors', :errors => resource.errors) if resource.errors.present? %>
+
 <%= render 'form' %>
