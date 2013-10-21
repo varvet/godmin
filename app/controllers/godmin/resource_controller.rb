@@ -18,7 +18,8 @@ class Godmin::ResourceController < Godmin::ApplicationController
   # Macro method for defining a scope
   def self.has_scope(attr, options = {})
     defaults = {
-      label: attr.to_s.titlecase
+      label: attr.to_s.titlecase,
+      method_params: nil
     }
     scope_map[attr] = defaults.merge(options)
   end
@@ -44,7 +45,10 @@ class Godmin::ResourceController < Godmin::ApplicationController
   # Macro method for defining a filter
   def self.filters(attr, options = {})
     defaults = {
-      as: :string
+      as: :string,
+      select_label: nil,
+      select_value: nil,
+      collection: nil
     }
     filter_map[attr] = defaults.merge(options)
   end
@@ -103,7 +107,9 @@ class Godmin::ResourceController < Godmin::ApplicationController
   end
 
   def apply_scope(scope)
-    if @collection.methods.include?(scope.to_sym)
+    if scope_map[scope.to_sym][:method_params]
+      @collection = @collection.send(scope.to_sym, scope_map[scope.to_sym][:method_params])
+    else
       @collection = @collection.send(scope.to_sym)
     end
   end
