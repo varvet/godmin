@@ -6,8 +6,22 @@ class Godmin::ResourceController < Godmin::ApplicationController
 
   helper_method :attrs_for_index
   helper_method :attrs_for_form
+  helper_method :scope_map
   helper_method :batch_process_map
   helper_method :filter_map
+
+  # Initializes the scope map
+  def self.scope_map
+    @scope_map ||= {}
+  end
+
+  # Macro method for defining a scope
+  def self.has_scope(attr, options = {})
+    defaults = {
+      label: attr.to_s.titlecase
+    }
+    scope_map[attr] = defaults.merge(options)
+  end
 
   # Initializes the batch process map
   def self.batch_process_map
@@ -47,6 +61,11 @@ class Godmin::ResourceController < Godmin::ApplicationController
     []
   end
 
+  # Gives the view access to the scope map
+  def scope_map
+    self.class.scope_map
+  end
+
   # Gives the view access to the batch process map
   def batch_process_map
     self.class.batch_process_map
@@ -74,12 +93,19 @@ class Godmin::ResourceController < Godmin::ApplicationController
   protected
 
   def collection
-    @collection = end_of_association_chain.page params[:page]
+    @collection = end_of_association_chain.page(params[:page])
 
+    apply_scope params[:scope] if params[:scope]
     apply_filters params[:filter] if params[:filter]
     apply_order params[:order] if params[:order]
 
     @collection
+  end
+
+  def apply_scope(scope)
+    if @collection.methods.include?(scope.to_sym)
+      @collection = @collection.send(scope.to_sym)
+    end
   end
 
   def apply_filters(filters)

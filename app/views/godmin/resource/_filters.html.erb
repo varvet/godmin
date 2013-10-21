@@ -4,6 +4,7 @@
   </div>
   <div class="panel-body">
     <%= form_tag '#', method: :get, class: "form-horizontal" do %>
+
       <% filter_map.each do |name, options| %>
         <div class="form-group">
           <%= label_tag resource_class.human_attribute_name(name), nil, class: "col-lg-4 control-label" %>
@@ -12,12 +13,18 @@
           </div>
         </div>
       <% end %>
-      <div class="form-actions">
+
+      <div class="form-actions form-group">
         <div class="col-lg-8 col-lg-offset-4">
-          <%= submit_tag "Filtrera", class: "btn btn-primary" %>
-          <%= link_to "Rensa", url_for([:admin, resource_class]), class: "btn btn-danger" %>
+          <%= button_tag class: "btn btn-primary" do %>
+            <span class="glyphicon glyphicon-filter"></span> Filtrera
+          <% end %>
+          <%= link_to url_for([:admin, resource_class]), class: "btn btn-danger" do %>
+            <span class="glyphicon glyphicon-remove"></span> Rensa
+          <% end %>
         </div>
       </div>
+
     <% end %>
   </div>
 </div>
