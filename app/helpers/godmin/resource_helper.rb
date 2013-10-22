@@ -18,7 +18,7 @@ module Godmin
       header
     end
 
-    def column(resource, attr)
+    def column_value(resource, attr)
       #template_name = "admin/#{resource_class.to_s.pluralize.underscore}/column_#{attr}"
       template_name = "columns/#{attr}"
       if lookup_context.exists?(template_name, nil, true)
@@ -29,6 +29,8 @@ module Godmin
 
         if resource.class.primary_key == attr.to_s
           link_to "##{value}", [:admin, resource]
+        elsif resource.class.column_names.include? "#{attr.to_s}_id"
+          link_to "#{value}", [:admin, value]
         else
           value
         end
