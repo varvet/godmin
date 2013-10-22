@@ -19,6 +19,22 @@
         <br>
       <% end %>
 
+      <% unless batch_process_map.empty? %>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              Batch process <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <% batch_process_map.each do |name, options| %>
+                <li>
+                  <%= link_to options[:label], '#', class: 'batch-process-action-link', data: { value: name, confirm: 'Är du säker?' } %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <%= hidden_field_tag 'batch_process[action]', nil, id: 'batch-process-action' %>
+      <% end %>
+
       <div class="table-responsive">
         <table class="table table-bordered table-hover">
           <thead>
@@ -58,21 +74,6 @@
 
       <%= paginate collection %>
 
-      <% unless batch_process_map.empty? %>
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              Batch process <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <% batch_process_map.each do |name, options| %>
-                <li>
-                  <%= link_to options[:label], '#', class: 'batch-process-action-link', data: { value: name, confirm: 'Är du säker?' } %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        <%= hidden_field_tag 'batch_process[action]', nil, id: 'batch-process-action' %>
-      <% end %>
 
     <% end %>
 
