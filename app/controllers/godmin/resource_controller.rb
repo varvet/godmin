@@ -16,7 +16,7 @@ class Godmin::ResourceController < Godmin::ApplicationController
   end
 
   # Macro method for defining a scope
-  def self.has_scope(attr, options = {})
+  def self.scopes(attr, options = {})
     defaults = {
       label: attr.to_s.titlecase,
       method_params: nil
