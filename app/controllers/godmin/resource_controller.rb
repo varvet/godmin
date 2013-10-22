@@ -107,10 +107,11 @@ class Godmin::ResourceController < Godmin::ApplicationController
   end
 
   def apply_scope(scope)
-    if scope_map[scope.to_sym][:method_params]
-      @collection = @collection.send(scope.to_sym, scope_map[scope.to_sym][:method_params])
-    else
-      @collection = @collection.send(scope.to_sym)
+    scope_method = "scope_#{scope}".to_sym
+    if self.methods.include?(scope_method)
+      @collection = self.send(scope_method, @collection)
+    elsif scope_map.key?(scope.to_sym)
+      @collection = @collection.send(scope)
     end
   end
 
