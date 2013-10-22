@@ -128,7 +128,7 @@ class Godmin::ResourceController < Godmin::ApplicationController
     direction = order.pop
     column = order.join('_')
 
-    @collection = @collection.order("#{column} #{direction}")
+    @collection = @collection.order("#{resource_class.table_name}.#{column} #{direction}")
   end
 
   private
