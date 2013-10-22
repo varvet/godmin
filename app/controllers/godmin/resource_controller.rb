@@ -91,7 +91,7 @@ class Godmin::ResourceController < Godmin::ApplicationController
       end
     end
 
-    redirect_to [:admin, resource_class]
+    redirect_to :back
   end
 
   protected

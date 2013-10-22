@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-md-8">
 
-    <%= form_tag(batch_action_url_for(resource_class), id: 'batch-process-form') do %>
+    <%= form_tag(polymorphic_path([:batch_action, :admin, resource_class]), id: 'batch-process-form') do %>
 
       <% unless scope_map.empty? %>
         <ul class="nav nav-tabs">

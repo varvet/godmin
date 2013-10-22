@@ -14,12 +14,14 @@
         </div>
       <% end %>
 
+      <%= hidden_field_tag :scope, nil, value: params[:scope] %>
+
       <div class="form-actions form-group">
         <div class="col-lg-8 col-lg-offset-4">
           <%= button_tag class: "btn btn-primary" do %>
             <span class="glyphicon glyphicon-filter"></span> Filtrera
           <% end %>
-          <%= link_to url_for([:admin, resource_class]), class: "btn btn-danger" do %>
+          <%= link_to polymorphic_path([:admin, resource_class], scope: params[:scope]), class: "btn btn-danger" do %>
             <span class="glyphicon glyphicon-remove"></span> Rensa
           <% end %>
         </div>
