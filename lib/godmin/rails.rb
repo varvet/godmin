@@ -11,5 +11,12 @@ module ActionDispatch::Routing
       Godmin.mounted_as = name
     end
 
+    def watches_over(resource)
+      resources resource do
+        post 'batch_action', on: :collection
+        yield if block_given?
+      end
+    end
+
   end
 end
