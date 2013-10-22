@@ -30,7 +30,7 @@ module Godmin
         if resource.class.primary_key == attr.to_s
           link_to "##{value}", [:admin, resource]
         elsif resource.class.column_names.include? "#{attr.to_s}_id"
-          link_to "#{value}", [:admin, value]
+          link_to value, [:admin, value]
         else
           value
         end
