@@ -19,7 +19,7 @@ class Godmin::ResourceController < Godmin::ApplicationController
   def self.scopes(attr, options = {})
     defaults = {
       label: attr.to_s.titlecase,
-      method_params: nil
+      default: false
     }
     scope_map[attr] = defaults.merge(options)
   end
@@ -97,30 +97,53 @@ class Godmin::ResourceController < Godmin::ApplicationController
   protected
 
   def collection
-    @collection = end_of_association_chain.page(params[:page])
+    @collection = end_of_association_chain
 
-    apply_scope params[:scope] if params[:scope]
-    apply_filters params[:filter] if params[:filter]
-    apply_order params[:order] if params[:order]
+    @collection = apply_default_scope unless params[:scope]
+    @collection = apply_scope params[:scope] if params[:scope]
+    @collection = apply_filters params[:filter] if params[:filter]
+    @collection = apply_order params[:order] if params[:order]
+    @collection = apply_pagination params[:page]
 
     @collection
   end
 
-  def apply_scope(scope)
-    scope_method = "scope_#{scope}".to_sym
-    if self.methods.include?(scope_method)
-      @collection = self.send(scope_method, @collection)
-    elsif scope_map.key?(scope.to_sym)
-      @collection = @collection.send(scope)
+  def apply_default_scope
+    collection = @collection
+
+    if default_scope
+      collection = apply_scope default_scope
+    else
+      collection = collection.all
     end
+
+    collection
+  end
+
+  def apply_scope(scope)
+    collection = @collection
+
+    scope_method = "scope_#{scope}".to_sym
+
+    if self.methods.include?(scope_method)
+      collection = self.send(scope_method, collection)
+    elsif scope_map.key?(scope.to_sym)
+      collection = collection.send(scope.to_sym)
+    end
+
+    collection
   end
 
   def apply_filters(filters)
+    collection = @collection
+
     filters.each do |name, value|
       if value.present? && filter_map.key?(name.to_sym)
-        @collection = self.send("filter_#{name}", @collection, value)
+        collection = self.send("filter_#{name}", collection, value)
       end
     end
+
+    collection
   end
 
   def apply_order(order)
@@ -128,7 +151,20 @@ class Godmin::ResourceController < Godmin::ApplicationController
     direction = order.pop
     column = order.join('_')
 
-    @collection = @collection.order("#{resource_class.table_name}.#{column} #{direction}")
+    @collection.order("#{resource_class.table_name}.#{column} #{direction}")
+  end
+
+  def apply_pagination(page)
+    @collection.page(page)
+  end
+
+  # Extracts the default scope from the scope map
+  def default_scope
+    scope = scope_map.find do |k,v|
+      v[:default]
+    end
+
+    scope ? scope[0] : nil
   end
 
   private

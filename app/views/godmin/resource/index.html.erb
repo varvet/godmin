@@ -7,11 +7,8 @@
 
       <% unless scope_map.empty? %>
         <ul class="nav nav-tabs">
-          <li class="<%= 'active' unless params[:scope] %>">
-            <%= link_to 'Alla', params.merge(scope: nil) %>
-          </li>
           <% scope_map.each do |name, options| %>
-            <li class="<%= 'active' if params[:scope] == name.to_s %>">
+            <li class="<%= 'active' if params[:scope] == name.to_s || (options[:default] && !params[:scope].present?) %>">
               <%= link_to options[:label], params.merge(scope: name) %>
             </li>
           <% end %>
