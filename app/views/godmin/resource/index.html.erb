@@ -17,19 +17,27 @@
       <% end %>
 
       <% unless batch_process_map.empty? %>
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              Batch process <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <% batch_process_map.each do |name, options| %>
-                <li>
-                  <%= link_to options[:label], '#', class: 'batch-process-action-link', data: { value: name, confirm: 'Är du säker?' } %>
-                </li>
+
+        <div class="btn-group">
+          <% batch_process_map.each do |name, options| %>
+
+            <% # this is fucked up... %>
+            <% if ((options[:only].nil? && options[:except].nil?) ||
+                  (options[:only] && params[:scope] && options[:only].include?(params[:scope].to_sym)) ||
+                  (options[:except] && (params[:scope].nil? || !options[:except].include?(params[:scope].to_sym)))) %>
+
+              <%= link_to class: 'btn btn-default disabled batch-process-action-link', data: { value: name, confirm: 'Är du säker?' } do %>
+                <%= options[:label] %>
               <% end %>
-            </ul>
-          </div>
+
+            <% end %>
+
+          <% end %>
+        </div>
+        <br><br>
+
         <%= hidden_field_tag 'batch_process[action]', nil, id: 'batch-process-action' %>
+
       <% end %>
 
       <div class="table-responsive">
