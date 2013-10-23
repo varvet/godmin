@@ -9,6 +9,8 @@ module Godmin
         filter_select_tag(name, options)
       when :multiselect
         filter_multiselect_tag(name, options)
+      when :checkboxes
+        filter_checkbox_tags(name, options)
       end
     end
 
@@ -39,7 +41,7 @@ module Godmin
 
     def filter_select_tag_helper(name, options, html_options)
       unless options[:collection].is_a? Proc
-        raise 'A collection proc must be specified for filter select tags'
+        raise 'A collection proc must be specified for select filters'
       end
 
       collection = options[:collection].call
@@ -59,6 +61,27 @@ module Godmin
       end
 
       select_tag(name, choices, html_options)
+    end
+
+    def filter_checkbox_tags(name, options)
+      unless options[:collection].is_a? Proc
+        raise 'A collection proc must be specified for checkbox filters'
+      end
+
+      checkboxes = ''
+      collection = options[:collection].call
+
+      collection.each do |item|
+        is_checked = default_filter_value(name) ? default_filter_value(name).include?(item) : false
+
+        checkboxes << '<div class="checkbox">'
+        checkboxes << label_tag("#{name}_#{item}") do
+          check_box_tag("filter[#{name}][]", item, is_checked, id: "#{name}_#{item}") << item
+        end
+        checkboxes << '</div>'
+      end
+
+      checkboxes.html_safe
     end
 
     def default_filter_value(name)

@@ -7,7 +7,7 @@
 
       <% filter_map.each do |name, options| %>
         <div class="form-group">
-          <%= label_tag options[:label], nil, class: "col-lg-4 control-label" %>
+          <%= label_tag name, options[:label], class: "col-lg-4 control-label" %>
           <div class="col-lg-8">
             <%= filter_input_tag name, options %>
           </div>
