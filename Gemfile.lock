@@ -1,16 +1,16 @@
 GIT
   remote: git://github.com/thomas-mcdonald/bootstrap-sass.git
-  revision: ab2f7dd92491bd490e545c18d32e966567b84a3b
+  revision: 6cc04bda62ed7ccf71d445fa82e706cb696b4fdb
   specs:
     bootstrap-sass (3.0.0.0)
       sass (~> 3.2)
 
 GIT
   remote: git://github.com/varvet/summernote-rails.git
-  revision: 9d6ced3282cba9499aa3a1d4ede490e431a30c17
+  revision: 64610e37d417b642d7940f7ea6e2594029b0a34f
   branch: v0.4
   specs:
-    summernote-rails (0.4.0.pre.pre)
+    summernote-rails (0.4.0.pre)
       railties (>= 3.1)
 
 PATH
