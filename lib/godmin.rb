@@ -1,5 +1,6 @@
 require 'inherited_resources'
 require 'kaminari'
+require 'font-awesome-rails'
 require 'godmin/engine'
 require 'godmin/rails'
 require 'godmin/version'

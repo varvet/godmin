@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require summernote
+//= require godmin/summernote-editor
 //= require godmin/batch_actions
 //= require godmin/chosen.jquery
 

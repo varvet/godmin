@@ -14,3 +14,4 @@ gemspec
 # gem 'debugger'
 
 gem "bootstrap-sass", github: "thomas-mcdonald/bootstrap-sass"
+gem "summernote-rails", github: "varvet/summernote-rails", branch: "v0.4"

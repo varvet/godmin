@@ -22,6 +22,9 @@ Gem::Specification.new do |s|
   s.add_dependency "sass-rails", "~> 4.0.0"
   s.add_dependency "kaminari", "~> 0.14.1"
   s.add_dependency "cancan", "~> 1.6.10"
+  s.add_dependency "font-awesome-rails", "~> 3.2.1.3"
+  s.add_dependency "coffee-rails", "~> 4.0.0"
+
 
   s.add_development_dependency "sqlite3"
 end
