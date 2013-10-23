@@ -47,9 +47,10 @@ class Godmin::ResourceController < Godmin::ApplicationController
   # Macro method for defining a filter
   def self.filters(attr, options = {})
     defaults = {
+      label: resource_class.human_attribute_name(attr),
       as: :string,
-      select_label: nil,
-      select_value: nil,
+      option_text: 'to_s',
+      option_value: 'id',
       collection: nil
     }
     filter_map[attr] = defaults.merge(options)
