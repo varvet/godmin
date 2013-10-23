@@ -32,7 +32,9 @@ class Godmin::ResourceController < Godmin::ApplicationController
   # Macro method for defining a batch process
   def self.batch_processes(attr, options = {})
     defaults = {
-      label: attr.to_s.titlecase
+      label: attr.to_s.titlecase,
+      only: nil,
+      except: nil
     }
     batch_process_map[attr] = defaults.merge(options)
   end
@@ -112,8 +114,10 @@ class Godmin::ResourceController < Godmin::ApplicationController
     collection = @collection
 
     if default_scope
+      # params[:scope] = default_scope
       collection = apply_scope default_scope
     else
+      # params[:scope] = 'all'
       collection = collection.all
     end
 
