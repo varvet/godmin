@@ -5,9 +5,11 @@
 
     $form.find('input:checkbox').on('click', function(){
       if ($form.find('input:checkbox:checked').length) {
-        $('.batch-process-action-link').removeClass('disabled');
+        if ($('.batch-process-action-link').css("visibility") == "hidden") {
+          $('.batch-process-action-link').hide().css({visibility: "visible"}).fadeIn();
+        } 
       } else {
-        $('.batch-process-action-link').addClass('disabled');
+        $('.batch-process-action-link').css('visibility','hidden')
       }
     });
 

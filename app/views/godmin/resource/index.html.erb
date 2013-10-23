@@ -26,7 +26,7 @@
                   (options[:only] && params[:scope] && options[:only].include?(params[:scope].to_sym)) ||
                   (options[:except] && (params[:scope].nil? || !options[:except].include?(params[:scope].to_sym)))) %>
 
-              <%= link_to class: 'btn btn-default disabled batch-process-action-link', data: { value: name, confirm: 'Är du säker?' } do %>
+              <%= link_to class: 'btn btn-default batch-process-action-link', style: 'visibility:hidden', data: { value: name, confirm: 'Är du säker?' } do %>
                 <%= options[:label] %>
               <% end %>
 
