@@ -68,20 +68,21 @@ module Godmin
         raise 'A collection proc must be specified for checkbox filters'
       end
 
-      checkboxes = ''
       collection = options[:collection].call
+      
+      collection.map do |item|
+        item = Array(item)
+        label_text = item[0]
+        checkbox_value = item[1] || item[0]
+        is_checked = default_filter_value(name) ? default_filter_value(name).include?(checkbox_value) : false
 
-      collection.each do |item|
-        is_checked = default_filter_value(name) ? default_filter_value(name).include?(item) : false
-
-        checkboxes << '<div class="checkbox">'
-        checkboxes << label_tag("#{name}_#{item}") do
-          check_box_tag("filter[#{name}][]", item, is_checked, id: "#{name}_#{item}") << item
+        content_tag :div, class: "checkbox" do
+          label_tag("#{name}_#{checkbox_value}") do
+            check_box_tag("filter[#{name}][]", checkbox_value, is_checked, id: "#{name}_#{checkbox_value}") << label_text
+          end
         end
-        checkboxes << '</div>'
-      end
+      end.join.html_safe
 
-      checkboxes.html_safe
     end
 
     def default_filter_value(name)

@@ -3,7 +3,7 @@
     <h3 class="panel-title">Filter</h3>
   </div>
   <div class="panel-body">
-    <%= form_tag '#', method: :get, class: "form-horizontal" do %>
+    <%= form_tag params, method: :get, class: "form-horizontal" do %>
 
       <% filter_map.each do |name, options| %>
         <div class="form-group">
