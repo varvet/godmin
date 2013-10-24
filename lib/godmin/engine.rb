@@ -6,7 +6,7 @@ module Godmin
 
     # Add godmin manifests for precompilation
     initializer "godmin.assets.precompile" do |app|
-        app.config.assets.precompile += %w(godmin.css godmin.js)
+      app.config.assets.precompile += %w(godmin.css godmin.js *.png)
     end
   end
 end
