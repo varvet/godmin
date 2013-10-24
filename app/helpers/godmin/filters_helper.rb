@@ -69,20 +69,22 @@ module Godmin
       end
 
       collection = options[:collection].call
-      
+
       collection.map do |item|
-        item = Array(item)
-        label_text = item[0]
-        checkbox_value = item[1] || item[0]
-        is_checked = default_filter_value(name) ? default_filter_value(name).include?(checkbox_value) : false
+        text, value = if !item.is_a?(String) && item.respond_to?(:first) && item.respond_to?(:last)
+          [item.first.to_s, item.last.to_s]
+        else
+          [item.to_s, item.to_s]
+        end
+
+        is_checked = default_filter_value(name) ? default_filter_value(name).include?(value) : false
 
         content_tag :div, class: "checkbox" do
-          label_tag("#{name}_#{checkbox_value}") do
-            check_box_tag("filter[#{name}][]", checkbox_value, is_checked, id: "#{name}_#{checkbox_value}") << label_text
+          label_tag("#{name}_#{value}") do
+            check_box_tag("filter[#{name}][]", value, is_checked, id: "#{name}_#{value}") << text
           end
         end
-      end.join.html_safe
-
+      end.join("\n").html_safe
     end
 
     def default_filter_value(name)
