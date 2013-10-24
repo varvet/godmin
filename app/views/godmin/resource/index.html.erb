@@ -45,7 +45,7 @@
           </thead>
           <tbody>
             <% collection.each do |resource| %>
-              <% if flash[:highlight_ids] && flash[:highlight_ids].split(',').include?(resource.id.to_s) %>
+              <% if flash[:highlight_ids] && flash[:highlight_ids].include?(resource.id.to_s) %>
                 <tr class="highlight">
               <% else %>
                 <tr>

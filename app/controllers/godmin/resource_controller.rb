@@ -91,6 +91,9 @@ class Godmin::ResourceController < Godmin::ApplicationController
 
     if items
       if batch_process_map.key?(action.to_sym)
+        # Store the batched item ids so they can be highlighted later
+        flash[:highlight_ids] = items.keys
+
         # If the batch action returns false, it is because it has implemented
         # its own redirect. Therefore we return wihout redirecting.
         return unless self.send("batch_process_#{action}", resource_class.find(items.keys))
