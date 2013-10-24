@@ -29,7 +29,7 @@ module Godmin
 
         if resource.class.primary_key == attr.to_s
           link_to "##{value}", [:admin, resource]
-        elsif resource.class.column_names.include? "#{attr.to_s}_id"
+        elsif resource_class.reflect_on_association(attr.to_sym)
           link_to value, [:admin, value]
         else
           value
