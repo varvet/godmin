@@ -34,7 +34,8 @@ class Godmin::ResourceController < Godmin::ApplicationController
     defaults = {
       label: attr.to_s.titlecase,
       only: nil,
-      except: nil
+      except: nil,
+      confirm: false
     }
     batch_process_map[attr] = defaults.merge(options)
   end

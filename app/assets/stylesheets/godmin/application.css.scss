@@ -19,7 +19,6 @@ div.container {
   max-width: 1700px;
 }
 
-
 h3 {
   margin-bottom: 1em;
 }
@@ -41,12 +40,15 @@ footer {
 textarea.form-control {
   min-height:200px;
 }
+
 .errors {
   color:#d33;
 }
+
 .field_with_errors {
   color:#d33;
 }
+
 .field_with_errors input,
 .field_with_errors select {
   border-color:#d33;

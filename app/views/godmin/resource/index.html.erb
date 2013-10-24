@@ -17,27 +17,15 @@
       <% end %>
 
       <% unless batch_process_map.empty? %>
-
+        <a href="#" class="btn btn-default batch-process-select batch-process-select-all">Markera alla</a>
+        <a href="#" class="btn btn-default batch-process-select batch-process-select-none hidden">Avmarkera alla</a>
         <div class="btn-group">
           <% batch_process_map.each do |name, options| %>
-
-            <% # this is fucked up... %>
-            <% if ((options[:only].nil? && options[:except].nil?) ||
-                  (options[:only] && params[:scope] && options[:only].include?(params[:scope].to_sym)) ||
-                  (options[:except] && (params[:scope].nil? || !options[:except].include?(params[:scope].to_sym)))) %>
-
-              <%= link_to class: 'btn btn-default batch-process-action-link', style: 'visibility:hidden', data: { value: name, confirm: 'Är du säker?' } do %>
-                <%= options[:label] %>
-              <% end %>
-
-            <% end %>
-
+            <%= batch_action_link(name, options) %>
           <% end %>
         </div>
-        <br><br>
-
         <%= hidden_field_tag 'batch_process[action]', nil, id: 'batch-process-action' %>
-
+        <br><br>
       <% end %>
 
       <div class="table-responsive">

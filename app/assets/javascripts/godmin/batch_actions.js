@@ -2,14 +2,36 @@
   $(function(){
 
     $form = $('#batch-process-form');
+    $selectAll = $form.find('.batch-process-select-all');
+    $selectNone = $form.find('.batch-process-select-none');
 
-    $form.find('input:checkbox').on('click', function(){
-      if ($form.find('input:checkbox:checked').length) {
-        if ($('.batch-process-action-link').css("visibility") == "hidden") {
-          $('.batch-process-action-link').hide().css({visibility: "visible"}).fadeIn();
-        } 
+    var setSelectToAll = function() {
+      $selectAll.removeClass('hidden');
+      $selectNone.addClass('hidden');
+    };
+
+    var setSelectToNone = function() {
+      $selectAll.addClass('hidden');
+      $selectNone.removeClass('hidden');
+    }
+
+    $form.find('.batch-process-select').on('click', function(){
+      if ($form.find('input:checkbox:checked').length > 0) {
+        $form.find('input:checkbox').prop('checked', false).trigger('change');
+        setSelectToAll();
       } else {
-        $('.batch-process-action-link').css('visibility','hidden')
+        $form.find('input:checkbox').prop('checked', true).trigger('change');
+        setSelectToNone();
+      }
+    });
+
+    $form.find('input:checkbox').on('change', function(){
+      if ($form.find('input:checkbox:checked').length) {
+        $('.batch-process-action-link').removeClass('hidden');
+        setSelectToNone();
+      } else {
+        $('.batch-process-action-link').addClass('hidden');
+        setSelectToAll();
       }
     });
 

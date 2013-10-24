@@ -37,5 +37,19 @@ module Godmin
       end
     end
 
+    def batch_action_link(name, options)
+      # TODO: This is kinda fucked, but scope can probably be removed if it always exists
+      if ((options[:only].nil? && options[:except].nil?) ||
+          (options[:only] && params[:scope] && options[:only].include?(params[:scope].to_sym)) ||
+          (options[:except] && (params[:scope].nil? || !options[:except].include?(params[:scope].to_sym))))
+
+        confirm = options[:confirm] ? { confirm: 'Är du säker?' } : {}
+
+        link_to class: 'btn btn-default batch-process-action-link hidden', data: { value: name }.merge(confirm) do
+          options[:label]
+        end
+      end
+    end
+
   end
 end
