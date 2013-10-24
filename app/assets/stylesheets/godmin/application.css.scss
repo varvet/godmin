@@ -53,3 +53,16 @@ textarea.form-control {
 .field_with_errors select {
   border-color:#d33;
 }
+
+.highlight {
+  -webkit-animation: highlight 3s;
+}
+
+@-webkit-keyframes highlight {
+  from {
+    background: #fffbcc;
+  }
+  to {
+    background: none;
+  }
+}

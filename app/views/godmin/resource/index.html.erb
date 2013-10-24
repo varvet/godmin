@@ -45,7 +45,11 @@
           </thead>
           <tbody>
             <% collection.each do |resource| %>
-              <tr>
+              <% if flash[:highlight_ids] && flash[:highlight_ids].split(',').include?(resource.id.to_s) %>
+                <tr class="highlight">
+              <% else %>
+                <tr>
+              <% end %>
                 <% unless batch_process_map.empty? %>
                   <td>
                     <%= check_box_tag "batch_process[items][#{resource.id}]" %>
