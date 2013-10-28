@@ -1,0 +1,40 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <% unless batch_process_map.empty? %>
+          <th></th>
+        <% end %>
+        <% attrs_for_index.each do |attr| %>
+          <th>
+            <%= column_header resource_class, attr %>
+          </th>
+        <% end %>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |resource| %>
+        <% if flash[:highlight_ids] && flash[:highlight_ids].include?(resource.id.to_s) %>
+          <tr class="highlight">
+        <% else %>
+          <tr>
+        <% end %>
+          <% unless batch_process_map.empty? %>
+            <td>
+              <%= check_box_tag "batch_process[items][#{resource.id}]" %>
+            </td>
+          <% end %>
+          <% attrs_for_index.each do |attr| %>
+            <td>
+              <%= column_value resource, attr %>
+            </td>
+          <% end %>
+          <td style="width: 10em;">
+            <%= render partial: 'columns/actions', locals: { resource: resource } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

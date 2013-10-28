@@ -1,0 +1,17 @@
+<% unless batch_process_map.empty? %>
+  <a href="#" class="btn btn-default batch-process-select batch-process-select-all">
+    <span class="glyphicon glyphicon-check"></span>
+    Markera alla
+  </a>
+  <a href="#" class="btn btn-default batch-process-select batch-process-select-none hidden">
+    <span class="glyphicon glyphicon-unchecked"></span>
+    Avmarkera alla
+  </a>
+  <div class="btn-group">
+    <% batch_process_map.each do |name, options| %>
+      <%= batch_action_link(name, options) %>
+    <% end %>
+  </div>
+  <%= hidden_field_tag 'batch_process[action]', nil, id: 'batch-process-action' %>
+  <br><br>
+<% end %>

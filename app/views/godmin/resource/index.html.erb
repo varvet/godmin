@@ -5,78 +5,13 @@
 
     <%= form_tag(polymorphic_path([:batch_action, :admin, resource_class]), id: 'batch-process-form') do %>
 
-      <% unless scope_map.empty? %>
-        <ul class="nav nav-tabs">
-          <% scope_map.each do |name, options| %>
-            <li class="<%= 'active' if params[:scope] == name.to_s || (options[:default] && !params[:scope].present?) %>">
-              <%= link_to options[:label], params.merge(scope: name).except(:page) %>
-            </li>
-          <% end %>
-        </ul>
-        <br>
-      <% end %>
+      <%= render partial: 'scopes' %>
 
-      <% unless batch_process_map.empty? %>
-        <a href="#" class="btn btn-default batch-process-select batch-process-select-all">
-          <span class="glyphicon glyphicon-check"></span>
-          Markera alla
-        </a>
-        <a href="#" class="btn btn-default batch-process-select batch-process-select-none hidden">
-          <span class="glyphicon glyphicon-unchecked"></span>
-          Avmarkera alla
-        </a>
-        <div class="btn-group">
-          <% batch_process_map.each do |name, options| %>
-            <%= batch_action_link(name, options) %>
-          <% end %>
-        </div>
-        <%= hidden_field_tag 'batch_process[action]', nil, id: 'batch-process-action' %>
-        <br><br>
-      <% end %>
+      <%= render partial: 'batch_actions' %>
 
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <% unless batch_process_map.empty? %>
-                <th></th>
-              <% end %>
-              <% attrs_for_index.each do |attr| %>
-                <th>
-                  <%= column_header resource_class, attr %>
-                </th>
-              <% end %>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% collection.each do |resource| %>
-              <% if flash[:highlight_ids] && flash[:highlight_ids].include?(resource.id.to_s) %>
-                <tr class="highlight">
-              <% else %>
-                <tr>
-              <% end %>
-                <% unless batch_process_map.empty? %>
-                  <td>
-                    <%= check_box_tag "batch_process[items][#{resource.id}]" %>
-                  </td>
-                <% end %>
-                <% attrs_for_index.each do |attr| %>
-                  <td>
-                    <%= column_value resource, attr %>
-                  </td>
-                <% end %>
-                <td style="width: 10em;">
-                  <%= render partial: 'columns/actions', locals: { resource: resource } %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+      <%= render partial: 'table' %>
 
       <%= paginate collection %>
-
 
     <% end %>
 
