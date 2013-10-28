@@ -2,7 +2,7 @@
   <ul class="nav nav-tabs">
     <% scope_map.each do |name, options| %>
       <li class="<%= 'active' if params[:scope] == name.to_s || (options[:default] && !params[:scope].present?) %>">
-        <%= link_to options[:label], params.merge(scope: name).except(:page) %>
+        <%= link_to options[:label], url_for(params.merge(scope: name).except(:page)) %>
       </li>
     <% end %>
   </ul>
