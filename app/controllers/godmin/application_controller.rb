@@ -8,6 +8,11 @@ module Godmin
       @current_ability ||= Admin::Ability.new(user)
     end
 
+    rescue_from CanCan::AccessDenied do |exception|
+      render text: "Access Denied", status: :unauthorized
+    end
+
+
     private
 
     def authenticate_user
