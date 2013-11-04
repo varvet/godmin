@@ -12,6 +12,9 @@
       <%= render partial: 'table' %>
 
       <%= paginate collection %>
+      <div class="pull-right">
+        <%= page_entries_info collection %>
+      </div>
 
     <% end %>
 

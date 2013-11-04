@@ -1,0 +1,11 @@
+sv:
+  helpers:
+  # Kaminari
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "Inget hittades."
+          one: "Visar <b>1</b> %{entry_name}"
+          other: "Visar <b>alla %{count}</b>."
+      more_pages:
+        display_entries: "Visar <b>%{first}&nbsp;-&nbsp;%{last}</b> av <b>%{total}</b> totalt."
