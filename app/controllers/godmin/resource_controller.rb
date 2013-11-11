@@ -1,6 +1,6 @@
 class Godmin::ResourceController < Godmin::ApplicationController
   inherit_resources
-  load_and_authorize_resource
+  load_and_authorize_resource except: :batch_action
 
   before_action :prepend_resource_view_paths
 
@@ -88,6 +88,8 @@ class Godmin::ResourceController < Godmin::ApplicationController
   def batch_action
     action = params[:batch_process][:action]
     items = params[:batch_process][:items]
+
+    authorize! "batch_process_#{action}".to_sym, resource_class
 
     if items
       if batch_process_map.key?(action.to_sym)
