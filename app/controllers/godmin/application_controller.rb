@@ -12,11 +12,12 @@ module Godmin
       render text: "Access Denied", status: :unauthorized
     end
 
-
     private
 
     def authenticate_user
-      if Godmin.authentication_method
+      if Godmin.authentication_method.is_a? Proc
+        instance_eval(&Godmin.authentication_method)
+      elsif Godmin.authentication_method
         self.send(Godmin.authentication_method)
       end
     end
