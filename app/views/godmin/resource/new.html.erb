@@ -1,8 +1,7 @@
-<ol class="breadcrumb">
-  <li><%= link_to resource_class.model_name.human(:count => 2), url_for([:admin, resource_class]) %></li>
-  <li class="active">Lägg till ny</li>
-</ol>
+<%= render partial: 'breadcrumb' %>
 
-<%= render('errors', :errors => resource.errors) if resource.errors.present? %>
+<% if resource.errors.present? %>
+  <%= render partial: 'errors', locals: { errors: resource.errors } %>
+<% end %>
 
-<%= render 'form' %>
+<%= render partial: 'form' %>

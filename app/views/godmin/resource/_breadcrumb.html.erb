@@ -1,0 +1,12 @@
+<ol class="breadcrumb">
+  <li>
+    <%= link_to resource_class.model_name.human(count: 2), url_for([:admin, resource_class]) %>
+  </li>
+  <li class="active">
+    <% if resource.new_record? %>
+      Lägg till ny
+    <% else %>
+      <%= resource.to_s %>
+    <% end %>
+  </li>
+</ol>
