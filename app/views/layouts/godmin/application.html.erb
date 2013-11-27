@@ -4,6 +4,7 @@
   <title>Godmin</title>
   <%= stylesheet_link_tag    "godmin/application", "godmin", media: "all" %>
   <%= javascript_include_tag "godmin/application", "godmin" %>
+  <%= yield :head %>
   <%= csrf_meta_tags %>
 </head>
 <body>
