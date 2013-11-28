@@ -1,31 +1,25 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Filter</h3>
-  </div>
   <div class="panel-body">
     <%= form_tag params, method: :get, class: "form-horizontal" do %>
 
-      <% filter_map.each do |name, options| %>
-        <div class="form-group">
-          <%= label_tag name, options[:label], class: "col-lg-4 control-label" %>
-          <div class="col-lg-8">
+      <div class="form-group input-group-sm">
+        <% filter_map.each do |name, options| %>
+          <div class="col-lg-2" style="padding-top:10px">
+            <%= label_tag name, options[:label] %>
             <%= filter_input_tag name, options %>
           </div>
-        </div>
-      <% end %>
-
-      <%= hidden_field_tag :scope, nil, value: params[:scope] %>
-
-      <div class="form-actions form-group">
-        <div class="col-lg-8 col-lg-offset-4">
-          <%= button_tag class: "btn btn-primary" do %>
+        <% end %>
+        <div class="col-lg-2" style="padding-top:10px">
+          <%= button_tag class: "btn btn-primary btn-sm", style: "margin-top:23px;" do %>
             <span class="glyphicon glyphicon-filter"></span> Filtrera
           <% end %>
-          <%= link_to polymorphic_path([:admin, resource_class], scope: params[:scope]), class: "btn btn-danger" do %>
+          <%= link_to polymorphic_path([:admin, resource_class], scope: params[:scope]), class: "btn btn-danger btn-sm", style: "margin-top:23px;" do %>
             <span class="glyphicon glyphicon-remove"></span> Rensa
           <% end %>
         </div>
       </div>
+
+      <%= hidden_field_tag :scope, nil, value: params[:scope] %>
 
     <% end %>
   </div>
