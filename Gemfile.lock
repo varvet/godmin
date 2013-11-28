@@ -5,14 +5,6 @@ GIT
     bootstrap-sass (3.0.0.0.rc2)
       sass (~> 3.2)
 
-GIT
-  remote: git://github.com/varvet/summernote-rails.git
-  revision: 64610e37d417b642d7940f7ea6e2594029b0a34f
-  branch: v0.4
-  specs:
-    summernote-rails (0.4.0.pre)
-      railties (>= 3.1)
-
 PATH
   remote: .
   specs:
@@ -139,4 +131,3 @@ DEPENDENCIES
   bootstrap-sass!
   godmin!
   sqlite3
-  summernote-rails!
