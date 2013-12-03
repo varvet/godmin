@@ -15,7 +15,8 @@
 @import 'godmin/bootstrap-chosen';
 
 
-div.container {
+div#main-wrapper {
+  min-height: 800px;
 }
 
 h3 {
