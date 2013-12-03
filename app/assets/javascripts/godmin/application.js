@@ -17,8 +17,16 @@
 //= require godmin/chosen.jquery
 
 $(function(){
-  $('.chosen').chosen({ width: "100%"});
+  $('.chosen').chosen({
+    width: "100%",
+    no_results_text: "Inga resultat hittades för: ",
+    placeholder_text_multiple: "Välj några",
+    placeholder_text_single: "Välj någon"
+  });
   $('.chosen-with-deselect').chosen({
-    allow_single_deselect: true
+    allow_single_deselect: true,
+    no_results_text: "Inga resultat hittades för: ",
+    placeholder_text_multiple: "Välj några",
+    placeholder_text_single: "Välj någon"
   });
 });
