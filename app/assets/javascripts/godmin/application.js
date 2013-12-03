@@ -17,7 +17,7 @@
 //= require godmin/chosen.jquery
 
 $(function(){
-  $('.chosen').chosen();
+  $('.chosen').chosen({ width: "100%"});
   $('.chosen-with-deselect').chosen({
     allow_single_deselect: true
   });
