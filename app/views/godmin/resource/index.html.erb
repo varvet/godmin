@@ -1,9 +1,11 @@
 <%= render partial: 'header', locals: { resource_class: resource_class } %>
 
 <div class="row">
-  <div class="col-md-12">
-    <%= render partial: 'filters' %>
-  </div>
+  <% if filter_map.present? %>
+    <div class="col-md-12">
+      <%= render partial: 'filters' %>
+    </div>
+  <% end %>
   <div class="col-md-12">
 
     <%= form_tag(polymorphic_path([:batch_action, :admin, resource_class]), id: 'batch-process-form') do %>
