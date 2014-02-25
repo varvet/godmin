@@ -45,7 +45,7 @@ module Godmin
 
         confirm = options[:confirm] ? { confirm: 'Är du säker?' } : {}
 
-        link_to class: 'btn btn-default batch-process-action-link hidden', data: { value: name }.merge(confirm) do
+        link_to '#', class: 'btn btn-default batch-process-action-link hidden', data: { value: name }.merge(confirm) do
           options[:label]
         end
       end
