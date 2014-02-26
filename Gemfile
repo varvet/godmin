@@ -12,5 +12,3 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
-
-gem "bootstrap-sass", github: "thomas-mcdonald/bootstrap-sass"
