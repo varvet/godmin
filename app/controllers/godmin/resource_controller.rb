@@ -127,7 +127,7 @@ class Godmin::ResourceController < Godmin::ApplicationController
       collection = apply_scope default_scope
     else
       # params[:scope] = 'all'
-      collection = collection.all
+      # collection = collection.all
     end
 
     collection
