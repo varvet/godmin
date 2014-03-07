@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sass-rails", "~> 4.0.0"
   s.add_dependency "coffee-rails", "~> 4.0.0"
 
-  s.add_dependency "bootstrap-sass", "~> 3.1.1"
+  s.add_dependency "bootstrap-sass", "~> 3.1.1.0"
   s.add_dependency "cancan", "~> 1.6.10"
   s.add_dependency "font-awesome-rails", "~> 3.2.1.3"
   s.add_dependency "inherited_resources", "~> 1.4.1"
