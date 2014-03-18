@@ -3,7 +3,7 @@
   <% if can? :update, resource %>
     <small><%= link_to 'Edit', [:edit, :admin, resource], class: "btn btn-primary" %></small>
   <% end %>
-  <% if can? :create, Department %>
+  <% if can? :create, resource_class %>
     <%= link_to [:new, :admin, resource_class.to_s.underscore.to_sym], class: 'btn btn-primary pull-right' do %>
       <span class="glyphicon glyphicon-plus"></span> Lägg till ny
     <% end %>

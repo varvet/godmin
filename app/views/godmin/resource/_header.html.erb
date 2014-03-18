@@ -1,7 +1,9 @@
 <h3>
   <%= resource_class.model_name.human(count: 2) %>
 
-  <%= link_to [:new, :admin, resource_class.to_s.underscore.to_sym], class: 'btn btn-primary pull-right' do %>
-    <span class="glyphicon glyphicon-plus"></span> Lägg till ny
+  <% if can? :create, resource_class %>
+    <%= link_to [:new, :admin, resource_class.to_s.underscore.to_sym], class: 'btn btn-primary pull-right' do %>
+      <span class="glyphicon glyphicon-plus"></span> Lägg till ny
+    <% end %>
   <% end %>
 </h3>
