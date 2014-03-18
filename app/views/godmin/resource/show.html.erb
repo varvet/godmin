@@ -1,8 +1,12 @@
 <h1>
   <%= resource_class.model_name.human %> <%= resource.id %>
-  <small><%= link_to 'Edit', [:edit, :admin, resource], class: "btn btn-primary" %></small>
-  <%= link_to [:new, :admin, resource_class.to_s.underscore.to_sym], class: 'btn btn-primary pull-right' do %>
-    <span class="glyphicon glyphicon-plus"></span> Lägg till ny
+  <% if can? :update, resource %>
+    <small><%= link_to 'Edit', [:edit, :admin, resource], class: "btn btn-primary" %></small>
+  <% end %>
+  <% if can? :create, Department %>
+    <%= link_to [:new, :admin, resource_class.to_s.underscore.to_sym], class: 'btn btn-primary pull-right' do %>
+      <span class="glyphicon glyphicon-plus"></span> Lägg till ny
+    <% end %>
   <% end %>
 </h1>
 <table class="table">
