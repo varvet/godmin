@@ -6,7 +6,7 @@ module Godmin
     end
 
     def current_url_contains?(string)
-      request.fullpath.include?(string)
+      request.fullpath.include?(string.downcase)
     end
 
    #def render_partial(template, locals: {})
