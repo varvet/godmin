@@ -1,6 +1,14 @@
 module Godmin
   module ApplicationHelper
 
+    def current_page?(controller, action = action_name)
+      controller == controller_name && action == action_name
+    end
+
+    def current_url_contains?(string)
+      request.fullpath.include?(string)
+    end
+
    #def render_partial(template, locals: {})
    #  template_name = "admin/#{template}"
 
