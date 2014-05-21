@@ -138,7 +138,7 @@ class Godmin::ResourceController < Godmin::ApplicationController
 
     scope_method = "scope_#{scope}".to_sym
 
-    if self.methods.include?(scope_method)
+    if self.respond_to?(scope_method, true)
       collection = self.send(scope_method, collection)
     elsif scope_map.key?(scope.to_sym)
       collection = collection.send(scope.to_sym)
