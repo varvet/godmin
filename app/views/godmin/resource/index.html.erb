@@ -6,7 +6,7 @@
   <%= render partial: 'filters' %>
 <% end %>
 
-<%= form_tag(polymorphic_path([:batch_action, :admin, resource_class]), id: 'batch-process-form') do %>
+<%#= form_tag(polymorphic_path([:batch_action, :admin, resource_class]), id: 'batch-process-form') do %>
 
   <%= render partial: 'scopes' %>
 
@@ -19,4 +19,4 @@
     <%= page_entries_info collection %>
   </div>
 
-<% end %>
+<%# end %>

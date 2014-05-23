@@ -1,6 +1,6 @@
 class Godmin::ResourceController < Godmin::ApplicationController
   inherit_resources
-  load_and_authorize_resource except: :batch_action
+  # load_and_authorize_resource except: :batch_action
 
   before_action :prepend_resource_view_paths
 

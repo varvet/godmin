@@ -1,13 +1,13 @@
 <h1>
   <%= resource_class.model_name.human %> <%= resource.id %>
-  <% if can? :update, resource %>
+  <% #if can? :update, resource %>
     <small><%= link_to 'Edit', [:edit, :admin, resource], class: "btn btn-primary" %></small>
-  <% end %>
-  <% if can? :create, resource_class %>
+  <% #end %>
+  <% #if can? :create, resource_class %>
     <%= link_to [:new, :admin, resource_class.to_s.underscore.to_sym], class: 'btn btn-primary pull-right' do %>
       <span class="glyphicon glyphicon-plus"></span> Lägg till ny
     <% end %>
-  <% end %>
+  <% #end %>
 </h1>
 <table class="table">
   <% resource.attributes.sort.each do |key, value| %>
