@@ -1,28 +1,18 @@
-godmin index<br>
+<%= render_partial "header" %>
 
-<%= render partial: "test" %><br>
+<%#= render_partial "breadcrumb_index" %>
 
-<%= render partial: "asfshared/nav" %>
-
-
-
-
-
-<%#= render partial: 'header' %>
-
-<%#= render partial: 'breadcrumb_index' %>
-
-<% #if filter_map.present? %>
-  <%#= render partial: 'filters' %>
-<% #end %>
+<% if filter_map.present? %>
+  <%= render_partial "filters" %>
+<% end %>
 
 <%#= form_tag(polymorphic_path([:batch_action, :admin, resource_class]), id: 'batch-process-form') do %>
 
-  <%#= render partial: 'scopes' %>
+  <%= render_partial "scopes" %>
 
-  <%#= render partial: 'batch_actions' %>
+  <%= render_partial "batch_actions" %>
 
-  <%#= render partial: 'table' %>
+  <%= render_partial "table" %>
 
   <%#= paginate collection %>
   <div class="pull-right">

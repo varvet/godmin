@@ -2,87 +2,104 @@ module Godmin
   class ResourceController < ApplicationController
     inherit_resources
 
-    # # before_action :prepend_resource_view_paths
+    concerning :BatchProcessing do
+      included do
+        helper_method :batch_process_map
 
-    # helper_method :attrs_for_index
-    # helper_method :attrs_for_form
-    # helper_method :scope_map
-    # helper_method :batch_process_map
-    # helper_method :filter_map
+        # Initializes the batch process map
+        def self.batch_process_map
+          @batch_process_map ||= {}
+        end
 
-    # # Initializes the scope map
-    # def self.scope_map
-    #   @scope_map ||= {}
-    # end
+        # Macro method for defining a batch process
+        def self.batch_processes(attr, options = {})
+          defaults = {
+            label: attr.to_s.titlecase,
+            only: nil,
+            except: nil,
+            confirm: false
+          }
+          batch_process_map[attr] = defaults.merge(options)
+        end
 
-    # # Macro method for defining a scope
-    # def self.scopes(attr, options = {})
-    #   defaults = {
-    #     label: attr.to_s.titlecase,
-    #     default: false
-    #   }
-    #   scope_map[attr] = defaults.merge(options)
-    # end
+        # Gives the view access to the batch process map
+        def batch_process_map
+          self.class.batch_process_map
+        end
+      end
+    end
 
-    # # Initializes the batch process map
-    # def self.batch_process_map
-    #   @batch_process_map ||= {}
-    # end
+    concerning :Filters do
+      included do
+        helper_method :filter_map
 
-    # # Macro method for defining a batch process
-    # def self.batch_processes(attr, options = {})
-    #   defaults = {
-    #     label: attr.to_s.titlecase,
-    #     only: nil,
-    #     except: nil,
-    #     confirm: false
-    #   }
-    #   batch_process_map[attr] = defaults.merge(options)
-    # end
+        # Initializes the filter map
+        def self.filter_map
+          @filter_map ||= {}
+        end
 
-    # # Initializes the filter map
-    # def self.filter_map
-    #   @filter_map ||= {}
-    # end
+        # Macro method for defining a filter
+        def self.filters(attr, options = {})
+          defaults = {
+            label: resource_class.human_attribute_name(attr),
+            as: :string,
+            option_text: "to_s",
+            option_value: "id",
+            collection: nil
+          }
+          filter_map[attr] = defaults.merge(options)
+        end
 
-    # # Macro method for defining a filter
-    # def self.filters(attr, options = {})
-    #   defaults = {
-    #     label: resource_class.human_attribute_name(attr),
-    #     as: :string,
-    #     option_text: 'to_s',
-    #     option_value: 'id',
-    #     collection: nil
-    #   }
-    #   filter_map[attr] = defaults.merge(options)
-    # end
+        # Gives the view access to the filter map
+        def filter_map
+          self.class.filter_map
+        end
+      end
+    end
 
-    # # Gives the view access to the list of column names
-    # # to be printed in the index view
-    # def attrs_for_index
-    #   []
-    # end
+    concerning :Scopes do
+      included do
+        helper_method :scope_map
 
-    # # Gives the view access to the list of attributes
-    # # to be included in the default form
-    # def attrs_for_form
-    #   []
-    # end
+        # Initializes the scope map
+        def self.scope_map
+          @scope_map ||= {}
+        end
 
-    # # Gives the view access to the scope map
-    # def scope_map
-    #   self.class.scope_map
-    # end
+        # Macro method for defining a scope
+        def self.scopes(attr, options = {})
+          defaults = {
+            label: attr.to_s.titlecase,
+            default: false
+          }
+          scope_map[attr] = defaults.merge(options)
+        end
 
-    # # Gives the view access to the batch process map
-    # def batch_process_map
-    #   self.class.batch_process_map
-    # end
+        # Gives the view access to the scope map
+        def scope_map
+          self.class.scope_map
+        end
+      end
+    end
 
-    # # Gives the view access to the filter map
-    # def filter_map
-    #   self.class.filter_map
-    # end
+    helper_method :attrs_for_index
+    helper_method :attrs_for_form
+
+    # Gives the view access to the list of column names
+    # to be printed in the index view
+    def attrs_for_index
+      []
+    end
+
+    # Gives the view access to the list of attributes
+    # to be included in the default form
+    def attrs_for_form
+      []
+    end
+
+
+
+
 
     # # All batch actions are routed to this action
     # def batch_action
@@ -179,6 +196,13 @@ module Godmin
 
     #   scope ? scope[0] : nil
     # end
+
+
+
+
+
+
+    # before_action :prepend_resource_view_paths
 
     # private
 
