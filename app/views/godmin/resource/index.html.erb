@@ -1,20 +1,22 @@
-<%= render_partial "header" %>
 
-<%#= render_partial "breadcrumb_index" %>
+<%= godmin_render_partial "header" %>
+
+<%#= godmin_render_partial "breadcrumb_index" %>
 
 <% if filter_map.present? %>
-  <%= render_partial "filters" %>
+  <%= godmin_render_partial "filters" %>
 <% end %>
 
 <%#= form_tag(polymorphic_path([:batch_action, :admin, resource_class]), id: 'batch-process-form') do %>
 
-  <%= render_partial "scopes" %>
+  <%#= godmin_render_partial "scopes" %>
 
-  <%= render_partial "batch_actions" %>
+  <%#= godmin_render_partial "batch_actions" %>
 
-  <%= render_partial "table" %>
+  <%= godmin_render_partial "table" %>
 
   <%#= paginate collection %>
+
   <div class="pull-right">
     <%#= page_entries_info collection %>
   </div>

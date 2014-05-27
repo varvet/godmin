@@ -1,5 +1,9 @@
 module Godmin
   class ResourceController < ApplicationController
+    # include BatchProcessing
+    # include Filters
+    # include Scopes
+
     inherit_resources
 
     concerning :BatchProcessing do

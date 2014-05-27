@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Godmin</title>
-  <%#= stylesheet_link_tag    "godmin/application", "godmin", media: "all" %>
-  <%#= javascript_include_tag "godmin/application", "godmin" %>
-  <%= stylesheet_link_tag "godmin/application", media: "all" %>
-  <%= javascript_include_tag "godmin/application" %>
-  <%= csrf_meta_tags %>
-  <%= yield :head %>
-</head>
-<body>
+  <head>
+    <title>Godmin</title>
+    <% # TODO: mounted as admin %>
+    <%= stylesheet_link_tag "godmin/application", "admin/application", media: "all" %>
+    <%= javascript_include_tag "godmin/application", "admin/application" %>
+    <%= csrf_meta_tags %>
+    <%#= yield :head %>
+  </head>
+  <body>
 
-  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <%= link_to "Godmin", root_path, class: "navbar-brand" %>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <%= godmin_render_partial "shared/nav" %>
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
-      <div class="navbar-header">
-        <%= link_to "Godmin", root_path, class: "navbar-brand" %>
+
+      <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <% if flash[:notice] %>
+        <div class="alert alert-info">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+
+      <div id="footer">
+        Powered by Godmin <%= Godmin::VERSION %>
       </div>
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <%= render_partial "nav", path: "shared" %>
-      </div>
-    </div>
-  </nav>
 
-  <div class="container">
-
-    <% if flash[:alert] %>
-      <div class="alert alert-danger">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
-
-    <% if flash[:notice] %>
-      <div class="alert alert-info">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
-
-    <%= yield %>
-
-    <div id="footer">
-      Powered by Godmin <%= Godmin::VERSION %>
     </div>
 
-  </div>
-
-</body>
+  </body>
 </html>

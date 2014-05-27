@@ -7,7 +7,7 @@
         <% end %>
         <% attrs_for_index.each do |attr| %>
           <th>
-            <%= column_header resource_class, attr %>
+            <%= godmin_column_header attr %>
           </th>
         <% end %>
         <th></th>
@@ -22,12 +22,12 @@
         <% end %>
           <% unless batch_process_map.empty? %>
             <td>
-              <%= check_box_tag "batch_process[items][#{resource.id}]" %>
+              <%#= check_box_tag "batch_process[items][#{resource.id}]" %>
             </td>
           <% end %>
           <% attrs_for_index.each do |attr| %>
             <td>
-              <%#= column_value resource, attr %>
+              <%= godmin_column_value(resource, attr) %>
             </td>
           <% end %>
           <td style="width: 10em;">
