@@ -115,6 +115,32 @@ module Godmin
       end
     end
 
+    concerning :Ordering do
+      def apply_order(collection)
+        if params[:order]
+          collection.order("#{resource_class.table_name}.#{order_column} #{order_direction}")
+        else
+          collection
+        end
+      end
+
+      protected
+
+      def order_column
+        params[:order].rpartition("_").first
+      end
+
+      def order_direction
+        params[:order].rpartition("_").last
+      end
+    end
+
+    concerning :Pagination do
+      def apply_pagination(collection)
+        collection.page(params[:page])
+      end
+    end
+
     helper_method :attrs_for_index
     helper_method :attrs_for_form
 
@@ -128,19 +154,6 @@ module Godmin
     # to be included in the default form
     def attrs_for_form
       []
-    end
-
-    def apply_order(collection)
-      if params[:order]
-        order = params[:order].rpartition("_")
-        collection.order("#{resource_class.table_name}.#{order.first} #{order.last}")
-      else
-        collection
-      end
-    end
-
-    def apply_pagination(collection)
-      collection.page(params[:page])
     end
 
     def collection
