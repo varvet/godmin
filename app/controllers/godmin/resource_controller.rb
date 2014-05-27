@@ -1,8 +1,5 @@
 module Godmin
   class ResourceController < ApplicationController
-    # include Godmin::Filters
-    # include Godmin::Scopes
-
     inherit_resources
 
     concerning :BatchProcessing do
@@ -133,21 +130,28 @@ module Godmin
       []
     end
 
+    def apply_order(collection)
+      if params[:order]
+        order = params[:order].rpartition("_")
+        collection.order("#{resource_class.table_name}.#{order.first} #{order.last}")
+      else
+        collection
+      end
+    end
+
+    def apply_pagination(collection)
+      collection.page(params[:page])
+    end
+
     def collection
-      # apply_pagination(
-        # apply_order(
+      apply_pagination(
+        apply_order(
           apply_filters(
             apply_scope(super)
           )
-        # )
-      # )
+        )
+      )
     end
-
-
-
-
-
-
 
     # # All batch actions are routed to this action
     # def batch_action
@@ -168,81 +172,6 @@ module Godmin
     #   end
 
     #   redirect_to :back
-    # end
-
-    # protected
-
-    # def collection
-    #   @collection = end_of_association_chain
-
-    #   @collection = apply_default_scope unless params[:scope]
-    #   @collection = apply_scope params[:scope] if params[:scope]
-    #   @collection = apply_filters params[:filter] if params[:filter]
-    #   @collection = apply_order params[:order] if params[:order]
-    #   @collection = apply_pagination params[:page]
-
-    #   @collection
-    # end
-
-    # def apply_default_scope
-    #   collection = @collection
-
-    #   if default_scope
-    #     # params[:scope] = default_scope
-    #     collection = apply_scope default_scope
-    #   else
-    #     # params[:scope] = 'all'
-    #     # collection = collection.all
-    #   end
-
-    #   collection
-    # end
-
-    # def apply_scope(scope)
-    #   collection = @collection
-
-    #   scope_method = "scope_#{scope}".to_sym
-
-    #   if self.respond_to?(scope_method, true)
-    #     collection = self.send(scope_method, collection)
-    #   elsif scope_map.key?(scope.to_sym)
-    #     collection = collection.send(scope.to_sym)
-    #   end
-
-    #   collection
-    # end
-
-    # def apply_filters(filters)
-    #   collection = @collection
-
-    #   filters.each do |name, value|
-    #     if value.present? && filter_map.key?(name.to_sym)
-    #       collection = self.send("filter_#{name}", collection, value)
-    #     end
-    #   end
-
-    #   collection
-    # end
-
-    # def apply_order(order)
-    #   order = order.split('_')
-    #   direction = order.pop
-    #   column = order.join('_')
-
-    #   @collection.order("#{resource_class.table_name}.#{column} #{direction}")
-    # end
-
-    # def apply_pagination(page)
-    #   @collection.page(page)
-    # end
-
-    # # Extracts the default scope from the scope map
-    # def default_scope
-    #   scope = scope_map.find do |k,v|
-    #     v[:default]
-    #   end
-
-    #   scope ? scope[0] : nil
     # end
 
   end
