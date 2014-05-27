@@ -1,8 +1,7 @@
 module Godmin
   class ResourceController < ApplicationController
-    # include BatchProcessing
-    # include Filters
-    # include Scopes
+    # include Godmin::Filters
+    # include Godmin::Scopes
 
     inherit_resources
 
@@ -37,7 +36,6 @@ module Godmin
       included do
         helper_method :filter_map
 
-        # Initializes the filter map
         def self.filter_map
           @filter_map ||= {}
         end
@@ -54,9 +52,19 @@ module Godmin
           filter_map[attr] = defaults.merge(options)
         end
 
-        # Gives the view access to the filter map
         def filter_map
           self.class.filter_map
+        end
+
+        def apply_filters(collection)
+          if params[:filter]
+            params[:filter].each do |name, value|
+              if filter_map.key?(name.to_sym) && value.present?
+                collection = send("filter_#{name}", collection, value)
+              end
+            end
+          end
+          collection
         end
       end
     end
@@ -65,7 +73,6 @@ module Godmin
       included do
         helper_method :scope_map
 
-        # Initializes the scope map
         def self.scope_map
           @scope_map ||= {}
         end
@@ -79,9 +86,34 @@ module Godmin
           scope_map[attr] = defaults.merge(options)
         end
 
-        # Gives the view access to the scope map
         def scope_map
           self.class.scope_map
+        end
+
+        def apply_scope(collection)
+          unless params[:scope]
+            params[:scope] = default_scope
+          end
+
+          if params[:scope] && scope_map.key?(params[:scope].to_sym)
+            if respond_to?("scope_#{params[:scope]}", true)
+              send("scope_#{params[:scope]}", collection)
+            else
+              collection.send(params[:scope])
+            end
+          else
+            collection
+          end
+        end
+
+        protected
+
+        def default_scope
+          scope = scope_map.find do |k, v|
+            v[:default] == true
+          end
+
+          scope ? scope[0].to_s : nil
         end
       end
     end
@@ -100,6 +132,18 @@ module Godmin
     def attrs_for_form
       []
     end
+
+    def collection
+      # apply_pagination(
+        # apply_order(
+          apply_filters(
+            apply_scope(super)
+          )
+        # )
+      # )
+    end
+
+
 
 
 
@@ -201,18 +245,5 @@ module Godmin
     #   scope ? scope[0] : nil
     # end
 
-
-
-
-
-
-    # before_action :prepend_resource_view_paths
-
-    # private
-
-    # def prepend_resource_view_paths
-    #    prepend_view_path "app/views/admin/resource"
-    #    prepend_view_path "app/views/admin/#{resource_class.to_s.underscore.pluralize}"
-    # end
   end
 end

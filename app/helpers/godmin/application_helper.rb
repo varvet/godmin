@@ -1,14 +1,6 @@
 module Godmin
   module ApplicationHelper
 
-    # def current_page?(controller, action = action_name)
-    #   controller == controller_name && action == action_name
-    # end
-
-    # def current_url_contains?(string)
-    #   request.fullpath.include?(string)
-    # end
-
     def godmin_render_partial(partial, locals: {})
       render partial: godmin_locate_partial(partial) || partial, locals: locals
     end
@@ -33,6 +25,10 @@ module Godmin
 
       located_partial
     end
+
+    # def current_url_contains?(string)
+    #   request.fullpath.include?(string)
+    # end
 
   end
 end

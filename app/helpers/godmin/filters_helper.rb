@@ -1,27 +1,28 @@
 module Godmin
   module FiltersHelper
 
-    # def filter_input_tag(name, options)
-    #   case options[:as]
-    #   when :string
-    #     filter_string_tag(name)
-    #   when :select
-    #     filter_select_tag(name, options)
-    #   when :multiselect
-    #     filter_multiselect_tag(name, options)
-    #   when :checkboxes
-    #     filter_checkbox_tags(name, options)
-    #   end
-    # end
+    def filter_input_tag(name, options)
+      case options[:as]
+      when :string
+        filter_string_tag(name, options)
+      when :select
+        filter_select_tag(name, options)
+      when :multiselect
+        filter_multiselect_tag(name, options)
+      when :checkboxes
+        filter_checkbox_tags(name, options)
+      end
+    end
 
-    # def filter_string_tag(name)
-    #   text_field_tag(
-    #     name,
-    #     default_filter_value(name),
-    #     :name => "filter[#{name}]",
-    #     :class => 'form-control'
-    #   )
-    # end
+    def filter_string_tag(name, options)
+      text_field_tag(
+        name,
+        default_filter_value(name),
+        name: "filter[#{name}]",
+        class: "form-control",
+        placeholder: options[:label]
+      )
+    end
 
     # def filter_select_tag(name, options)
     #   filter_select_tag_helper(name, options, {
@@ -87,9 +88,9 @@ module Godmin
     #   end.join("\n").html_safe
     # end
 
-    # def default_filter_value(name)
-    #   params[:filter] ? params[:filter][name] : nil
-    # end
+    def default_filter_value(name)
+      params[:filter] ? params[:filter][name] : nil
+    end
 
   end
 end

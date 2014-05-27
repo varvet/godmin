@@ -37,11 +37,6 @@ module Godmin
       end
     end
 
-
-
-
-
-
     # def batch_action_link(name, options)
     #   # TODO: This is kinda fucked, but scope can probably be removed if it always exists
     #   if ((options[:only].nil? && options[:except].nil?) ||
