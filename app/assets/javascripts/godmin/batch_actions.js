@@ -1,8 +1,8 @@
 (function($){
   $(function(){
 
-    $form = $('#batch-process-form');
-    $selectAll = $form.find('.batch-process-select-all');
+    $form       = $('#batch-process-form');
+    $selectAll  = $form.find('.batch-process-select-all');
     $selectNone = $form.find('.batch-process-select-none');
 
     var setSelectToAll = function() {
@@ -13,7 +13,7 @@
     var setSelectToNone = function() {
       $selectAll.addClass('hidden');
       $selectNone.removeClass('hidden');
-    }
+    };
 
     $form.find('.batch-process-select').on('click', function(){
       if ($form.find('input:checkbox:checked').length > 0) {

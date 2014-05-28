@@ -7,11 +7,11 @@
   <%= godmin_render_partial "filters" %>
 <% end %>
 
-<%#= form_tag(polymorphic_path([:batch_action, :admin, resource_class]), id: 'batch-process-form') do %>
+<%= form_tag [:batch_process, resource_class], id: "batch-process-form" do %>
 
   <%= godmin_render_partial "scopes" %>
 
-  <%#= godmin_render_partial "batch_actions" %>
+  <%= godmin_render_partial "batch_actions" %>
 
   <%= godmin_render_partial "table" %>
 
@@ -21,4 +21,4 @@
     <%#= page_entries_info collection %>
   <!-- </div> -->
 
-<%# end %>
+<% end %>

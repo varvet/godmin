@@ -18,8 +18,8 @@
         <tr>
       <% end %>
         <% unless batch_process_map.empty? %>
-          <td>
-            <%#= check_box_tag "batch_process[items][#{resource.id}]" %>
+          <td align="center">
+            <%= check_box_tag "batch_process[items][#{resource.id}]" %>
           </td>
         <% end %>
         <% attrs_for_index.each do |attr| %>
