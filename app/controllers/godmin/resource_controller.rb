@@ -123,10 +123,8 @@ module Godmin
 
         protected
 
-        # TODO: should this return first scope if none marked default?
-        # alternative: we always include an "all" scope
         def default_scope
-          scope = scope_map.find do |k, v|
+          scope = scope_map.find -> { scope_map.first } do |k, v|
             v[:default] == true
           end
 
