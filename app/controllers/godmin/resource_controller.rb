@@ -27,6 +27,23 @@ module Godmin
         def batch_process_map
           self.class.batch_process_map
         end
+
+        # All batch actions are routed to this action
+        def batch_process
+          action   = params[:batch_process][:action]
+          item_ids = params[:batch_process][:items].keys.map(&:to_i)
+
+          if batch_process_map.key?(action.to_sym)
+            # Store the batched item ids so they can be highlighted later
+            flash[:batch_processed_ids] = item_ids
+
+            # If the batch action returns false, it is because it has implemented
+            # its own redirect. Therefore we return wihout redirecting.
+            return unless send("batch_process_#{action}", resource_class.find(item_ids))
+          end
+
+          redirect_to :back
+        end
       end
     end
 
