@@ -1,6 +1,6 @@
 <% unless batch_process_map.empty? %>
-  <%= link_to "Markera alla", "#", class: "btn btn-default batch-process-select batch-process-select-all" %>
-  <%= link_to "Avmarkera alla", "#", class: "btn btn-default batch-process-select batch-process-select-none hidden" %>
+  <%= link_to "Select all", "#", class: "btn btn-default batch-process-select batch-process-select-all" %>
+  <%= link_to "Deselect all", "#", class: "btn btn-default batch-process-select batch-process-select-none hidden" %>
 
   <div class="btn-group">
     <% batch_process_map.each do |name, options| %>
