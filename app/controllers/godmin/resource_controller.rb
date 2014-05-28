@@ -1,6 +1,7 @@
 module Godmin
   class ResourceController < ApplicationController
     inherit_resources
+    # defaults route_prefix: nil # TODO: this doesn't work for some reason... issue filed
 
     concerning :BatchProcessing do
       included do
@@ -96,7 +97,7 @@ module Godmin
             if respond_to?("scope_#{params[:scope]}", true)
               send("scope_#{params[:scope]}", collection)
             else
-              collection.send(params[:scope])
+              collection.send(params[:scope]) # TODO: should we even support this?
             end
           else
             collection
@@ -164,6 +165,12 @@ module Godmin
           )
         )
       )
+    end
+
+    protected
+
+    def permitted_params
+      params.permit(resource_class.name.downcase => attrs_for_form)
     end
 
     # # All batch actions are routed to this action
