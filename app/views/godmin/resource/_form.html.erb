@@ -2,11 +2,11 @@
   <% attrs_for_form.each do |attr| %>
     <div class="form-group">
       <% if resource_class.column_names.include? attr.to_s %>
-        <%= f.input attr, input_html: { class: "form-control" } %>
+        <%= f.input attr, error: false, input_html: { class: "form-control" } %>
       <% else %>
-        <%= f.association attr, input_html: { class: "form-control chosen" } %>
+        <%= f.association attr, error: false, input_html: { class: "form-control chosen" } %>
       <% end %>
     </div>
   <% end %>
-  <%= f.button :submit, class: "btn btn-primary" %>
+  <%= f.button :submit, class: "btn btn-default" %>
 <% end %>
