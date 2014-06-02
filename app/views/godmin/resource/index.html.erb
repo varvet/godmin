@@ -12,12 +12,15 @@
 
   <%= godmin_render_partial "table" %>
 
-  <%#= paginate collection %>
-
-  <!-- <div class="pull-right"> -->
-    <%#= page_entries_info collection %>
-  <!-- </div> -->
-
 <% end %>
 
 <%= link_to "Create", [:new, resource_class.to_s.underscore], class: "btn btn-default" %>
+
+<!--
+<div class="pull-right">
+  <%= page_entries_info collection %><br>
+  <div class="pull-right">
+    <%= paginate collection %>
+  </div>
+</div>
+-->
