@@ -190,26 +190,5 @@ module Godmin
       params.permit(resource_class.name.downcase => attrs_for_form)
     end
 
-    # # All batch actions are routed to this action
-    # def batch_action
-    #   action = params[:batch_process][:action]
-    #   items = params[:batch_process][:items]
-
-    #   authorize! "batch_process_#{action}".to_sym, resource_class
-
-    #   if items
-    #     if batch_process_map.key?(action.to_sym)
-    #       # Store the batched item ids so they can be highlighted later
-    #       flash[:highlight_ids] = items.keys
-
-    #       # If the batch action returns false, it is because it has implemented
-    #       # its own redirect. Therefore we return wihout redirecting.
-    #       return unless self.send("batch_process_#{action}", resource_class.find(items.keys))
-    #     end
-    #   end
-
-    #   redirect_to :back
-    # end
-
   end
 end

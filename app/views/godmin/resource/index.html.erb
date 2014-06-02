@@ -3,13 +3,13 @@
 
 <%#= godmin_render_partial "breadcrumb_index" %>
 
+<%= godmin_render_partial "scopes" %>
+
 <% if filter_map.present? %>
   <%= godmin_render_partial "filters" %>
 <% end %>
 
 <%= form_tag [:batch_process, resource_class], id: "batch-process-form" do %>
-
-  <%= godmin_render_partial "scopes" %>
 
   <%= godmin_render_partial "batch_actions" %>
 
