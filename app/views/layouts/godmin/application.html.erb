@@ -2,9 +2,8 @@
 <html>
   <head>
     <title>Godmin</title>
-    <% # TODO: mounted as admin %>
-    <%= stylesheet_link_tag "godmin/application", "admin/application", media: "all" %>
-    <%= javascript_include_tag "godmin/application", "admin/application" %>
+    <%= stylesheet_link_tag "godmin/application", "#{Godmin.mounted_as}/application", media: "all" %>
+    <%= javascript_include_tag "godmin/application", "#{Godmin.mounted_as}/application" %>
     <%= csrf_meta_tags %>
     <%#= yield :head %>
   </head>

@@ -5,12 +5,11 @@ module Godmin
       render partial: godmin_locate_partial(partial) || partial, locals: locals
     end
 
-    # TODO: mounted as admin
     def godmin_locate_partial(partial, strict: false)
       paths = [
-        "admin/#{resource_class.to_s.underscore.pluralize}",
-        "admin/resource",
-        "admin",
+        "#{Godmin.mounted_as}/#{resource_class.to_s.underscore.pluralize}",
+        "#{Godmin.mounted_as}/resource",
+        "#{Godmin.mounted_as}",
         "godmin/resource",
         "godmin"
       ]
@@ -25,10 +24,6 @@ module Godmin
 
       located_partial
     end
-
-    # def current_url_contains?(string)
-    #   request.fullpath.include?(string)
-    # end
 
   end
 end
