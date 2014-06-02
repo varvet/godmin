@@ -1,3 +1,4 @@
+# TODO: make sure list is relevant
 require 'bootstrap-sass'
 require 'cancan'
 require 'font-awesome-rails'
@@ -9,8 +10,11 @@ require 'godmin/rails'
 require 'godmin/version'
 
 module Godmin
-  # mattr_accessor :mounted_as
-  # self.mounted_as = nil
+  mattr_accessor :mounted_as
+  self.mounted_as = :admin
+
+  mattr_accessor :resources
+  self.resources = []
 
   # mattr_accessor :authentication_method
   # self.authentication_method = false

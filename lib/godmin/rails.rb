@@ -3,6 +3,7 @@ module ActionDispatch::Routing
 
     def godmin
       def resources(*resources, &block)
+        Godmin.resources << resources.first
         super do
           post "batch_process", on: :collection
         end
