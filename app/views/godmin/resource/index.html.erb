@@ -1,7 +1,4 @@
-
-<%= godmin_render_partial "header" %>
-
-<%#= godmin_render_partial "breadcrumb_index" %>
+<%= godmin_render_partial "breadcrumb", locals: { index: true } %>
 
 <%= godmin_render_partial "scopes" %>
 
@@ -22,3 +19,5 @@
   <!-- </div> -->
 
 <% end %>
+
+<%= link_to "Create", [:new, resource_class.to_s.underscore], class: "btn btn-default" %>

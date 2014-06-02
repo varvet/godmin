@@ -1,11 +1,11 @@
 <ul class="nav navbar-nav">
   <% Godmin.resources.each do |resource| %>
-    <% if current_page?(controller: resource) %>
+    <% if controller.controller_name == resource.to_s %>
       <li class="active">
     <% else %>
       <li>
     <% end %>
-      <%= link_to resource.to_s.titleize, resource %>
+      <%= link_to resource.to_s.classify.constantize.model_name.human(count: 2), resource %>
     </li>
   <% end %>
 </ul>

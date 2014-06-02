@@ -2,7 +2,7 @@ module Godmin
   module ApplicationHelper
 
     def godmin_render_partial(partial, locals: {})
-      render partial: godmin_locate_partial(partial) || partial, locals: locals
+      render partial: (godmin_locate_partial(partial) || partial), locals: locals
     end
 
     def godmin_locate_partial(partial, strict: false)
