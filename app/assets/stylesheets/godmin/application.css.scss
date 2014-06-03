@@ -13,16 +13,20 @@
  */
 
 @import 'bootstrap';
-
 // @import 'godmin/bootstrap-chosen';
 
-// h3 {
-//   margin-bottom: 1em;
-// }
+#scopes {
+  margin-bottom: 20px;
+}
 
-// textarea.form-control {
-//   min-height:200px;
-// }
+#actions {
+  @include clearfix();
+  margin-bottom: 20px;
+}
+
+.pagination {
+  margin: 0 0 10px 0;
+}
 
 .highlight {
   -webkit-animation: highlight 3s;

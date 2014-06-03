@@ -1,11 +1,11 @@
 <% unless scope_map.empty? %>
-  <ul class="nav nav-tabs">
-    <% scope_map.each do |name, options| %>
-      <li class="<%= "active" if params[:scope] == name.to_s %>">
-        <%= link_to options[:label], url_for(params.merge(scope: name).except(:page)) %>
-      </li>
-    <% end %>
-  </ul>
-  <!-- TODO: remove this br -->
-  <br>
+  <div id="scopes">
+    <ul class="nav nav-tabs">
+      <% scope_map.each do |name, options| %>
+        <li class="<%= "active" if params[:scope] == name.to_s %>">
+          <%= link_to options[:label], url_for(params.merge(scope: name).except(:page)) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
