@@ -1,13 +1,13 @@
 # TODO: make sure list is relevant
-require 'bootstrap-sass'
-require 'cancan'
-require 'font-awesome-rails'
-require 'inherited_resources'
-require 'kaminari'
-require 'simple_form'
-require 'godmin/engine'
-require 'godmin/rails'
-require 'godmin/version'
+require "bootstrap-sass"
+require "cancan"
+require "font-awesome-rails"
+require "inherited_resources"
+require "kaminari"
+require "simple_form"
+require "godmin/engine"
+require "godmin/rails"
+require "godmin/version"
 
 module Godmin
   mattr_accessor :mounted_as
