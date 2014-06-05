@@ -72,7 +72,7 @@ module Godmin
         end
 
         def apply_filters(collection)
-          if params[:filter]
+          if params[:filter].present?
             params[:filter].each do |name, value|
               if filter_map.key?(name.to_sym) && value.present?
                 collection = send("filter_#{name}", collection, value)
@@ -106,7 +106,7 @@ module Godmin
         end
 
         def apply_scope(collection)
-          unless params[:scope]
+          if params[:scope].blank?
             params[:scope] = default_scope
           end
 
@@ -135,7 +135,7 @@ module Godmin
 
     concerning :Ordering do
       def apply_order(collection)
-        if params[:order]
+        if params[:order].present?
           collection.order("#{resource_class.table_name}.#{order_column} #{order_direction}")
         else
           collection
