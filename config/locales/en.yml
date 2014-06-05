@@ -3,6 +3,7 @@ en:
     batch_processes:
       select_all: "Select all"
       deselect_all: "Deselect all"
+      confirm_message: Are you sure?
     filters:
       buttons:
         apply: Filter
@@ -11,6 +12,7 @@ en:
       show: Show
       edit: Edit
       destroy: Destroy
+      confirm_message: Are you sure?
     create_model: Create %{resource}
     update_model: Update %{resource}
     destroy_model: Destroy %{resource}
