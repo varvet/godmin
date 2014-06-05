@@ -7,4 +7,10 @@ en:
       buttons:
         apply: Filter
         clear: Clear filter
+    column_actions:
+      show: Show
+      edit: Edit
+      destroy: Destroy
     create_model: Create %{resource}
+    update_model: Update %{resource}
+    destroy_model: Destroy %{resource}
