@@ -34,7 +34,7 @@ module Godmin
         end
 
         if column_value.is_a?(TrueClass) || column_value.is_a?(FalseClass)
-          column_value = I18n.t(column_value)
+          column_value = I18n.t(column_value.to_s)
         end
 
         column_value
