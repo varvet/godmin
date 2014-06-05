@@ -7,15 +7,15 @@
 
       <% filter_map.each do |name, options| %>
         <div class="form-group">
-          <%= label_tag name, options[:label] %><br>
+          <%= label_tag name, godmin_translate_for_resource("filters.labels.#{name}", default: name.to_s.titleize) %><br>
           <%= filter_input_tag name, options %>
         </div>
       <% end %>
 
       <div class="pull-right">
         <label>&nbsp;</label><br>
-        <%= button_tag "Apply", class: "btn btn-default" %>
-        <%= link_to "Clear", polymorphic_path(resource_class, scope: params[:scope], order: params[:order]), class: "btn btn-default" %>
+        <%= button_tag godmin_translate_for_resource("filters.buttons.apply"), class: "btn btn-default" %>
+        <%= link_to godmin_translate_for_resource("filters.buttons.clear"), polymorphic_path(resource_class, scope: params[:scope], order: params[:order]), class: "btn btn-default" %>
       </div>
 
     <% end %>

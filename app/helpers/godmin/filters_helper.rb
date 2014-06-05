@@ -24,13 +24,13 @@ module Godmin
       )
     end
 
-    # def filter_select_tag(name, options)
-    #   filter_select_tag_helper(name, options, {
-    #     :name => "filter[#{name}]",
-    #     :include_blank => true,
-    #     :class => 'form-control chosen-with-deselect'
-    #   })
-    # end
+    def filter_select_tag(name, options)
+      filter_select_tag_helper(name, options, {
+        :name => "filter[#{name}]",
+        :include_blank => true,
+        :class => 'form-control chosen-with-deselect'
+      })
+    end
 
     # def filter_multiselect_tag(name, options)
     #   filter_select_tag_helper(name, options, {
@@ -40,29 +40,29 @@ module Godmin
     #   })
     # end
 
-    # def filter_select_tag_helper(name, options, html_options)
-    #   unless options[:collection].is_a? Proc
-    #     raise 'A collection proc must be specified for select filters'
-    #   end
+    def filter_select_tag_helper(name, options, html_options)
+      unless options[:collection].is_a? Proc
+        raise 'A collection proc must be specified for select filters'
+      end
 
-    #   collection = options[:collection].call
+      collection = options[:collection].call
 
-    #   if collection.is_a? ActiveRecord::Relation
-    #     choices = options_from_collection_for_select(
-    #       collection,
-    #       options[:option_value],
-    #       options[:option_text],
-    #       selected: default_filter_value(name)
-    #     )
-    #   else
-    #     choices = options_for_select(
-    #       collection,
-    #       selected: default_filter_value(name)
-    #     )
-    #   end
+      if collection.is_a? ActiveRecord::Relation
+        choices = options_from_collection_for_select(
+          collection,
+          options[:option_value],
+          options[:option_text],
+          selected: default_filter_value(name)
+        )
+      else
+        choices = options_for_select(
+          collection,
+          selected: default_filter_value(name)
+        )
+      end
 
-    #   select_tag(name, choices, html_options)
-    # end
+      select_tag(name, choices, html_options)
+    end
 
     # def filter_checkbox_tags(name, options)
     #   unless options[:collection].is_a? Proc

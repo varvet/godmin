@@ -1,0 +1,10 @@
+en:
+  godmin:
+    batch_processes:
+      select_all: "Select all"
+      deselect_all: "Deselect all"
+    filters:
+      buttons:
+        apply: Filter
+        clear: Clear filter
+    create_model: Create %{resource}

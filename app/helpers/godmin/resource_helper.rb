@@ -42,7 +42,7 @@ module Godmin
           (options[:only] && options[:only].include?(params[:scope].to_sym)) ||
           (options[:except] && !options[:except].include?(params[:scope].to_sym)))
 
-        link_to options[:label], "#", class: "btn btn-default batch-process-action-link hidden", data: {
+        link_to I18n.t("godmin.batch_processes.#{name}", default: name.to_s.titleize), "#", class: "btn btn-default batch-process-action-link hidden", data: {
           value: name,
           confirm: options[:confirm] ? "Är du säker" : false
         }
