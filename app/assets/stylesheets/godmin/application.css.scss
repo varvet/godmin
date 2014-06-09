@@ -10,11 +10,16 @@
  *
  *= require_self
  *= require font-awesome
+ *= require select2
+ *= require select2-bootstrap
  */
 
 @import 'bootstrap';
 
-@import 'godmin/bootstrap-chosen';
+// Select2 styling
+.select2-container {
+  min-width: 140px;
+}
 
 // h3 {
 //   margin-bottom: 1em;

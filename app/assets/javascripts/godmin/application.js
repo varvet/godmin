@@ -14,19 +14,11 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require godmin/batch_actions
-//= require godmin/chosen.jquery
+//= require select2
 
 $(function(){
-  $('.chosen').chosen({
-    width: "100%",
-    no_results_text: "Inga resultat hittades för: ",
-    placeholder_text_multiple: "Välj några",
-    placeholder_text_single: "Välj någon"
-  });
-  $('.chosen-with-deselect').chosen({
-    allow_single_deselect: true,
-    no_results_text: "Inga resultat hittades för: ",
-    placeholder_text_multiple: "Välj några",
-    placeholder_text_single: "Välj någon"
+  $('.select2').select2({
+    allowClear: true,
+    width: 'resolve'
   });
 });

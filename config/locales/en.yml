@@ -5,6 +5,11 @@ en:
       deselect_all: "Deselect all"
       confirm_message: Are you sure?
     filters:
+      select:
+        placeholder:
+          one: Select something
+          many: Select something
+          not_found: No matches found
       buttons:
         apply: Filter
         clear: Clear filter

@@ -28,17 +28,26 @@ module Godmin
       filter_select_tag_helper(name, options, {
         :name => "filter[#{name}]",
         :include_blank => true,
-        :class => 'form-control chosen-with-deselect'
+        :class => 'form-control select2',
+        data: { 
+          placeholder: godmin_translate("filters.select.placeholder.one"),
+          formatNoMatches: godmin_translate("filters.select.placeholder.not_found")
+        }
       })
     end
 
-    # def filter_multiselect_tag(name, options)
-    #   filter_select_tag_helper(name, options, {
-    #     :name => "filter[#{name}][]",
-    #     :multiple => true,
-    #     :class => 'form-control chosen'
-    #   })
-    # end
+    def filter_multiselect_tag(name, options)
+      filter_select_tag_helper(name, options, {
+        :name => "filter[#{name}][]",
+        :multiple => true,
+        :class => 'form-control select2',
+        data: {
+          placeholder: godmin_translate("filters.select.placeholder.many"),
+          # TODO: Use this data attribute when version 3.4.9 is released which fixed context issues
+          formatNoMatches: godmin_translate("filters.select.placeholder.not_found")
+        }
+      })
+    end
 
     def filter_select_tag_helper(name, options, html_options)
       unless options[:collection].is_a? Proc
