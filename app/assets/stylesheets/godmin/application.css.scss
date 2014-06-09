@@ -10,11 +10,11 @@
  *
  *= require_self
  *= require font-awesome
- *= require select2
- *= require select2-bootstrap
  */
 
 @import 'bootstrap';
+@import 'select2';
+@import 'select2-bootstrap';
 
 // Select2 styling
 .select2-container {

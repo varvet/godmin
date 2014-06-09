@@ -30,8 +30,7 @@ module Godmin
         :include_blank => true,
         :class => 'form-control select2',
         data: { 
-          placeholder: godmin_translate("filters.select.placeholder.one"),
-          formatNoMatches: godmin_translate("filters.select.placeholder.not_found")
+          placeholder: godmin_translate("filters.select.placeholder.one")
         }
       })
     end
@@ -42,9 +41,7 @@ module Godmin
         :multiple => true,
         :class => 'form-control select2',
         data: {
-          placeholder: godmin_translate("filters.select.placeholder.many"),
-          # TODO: Use this data attribute when version 3.4.9 is released which fixed context issues
-          formatNoMatches: godmin_translate("filters.select.placeholder.not_found")
+          placeholder: godmin_translate("filters.select.placeholder.many")
         }
       })
     end

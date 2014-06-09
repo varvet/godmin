@@ -9,7 +9,6 @@ en:
         placeholder:
           one: Select something
           many: Select something
-          not_found: No matches found
       buttons:
         apply: Filter
         clear: Clear filter
