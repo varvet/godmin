@@ -58,7 +58,6 @@ module Godmin
         # Macro method for defining a filter
         def self.filters(attr, options = {})
           defaults = {
-            label: resource_class.human_attribute_name(attr),
             as: :string,
             option_text: "to_s",
             option_value: "id",
