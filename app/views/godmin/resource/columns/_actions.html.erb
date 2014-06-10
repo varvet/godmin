@@ -1,3 +1,5 @@
-<%= link_to godmin_translate("column_actions.show"), resource %>
-<%= link_to godmin_translate("column_actions.edit"), [:edit, resource] %>
-<%= link_to godmin_translate("column_actions.destroy"), resource, method: :delete, data: { confirm: godmin_translate("column_actions.confirm_message") } %>
+<div class="btn-group btn-group-sm">
+  <%= link_to godmin_translate("column_actions.show"), resource, class: "btn btn-default" %>
+  <%= link_to godmin_translate("column_actions.edit"), [:edit, resource], class: "btn btn-default"  %>
+  <%= link_to godmin_translate("column_actions.destroy"), resource, method: :delete, data: { confirm: godmin_translate("column_actions.confirm_message") }, class: "btn btn-danger" %>
+</div>

@@ -21,6 +21,15 @@
   min-width: 140px;
 }
 
+// Column actions
+table td.column-actions {
+  width: 20%;
+  text-align: center;
+  a {
+    padding: 0 .3em;
+  }
+}
+
 // h3 {
 //   margin-bottom: 1em;
 // }
