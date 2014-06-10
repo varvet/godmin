@@ -2,8 +2,8 @@ en:
   godmin:
     sign_out: Sign out
     batch_processes:
-      select_all: "Select all"
-      deselect_all: "Deselect all"
+      select_all: Select all
+      deselect_all: Deselect all
       confirm_message: Are you sure?
     filters:
       select:
