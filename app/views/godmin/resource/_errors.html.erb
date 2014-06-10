@@ -1,6 +1,9 @@
-<h3>Någonting blev fel!</h3>
-<ul class="errors">
-  <% errors.full_messages.each do |error| %>
-    <li><%= error %></li>
-  <% end %>
-</ul>
+<% if resource.errors.present? %>
+  <div class="alert alert-danger">
+    <ul class="list-unstyled">
+      <% errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

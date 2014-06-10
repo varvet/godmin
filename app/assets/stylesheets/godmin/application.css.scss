@@ -30,26 +30,18 @@ table td.column-actions {
   }
 }
 
-// h3 {
-//   margin-bottom: 1em;
-// }
+#scopes {
+  margin-bottom: 20px;
+}
 
-// textarea.form-control {
-//   min-height:200px;
-// }
+#actions {
+  @include clearfix();
+  margin-bottom: 20px;
+}
 
-// .errors {
-//   color:#d33;
-// }
-
-// .field_with_errors {
-//   color:#d33;
-// }
-
-// .field_with_errors input,
-// .field_with_errors select {
-//   border-color:#d33;
-// }
+.pagination {
+  margin: 0 0 10px 0;
+}
 
 .highlight {
   -webkit-animation: highlight 3s;

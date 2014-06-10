@@ -21,3 +21,19 @@ en:
     create_model: Create %{resource}
     update_model: Update %{resource}
     destroy_model: Destroy %{resource}
+  views:
+    pagination:
+      first: "First"
+      last: "Last"
+      previous: "&laquo;"
+      next: "&raquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "No %{entry_name} found"
+          one: "Displaying 1 %{entry_name}"
+          other: "Displaying all %{count} %{entry_name}"
+      more_pages:
+        display_entries: "Displaying %{entry_name} %{first}&nbsp;-&nbsp;%{last} of %{total} in total"

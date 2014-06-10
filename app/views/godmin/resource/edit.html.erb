@@ -1,7 +1,5 @@
 <%= godmin_render_partial "breadcrumb", locals: { index: false } %>
 
-<% #if resource.errors.present? %>
-  <%#= render partial: 'errors', locals: { errors: resource.errors } %>
-<% #end %>
+<%= godmin_render_partial "errors", locals: { errors: resource.errors } %>
 
 <%= godmin_render_partial "form" %>

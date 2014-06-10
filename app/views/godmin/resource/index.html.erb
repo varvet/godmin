@@ -8,16 +8,10 @@
 
 <%= form_tag [:batch_process, resource_class], id: "batch-process-form" do %>
 
-  <%= godmin_render_partial "batch_actions" %>
+  <%= godmin_render_partial "actions" %>
 
   <%= godmin_render_partial "table" %>
 
-  <%#= paginate collection %>
-
-  <!-- <div class="pull-right"> -->
-    <%#= page_entries_info collection %>
-  <!-- </div> -->
-
 <% end %>
 
-<%= link_to godmin_translate("create_model"), [:new, resource_class.to_s.underscore], class: "btn btn-default" %>
+<%= godmin_render_partial "pagination" %>
