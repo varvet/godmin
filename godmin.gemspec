@@ -26,6 +26,8 @@ Gem::Specification.new do |s|
   s.add_dependency "inherited_resources", "~> 1.4.1"
   s.add_dependency "kaminari", "~> 0.15.1"
   s.add_dependency "simple_form", "~> 3.0.0"
+  # TODO: We need the github version for now due to namespace support.
+  # s.add_dependency "pundit", "~> 0.2.3"
 
   s.add_development_dependency "sqlite3"
 end

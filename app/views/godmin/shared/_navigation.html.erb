@@ -9,3 +9,6 @@
     </li>
   <% end %>
 </ul>
+<ul class="nav navbar-nav navbar-right">
+  <li><%= link_to "Sign out", main_app.destroy_user_session_path, method: :delete %></li>
+</ul>
