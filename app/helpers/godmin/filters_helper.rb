@@ -26,10 +26,10 @@ module Godmin
 
     def filter_select_tag(name, options)
       filter_select_tag_helper(name, options, {
-        :name => "filter[#{name}]",
-        :include_blank => true,
-        :class => 'form-control select2',
-        data: { 
+        name: "filter[#{name}]",
+        include_blank: true,
+        class: "form-control select-tag",
+        data: {
           placeholder: godmin_translate("filters.select.placeholder.one")
         }
       })
@@ -37,9 +37,9 @@ module Godmin
 
     def filter_multiselect_tag(name, options)
       filter_select_tag_helper(name, options, {
-        :name => "filter[#{name}][]",
-        :multiple => true,
-        :class => 'form-control select2',
+        name: "filter[#{name}][]",
+        multiple: true,
+        class: "form-control select-tag",
         data: {
           placeholder: godmin_translate("filters.select.placeholder.many")
         }
@@ -48,7 +48,7 @@ module Godmin
 
     def filter_select_tag_helper(name, options, html_options)
       unless options[:collection].is_a? Proc
-        raise 'A collection proc must be specified for select filters'
+        raise "A collection proc must be specified for select filters"
       end
 
       collection = options[:collection].call
@@ -72,7 +72,7 @@ module Godmin
 
     def filter_checkbox_tags(name, options)
       unless options[:collection].is_a? Proc
-        raise 'A collection proc must be specified for checkbox filters'
+        raise "A collection proc must be specified for checkbox filters"
       end
 
       collection = options[:collection].call

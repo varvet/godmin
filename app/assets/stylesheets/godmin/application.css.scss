@@ -12,31 +12,29 @@
  *= require font-awesome
  */
 
-@import 'bootstrap';
-@import 'select2';
-@import 'select2-bootstrap';
-
-// Select2 styling
-.select2-container {
-  min-width: 140px;
-}
-
-// Column actions
-table td.column-actions {
-  width: 20%;
-  text-align: center;
-  a {
-    padding: 0 .3em;
-  }
-}
+@import "bootstrap";
+@import "select2";
+@import "select2-bootstrap";
 
 #scopes {
   margin-bottom: 20px;
 }
 
+#filters {
+  .filter {
+    min-width: 170px;
+  }
+}
+
 #actions {
   @include clearfix();
   margin-bottom: 20px;
+}
+
+#table {
+  td {
+    vertical-align: middle;
+  }
 }
 
 .pagination {

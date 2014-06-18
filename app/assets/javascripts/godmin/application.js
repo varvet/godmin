@@ -13,12 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require godmin/batch_actions
 //= require select2
-
-$(function(){
-  $('.select2').select2({
-    allowClear: true,
-    width: 'resolve'
-  });
-});
+//= require godmin/batch_actions
+//= require godmin/select_tags

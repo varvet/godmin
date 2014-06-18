@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div id="filters" class="panel panel-default">
   <div class="panel-body">
     <%= form_tag params, method: :get, class: "form-inline" do %>
 
@@ -6,7 +6,7 @@
       <%= hidden_field_tag :order, nil, value: params[:order] %>
 
       <% filter_map.each do |name, options| %>
-        <div class="form-group">
+        <div class="filter form-group">
           <%= label_tag name, godmin_translate("filters.labels.#{name}", default: name.to_s.titleize) %><br>
           <%= filter_input_tag name, options %>
         </div>
