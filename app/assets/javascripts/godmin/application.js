@@ -13,20 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require select2
 //= require godmin/batch_actions
-//= require godmin/chosen.jquery
-
-$(function(){
-  $('.chosen').chosen({
-    width: "100%",
-    no_results_text: "Inga resultat hittades för: ",
-    placeholder_text_multiple: "Välj några",
-    placeholder_text_single: "Välj någon"
-  });
-  $('.chosen-with-deselect').chosen({
-    allow_single_deselect: true,
-    no_results_text: "Inga resultat hittades för: ",
-    placeholder_text_multiple: "Välj några",
-    placeholder_text_single: "Välj någon"
-  });
-});
+//= require godmin/select_tags

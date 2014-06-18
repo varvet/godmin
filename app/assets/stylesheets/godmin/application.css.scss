@@ -12,16 +12,29 @@
  *= require font-awesome
  */
 
-@import 'bootstrap';
-// @import 'godmin/bootstrap-chosen';
+@import "bootstrap";
+@import "select2";
+@import "select2-bootstrap";
 
 #scopes {
   margin-bottom: 20px;
 }
 
+#filters {
+  .filter {
+    min-width: 170px;
+  }
+}
+
 #actions {
   @include clearfix();
   margin-bottom: 20px;
+}
+
+#table {
+  td {
+    vertical-align: middle;
+  }
 }
 
 .pagination {

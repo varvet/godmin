@@ -1,4 +1,26 @@
 en:
+  godmin:
+    sign_out: Sign out
+    batch_processes:
+      select_all: Select all
+      deselect_all: Deselect all
+      confirm_message: Are you sure?
+    filters:
+      select:
+        placeholder:
+          one: Select something
+          many: Select something
+      buttons:
+        apply: Filter
+        clear: Clear filter
+    column_actions:
+      show: Show
+      edit: Edit
+      destroy: Destroy
+      confirm_message: Are you sure?
+    create_model: Create %{resource}
+    update_model: Update %{resource}
+    destroy_model: Destroy %{resource}
   views:
     pagination:
       first: "First"

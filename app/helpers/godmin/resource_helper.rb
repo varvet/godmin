@@ -33,6 +33,10 @@ module Godmin
           column_value = localize(column_value, format: :long)
         end
 
+        if column_value.is_a?(TrueClass) || column_value.is_a?(FalseClass)
+          column_value = I18n.t(column_value.to_s)
+        end
+
         column_value
       end
     end
@@ -42,9 +46,9 @@ module Godmin
           (options[:only] && options[:only].include?(params[:scope].to_sym)) ||
           (options[:except] && !options[:except].include?(params[:scope].to_sym)))
 
-        link_to options[:label], "#", class: "btn btn-default batch-process-action-link hidden", data: {
+        link_to godmin_translate("batch_processes.#{name}", default: name.to_s.titleize), "#", class: "btn btn-default batch-process-action-link hidden", data: {
           value: name,
-          confirm: options[:confirm] ? "Är du säker" : false
+            confirm: options[:confirm] ? godmin_translate("batch_processes.confirm_message") : false
         }
       end
     end

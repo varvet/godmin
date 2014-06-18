@@ -15,7 +15,6 @@ module Godmin
         # Macro method for defining a batch process
         def self.batch_processes(attr, options = {})
           defaults = {
-            label: attr.to_s.titlecase,
             only: nil,
             except: nil,
             confirm: false
@@ -58,7 +57,6 @@ module Godmin
         # Macro method for defining a filter
         def self.filters(attr, options = {})
           defaults = {
-            label: resource_class.human_attribute_name(attr),
             as: :string,
             option_text: "to_s",
             option_value: "id",
@@ -72,7 +70,7 @@ module Godmin
         end
 
         def apply_filters(collection)
-          if params[:filter]
+          if params[:filter].present?
             params[:filter].each do |name, value|
               if filter_map.key?(name.to_sym) && value.present?
                 collection = send("filter_#{name}", collection, value)
@@ -95,7 +93,6 @@ module Godmin
         # Macro method for defining a scope
         def self.scopes(attr, options = {})
           defaults = {
-            label: attr.to_s.titlecase,
             default: false
           }
           scope_map[attr] = defaults.merge(options)
@@ -106,7 +103,7 @@ module Godmin
         end
 
         def apply_scope(collection)
-          unless params[:scope]
+          if params[:scope].blank?
             params[:scope] = default_scope
           end
 
@@ -135,7 +132,7 @@ module Godmin
 
     concerning :Ordering do
       def apply_order(collection)
-        if params[:order]
+        if params[:order].present?
           collection.order("#{resource_class.table_name}.#{order_column} #{order_direction}")
         else
           collection
