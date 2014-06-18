@@ -15,7 +15,6 @@ module Godmin
         # Macro method for defining a batch process
         def self.batch_processes(attr, options = {})
           defaults = {
-            label: attr.to_s.titlecase,
             only: nil,
             except: nil,
             confirm: false
@@ -94,7 +93,6 @@ module Godmin
         # Macro method for defining a scope
         def self.scopes(attr, options = {})
           defaults = {
-            label: attr.to_s.titlecase,
             default: false
           }
           scope_map[attr] = defaults.merge(options)
