@@ -1,6 +1,6 @@
 module Godmin
   class ResourceController < ApplicationController
-    inherit_resources
+    # inherit_resources
     # defaults route_prefix: nil # TODO: this doesn't work for some reason... issue filed
 
     concerning :BatchProcessing do
