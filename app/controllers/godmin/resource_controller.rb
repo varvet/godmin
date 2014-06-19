@@ -154,62 +154,71 @@ module Godmin
       end
     end
 
-    concerning :InheritedResources do
+    concerning :Actions do
       included do
 
         respond_to :html, :json
 
-        helper_method :collection
-        helper_method :resource_class
-        helper_method :resource
+        before_action :set_collection, only: :index
+        before_action :set_resource_class
+        before_action :set_resource, only: [:show, :edit, :update, :destroy]
+
+        def begin_of_association_chain
+          resource_class.all
+        end
 
         def collection
-          @collection ||=
-            apply_pagination(
-              apply_order(
-                apply_filters(
-                  apply_scope(
-                    resource_class.all
-                  )
+          apply_pagination(
+            apply_order(
+              apply_filters(
+                apply_scope(
+                  begin_of_association_chain
                 )
               )
             )
+          )
         end
 
         def resource_class
-          @resource_class ||= controller_name.classify.constantize
+          controller_name.classify.constantize
         end
 
         def resource
-          @resource ||=
-            if params[:id]
-              resource_class.find(params[:id])
-            else
-              resource_class.new
-            end
+          resource_class.find(params[:id])
         end
 
-        def index
-          collection
+        def new
+          @resource = resource_class.new
         end
 
         def create
-          resource.assign_attributes(resource_params)
-          resource.save
-          respond_with(resource)
+          @resource = resource_class.create(resource_params)
+          respond_with(@resource)
         end
 
         def update
-          resource.update(resource_params)
-          respond_with(resource)
+          @resource.update(resource_params)
+          respond_with(@resource)
         end
 
         def destroy
-          resource.destroy
-          respond_with(resource)
+          @resource.destroy
+          respond_with(@resource)
         end
 
         protected
+
+        def set_collection
+          @collection ||= collection
+        end
+
+        def set_resource_class
+          @resource_class ||= resource_class
+        end
+
+        def set_resource
+          @resource ||= resource
+        end
 
         def resource_params
           params.require(resource_class.name.downcase.to_sym).permit(attrs_for_form)

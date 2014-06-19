@@ -3,6 +3,6 @@
     <%= godmin_render_partial "batch_actions" %>
   </div>
   <div class="pull-right">
-    <%= link_to godmin_translate("create_model"), [:new, resource_class.to_s.underscore], class: "btn btn-default" %>
+    <%= link_to godmin_translate("create_model"), [:new, @resource_class.to_s.underscore], class: "btn btn-default" %>
   </div>
 </div>

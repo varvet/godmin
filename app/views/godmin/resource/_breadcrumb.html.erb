@@ -1,20 +1,20 @@
 <ol class="breadcrumb">
   <% if index %>
     <li class="active">
-      <%= resource_class.model_name.human(count: 2) %>
+      <%= @resource_class.model_name.human(count: 2) %>
     </li>
   <% else %>
     <li>
-      <%= link_to resource_class.model_name.human(count: 2), resource_class %>
+      <%= link_to @resource_class.model_name.human(count: 2), @resource_class %>
     </li>
   <% end %>
   </li>
   <% unless index %>
     <li class="active">
-      <% if resource.new_record? %>
+      <% if @resource.new_record? %>
         Create
       <% else %>
-        <%= resource.to_s %>
+        <%= @resource.to_s %>
       <% end %>
     </li>
   <% end %>

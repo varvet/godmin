@@ -2,11 +2,11 @@ module Godmin
   module ResourceHelper
 
     def godmin_attribute_name(attribute)
-      resource_class.human_attribute_name(attribute.to_s)
+      @resource_class.human_attribute_name(attribute.to_s)
     end
 
     def godmin_column_header(attribute)
-      if resource_class.column_names.include?(attribute.to_s)
+      if @resource_class.column_names.include?(attribute.to_s)
         direction =
           if params[:order]
             if params[:order].split("_").first == attribute.to_s

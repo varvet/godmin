@@ -15,7 +15,7 @@
       <div class="pull-right">
         <label>&nbsp;</label><br>
         <%= button_tag godmin_translate("filters.buttons.apply"), class: "btn btn-default" %>
-        <%= link_to godmin_translate("filters.buttons.clear"), polymorphic_path(resource_class, scope: params[:scope], order: params[:order]), class: "btn btn-default" %>
+        <%= link_to godmin_translate("filters.buttons.clear"), polymorphic_path(@resource_class, scope: params[:scope], order: params[:order]), class: "btn btn-default" %>
       </div>
 
     <% end %>
