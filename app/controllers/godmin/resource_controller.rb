@@ -1,7 +1,5 @@
 module Godmin
   class ResourceController < ApplicationController
-    # inherit_resources
-    # defaults route_prefix: nil # TODO: this doesn't work for some reason... issue filed
 
     concerning :BatchProcessing do
       included do
@@ -156,6 +154,70 @@ module Godmin
       end
     end
 
+    concerning :InheritedResources do
+      included do
+
+        respond_to :html, :json
+
+        helper_method :collection
+        helper_method :resource_class
+        helper_method :resource
+
+        def collection
+          @collection ||=
+            apply_pagination(
+              apply_order(
+                apply_filters(
+                  apply_scope(
+                    resource_class.all
+                  )
+                )
+              )
+            )
+        end
+
+        def resource_class
+          @resource_class ||= controller_name.classify.constantize
+        end
+
+        def resource
+          @resource ||=
+            if params[:id]
+              resource_class.find(params[:id])
+            else
+              resource_class.new
+            end
+        end
+
+        def index
+          collection
+        end
+
+        def create
+          resource.assign_attributes(resource_params)
+          resource.save
+          respond_with(resource)
+        end
+
+        def update
+          resource.update(resource_params)
+          respond_with(resource)
+        end
+
+        def destroy
+          resource.destroy
+          respond_with(resource)
+        end
+
+        protected
+
+        def resource_params
+          params.require(resource_class.name.downcase.to_sym).permit(attrs_for_form)
+        end
+
+      end
+    end
+
     helper_method :attrs_for_index
     helper_method :attrs_for_form
 
@@ -169,22 +231,6 @@ module Godmin
     # to be included in the default form
     def attrs_for_form
       []
-    end
-
-    def collection
-      apply_pagination(
-        apply_order(
-          apply_filters(
-            apply_scope(super)
-          )
-        )
-      )
-    end
-
-    protected
-
-    def permitted_params
-      params.permit(resource_class.name.downcase => attrs_for_form)
     end
 
   end
