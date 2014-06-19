@@ -1,7 +1,5 @@
 module Godmin
   class ResourceController < ApplicationController
-    inherit_resources
-    # defaults route_prefix: nil # TODO: this doesn't work for some reason... issue filed
 
     concerning :BatchProcessing do
       included do
@@ -156,6 +154,79 @@ module Godmin
       end
     end
 
+    concerning :Actions do
+      included do
+
+        respond_to :html, :json
+
+        before_action :set_collection, only: :index
+        before_action :set_resource_class
+        before_action :set_resource, only: [:show, :edit, :update, :destroy]
+
+        def begin_of_association_chain
+          resource_class.all
+        end
+
+        def collection
+          apply_pagination(
+            apply_order(
+              apply_filters(
+                apply_scope(
+                  begin_of_association_chain
+                )
+              )
+            )
+          )
+        end
+
+        def resource_class
+          controller_name.classify.constantize
+        end
+
+        def resource
+          resource_class.find(params[:id])
+        end
+
+        def new
+          @resource = resource_class.new
+        end
+
+        def create
+          @resource = resource_class.create(resource_params)
+          respond_with(@resource)
+        end
+
+        def update
+          @resource.update(resource_params)
+          respond_with(@resource)
+        end
+
+        def destroy
+          @resource.destroy
+          respond_with(@resource)
+        end
+
+        protected
+
+        def set_collection
+          @collection ||= collection
+        end
+
+        def set_resource_class
+          @resource_class ||= resource_class
+        end
+
+        def set_resource
+          @resource ||= resource
+        end
+
+        def resource_params
+          params.require(resource_class.name.downcase.to_sym).permit(attrs_for_form)
+        end
+
+      end
+    end
+
     helper_method :attrs_for_index
     helper_method :attrs_for_form
 
@@ -169,22 +240,6 @@ module Godmin
     # to be included in the default form
     def attrs_for_form
       []
-    end
-
-    def collection
-      apply_pagination(
-        apply_order(
-          apply_filters(
-            apply_scope(super)
-          )
-        )
-      )
-    end
-
-    protected
-
-    def permitted_params
-      params.permit(resource_class.name.downcase => attrs_for_form)
     end
 
   end
