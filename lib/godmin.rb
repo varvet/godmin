@@ -1,9 +1,7 @@
 # TODO: make sure list is relevant
 require "bootstrap-sass"
 require "cancan"
-require "font-awesome-rails"
 require 'select2-rails'
-require "inherited_resources"
 require "kaminari"
 require "simple_form"
 require "godmin/engine"
