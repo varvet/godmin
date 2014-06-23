@@ -109,7 +109,7 @@ module Godmin
             if respond_to?("scope_#{params[:scope]}", true)
               send("scope_#{params[:scope]}", resources)
             else
-              resources.send(params[:scope]) # TODO: should we even support this?
+              resources.send(params[:scope]) # TODO: should we even support this? perhaps not?
             end
           else
             resources
