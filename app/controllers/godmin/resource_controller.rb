@@ -175,10 +175,18 @@ module Godmin
       apply_pagination(
         apply_order(
           apply_filters(
-            apply_scope(super)
+            apply_scope(
+              policy_scope(super)
+            )
           )
         )
       )
+    end 
+
+    def resource
+      @resource = super
+      authorize @resource
+      @resource
     end
 
     protected
