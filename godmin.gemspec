@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form", "~> 3.0.0"
   # TODO: We need the github version for now due to namespace support.
   # s.add_dependency "pundit", "~> 0.2.3"
+  s.add_dependency "select2-rails", "~> 3.5.7"
 
   s.add_development_dependency "sqlite3"
 end
