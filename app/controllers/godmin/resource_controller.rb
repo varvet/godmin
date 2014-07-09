@@ -161,7 +161,7 @@ module Godmin
 
         before_action :set_resource_class
         before_action :set_resources, only: :index
-        before_action :set_resource, only: [:show, :edit, :update, :destroy]
+        before_action :set_resource, only: [:show, :new, :edit, :update, :destroy]
 
         def resource_class
           controller_name.classify.constantize
@@ -184,16 +184,12 @@ module Godmin
         end
 
         def resource
-          resource_class.find(params[:id])
+          if params[:id]
+            resource_class.find(params[:id])
+          else
+            resource_class.new
+          end
         end
-
-        def index; end
-
-        def new
-          @resource = resource_class.new
-        end
-
-        def edit; end
 
         def create
           @resource = resource_class.create(resource_params)
