@@ -1,7 +1,7 @@
 en:
   godmin:
     sign_out: Sign out
-    batch_processes:
+    batch_actions:
       select_all: Select all
       deselect_all: Deselect all
       confirm_message: Are you sure?

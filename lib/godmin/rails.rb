@@ -6,7 +6,7 @@ module ActionDispatch::Routing
         Godmin.resources << resources.first unless Godmin.resources.include?(resources.first)
 
         super do
-          post "batch_process", on: :collection
+          post "batch_action", on: :collection
         end
       end
 

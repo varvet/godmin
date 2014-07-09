@@ -1,7 +1,7 @@
 <div id="table" class="table-responsive">
   <table class="table table-bordered table-hover">
     <tr>
-      <% unless batch_process_map.empty? %>
+      <% if batch_action_map.present? %>
         <th></th>
       <% end %>
       <% attrs_for_index.each do |attr| %>
@@ -12,14 +12,14 @@
       <th></th>
     </tr>
     <% @resources.each do |resource| %>
-      <% if flash[:batch_processed_ids] && flash[:batch_processed_ids].include?(resource.id) %>
+      <% if flash[:batch_actioned_ids] && flash[:batch_actioned_ids].include?(resource.id) %>
         <tr class="highlight">
       <% else %>
         <tr>
       <% end %>
-        <% unless batch_process_map.empty? %>
+        <% if batch_action_map.present? %>
           <td align="center">
-            <%= check_box_tag "batch_process[items][#{resource.id}]" %>
+            <%= check_box_tag "batch_action[items][#{resource.id}]" %>
           </td>
         <% end %>
         <% attrs_for_index.each do |attr| %>
