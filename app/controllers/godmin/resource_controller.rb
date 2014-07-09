@@ -106,11 +106,7 @@ module Godmin
           end
 
           if params[:scope] && scope_map.key?(params[:scope].to_sym)
-            if respond_to?("scope_#{params[:scope]}", true)
-              send("scope_#{params[:scope]}", resources)
-            else
-              resources.send(params[:scope]) # TODO: should we even support this? perhaps not?
-            end
+            send("scope_#{params[:scope]}", resources)
           else
             resources
           end
