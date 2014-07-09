@@ -18,9 +18,9 @@ en:
       edit: Edit
       destroy: Destroy
       confirm_message: Are you sure?
-    create_model: Create %{resource}
-    update_model: Update %{resource}
-    destroy_model: Destroy %{resource}
+    create_resource: Create %{resource}
+    update_resource: Update %{resource}
+    destroy_resource: Destroy %{resource}
   views:
     pagination:
       first: "First"

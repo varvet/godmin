@@ -1,7 +1,5 @@
 module Godmin
   class ResourceController < ApplicationController
-    inherit_resources
-    # defaults route_prefix: nil # TODO: this doesn't work for some reason... issue filed
 
     concerning :BatchProcessing do
       included do
@@ -69,15 +67,15 @@ module Godmin
           self.class.filter_map
         end
 
-        def apply_filters(collection)
+        def apply_filters(resources)
           if params[:filter].present?
             params[:filter].each do |name, value|
               if filter_map.key?(name.to_sym) && value.present?
-                collection = send("filter_#{name}", collection, value)
+                resources = send("filter_#{name}", resources, value)
               end
             end
           end
-          collection
+          resources
         end
       end
     end
@@ -102,19 +100,19 @@ module Godmin
           self.class.scope_map
         end
 
-        def apply_scope(collection)
+        def apply_scope(resources)
           if params[:scope].blank?
             params[:scope] = default_scope
           end
 
           if params[:scope] && scope_map.key?(params[:scope].to_sym)
             if respond_to?("scope_#{params[:scope]}", true)
-              send("scope_#{params[:scope]}", collection)
+              send("scope_#{params[:scope]}", resources)
             else
-              collection.send(params[:scope]) # TODO: should we even support this?
+              resources.send(params[:scope]) # TODO: should we even support this? perhaps not?
             end
           else
-            collection
+            resources
           end
         end
 
@@ -131,11 +129,11 @@ module Godmin
     end
 
     concerning :Ordering do
-      def apply_order(collection)
+      def apply_order(resources)
         if params[:order].present?
-          collection.order("#{resource_class.table_name}.#{order_column} #{order_direction}")
+          resources.order("#{resource_class.table_name}.#{order_column} #{order_direction}")
         else
-          collection
+          resources
         end
       end
 
@@ -151,8 +149,81 @@ module Godmin
     end
 
     concerning :Pagination do
-      def apply_pagination(collection)
-        collection.page(params[:page])
+      def apply_pagination(resources)
+        resources.page(params[:page])
+      end
+    end
+
+    concerning :Actions do
+      included do
+
+        respond_to :html, :json
+
+        before_action :set_resource_class
+        before_action :set_resources, only: :index
+        before_action :set_resource, only: [:show, :new, :edit, :update, :destroy]
+
+        def resource_class
+          controller_name.classify.constantize
+        end
+
+        def resources_relation
+          resource_class.all
+        end
+
+        def resources
+          apply_pagination(
+            apply_order(
+              apply_filters(
+                apply_scope(
+                  resources_relation
+                )
+              )
+            )
+          )
+        end
+
+        def resource
+          if params[:id]
+            resource_class.find(params[:id])
+          else
+            resource_class.new
+          end
+        end
+
+        def create
+          @resource = resource_class.create(resource_params)
+          respond_with(@resource)
+        end
+
+        def update
+          @resource.update(resource_params)
+          respond_with(@resource)
+        end
+
+        def destroy
+          @resource.destroy
+          respond_with(@resource)
+        end
+
+        protected
+
+        def set_resource_class
+          @resource_class ||= resource_class
+        end
+
+        def set_resources
+          @resources ||= resources
+        end
+
+        def set_resource
+          @resource ||= resource
+        end
+
+        def resource_params
+          params.require(resource_class.name.downcase.to_sym).permit(attrs_for_form)
+        end
+
       end
     end
 
@@ -169,22 +240,6 @@ module Godmin
     # to be included in the default form
     def attrs_for_form
       []
-    end
-
-    def collection
-      apply_pagination(
-        apply_order(
-          apply_filters(
-            apply_scope(super)
-          )
-        )
-      )
-    end
-
-    protected
-
-    def permitted_params
-      params.permit(resource_class.name.downcase => attrs_for_form)
     end
 
   end

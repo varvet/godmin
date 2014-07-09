@@ -22,8 +22,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "bootstrap-sass", "~> 3.1.1.0"
   s.add_dependency "cancan", "~> 1.6.10"
-  s.add_dependency "font-awesome-rails", "~> 3.2.1.3"
-  s.add_dependency "inherited_resources", "~> 1.4.1"
   s.add_dependency "kaminari", "~> 0.15.1"
   s.add_dependency "simple_form", "~> 3.0.0"
   s.add_dependency "select2-rails", "~> 3.5.7"

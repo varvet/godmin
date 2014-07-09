@@ -11,7 +11,7 @@
       <% end %>
       <th></th>
     </tr>
-    <% collection.each do |resource| %>
+    <% @resources.each do |resource| %>
       <% if flash[:batch_processed_ids] && flash[:batch_processed_ids].include?(resource.id) %>
         <tr class="highlight">
       <% else %>
