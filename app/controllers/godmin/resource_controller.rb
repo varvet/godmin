@@ -12,12 +12,11 @@ module Godmin
 
         # Macro method for defining a batch action
         def self.batch_action(attr, options = {})
-          defaults = {
+          batch_action_map[attr] = {
             only: nil,
             except: nil,
             confirm: false
-          }
-          batch_action_map[attr] = defaults.merge(options)
+          }.merge(options)
         end
 
         # Gives the view access to the batch action map
@@ -53,14 +52,13 @@ module Godmin
         end
 
         # Macro method for defining a filter
-        def self.filters(attr, options = {})
-          defaults = {
+        def self.filter(attr, options = {})
+          filter_map[attr] = {
             as: :string,
             option_text: "to_s",
             option_value: "id",
             collection: nil
-          }
-          filter_map[attr] = defaults.merge(options)
+          }.merge(options)
         end
 
         def filter_map
@@ -89,11 +87,10 @@ module Godmin
         end
 
         # Macro method for defining a scope
-        def self.scopes(attr, options = {})
-          defaults = {
+        def self.scope(attr, options = {})
+          scope_map[attr] = {
             default: false
-          }
-          scope_map[attr] = defaults.merge(options)
+          }.merge(options)
         end
 
         def scope_map
