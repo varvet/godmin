@@ -184,6 +184,14 @@ module Godmin
           end
         end
 
+        def index
+          respond_with(@resources)
+        end
+
+        def show
+          respond_with(@resource)
+        end
+
         def create
           @resource = resource_class.create(resource_params)
           respond_with(@resource)
