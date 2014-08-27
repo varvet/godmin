@@ -1,6 +1,5 @@
 require 'bootstrap-sass'
 require 'cancan'
-require 'font-awesome-rails'
 require 'inherited_resources'
 require 'kaminari'
 require 'simple_form'
