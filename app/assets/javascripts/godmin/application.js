@@ -29,4 +29,12 @@ $(function(){
     placeholder_text_multiple: "Välj några",
     placeholder_text_single: "Välj någon"
   });
+
+  // Remove empty navbar dropdowns
+  $('.navbar-nav .dropdown').each(function() {
+    var $el = $(this);
+    if($el.find('li').length == 0) {
+      $el.remove();
+    }
+  });
 });
