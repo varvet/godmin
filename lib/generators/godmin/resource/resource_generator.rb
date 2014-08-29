@@ -21,6 +21,8 @@ class Godmin::ResourceGenerator < Rails::Generators::Base
           #     scope :foo
           #   end
           #
+          #   private
+          #
           #   def scope_foo(#{@resource.tableize})
           #     #{@resource.tableize}.where(condition: true)
           #   end
@@ -31,6 +33,8 @@ class Godmin::ResourceGenerator < Rails::Generators::Base
           #     filter :foo
           #   end
           #
+          #   private
+          #
           #   def filter_foo(#{@resource.tableize}, value)
           #     #{@resource.tableize}.where(condition: value)
           #   end
@@ -40,6 +44,8 @@ class Godmin::ResourceGenerator < Rails::Generators::Base
           #   included do
           #     batch_action :foo, confirm: true
           #   end
+          #
+          #   private
           #
           #   def batch_action_foo(#{@resource.tableize})
           #     #{@resource.tableize}.each do |#{@resource.tableize[0]}|
