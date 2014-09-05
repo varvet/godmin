@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Godmin</title>
+    <%= stylesheet_link_tag "godmin/application", "#{Godmin.mounted_as}/application", media: "all" %>
+    <%= javascript_include_tag "godmin/application", "#{Godmin.mounted_as}/application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <h3 class="panel-title">Godmin</h3>
+            </div>
+
+            <div class="panel-body">
+
+              <% if flash[:alert] %>
+                <div class="alert alert-danger">
+                  <%= flash[:alert] %>
+                </div>
+              <% end %>
+
+              <% if flash[:notice] %>
+                <div class="alert alert-info">
+                  <%= flash[:notice] %>
+                </div>
+              <% end %>
+
+              <%= yield %>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

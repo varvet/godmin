@@ -15,10 +15,10 @@ module Godmin
   self.resources = []
 
   mattr_accessor :authentication_method
-  self.authentication_method = false
+  self.authentication_method = nil
 
   mattr_accessor :current_user_method
-  self.current_user_method = false
+  self.current_user_method = nil
 
   def self.configure
     yield self
