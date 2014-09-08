@@ -8,9 +8,7 @@ module Godmin
     private
 
     def authenticate_user
-      if Godmin.authentication_method
-        self.send(Godmin.authentication_method)
-      end
+      nil
     end
   end
 end

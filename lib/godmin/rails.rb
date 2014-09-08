@@ -15,14 +15,14 @@ module ActionDispatch::Routing
 
     private
 
-    # TODO: not sure why we need this here but not for resources...
-    alias_method :original_devise_for, :devise_for
+    # TODO: it would be nice if this could be replaced with super calls
+    alias_method :_devise_for, :devise_for
 
     def override_devise_for
       def devise_for(*resources)
         Rails.application.routes.draw do
           scope Godmin.mounted_as do
-            original_devise_for(*resources, {
+            _devise_for(*resources, {
               controllers: {
                 passwords: "godmin/devise/passwords",
                 registrations: "godmin/devise/registrations",
@@ -36,9 +36,12 @@ module ActionDispatch::Routing
       yield
 
       def devise_for(*resources)
-        original_devise_for(*resources)
+        _devise_for(*resources)
       end
     end
+
+    # TODO: it would be nice if this could be replaced with super calls
+    alias_method :_resources, :resources
 
     def override_resources
       def resources(*resources, &block)
@@ -46,7 +49,10 @@ module ActionDispatch::Routing
           Godmin.resources << resources.first
         end
 
-        super do
+        _resources(*resources) do
+          if block
+            block.call
+          end
           post "batch_action", on: :collection
         end
       end
@@ -54,7 +60,7 @@ module ActionDispatch::Routing
       yield
 
       def resources(*resources, &block)
-        super
+        _resources(*resources, &block)
       end
     end
 
