@@ -7,8 +7,6 @@ module Godmin
 
     private
 
-    def authenticate_user
-      nil
-    end
+    def authenticate_user; end
   end
 end
