@@ -7,7 +7,7 @@ module Godmin
 
     def godmin_locate_partial(partial, strict: false)
       paths = [
-        "#{Godmin.mounted_as}/#{@resource_class.to_s.underscore.pluralize}",
+        "#{Godmin.mounted_as}/#{@resource_class.to_s.underscore.pluralize}", # TODO: what is possible as mounted as?
         "#{Godmin.mounted_as}/resource",
         "#{Godmin.mounted_as}",
         "godmin/resource",

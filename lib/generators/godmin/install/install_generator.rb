@@ -1,6 +1,7 @@
 class Godmin::InstallGenerator < Rails::Generators::Base
   argument :path, type: :string
 
+  # TODO: mounted as should probably not be a dot
   def create_initializer
     create_file "#{@path}/config/initializers/godmin.rb" do
       <<-END.strip_heredoc
@@ -24,6 +25,10 @@ class Godmin::InstallGenerator < Rails::Generators::Base
     gsub_file "#{@path}/app/controllers/#{@path}/application_controller.rb", "ActionController::Base" do |match|
       "Godmin::ApplicationController"
     end
+  end
+
+  def remove_layouts
+    remove_dir "#{@path}/app/views/layouts"
   end
 
 end

@@ -11,6 +11,7 @@ class Godmin::ResourceGenerator < Rails::Generators::Base
     end
   end
 
+  # TODO: @path cannot be used as is, if it's a dot things will blow up
   def create_controller
     create_file "#{@path}/app/controllers/#{@path}/#{@resource.tableize}_controller.rb" do
       <<-END.strip_heredoc
