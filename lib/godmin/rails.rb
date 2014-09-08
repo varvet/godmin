@@ -20,17 +20,14 @@ module ActionDispatch::Routing
 
     def override_devise_for
       def devise_for(*resources)
-        Rails.application.routes.draw do
-          scope Godmin.mounted_as do
-            _devise_for(*resources, {
-              controllers: {
-                passwords: "godmin/devise/passwords",
-                registrations: "godmin/devise/registrations",
-                sessions: "godmin/devise/sessions"
-              }
-            }.deep_merge(resources.extract_options!))
-          end
-        end
+        _devise_for(*resources, {
+          router_name: Godmin.mounted_as,
+          controllers: {
+            passwords: "godmin/devise/passwords",
+            registrations: "godmin/devise/registrations",
+            sessions: "godmin/devise/sessions"
+          }
+        }.deep_merge(resources.extract_options!))
       end
 
       yield
@@ -44,15 +41,13 @@ module ActionDispatch::Routing
     alias_method :_resources, :resources
 
     def override_resources
-      def resources(*resources, &block)
+      def resources(*resources)
         unless Godmin.resources.include?(resources.first)
           Godmin.resources << resources.first
         end
 
         _resources(*resources) do
-          if block
-            block.call
-          end
+          yield if block_given?
           post "batch_action", on: :collection
         end
       end
