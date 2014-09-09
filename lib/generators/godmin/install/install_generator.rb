@@ -26,7 +26,7 @@ class Godmin::InstallGenerator < Rails::Generators::Base
   end
 
   def create_controller
-    gsub_file build_path(@path, "app/controllers", @path, "application_controller.rb"), "ActionController::Base" do |match|
+    gsub_file build_path(@path, "app/controllers", @path, "application_controller.rb"), "ActionController::Base" do
       "Godmin::ApplicationController"
     end
   end
