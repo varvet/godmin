@@ -76,5 +76,4 @@ class Godmin::ResourceGenerator < Rails::Generators::Base
   def build_path(*parts)
     parts.compact.join("/")
   end
-
 end
