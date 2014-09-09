@@ -10,7 +10,7 @@ class Godmin::InstallGenerator < Rails::Generators::Base
     create_file build_path(@path, "config/initializers/godmin.rb") do
       <<-END.strip_heredoc
         Godmin.configure do |config|
-          config.mounted_as = #{@path ? @path.to_sym : "nil"}
+          config.mounted_as = #{@path ? ":#{@path}" : "nil"}
         end
       END
     end
