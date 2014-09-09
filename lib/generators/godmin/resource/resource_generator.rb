@@ -3,19 +3,22 @@ class Godmin::ResourceGenerator < Rails::Generators::Base
   argument :resource, type: :string
   argument :attributes, type: :array, default: [], banner: "attribute attribute"
 
+  def clean_path
+    @path = @path == "." ? nil : @path
+  end
+
   def create_route
-    inject_into_file "#{@path}/config/routes.rb", after: "godmin do\n" do
+    inject_into_file build_path(@path, "config/routes.rb"), after: "godmin do\n" do
       <<-END.strip_heredoc.indent(4)
         resources :#{@resource.tableize}
       END
     end
   end
 
-  # TODO: @path cannot be used as is, if it's a dot things will blow up
   def create_controller
-    create_file "#{@path}/app/controllers/#{@path}/#{@resource.tableize}_controller.rb" do
+    create_file build_path(@path, "app/controllers", @path, "#{@resource.tableize}_controller.rb") do
       <<-END.strip_heredoc
-        class #{(@path + "/" + @resource.tableize).camelize}Controller < Godmin::ResourceController
+        class #{build_path(@path, @resource.tableize).camelize}Controller < Godmin::ResourceController
 
           # concerning :Scopes do
           #   included do
@@ -66,6 +69,12 @@ class Godmin::ResourceGenerator < Rails::Generators::Base
         end
       END
     end
+  end
+
+  private
+
+  def build_path(*parts)
+    parts.compact.join("/")
   end
 
 end
