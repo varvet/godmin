@@ -7,9 +7,9 @@ module Godmin
 
     def godmin_locate_partial(partial, strict: false)
       paths = [
-        "#{Godmin.mounted_as}/#{@resource_class.to_s.underscore.pluralize}",
-        "#{Godmin.mounted_as}/resource",
-        "#{Godmin.mounted_as}",
+        [Godmin.mounted_as, @resource_class.to_s.underscore.pluralize].compact.join("/"),
+        [Godmin.mounted_as, "resource"].compact.join("/"),
+        [Godmin.mounted_as].compact.join("/"),
         "godmin/resource",
         "godmin"
       ]

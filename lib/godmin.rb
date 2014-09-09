@@ -10,7 +10,7 @@ require "godmin/version"
 
 module Godmin
   mattr_accessor :mounted_as
-  self.mounted_as = :admin
+  self.mounted_as = nil
 
   mattr_accessor :resources
   self.resources = []
