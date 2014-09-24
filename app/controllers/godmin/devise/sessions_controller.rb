@@ -19,6 +19,18 @@
 #   end
 # end
 
+# module Godmin
+#   module Devise
+#     class SessionsController < Godmin::ApplicationController #< ::Devise::SessionsController
+#       layout "godmin/devise"
+#
+#       def new
+#         ::Devise::SessionsController.action("new").call(env)
+#       end
+#     end
+#   end
+# end
+
 module Godmin
   module Devise
     class SessionsController < ::Devise::SessionsController
