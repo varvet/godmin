@@ -4,8 +4,12 @@ require "cancan"
 require 'select2-rails'
 require "kaminari"
 require "simple_form"
+require "godmin/application"
 require "godmin/engine"
+require "godmin/helpers/render"
+require "godmin/helpers/translate"
 require "godmin/rails"
+require "godmin/resolver"
 require "godmin/version"
 
 module Godmin
