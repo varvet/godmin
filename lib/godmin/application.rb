@@ -6,8 +6,8 @@ module Godmin
       # include Godmin::Helpers::Render
       include Godmin::Helpers::Translate
 
-      append_view_path Godmin::Resolver.new(:app)
-      append_view_path Godmin::Resolver.new(:godmin)
+      append_view_path Godmin::FooResolver.new
+      append_view_path Godmin::BarResolver.new
 
       layout "godmin/application"
     end
