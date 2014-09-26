@@ -3,11 +3,9 @@ module Godmin
     extend ActiveSupport::Concern
 
     included do
-      # include Godmin::Helpers::Render
       include Godmin::Helpers::Translate
 
-      append_view_path Godmin::FooResolver.new
-      append_view_path Godmin::BarResolver.new
+      before_action :append_view_paths
 
       layout "godmin/application"
     end
@@ -17,12 +15,9 @@ module Godmin
 
     private
 
-    # def _prefixes
-    #   super + [
-    #     [Godmin.mounted_as, "resource"].compact.join("/"),
-    #     "godmin/#{controller_path.split("/").last}",
-    #     "godmin/resource"
-    #   ]
-    # end
+    def append_view_paths
+      append_view_path Godmin::FooResolver.new(controller_name)
+      append_view_path Godmin::BarResolver.new(controller_name)
+    end
   end
 end
