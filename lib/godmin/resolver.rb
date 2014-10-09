@@ -37,9 +37,7 @@ module Godmin
         [Godmin.mounted_as, "resource", prefix],
         [Godmin.mounted_as, "resource"],
         [Godmin.mounted_as]
-      ].map { |path|
-        path.compact.join("/")
-      }.compact
+      ].map { |path| path.compact.join("/") }.compact
     end
   end
 
