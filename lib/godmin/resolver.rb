@@ -1,36 +1,11 @@
 module Godmin
   class Resolver < ::ActionView::FileSystemResolver
+    def initialize(path, controller_name)
+      super(path)
+      @controller_name = controller_name
+    end
+
     def find_templates(name, prefix, partial, details)
-
-      # THIS IS HOW IT WORKS:
-      #
-      # 1. name: index; prefix: admin/articles OR articles
-      #
-      #    admin/articles/admin/articles | admin/articles/articles < controller name + prefix !PARTIAL
-      #    admin/articles < controller name
-      #    admin/admin/articles | admin/articles < prefix !PARTIAL
-      #    admin/resource/admin/articles | admin/resource/articles < resource + prefix !PARTIAL
-      #    admin/resource
-      #    admin
-      #
-      # 2. name: navigation; prefix: shared
-      #
-      #    admin/articles/shared < controller name + prefix
-      #    admin/articles < controller name
-      #    admin/shared < prefix
-      #    admin/resource/shared < resource + prefix
-      #    admin/resource
-      #    admin
-      #
-      # 3. name: title; prefix: columns
-      #
-      #    admin/articles/columns < controller name + prefix
-      #    admin/articles < controller name
-      #    admin/columns < prefix
-      #    admin/resource/columns < resource + prefix
-      #    admin/resource < resource
-      #    admin
-
       template = []
 
       template_paths(prefix, partial).each do |path|
@@ -51,8 +26,7 @@ module Godmin
 
   class FooResolver < Resolver
     def initialize(controller_name)
-      super File.join(Godmin.mounted_as, "app/views")
-      @controller_name = controller_name
+      super([Godmin.mounted_as, "app/views"].compact.join("/"), controller_name)
     end
 
     def template_paths(prefix, partial)
@@ -71,8 +45,7 @@ module Godmin
 
   class BarResolver < Resolver
     def initialize(controller_name)
-      super File.join(Godmin::Engine.root, "app/views")
-      @controller_name = controller_name
+      super([Godmin::Engine.root, "app/views"].compact.join("/"), controller_name)
     end
 
     def template_paths(prefix, partial)
