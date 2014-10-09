@@ -29,7 +29,7 @@ module Godmin
       super([Godmin.mounted_as, "app/views"].compact.join("/"), controller_name)
     end
 
-    def template_paths(prefix, partial)
+    def template_paths(prefix, _partial)
       [
         [Godmin.mounted_as, @controller_name, prefix],
         [Godmin.mounted_as, @controller_name],
@@ -46,7 +46,7 @@ module Godmin
       super([Godmin::Engine.root, "app/views"].compact.join("/"), controller_name)
     end
 
-    def template_paths(prefix, partial)
+    def template_paths(prefix, _partial)
       [
         "godmin/#{@controller_name}/#{prefix}",
         "godmin/#{@controller_name}",
