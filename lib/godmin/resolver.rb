@@ -19,7 +19,7 @@ module Godmin
       template
     end
 
-    def template_paths(prefix)
+    def template_paths(_prefix)
       raise ::NotImplementedError
     end
   end
