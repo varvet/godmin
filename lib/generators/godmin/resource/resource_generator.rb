@@ -18,7 +18,8 @@ class Godmin::ResourceGenerator < Rails::Generators::Base
   def create_controller
     create_file build_path(@path, "app/controllers", @path, "#{@resource.tableize}_controller.rb") do
       <<-END.strip_heredoc
-        class #{build_path(@path, @resource.tableize).camelize}Controller < Godmin::ResourceController
+        class #{build_path(@path, @resource.tableize).camelize}Controller < ApplicationController
+          include Godmin::Resource
 
           # concerning :Scopes do
           #   included do
@@ -65,7 +66,6 @@ class Godmin::ResourceGenerator < Rails::Generators::Base
           def attrs_for_form
             #{attributes.map(&:to_sym).to_s}
           end
-
         end
       END
     end
