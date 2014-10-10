@@ -1,5 +1,4 @@
 require "bootstrap-sass"
-require "devise"
 require "kaminari"
 require "select2-rails"
 require "simple_form"

@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency "coffee-rails", [">= 4.0", "< 4.2"]
 
   s.add_dependency "bootstrap-sass", "~> 3.1.1.0"
-  s.add_dependency "devise", "~> 3.3.0"
   s.add_dependency "kaminari", "~> 0.15.1"
   s.add_dependency "select2-rails", "~> 3.5.7"
   s.add_dependency "simple_form", "~> 3.0.0"
