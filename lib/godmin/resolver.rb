@@ -1,6 +1,6 @@
 module Godmin
   class Resolver < ::ActionView::FileSystemResolver
-    attr_accessor :namespace, :controller
+    attr_accessor :namespace, :controller_name
 
     def find_templates(name, prefix, partial, details)
       template = []
@@ -18,8 +18,8 @@ module Godmin
 
     def template_paths(prefix, _partial)
       [
-        [namespace, controller, prefix],
-        [namespace, controller],
+        [namespace, controller_name, prefix],
+        [namespace, controller_name],
         [namespace, prefix],
         [namespace, "resource", prefix],
         [namespace, "resource"],
@@ -29,18 +29,18 @@ module Godmin
   end
 
   class FooResolver < Resolver
-    def initialize(controller)
+    def initialize(controller_name)
       super [Godmin.mounted_as, "app/views"].compact.join("/")
-      self.namespace  = Godmin.mounted_as
-      self.controller = controller
+      self.namespace       = Godmin.mounted_as
+      self.controller_name = controller_name
     end
   end
 
   class BarResolver < Resolver
-    def initialize(controller)
+    def initialize(controller_name)
       super [Godmin::Engine.root, "app/views"].compact.join("/")
-      self.namespace  = "godmin"
-      self.controller = controller
+      self.namespace       = "godmin"
+      self.controller_name = controller_name
     end
   end
 end

@@ -30,28 +30,28 @@ require "test_helper"
 module Godmin
   class ResolverTest < ActiveSupport::TestCase
     def test_foo_resolver_template_paths
-      mounted_as "admin" do
+      mounted_as "namespace" do
         assert_equal [
-          "admin/controller/prefix",
-          "admin/controller",
-          "admin/prefix",
-          "admin/resource/prefix",
-          "admin/resource",
-          "admin"
-        ], FooResolver.new("controller").template_paths("prefix", false)
+          "namespace/controller_name/prefix",
+          "namespace/controller_name",
+          "namespace/prefix",
+          "namespace/resource/prefix",
+          "namespace/resource",
+          "namespace"
+        ], FooResolver.new("controller_name").template_paths("prefix", false)
       end
     end
 
     def test_bar_resolver_template_paths
-      mounted_as "admin" do
+      mounted_as "namespace" do
         assert_equal [
-          "godmin/controller/prefix",
-          "godmin/controller",
+          "godmin/controller_name/prefix",
+          "godmin/controller_name",
           "godmin/prefix",
           "godmin/resource/prefix",
           "godmin/resource",
           "godmin"
-        ], BarResolver.new("controller").template_paths("prefix", false)
+        ], BarResolver.new("controller_name").template_paths("prefix", false)
       end
     end
 
