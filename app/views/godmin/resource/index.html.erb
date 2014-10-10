@@ -1,17 +1,17 @@
-<%= godmin_render_partial "breadcrumb", locals: { index: true } %>
+<%= render partial: "breadcrumb", locals: { index: true } %>
 
-<%= godmin_render_partial "scopes" %>
+<%= render partial: "scopes" %>
 
 <% if filter_map.present? %>
-  <%= godmin_render_partial "filters" %>
+  <%= render partial: "filters" %>
 <% end %>
 
 <%= form_tag [:batch_action, @resource_class], id: "batch-actions-form" do %>
 
-  <%= godmin_render_partial "actions" %>
+  <%= render partial: "actions" %>
 
-  <%= godmin_render_partial "table" %>
+  <%= render partial: "table" %>
 
 <% end %>
 
-<%= godmin_render_partial "pagination" %>
+<%= render partial: "pagination" %>

@@ -6,7 +6,7 @@
       <% end %>
       <% attrs_for_index.each do |attr| %>
         <th>
-          <%= godmin_column_header attr %>
+          <%= column_header attr %>
         </th>
       <% end %>
       <th></th>
@@ -24,11 +24,11 @@
         <% end %>
         <% attrs_for_index.each do |attr| %>
           <td>
-            <%= godmin_column_value(resource, attr) %>
+            <%= column_value(resource, attr) %>
           </td>
         <% end %>
         <td>
-          <%= godmin_render_partial "columns/actions", locals: { resource: resource } %>
+          <%= render partial: "columns/actions", locals: { resource: resource } %>
         </td>
       </tr>
     <% end %>
