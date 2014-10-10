@@ -22,7 +22,7 @@ module Godmin
 
       private
 
-      def filter_string_tag(name, options)
+      def filter_string_tag(name, _options)
         view_context.text_field_tag(
           name,
           default_filter_value(name),
@@ -33,25 +33,29 @@ module Godmin
       end
 
       def filter_select_tag(name, options)
-        filter_select_tag_helper(name, options, {
+        filter_select_tag_helper(
+          name,
+          options,
           name: "filter[#{name}]",
           include_blank: true,
           class: "form-control select-tag",
           data: {
             placeholder: godmin_translate("filters.select.placeholder.one")
           }
-        })
+        )
       end
 
       def filter_multiselect_tag(name, options)
-        filter_select_tag_helper(name, options, {
+        filter_select_tag_helper(
+          name,
+          options,
           name: "filter[#{name}][]",
           multiple: true,
           class: "form-control select-tag",
           data: {
             placeholder: godmin_translate("filters.select.placeholder.many")
           }
-        })
+        )
       end
 
       def filter_select_tag_helper(name, options, html_options)
