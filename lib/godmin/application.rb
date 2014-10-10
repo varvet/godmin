@@ -3,7 +3,7 @@ module Godmin
     extend ActiveSupport::Concern
 
     included do
-      include Godmin::Helpers::Translate
+      include Godmin::Helpers::Translations
 
       before_action :append_view_paths
 

@@ -1,6 +1,6 @@
 module Godmin
   module Helpers
-    module Table
+    module Tables
       extend ActiveSupport::Concern
 
       included do

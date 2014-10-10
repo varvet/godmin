@@ -1,6 +1,6 @@
 module Godmin
   module Helpers
-    module Translate
+    module Translations
       extend ActiveSupport::Concern
 
       included do

@@ -1,6 +1,6 @@
 module Godmin
   module Helpers
-    module BatchAction
+    module BatchActions
       extend ActiveSupport::Concern
 
       included do

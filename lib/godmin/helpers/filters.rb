@@ -1,6 +1,6 @@
 module Godmin
   module Helpers
-    module Filter
+    module Filters
       extend ActiveSupport::Concern
 
       included do

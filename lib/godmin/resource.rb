@@ -3,251 +3,105 @@ module Godmin
     extend ActiveSupport::Concern
 
     included do
-      include Godmin::Helpers::BatchAction
-      include Godmin::Helpers::Filter
-      include Godmin::Helpers::Table
+      include Godmin::Helpers::BatchActions
+      include Godmin::Helpers::Filters
+      include Godmin::Helpers::Tables
 
-      concerning :BatchActions do
-        included do
-          helper_method :batch_action_map
+      include Godmin::Resource::BatchActions
+      include Godmin::Resource::Filters
+      include Godmin::Resource::Scopes
+      include Godmin::Resource::Ordering
+      include Godmin::Resource::Pagination
 
-          # Initializes the batch action map
-          def self.batch_action_map
-            @batch_action_map ||= {}
-          end
+      respond_to :html, :json
 
-          # Macro method for defining a batch action
-          def self.batch_action(attr, options = {})
-            batch_action_map[attr] = {
-              only: nil,
-              except: nil,
-              confirm: false
-            }.merge(options)
-          end
-
-          # Gives the view access to the batch action map
-          def batch_action_map
-            self.class.batch_action_map
-          end
-
-          # All batch actions are routed to this action
-          def batch_action
-            action   = params[:batch_action][:action]
-            item_ids = params[:batch_action][:items].keys.map(&:to_i)
-
-            if batch_action_map.key?(action.to_sym)
-              # Store the batched item ids so they can be highlighted later
-              flash[:batch_actioned_ids] = item_ids
-
-              # If the batch action returns false, it is because it has implemented
-              # its own redirect. Therefore we return wihout redirecting.
-              return unless send("batch_action_#{action}", resource_class.find(item_ids))
-            end
-
-            redirect_to :back
-          end
-        end
-      end
-
-      concerning :Filters do
-        included do
-          helper_method :filter_map
-
-          def self.filter_map
-            @filter_map ||= {}
-          end
-
-          # Macro method for defining a filter
-          def self.filter(attr, options = {})
-            filter_map[attr] = {
-              as: :string,
-              option_text: "to_s",
-              option_value: "id",
-              collection: nil
-            }.merge(options)
-          end
-
-          def filter_map
-            self.class.filter_map
-          end
-
-          def apply_filters(resources)
-            if params[:filter].present?
-              params[:filter].each do |name, value|
-                if filter_map.key?(name.to_sym) && value.present?
-                  resources = send("filter_#{name}", resources, value)
-                end
-              end
-            end
-            resources
-          end
-        end
-      end
-
-      concerning :Scopes do
-        included do
-          helper_method :scope_map
-
-          def self.scope_map
-            @scope_map ||= {}
-          end
-
-          # Macro method for defining a scope
-          def self.scope(attr, options = {})
-            scope_map[attr] = {
-              default: false
-            }.merge(options)
-          end
-
-          def scope_map
-            self.class.scope_map
-          end
-
-          def apply_scope(resources)
-            if params[:scope].blank?
-              params[:scope] = default_scope
-            end
-
-            if params[:scope] && scope_map.key?(params[:scope].to_sym)
-              send("scope_#{params[:scope]}", resources)
-            else
-              resources
-            end
-          end
-
-          protected
-
-          def default_scope
-            scope = scope_map.find -> { scope_map.first } do |k, v|
-              v[:default] == true
-            end
-
-            scope ? scope[0].to_s : nil
-          end
-        end
-      end
-
-      concerning :Ordering do
-        def apply_order(resources)
-          if params[:order].present?
-            resources.order("#{resource_class.table_name}.#{order_column} #{order_direction}")
-          else
-            resources
-          end
-        end
-
-        protected
-
-        def order_column
-          params[:order].rpartition("_").first
-        end
-
-        def order_direction
-          params[:order].rpartition("_").last
-        end
-      end
-
-      concerning :Pagination do
-        def apply_pagination(resources)
-          resources.page(params[:page])
-        end
-      end
-
-      concerning :Actions do
-        included do
-
-          respond_to :html, :json
-
-          before_action :set_resource_class
-          before_action :set_resources, only: :index
-          before_action :set_resource, only: [:show, :new, :edit, :update, :destroy]
-
-          def resource_class
-            controller_name.classify.constantize
-          end
-
-          def resources_relation
-            resource_class.all
-          end
-
-          def resources
-            apply_pagination(
-              apply_order(
-                apply_filters(
-                  apply_scope(
-                    resources_relation
-                  )
-                )
-              )
-            )
-          end
-
-          def resource
-            if params[:id]
-              resource_class.find(params[:id])
-            else
-              resource_class.new
-            end
-          end
-
-          def index
-            respond_with(@resources)
-          end
-
-          def show
-            respond_with(@resource)
-          end
-
-          def create
-            @resource = resource_class.create(resource_params)
-            respond_with(@resource)
-          end
-
-          def update
-            @resource.update(resource_params)
-            respond_with(@resource)
-          end
-
-          def destroy
-            @resource.destroy
-            respond_with(@resource)
-          end
-
-          protected
-
-          def set_resource_class
-            @resource_class ||= resource_class
-          end
-
-          def set_resources
-            @resources ||= resources
-          end
-
-          def set_resource
-            @resource ||= resource
-          end
-
-          def resource_params
-            params.require(resource_class.name.downcase.to_sym).permit(attrs_for_form)
-          end
-
-        end
-      end
+      before_action :set_resource_class
+      before_action :set_resources, only: :index
+      before_action :set_resource, only: [:show, :new, :edit, :update, :destroy]
 
       helper_method :attrs_for_index
       helper_method :attrs_for_form
+    end
 
-      # Gives the view access to the list of column names
-      # to be printed in the index view
-      def attrs_for_index
-        []
-      end
+    def resource_class
+      controller_name.classify.constantize
+    end
 
-      # Gives the view access to the list of attributes
-      # to be included in the default form
-      def attrs_for_form
-        []
+    def resources_relation
+      resource_class.all
+    end
+
+    def resources
+      apply_pagination(
+        apply_order(
+          apply_filters(
+            apply_scope(
+              resources_relation
+            )
+          )
+        )
+      )
+    end
+
+    def resource
+      if params[:id]
+        resource_class.find(params[:id])
+      else
+        resource_class.new
       end
+    end
+
+    def index
+      respond_with(@resources)
+    end
+
+    def show
+      respond_with(@resource)
+    end
+
+    def create
+      @resource = resource_class.create(resource_params)
+      respond_with(@resource)
+    end
+
+    def update
+      @resource.update(resource_params)
+      respond_with(@resource)
+    end
+
+    def destroy
+      @resource.destroy
+      respond_with(@resource)
+    end
+
+    # Gives the view access to the list of column names
+    # to be printed in the index view
+    def attrs_for_index
+      []
+    end
+
+    # Gives the view access to the list of attributes
+    # to be included in the default form
+    def attrs_for_form
+      []
+    end
+
+    protected
+
+    def set_resource_class
+      @resource_class ||= resource_class
+    end
+
+    def set_resources
+      @resources ||= resources
+    end
+
+    def set_resource
+      @resource ||= resource
+    end
+
+    def resource_params
+      params.require(resource_class.name.downcase.to_sym).permit(attrs_for_form)
     end
   end
 end
