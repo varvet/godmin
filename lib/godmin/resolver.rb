@@ -1,9 +1,6 @@
 module Godmin
   class Resolver < ::ActionView::FileSystemResolver
-    def initialize(path, controller_name)
-      super(path)
-      @controller_name = controller_name
-    end
+    attr_accessor :namespace, :controller
 
     def find_templates(name, prefix, partial, details)
       template = []
@@ -19,42 +16,31 @@ module Godmin
       template
     end
 
-    def template_paths(_prefix)
-      raise ::NotImplementedError
-    end
-  end
-
-  class FooResolver < Resolver
-    def initialize(controller_name)
-      super([Godmin.mounted_as, "app/views"].compact.join("/"), controller_name)
-    end
-
     def template_paths(prefix, _partial)
       [
-        [Godmin.mounted_as, @controller_name, prefix],
-        [Godmin.mounted_as, @controller_name],
-        [Godmin.mounted_as, prefix],
-        [Godmin.mounted_as, "resource", prefix],
-        [Godmin.mounted_as, "resource"],
-        [Godmin.mounted_as]
+        [namespace, controller, prefix],
+        [namespace, controller],
+        [namespace, prefix],
+        [namespace, "resource", prefix],
+        [namespace, "resource"],
+        [namespace]
       ].map { |path| path.compact.join("/") }.compact
     end
   end
 
-  class BarResolver < Resolver
-    def initialize(controller_name)
-      super([Godmin::Engine.root, "app/views"].compact.join("/"), controller_name)
+  class FooResolver < Resolver
+    def initialize(controller)
+      super [Godmin.mounted_as, "app/views"].compact.join("/")
+      self.namespace  = Godmin.mounted_as
+      self.controller = controller
     end
+  end
 
-    def template_paths(prefix, _partial)
-      [
-        "godmin/#{@controller_name}/#{prefix}",
-        "godmin/#{@controller_name}",
-        "godmin/#{prefix}",
-        "godmin/resource/#{prefix}",
-        "godmin/resource",
-        "godmin"
-      ]
+  class BarResolver < Resolver
+    def initialize(controller)
+      super [Godmin::Engine.root, "app/views"].compact.join("/")
+      self.namespace  = "godmin"
+      self.controller = controller
     end
   end
 end

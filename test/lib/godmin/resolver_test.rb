@@ -29,60 +29,29 @@ require "test_helper"
 
 module Godmin
   class ResolverTest < ActiveSupport::TestCase
-    def setup
-      @foo_resolver = FooResolver.new("controller_name")
-      @bar_resolver = BarResolver.new("controller_name")
-    end
-
-    def test_foo_resolver_template_paths_no_partial
+    def test_foo_resolver_template_paths
       mounted_as "admin" do
-        assert_equal @foo_resolver.template_paths("prefix", false), [
-          "admin/controller_name/prefix",
-          "admin/controller_name",
+        assert_equal [
+          "admin/controller/prefix",
+          "admin/controller",
           "admin/prefix",
           "admin/resource/prefix",
           "admin/resource",
           "admin"
-        ]
+        ], FooResolver.new("controller").template_paths("prefix", false)
       end
     end
 
-    def test_foo_resolver_template_paths_partial
+    def test_bar_resolver_template_paths
       mounted_as "admin" do
-        assert_equal @foo_resolver.template_paths("prefix", false), [
-          "admin/controller_name/prefix",
-          "admin/controller_name",
-          "admin/prefix",
-          "admin/resource/prefix",
-          "admin/resource",
-          "admin"
-        ]
-      end
-    end
-
-    def test_bar_resolver_template_paths_no_partial
-      mounted_as "admin" do
-        assert_equal @bar_resolver.template_paths("prefix", false), [
-          "godmin/controller_name/prefix",
-          "godmin/controller_name",
+        assert_equal [
+          "godmin/controller/prefix",
+          "godmin/controller",
           "godmin/prefix",
           "godmin/resource/prefix",
           "godmin/resource",
           "godmin"
-        ]
-      end
-    end
-
-    def test_bar_resolver_template_paths_partial
-      mounted_as "admin" do
-        assert_equal @bar_resolver.template_paths("prefix", false), [
-          "godmin/controller_name/prefix",
-          "godmin/controller_name",
-          "godmin/prefix",
-          "godmin/resource/prefix",
-          "godmin/resource",
-          "godmin"
-        ]
+        ], BarResolver.new("controller").template_paths("prefix", false)
       end
     end
 
