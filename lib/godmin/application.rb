@@ -16,8 +16,8 @@ module Godmin
     private
 
     def append_view_paths
-      append_view_path Godmin::FooResolver.new(controller_name)
-      append_view_path Godmin::BarResolver.new(controller_name)
+      append_view_path Godmin::EngineResolver.new(controller_name)
+      append_view_path Godmin::GodminResolver.new(controller_name)
     end
   end
 end

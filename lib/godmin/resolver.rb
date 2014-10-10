@@ -28,7 +28,7 @@ module Godmin
     end
   end
 
-  class FooResolver < Resolver
+  class EngineResolver < Resolver
     def initialize(controller_name)
       super [Godmin.mounted_as, "app/views"].compact.join("/")
       self.namespace       = Godmin.mounted_as
@@ -36,7 +36,7 @@ module Godmin
     end
   end
 
-  class BarResolver < Resolver
+  class GodminResolver < Resolver
     def initialize(controller_name)
       super [Godmin::Engine.root, "app/views"].compact.join("/")
       self.namespace       = "godmin"
