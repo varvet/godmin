@@ -3,9 +3,9 @@ module ActionDispatch::Routing
 
     def godmin
       # override_devise_for do
-        override_resources do
-          yield
-        end
+      override_resources do
+        yield
+      end
       # end
 
       unless has_named_route?(:root)
