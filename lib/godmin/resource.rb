@@ -59,6 +59,10 @@ module Godmin
       respond_with(@resource)
     end
 
+    def new
+      respond_with(@resource)
+    end
+
     def create
       @resource = resource_class.create(resource_params)
       respond_with(@resource)
