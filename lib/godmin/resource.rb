@@ -68,6 +68,10 @@ module Godmin
       respond_with(@resource)
     end
 
+    def edit
+      respond_with(@resource)
+    end
+
     def update
       @resource.update(resource_params)
       respond_with(@resource)
