@@ -11,4 +11,6 @@ gemspec
 # your gem to rubygems.org.
 
 # To use debugger
-gem 'debugger'
+group :debug do
+  gem 'debugger'
+end
