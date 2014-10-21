@@ -1,5 +1,15 @@
-<%= simple_form_for(@resource, url: "/") do |f| %>
-  <%= f.input :email %>
-  <%= f.input :password %>
-  <%= f.submit "Sign in" %>
+<% # TODO: why doesn't route helpers work? wrong context? %>
+<%= simple_form_for(@admin_user, url: '/admin/sessions') do |f| %>
+  <div class="form-group">
+    <%= f.input :email, input_html: { class: "form-control" } %>
+  </div>
+  <div class="form-group">
+    <%= f.input :password, input_html: { class: "form-control" } %>
+  </div>
+  <div class="checkbox">
+    <%= label_tag do %>
+      <%= check_box_tag :remember_me %> Remember me
+    <% end %>
+  </div>
+  <%= f.submit "Sign in", class: "btn btn-primary btn-block" %>
 <% end %>

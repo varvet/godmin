@@ -26,6 +26,12 @@ module Godmin
   mattr_accessor :resources
   self.resources = []
 
+  mattr_accessor :admin_user_class
+  self.admin_user_class = nil
+
+  mattr_accessor :admin_user_identifier
+  self.admin_user_identifier = nil
+
   def self.configure
     yield self
   end

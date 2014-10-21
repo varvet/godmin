@@ -11,3 +11,5 @@
 <% end %>
 
 <%= yield %>
+
+<%= current_user.try(:email) %>

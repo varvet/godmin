@@ -9,6 +9,9 @@ module Godmin
       before_action :authenticate_user
 
       layout "godmin/application"
+
+      # TODO: where to put this one?
+      helper_method :current_user
     end
 
     def welcome; end
@@ -21,5 +24,11 @@ module Godmin
     end
 
     def authenticate_user; end
+
+    def current_user
+      if Godmin.admin_user_class && session[:admin_user_id]
+        Godmin.admin_user_class.find(session[:admin_user_id])
+      end
+    end
   end
 end
