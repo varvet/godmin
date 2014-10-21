@@ -25,6 +25,7 @@ module Godmin
 
     def authenticate_user; end
 
+    # TODO: do we also need user_signed_in? would it conflict with devise?
     def current_user
       if Godmin.admin_user_class && session[:admin_user_id]
         Godmin.admin_user_class.find(session[:admin_user_id])

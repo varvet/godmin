@@ -6,10 +6,9 @@ module Godmin
       @admin_user = admin_user_class.new
     end
 
+    # TODO: implement correct routes
     def create
-      @admin_user = admin_user_class.find_by(
-        email: admin_user_params[admin_user_identifier]
-      )
+      @admin_user = admin_user_class.find_by(email: admin_user_params[admin_user_identifier])
 
       if @admin_user && @admin_user.authenticate(admin_user_params[:password])
         session[:admin_user_id] = @admin_user.id
