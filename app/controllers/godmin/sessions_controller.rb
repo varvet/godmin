@@ -1,5 +1,5 @@
 module Godmin
-  class SessionsController < Admin::ApplicationController
+  class SessionsController < ::Admin::ApplicationController
     layout "godmin/login"
 
     def new
@@ -18,6 +18,7 @@ module Godmin
       end
     end
 
+    # TODO: implement correct routes
     def destroy
       session[:admin_user_id] = nil
       redirect_to "/admin/sessions/new", notice: "Signed out"
