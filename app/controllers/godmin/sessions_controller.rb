@@ -26,10 +26,12 @@ module Godmin
 
     private
 
+    # TODO: can this be overridden instead of using a config?
     def admin_user_class
       Godmin.admin_user_class
     end
 
+    # TODO: can this be overridden instead of using a config?
     def admin_user_identifier
       Godmin.admin_user_identifier
     end
