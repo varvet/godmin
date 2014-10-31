@@ -10,7 +10,7 @@
   <% end %>
 </ul>
 <ul class="nav navbar-nav navbar-right">
-  <% if admin_user_signed_in? %>
+  <% if respond_to?(:admin_user_signed_in?) && admin_user_signed_in? %>
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <%= admin_user.email %> <span class="caret"></span>
