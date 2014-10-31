@@ -1,3 +1,5 @@
 # Godmin
 
-![Demo](http://varvet-badger.herokuapp.com/badges/varvet/demo)
+old demo: ![Demo](http://varvet-badger.herokuapp.com/badges/varvet/demo)
+
+new demo: ![Demo](http://varvet-badger.herokuapp.com/badges/varvet/demo3)
