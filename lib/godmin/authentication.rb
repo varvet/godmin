@@ -10,7 +10,7 @@ module Godmin
     end
 
     def authenticate_admin_user
-      if !admin_user_signed_in? && controller_name != "sessions"
+      unless admin_user_signed_in? || controller_name == "sessions"
         redirect_to new_session_path, alert: "Authentication needed"
       end
     end
@@ -31,10 +31,6 @@ module Godmin
 
     def admin_user_class_name
       raise NotImplementedError, "Please define the admin user class name"
-    end
-
-    def admin_user_identifier
-      raise NotImplementedError, "Please define the admin user identifier"
     end
   end
 end

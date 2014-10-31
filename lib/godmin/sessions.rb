@@ -11,13 +11,13 @@ module Godmin
     end
 
     def create
-      @admin_user = admin_user_class.find_by(email: admin_user_params[admin_user_identifier])
+      @admin_user = admin_user_class.find_by_login(admin_user_login)
 
       if @admin_user && @admin_user.authenticate(admin_user_params[:password])
         session[:admin_user_id] = @admin_user.id
         redirect_to root_path, notice: "Successfully signed in"
       else
-        redirect_to new_session_path, alert: "Invalid email or password"
+        redirect_to new_session_path, alert: "Invalid credentials"
       end
     end
 
@@ -28,9 +28,13 @@ module Godmin
 
     private
 
+    def admin_user_login
+      admin_user_params[admin_user_class.login_column]
+    end
+
     def admin_user_params
       params.require(:admin_user).permit(
-        admin_user_identifier,
+        admin_user_class.login_column,
         :password,
         :password_confirm
       )
