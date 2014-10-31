@@ -4,6 +4,7 @@ require "select2-rails"
 require "simple_form"
 require "godmin/admin_user"
 require "godmin/application"
+require "godmin/authentication"
 require "godmin/engine"
 require "godmin/helpers/batch_actions"
 require "godmin/helpers/filters"
@@ -17,6 +18,7 @@ require "godmin/resource/filters"
 require "godmin/resource/scopes"
 require "godmin/resource/ordering"
 require "godmin/resource/pagination"
+require "godmin/sessions"
 require "godmin/version"
 
 module Godmin
@@ -25,12 +27,6 @@ module Godmin
 
   mattr_accessor :resources
   self.resources = []
-
-  mattr_accessor :admin_user_class
-  self.admin_user_class = nil
-
-  mattr_accessor :admin_user_identifier
-  self.admin_user_identifier = nil
 
   def self.configure
     yield self
