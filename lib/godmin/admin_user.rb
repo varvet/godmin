@@ -18,7 +18,7 @@ module Godmin
       end
 
       def login_column
-        :email
+        raise NotImplementedError, "Must define the admin user login column"
       end
     end
   end

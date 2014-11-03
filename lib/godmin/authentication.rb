@@ -15,6 +15,14 @@ module Godmin
       end
     end
 
+    def admin_user_class
+      admin_user_class_name.to_s.classify.constantize
+    end
+
+    def admin_user_class_name
+      raise NotImplementedError, "Must define the admin user class name"
+    end
+
     def admin_user
       if session[:admin_user_id]
         @admin_user ||= admin_user_class.find_by(id: session[:admin_user_id])
@@ -23,14 +31,6 @@ module Godmin
 
     def admin_user_signed_in?
       admin_user.present?
-    end
-
-    def admin_user_class
-      admin_user_class_name.to_s.classify.constantize
-    end
-
-    def admin_user_class_name
-      raise NotImplementedError, "Please define the admin user class name"
     end
   end
 end
