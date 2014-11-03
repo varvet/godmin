@@ -10,7 +10,7 @@ Godmin supports two common admin scenarios:
 2. Engine installation. 
 
 ### Standalone installation
-For admin-only applications, or for architectures where the admin lives in its own app.
+For admin-only applications, or for architectures where the admin lives in its own app, i.e. you want to access the admin section at `localhost:3000`.
 
 Add the gem to the application's `Gemfile`:
 ```ruby
@@ -25,7 +25,7 @@ $ rails generate godmin:install
 Godmin should be up and running at `localhost:3000`
 
 ### Engine installation
-For when the admin is part of the same codebase as the main application.
+For when the admin is part of the same codebase as the main application, i.e. you want to access the admin section at `localhost:3000/admin`.
 
 Generate a [mountable engine](http://guides.rubyonrails.org/engines.html):
 ```sh
