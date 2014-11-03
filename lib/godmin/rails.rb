@@ -5,11 +5,6 @@ module ActionDispatch::Routing
         yield
       end
 
-      # # TODO: something goes wrong with view context, helpers etc
-      # if Godmin.admin_user_class
-      #   resources :sessions, only: [:new, :create, :destroy], controller: "/godmin/sessions"
-      # end
-
       unless has_named_route?(:root)
         root to: "application#welcome"
       end
