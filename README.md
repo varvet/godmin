@@ -6,10 +6,11 @@ Godmin is an admin engine for Rails 4+.
 
 Godmin supports two common admin scenarios:
 
-1. Standalone installation. For admin-only applications, or for architectures where the admin lives in its own app.
-2. Engine installation. For when the admin is part of the same codebase as the main application.
+1. Standalone installation. 
+2. Engine installation. 
 
 ### Standalone installation
+For admin-only applications, or for architectures where the admin lives in its own app.
 
 Add the gem to the application's `Gemfile`:
 ```ruby
@@ -22,6 +23,7 @@ $ rails generate godmin:install
 ```
 
 ### Engine installation
+For when the admin is part of the same codebase as the main application.
 
 Generate a [mountable engine](http://guides.rubyonrails.org/engines.html):
 ```sh
