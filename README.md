@@ -19,7 +19,7 @@ gem "godmin"
 
 Run the install generator:
 ```sh
-$ rails generate godmin:install
+$ bin/rails generate godmin:install
 ```
 
 Godmin should be up and running at `localhost:3000`
@@ -29,7 +29,7 @@ For when the admin is part of the same codebase as the main application, i.e. yo
 
 Generate a [mountable engine](http://guides.rubyonrails.org/engines.html):
 ```sh
-$ rails plugin new admin --mountable
+$ bin/rails plugin new admin --mountable
 ```
 
 Add the engine to the application's `Gemfile`:
@@ -47,7 +47,7 @@ Add the gem to the engine's gemspec, `admin/admin.gemspec`:
 s.add_dependency("godmin", "~> 1.0.0")
 ```
 
-Run the install generator within the engine:
+Run the install generator within the scope of the engine, i.e. note the leading `admin/`:
 ```sh
 $ admin/bin/rails generate godmin:install
 ```
