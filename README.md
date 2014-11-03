@@ -11,7 +11,7 @@ Godmin supports two common admin scenarios:
 
 ### Standalone installation
 
-Add the gem to the application's Gemfile:
+Add the gem to the application's `Gemfile`:
 ```ruby
 gem "godmin"
 ```
@@ -28,17 +28,17 @@ Generate a [mountable engine](http://guides.rubyonrails.org/engines.html):
 $ rails plugin new admin --mountable
 ```
 
-Add it to your Gemfile:
+Add it to the application's `Gemfile`:
 ```ruby
 gem "admin", path: "admin"
 ```
 
-Mount it in your `config/routes.rb`:
+Mount it in the application's `config/routes.rb`:
 ```ruby
 mount Admin::Engine, at: "/admin"
 ```
 
-Add the godmin gem to your engine's gemspec, `admin/admin.gemspec`:
+Add the godmin gem to the engine's gemspec, `admin/admin.gemspec`:
 ```ruby
 s.add_dependency("godmin", "~> 1.0.0")
 ```
