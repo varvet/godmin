@@ -116,6 +116,7 @@ We have already seen two controller methods at play: `attrs_for_index` and `attr
 
 Scopes are a way of sectioning resources, useful for quick navigation, and can be created as follows:
 
+```ruby
 class ArticlesController < ApplicationController
   include Godmin::Resource
 
