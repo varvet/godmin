@@ -19,11 +19,11 @@ class Godmin::ResourceGenerator < Godmin::Generators::Base
           include Godmin::Resource
 
           def attrs_for_index
-            #{attributes.map(&:to_sym).to_s}
+            #{attributes.map(&:to_sym)}
           end
 
           def attrs_for_form
-            #{attributes.map(&:to_sym).to_s}
+            #{attributes.map(&:to_sym)}
           end
         end
       END
