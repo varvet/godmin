@@ -17,11 +17,21 @@ class Godmin::UserGenerator < Godmin::Generators::Base
 
   def create_sessions_controller
     create_file ["app/controllers", namespace, "sessions_controller.rb"].compact.join("/") do
-      <<-END.strip_heredoc
-        class #{[namespace, "sessions_controller"].compact.join("/").camelize} < ApplicationController
-          include Godmin::Sessions
-        end
-      END
+      if namespace
+        <<-END.strip_heredoc
+          module #{namespace.camelize}
+            class SessionsController < ApplicationController
+              include Godmin::Sessions
+            end
+          end
+        END
+      else
+        <<-END.strip_heredoc
+          class SessionsController < ApplicationController
+            include Godmin::Sessions
+          end
+        END
+      end
     end
   end
 
