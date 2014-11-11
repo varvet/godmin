@@ -1,5 +1,6 @@
 require "bootstrap-sass"
 require "kaminari"
+require "pundit"
 require "select2-rails"
 require "simple_form"
 require "godmin/admin_user"
