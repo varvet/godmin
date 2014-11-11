@@ -14,19 +14,37 @@ class Godmin::ResourceGenerator < Godmin::Generators::Base
 
   def create_controller
     create_file ["app/controllers", "#{controller_name}.rb"].compact.join("/") do
-      <<-END.strip_heredoc
-        class #{controller_name.camelize} < ApplicationController
-          include Godmin::Resource
+      if namespace
+        <<-END.strip_heredoc
+          module #{namespace.camelize}
+            class #{@resource.tableize.camelize}Controller < ApplicationController
+              include Godmin::Resource
 
-          def attrs_for_index
-            #{attributes.map(&:to_sym)}
-          end
+              def attrs_for_index
+                #{attributes.map(&:to_sym)}
+              end
 
-          def attrs_for_form
-            #{attributes.map(&:to_sym)}
+              def attrs_for_form
+                #{attributes.map(&:to_sym)}
+              end
+            end
           end
-        end
-      END
+        END
+      else
+        <<-END.strip_heredoc
+          class #{@resource.tableize.camelize}Controller < ApplicationController
+            include Godmin::Resource
+
+            def attrs_for_index
+              #{attributes.map(&:to_sym)}
+            end
+
+            def attrs_for_form
+              #{attributes.map(&:to_sym)}
+            end
+          end
+        END
+      end
     end
   end
 

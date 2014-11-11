@@ -54,6 +54,8 @@ $ admin/bin/rails generate godmin:install
 
 Godmin should be up and running at `localhost:3000/admin`
 
+### Installation artefacts
+
 ## Getting started
 
 Godmin deals primarily with resources. A resource is something that can be administered through the Godmin user interface, often a Rails model. Let's say the application has an `Article` model with attributes such as `title`, `body` and `published`. To get going quickly, we can use a generator:
@@ -169,11 +171,55 @@ If you wish to implement your own redirect after a batch action, return false af
 ```ruby
 def batch_action_publish(resources)
   resources.each { |r| r.update_attributes(published: true) }
-  redirect_to articles_path(scope: published) && false
+  redirect_to articles_path(scope: published) and return false
 end
 ```
 
 ### Resource fetching
+
+Resources are made available to the views through instance variables. The index view can access the resources using `@resources` while show, new and edit can access the single resource using `@resource`.
+
+In order to modify what resources to fetch, there are three methods that can be overridden per resource controller:
+
+- `resource_class`
+- `resource_relation`
+- `resources`
+
+To change the class name of the resource from the default based on the controller name:
+
+```ruby
+class ArticlesController
+  include Godmin::Resource
+
+  def resource_class
+    FooArticle
+  end
+end
+```
+
+To scope resources, e.g. based on the signed in user:
+
+```ruby
+class ArticlesController
+  include Godmin::Resource
+
+  def resources_relation
+    admin_user.articles
+  end
+end
+```
+
+To add to the resources query, e.g. to change the default order:
+
+```ruby
+class ArticlesController
+  include Godmin::Resource
+
+  def resources
+    super.order(author: :desc)
+  end
+end
+```
 
 ## Views
 
