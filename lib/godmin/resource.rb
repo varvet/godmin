@@ -45,9 +45,9 @@ module Godmin
 
     def resource
       if params[:id]
-        resource_class.find(params[:id])
+        resources_relation.find(params[:id])
       else
-        resource_class.new
+        resources_relation.new
       end
     end
 
