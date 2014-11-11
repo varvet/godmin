@@ -1,10 +1,10 @@
 require "godmin/generators/base"
 
-class Godmin::UserGenerator < Rails::Generators::Base
+class Godmin::UserGenerator < Godmin::Generators::Base
   argument :model, type: :string, default: "admin_user"
 
   def create_model
-    generate "model", "#{@model} email:string password_digest:text"
+    generate "model", "#{@model} email:string password_digest:text --no-test-framework"
   end
 
   def create_route
@@ -30,8 +30,8 @@ class Godmin::UserGenerator < Rails::Generators::Base
       <<-END.strip_heredoc.indent(namespace == nil ? 2 : 4)
         include Godmin::Authentication
 
-        def admin_user_class_name
-          :#{@model}
+        def admin_user_class
+          #{[namespace, @model].compact.join("/").camelize}
         end
       END
     end
