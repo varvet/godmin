@@ -9,7 +9,7 @@ module Godmin
       end
 
       def authentication_enabled?
-        self.singleton_class.include?(Godmin::Authentication)
+        singleton_class.include?(Godmin::Authentication)
       end
 
       def authorization_enabled?
