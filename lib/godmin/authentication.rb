@@ -16,11 +16,7 @@ module Godmin
     end
 
     def admin_user_class
-      admin_user_class_name.to_s.classify.constantize
-    end
-
-    def admin_user_class_name
-      raise NotImplementedError, "Must define the admin user class name"
+      raise NotImplementedError, "Must define the admin user class"
     end
 
     def admin_user

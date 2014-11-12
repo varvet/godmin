@@ -1,10 +1,10 @@
 require "godmin/generators/base"
 
-class Godmin::UserGenerator < Rails::Generators::Base
+class Godmin::UserGenerator < Godmin::Generators::Base
   argument :model, type: :string, default: "admin_user"
 
   def create_model
-    generate "model", "#{@model} email:string password_digest:text"
+    generate "model", "#{@model} email:string password_digest:text --no-test-framework"
   end
 
   def create_route
@@ -17,11 +17,21 @@ class Godmin::UserGenerator < Rails::Generators::Base
 
   def create_sessions_controller
     create_file ["app/controllers", namespace, "sessions_controller.rb"].compact.join("/") do
-      <<-END.strip_heredoc
-        class #{[namespace, "sessions_controller"].compact.join("/").camelize} < ApplicationController
-          include Godmin::Sessions
-        end
-      END
+      if namespace
+        <<-END.strip_heredoc
+          module #{namespace.camelize}
+            class SessionsController < ApplicationController
+              include Godmin::Sessions
+            end
+          end
+        END
+      else
+        <<-END.strip_heredoc
+          class SessionsController < ApplicationController
+            include Godmin::Sessions
+          end
+        END
+      end
     end
   end
 
@@ -30,8 +40,8 @@ class Godmin::UserGenerator < Rails::Generators::Base
       <<-END.strip_heredoc.indent(namespace == nil ? 2 : 4)
         include Godmin::Authentication
 
-        def admin_user_class_name
-          :#{@model}
+        def admin_user_class
+          #{[namespace, @model].compact.join("/").camelize}
         end
       END
     end
