@@ -1,7 +1,11 @@
 <!doctype html>
 <html>
   <head>
-    <%= render partial: "shared/head" %>
+    <title>Godmin</title>
+    <%= stylesheet_link_tag "godmin/application", [Godmin.mounted_as, "application"].compact.join("/"), media: "all" %>
+    <%= javascript_include_tag "godmin/application", [Godmin.mounted_as, "application"].compact.join("/") %>
+    <%= csrf_meta_tags %>
+    <%= yield :head %>
   </head>
   <body>
     <%= yield :body %>
