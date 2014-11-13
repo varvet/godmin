@@ -13,7 +13,7 @@ module Godmin
       end
 
       def authorization_enabled?
-        false
+        singleton_class.include?(Godmin::Authorization)
       end
     end
   end
