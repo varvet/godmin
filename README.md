@@ -1,5 +1,3 @@
 # Godmin
 
-old demo: ![Demo](http://varvet-badger.herokuapp.com/badges/varvet/demo)
-
-new demo: ![Demo](http://varvet-badger.herokuapp.com/badges/varvet/demo3)
+Godmin is an admin engine for Rails 4+.
