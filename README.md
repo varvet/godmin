@@ -2,6 +2,25 @@
 
 Godmin is an admin engine for Rails 4+.
 
+- [Installation](#)
+	- [Standalone installation](#)
+	- [Engine installation](#)
+	- [Installation artefacts](#)
+- [Getting started](#)
+- [Controllers](#)
+	- [Scopes](#)
+	- [Filters](#)
+	- [Batch actions](#)
+	- [Resource fetching](#)
+- [Views](#)
+- [Models](#)
+- [Authentication](#)
+	- [Simple authentication](#)
+	- [Shared authentication](#)
+- [Authorization](#)
+- [Localization](#)
+- [Contributors](#)
+
 ## Installation
 
 Godmin supports two common admin scenarios:
