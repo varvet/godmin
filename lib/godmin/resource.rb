@@ -63,12 +63,12 @@ module Godmin
       respond_with(@resource)
     end
 
-    def create
-      @resource = resource_class.create(resource_params)
+    def edit
       respond_with(@resource)
     end
 
-    def edit
+    def create
+      @resource = resource_class.create(resource_params)
       respond_with(@resource)
     end
 
@@ -102,10 +102,12 @@ module Godmin
 
     def set_resources
       @resources ||= resources
+      authorize(@resources) if authorization_enabled?
     end
 
     def set_resource
       @resource ||= resource
+      authorize(@resource) if authorization_enabled?
     end
 
     def resource_params

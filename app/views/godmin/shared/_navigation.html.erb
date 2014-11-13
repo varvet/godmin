@@ -1,12 +1,14 @@
 <ul class="nav navbar-nav">
   <% Godmin.resources.each do |resource| %>
-    <% if controller.controller_name == resource.to_s %>
-      <li class="active">
-    <% else %>
-      <li>
+    <% unless authorization_enabled? && !policy(resource).index? %>
+      <% if controller.controller_name == resource.to_s %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to resource.to_s.classify.constantize.model_name.human(count: 2), resource %>
+      </li>
     <% end %>
-      <%= link_to resource.to_s.classify.constantize.model_name.human(count: 2), resource %>
-    </li>
   <% end %>
 </ul>
 <ul class="nav navbar-nav navbar-right">
