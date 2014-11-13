@@ -5,7 +5,7 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
     create_file "config/initializers/godmin.rb" do
       <<-END.strip_heredoc
         Godmin.configure do |config|
-          config.mounted_as = #{namespace ? "\"#{namespace}\"" : "nil"}
+          config.namespace = #{namespace ? "\"#{namespace}\"" : "nil"}
         end
       END
     end

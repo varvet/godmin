@@ -26,8 +26,8 @@ require "godmin/sessions"
 require "godmin/version"
 
 module Godmin
-  mattr_accessor :mounted_as
-  self.mounted_as = nil
+  mattr_accessor :namespace
+  self.namespace = nil
 
   mattr_accessor :resources
   self.resources = []

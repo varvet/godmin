@@ -3,7 +3,7 @@ require "test_helper"
 module Godmin
   class ResolverTest < ActiveSupport::TestCase
     def test_foo_resolver_template_paths
-      mounted_as "namespace" do
+      namespaced_as "namespace" do
         assert_equal [
           "namespace/controller_name/prefix",
           "namespace/controller_name",
@@ -16,7 +16,7 @@ module Godmin
     end
 
     def test_bar_resolver_template_paths
-      mounted_as "namespace" do
+      namespaced_as "namespace" do
         assert_equal [
           "godmin/controller_name/prefix",
           "godmin/controller_name",

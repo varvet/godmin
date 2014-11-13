@@ -15,8 +15,8 @@ module Godmin
             object.class
           end
 
-        if Godmin.mounted_as
-          "#{Godmin.mounted_as.classify}::#{klass}Policy"
+        if Godmin.namespace
+          "#{Godmin.namespace.classify}::#{klass}Policy"
         else
           "#{klass}Policy"
         end

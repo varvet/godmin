@@ -30,8 +30,8 @@ module Godmin
 
   class EngineResolver < Resolver
     def initialize(controller_name)
-      super [Godmin.mounted_as, "app/views"].compact.join("/")
-      self.namespace       = Godmin.mounted_as
+      super [Godmin.namespace, "app/views"].compact.join("/")
+      self.namespace       = Godmin.namespace
       self.controller_name = controller_name
     end
   end

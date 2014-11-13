@@ -14,8 +14,8 @@ if ActiveSupport::TestCase.method_defined?(:fixture_path=)
   ActiveSupport::TestCase.fixture_path = File.expand_path("../fixtures", __FILE__)
 end
 
-def mounted_as(namespace)
-  Godmin.mounted_as = namespace
+def namespaced_as(namespace)
+  Godmin.namespace = namespace
   yield
-  Godmin.mounted_as = nil
+  Godmin.namespace = nil
 end
