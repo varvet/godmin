@@ -3,10 +3,10 @@ module Godmin
     extend ActiveSupport::Concern
 
     included do
+      include Godmin::Helpers::Modules
       include Godmin::Helpers::Translations
 
       before_action :append_view_paths
-      before_action :authenticate_user
 
       layout "godmin/application"
     end
@@ -19,7 +19,5 @@ module Godmin
       append_view_path Godmin::EngineResolver.new(controller_name)
       append_view_path Godmin::GodminResolver.new(controller_name)
     end
-
-    def authenticate_user; end
   end
 end

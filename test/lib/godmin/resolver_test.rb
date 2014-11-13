@@ -27,13 +27,5 @@ module Godmin
         ], GodminResolver.new("controller_name").template_paths("prefix", false)
       end
     end
-
-    private
-
-    def mounted_as(namespace)
-      Godmin.mounted_as = namespace
-      yield
-      Godmin.mounted_as = nil
-    end
   end
 end

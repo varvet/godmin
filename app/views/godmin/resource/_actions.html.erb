@@ -3,6 +3,8 @@
     <%= render partial: "batch_actions" %>
   </div>
   <div class="pull-right">
-    <%= link_to godmin_translate("create_resource"), [:new, @resource_class.to_s.underscore], class: "btn btn-default" %>
+    <% unless authorization_enabled? && !policy(@resources).create? %>
+      <%= link_to godmin_translate("create_resource"), [:new, @resource_class.to_s.underscore], class: "btn btn-default" %>
+    <% end %>
   </div>
 </div>

@@ -1,0 +1,14 @@
+<%= simple_form_for(@admin_user, url: session_path) do |f| %>
+  <div class="form-group">
+    <%= f.input @admin_user.class.login_column, input_html: { class: "form-control" } %>
+  </div>
+  <div class="form-group">
+    <%= f.input :password, input_html: { class: "form-control" } %>
+  </div>
+  <div class="checkbox">
+    <%= label_tag do %>
+      <%= check_box_tag :remember_me %> Remember me
+    <% end %>
+  </div>
+  <%= f.submit "Sign in", class: "btn btn-block btn-primary" %>
+<% end %>
