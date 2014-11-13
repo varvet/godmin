@@ -289,11 +289,104 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-By now authentication is required when visiting the admin section.
+Authentication is now required when visiting the admin section.
 
 ### Shared authentication
 
+This example uses [Devise](https://github.com/plataformatec/devise) to set up a shared authentication solution between the main app and an admin engine. Administrators sign in and out via the main application.
+
+There is no need to run a generator in this instance. Simple add the authentication module to the admin application controller like so:
+
+```ruby
+module Admin
+  class ApplicationController < ActionController::Base
+    include Godmin::Application
+    include Godmin::Authentication
+  end
+end
+```
+
+Provided you have `User` model set up with Devise in the main application, override the following three methods in the admin application controller:
+
+```ruby
+module Admin
+  class ApplicationController < ActionController::Base
+    include Godmin::Application
+    include Godmin::Authentication
+
+    def authenticate_admin_user
+      authenticate_user!
+    end
+
+    def admin_user
+      current_user
+    end
+
+    def admin_user_signed_in?
+      user_signed_in?
+    end
+  end
+end
+```
+
+That's it. The admin section is now authenticated using Devise.
+
 ## Authorization
+
+In order to enable authorization, authentication must first be enabled. See the previous section. The Godmin authorization system is heavily inspired by [Pundit](https://github.com/elabs/pundit) and implements the same interface.
+
+Add the authorization module to the application controller:
+
+```ruby
+class ApplicationController < ActionController::Base
+  include Godmin::Application
+  include Godmin::Authentication
+  include Godmin::Authorization
+
+  ...
+end
+```
+
+Policies can be generated using the following command:
+
+```sh
+$ bin/rails generate godmin:policy article
+```
+
+This file `app/policies/article_policy.rb` will be created:
+
+```ruby
+class ArticlePolicy < Godmin::Policy
+end
+```
+
+Permissions are specified by implementing methods on this class. Two methods are available to the methods, `user` and `record`, the signed in user and the record being authorized. An implemented policy can look something like this:
+
+```ruby
+class ArticlePolicy < Godmin::Policy
+  def index?
+    true
+  end
+
+  def show?
+    true
+  end
+
+  def create?
+    user.editor?
+  end
+
+  def update?
+    user.editor? && record.unpublished?
+  end
+
+  def destroy?
+    update?
+  end
+end
+```
+
+That is, everyone can list and view articles, only editors can create them, and only unpublished articles can be updated and destroyed.
 
 ## Localization
 
