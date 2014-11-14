@@ -12,14 +12,12 @@ module Godmin
           scope ||= @resource_class.to_s.underscore
           options[:resource] ||= @resource_class.model_name.human
         end
-        view_context.t(
-          translation_path(translate, scope),
-          default: view_context.t(translation_path(translate), default: default, **options),
-          **options)
-      end
+        defaults = []
+        defaults << ["godmin", scope, translate].compact.join(".").to_sym
+        defaults << ["godmin", translate].join(".").to_sym
+        defaults << default
 
-      def translation_path(translate, scope = nil)
-        ["godmin", scope, translate].compact.join(".")
+        view_context.t(defaults.shift, default: defaults, **options)
       end
     end
   end
