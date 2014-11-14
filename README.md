@@ -165,17 +165,10 @@ class ArticlesController < ApplicationController
   include Godmin::Resource
 
   filter :title
-  filter :category, as: :select, collection: -> { ... }
 
   def filter_title(resources, value)
     resources.where("title LIKE ?", "%#{value}%")
   end
-
-  def filter_category(resources, value)
-    resources.where(category: value)
-  end
-
-  ...
 end
 ```
 
@@ -185,13 +178,13 @@ When using `select` or `multiselect`, a collection must be specified. The collec
 
 ```ruby
 filter :category, as: :select, collection: -> { [["News", 1], ["Posts", 2]] }
-```end
+```
 
 When specifying a collection of ActiveRecords, two additional parameters, `option_text` and `option_value` can be specified. They default to `to_s` and `id` respectively. 
 
 ```ruby
 filter :category, as: :select, collection: -> { Category.all }, option_text: "title"
-```end
+```
 
 ### Batch actions
 
