@@ -17,9 +17,6 @@ sv:
       edit: Ändra
       destroy: Ta bort
       confirm_message: Är du säker?
-    create_resource: Skapa %{resource}
-    update_resource: Uppdatera %{resource}
-    destroy_resource: Ta bort %{resource}
     sessions:
       sign_in: Logga in
       sign_out: Logga ut

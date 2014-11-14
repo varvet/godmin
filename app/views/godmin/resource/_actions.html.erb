@@ -4,7 +4,7 @@
   </div>
   <div class="pull-right">
     <% unless authorization_enabled? && !policy(@resources).create? %>
-      <%= link_to godmin_translate("create_resource"), [:new, @resource_class.to_s.underscore], class: "btn btn-default" %>
+      <%= link_to t("helpers.submit.create", model: @resource_class.model_name.human), [:new, @resource_class.to_s.underscore], class: "btn btn-default" %>
     <% end %>
   </div>
 </div>

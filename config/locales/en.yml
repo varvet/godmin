@@ -17,9 +17,6 @@ en:
       edit: Edit
       destroy: Destroy
       confirm_message: Are you sure?
-    create_resource: Create %{resource}
-    update_resource: Update %{resource}
-    destroy_resource: Destroy %{resource}
     sessions:
       sign_in: Sign in
       sign_out: Sign out

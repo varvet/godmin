@@ -12,7 +12,7 @@
   <% unless index %>
     <li class="active">
       <% if @resource.new_record? %>
-        <%= godmin_translate("create_resource") %>
+        <%= t("helpers.submit.create", model: @resource_class.model_name.human) %>
       <% else %>
         <%= @resource.to_s %>
       <% end %>
