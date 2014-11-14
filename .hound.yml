@@ -1,6 +1,2 @@
-LineLength:
-  Description: Limit lines to 120 characters.
-  Max: 120
-
-StringLiterals:
-  EnforcedStyle: double_quotes
+ruby:
+  config_file: .rubocop.yml
