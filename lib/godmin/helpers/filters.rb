@@ -66,14 +66,14 @@ module Godmin
         collection = options[:collection].call
 
         if collection.is_a? ActiveRecord::Relation
-          choices = options_from_collection_for_select(
+          choices = view_context.options_from_collection_for_select(
             collection,
             options[:option_value],
             options[:option_text],
             selected: default_filter_value(name)
           )
         else
-          choices = options_for_select(
+          choices = view_context.options_for_select(
             collection,
             selected: default_filter_value(name)
           )
