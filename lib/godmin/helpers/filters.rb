@@ -28,7 +28,7 @@ module Godmin
           default_filter_value(name),
           name: "filter[#{name}]",
           class: "form-control",
-          placeholder: godmin_translate("filters.labels.#{name}", default: name.to_s.titleize)
+          placeholder: translate_scoped("filters.labels.#{name}", default: name.to_s.titleize)
         )
       end
 
@@ -40,7 +40,7 @@ module Godmin
           include_blank: true,
           class: "form-control select-tag",
           data: {
-            placeholder: godmin_translate("filters.select.placeholder.one")
+            placeholder: translate_scoped("filters.select.placeholder.one")
           }
         )
       end
@@ -53,7 +53,7 @@ module Godmin
           multiple: true,
           class: "form-control select-tag",
           data: {
-            placeholder: godmin_translate("filters.select.placeholder.many")
+            placeholder: translate_scoped("filters.select.placeholder.many")
           }
         )
       end

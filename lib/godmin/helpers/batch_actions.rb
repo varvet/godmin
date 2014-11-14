@@ -12,9 +12,9 @@ module Godmin
            (options[:only] && options[:only].include?(params[:scope].to_sym)) ||
            (options[:except] && !options[:except].include?(params[:scope].to_sym))
 
-          view_context.link_to(view_context.godmin_translate("batch_actions.#{name}", default: name.to_s.titleize), "#", class: "btn btn-default batch-actions-action-link hidden", data: {
+          view_context.link_to(view_context.translate_scoped("batch_actions.#{name}", default: name.to_s.titleize), "#", class: "btn btn-default batch-actions-action-link hidden", data: {
             value: name,
-            confirm: options[:confirm] ? view_context.godmin_translate("batch_actions.confirm_message") : false
+            confirm: options[:confirm] ? view_context.translate_scoped("batch_actions.confirm_message") : false
           })
         end
       end
