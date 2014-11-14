@@ -16,3 +16,13 @@
 //= require select2
 //= require godmin/batch_actions
 //= require godmin/select_tags
+
+$(function(){
+  // Remove empty navbar dropdowns
+  $('.navbar-nav .dropdown').each(function() {
+    var $el = $(this);
+    if($el.find('li').length == 0) {
+      $el.remove();
+    }
+  });
+});
