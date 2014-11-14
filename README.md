@@ -158,6 +158,34 @@ end
 
 Filters offer great flexibility when it comes to searching for resources.
 
+Filters can be created as follows:
+
+```ruby
+class ArticlesController < ApplicationController
+  include Godmin::Resource
+
+  filter :title
+
+  def filter_title(resources, value)
+    resources.where("title LIKE ?", "%#{value}%")
+  end
+end
+```
+
+There are four types of filters: `string`, `select`, `multiselect` and `checkboxes`, specified using the `as` parameter.
+
+When using `select` or `multiselect`, a collection must be specified. The collection must conform to the format used by Rails `options_for_select` helpers. It can be either an array consisting of name/value tuples, or a collection of ActiveRecords.
+
+```ruby
+filter :category, as: :select, collection: -> { [["News", 1], ["Posts", 2]] }
+```
+
+When specifying a collection of ActiveRecords, two additional parameters, `option_text` and `option_value` can be specified. They default to `to_s` and `id` respectively. 
+
+```ruby
+filter :category, as: :select, collection: -> { Category.all }, option_text: "title"
+```
+
 ### Batch actions
 
 Batch actions can be created as follows:
