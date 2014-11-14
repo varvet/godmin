@@ -12,7 +12,7 @@
   <% unless index %>
     <li class="active">
       <% if @resource.new_record? %>
-        Create
+        <%= godmin_translate("create_resource") %>
       <% else %>
         <%= @resource.to_s %>
       <% end %>

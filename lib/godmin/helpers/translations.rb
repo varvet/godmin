@@ -7,16 +7,19 @@ module Godmin
         helper_method :godmin_translate
       end
 
-      def godmin_translate(translate, default: nil)
+      def godmin_translate(translate, scope: nil, default: nil, **options)
         if @resource_class
-          view_context.t(
-            "godmin.#{@resource_class.to_s.underscore}.#{translate}",
-            resource: @resource_class.model_name.human,
-            default: default || view_context.t("godmin.#{translate}", resource: @resource_class.model_name.human)
-          )
-        else
-          view_context.t("godmin.#{translate}")
+          scope ||= @resource_class.to_s.underscore
+          options[:resource] ||= @resource_class.model_name.human
         end
+        view_context.t(
+          translation_path(translate, scope),
+          default: view_context.t(translation_path(translate), default: default, **options),
+          **options)
+      end
+
+      def translation_path(translate, scope = nil)
+        ["godmin", scope, translate].compact.join(".")
       end
     end
   end

@@ -21,6 +21,10 @@ en:
     create_resource: Create %{resource}
     update_resource: Update %{resource}
     destroy_resource: Destroy %{resource}
+    sessions:
+      signed_in: Signed in
+      signed_out: Signed out
+      failed_sign_in: Invalid credentials
   views:
     pagination:
       first: "First"

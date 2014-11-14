@@ -15,15 +15,15 @@ module Godmin
 
       if @admin_user && @admin_user.authenticate(admin_user_params[:password])
         session[:admin_user_id] = @admin_user.id
-        redirect_to root_path, notice: "Successfully signed in"
+        redirect_to root_path, notice: t("godmin.sessions.signed_in")
       else
-        redirect_to new_session_path, alert: "Invalid credentials"
+        redirect_to new_session_path, alert: t("godmin.sessions.failed_sign_in")
       end
     end
 
     def destroy
       session[:admin_user_id] = nil
-      redirect_to new_session_path, notice: "Signed out"
+      redirect_to new_session_path, notice: t("godmin.sessions.signed_out")
     end
 
     private
