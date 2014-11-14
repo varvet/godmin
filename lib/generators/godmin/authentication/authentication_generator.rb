@@ -1,10 +1,22 @@
 require "godmin/generators/base"
 
-class Godmin::UserGenerator < Godmin::Generators::Base
+class Godmin::AuthenticationGenerator < Godmin::Generators::Base
   argument :model, type: :string, default: "admin_user"
 
   def create_model
     generate "model", "#{@model} email:string password_digest:text --no-test-framework"
+  end
+
+  def modify_model
+    inject_into_file ["app/models", namespace, "#{@model.underscore}.rb"].compact.join("/"), after: "ActiveRecord::Base\n" do
+      <<-END.strip_heredoc.indent(namespace.nil? ? 2 : 4)
+        include Godmin::AdminUser
+
+        def self.login_column
+          :email
+        end
+      END
+    end
   end
 
   def create_route
@@ -37,11 +49,11 @@ class Godmin::UserGenerator < Godmin::Generators::Base
 
   def modify_application_controller
     inject_into_file ["app/controllers", namespace, "application_controller.rb"].compact.join("/"), after: "Godmin::Application\n" do
-      <<-END.strip_heredoc.indent(namespace == nil ? 2 : 4)
+      <<-END.strip_heredoc.indent(namespace.nil? ? 2 : 4)
         include Godmin::Authentication
 
         def admin_user_class
-          #{[namespace, @model].compact.join("/").camelize}
+          #{[namespace, @model.underscore].compact.join("/").camelize}
         end
       END
     end

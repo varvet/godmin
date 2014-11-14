@@ -283,14 +283,14 @@ This example uses the built in authentication solution. Authentication is isolat
 Godmin comes with a generator that creates an admin user model and enables the built in authentication:
 
 ```sh
-$ bin/rails generate godmin:user
+$ bin/rails generate godmin:authentication
 $ bin/rake db:migrate
 ```
 
 Please note: when installing to an admin engine, the migration needs to be moved to the main app before it can be found by `db:migrate`. Rails has a solution in place for this:
 
 ```sh
-$ admin/bin/rails generate godmin:user
+$ admin/bin/rails generate godmin:authentication
 $ bin/rake admin:install:migrations
 $ bin/rake db:migrate
 ```
