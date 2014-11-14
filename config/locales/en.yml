@@ -1,6 +1,5 @@
 en:
   godmin:
-    sign_out: Sign out
     batch_actions:
       select_all: Select all
       deselect_all: Deselect all
@@ -22,6 +21,8 @@ en:
     update_resource: Update %{resource}
     destroy_resource: Destroy %{resource}
     sessions:
+      sign_in: Sign in
+      sign_out: Sign out
       signed_in: Signed in
       signed_out: Signed out
       failed_sign_in: Invalid credentials
