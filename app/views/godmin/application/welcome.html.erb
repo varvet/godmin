@@ -20,11 +20,11 @@
       </small>
     </h2>
     <hr>
-    <h4>1. Use rails generate to create your admin controllers</h4>
+    <h4>1. Use rails generate to create your admin resources</h4>
     <p>
       Generate some admin resources for your models. Provided you
-      have an <code>Article</code> model with a <code>title</code>
-      and a <code>published</code> column, run the following to
+      have an Article model with a title
+      and a published column, run the following to
       generate an admin controller + route:
     </p>
     <p>
@@ -39,26 +39,6 @@
     </p>
   </div>
   <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">Tip of the day</div>
-      <div class="panel-body">
-        <% content_for :tip_1 do %>
-          <p>
-            You can create a mountable Rails engine to separate
-            your main app from the admin section.
-          </p>
-          <%= link_to "Read more", "#" %>
-        <% end %>
-        <% content_for :tip_2 do %>
-          <p>
-            You can use the built in authentication system to
-            quickly set up authentication.
-          </p>
-          <%= link_to "Read more", "#" %>
-        <% end %>
-        <%= raw [yield(:tip_1), yield(:tip_2)].sample %>
-      </div>
-    </div>
     <div class="panel panel-default">
       <div class="panel-heading">Version</div>
       <div class="panel-body">
