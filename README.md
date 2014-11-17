@@ -1,5 +1,6 @@
 # Godmin
 
+[![Gem Version](https://badge.fury.io/rb/godmin.svg)](http://badge.fury.io/rb/godmin)
 [![Build Status](https://travis-ci.org/varvet/godmin.svg?branch=master)](https://travis-ci.org/varvet/godmin)
 
 Godmin is an admin engine for Rails 4+.
