@@ -519,7 +519,7 @@ godmin:
 
 Godmin comes with built in support for English and Swedish.
 
-There is a view helper available named `translated_scoped` that can be used in overridden views. Please see the source code for information on how to use it.
+There is a view helper available named `translate_scoped` that can be used in overridden views. Please see the source code for information on how to use it.
 
 ## Contributors
 
