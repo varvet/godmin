@@ -1,10 +1,11 @@
 <% unless scope_map.empty? %>
-  <ul class="nav nav-tabs">
-    <% scope_map.each do |name, options| %>
-      <li class="<%= 'active' if params[:scope] == name.to_s || (options[:default] && !params[:scope].present?) %>">
-        <%= link_to options[:label], url_for(params.merge(scope: name).except(:page)) %>
-      </li>
-    <% end %>
-  </ul>
-  <br>
+  <div id="scopes">
+    <ul class="nav nav-tabs">
+      <% scope_map.each do |name, options| %>
+        <li class="<%= "active" if params[:scope] == name.to_s %>">
+          <%= link_to translate_scoped("scopes.#{name.to_s.underscore}", default: name.to_s.titleize), url_for(params.merge(scope: name, only_path: true).except(:page)) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>

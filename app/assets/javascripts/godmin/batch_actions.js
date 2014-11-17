@@ -1,9 +1,8 @@
-(function($){
-  $(function(){
-
-    $form = $('#batch-process-form');
-    $selectAll = $form.find('.batch-process-select-all');
-    $selectNone = $form.find('.batch-process-select-none');
+(function($) {
+  $(function() {
+    $form       = $('#batch-actions-form');
+    $selectAll  = $form.find('.batch-actions-select-all');
+    $selectNone = $form.find('.batch-actions-select-none');
 
     var setSelectToAll = function() {
       $selectAll.removeClass('hidden');
@@ -13,9 +12,9 @@
     var setSelectToNone = function() {
       $selectAll.addClass('hidden');
       $selectNone.removeClass('hidden');
-    }
+    };
 
-    $form.find('.batch-process-select').on('click', function(){
+    $form.find('.batch-actions-select').on('click', function() {
       if ($form.find('input:checkbox:checked').length > 0) {
         $form.find('input:checkbox').prop('checked', false).trigger('change');
         setSelectToAll();
@@ -25,20 +24,19 @@
       }
     });
 
-    $form.find('input:checkbox').on('change', function(){
+    $form.find('input:checkbox').on('change', function() {
       if ($form.find('input:checkbox:checked').length) {
-        $('.batch-process-action-link').removeClass('hidden');
+        $('.batch-actions-action-link').removeClass('hidden');
         setSelectToNone();
       } else {
-        $('.batch-process-action-link').addClass('hidden');
+        $('.batch-actions-action-link').addClass('hidden');
         setSelectToAll();
       }
     });
 
-    $(document).delegate('.batch-process-action-link', 'click.rails', function(){
-      $form.find('#batch-process-action').val($(this).data('value'));
+    $(document).delegate('.batch-actions-action-link', 'click.rails', function() {
+      $form.find('#batch-actions-action').val($(this).data('value'));
       $form.submit();
     });
-
   });
 }(jQuery));

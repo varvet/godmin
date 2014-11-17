@@ -20,3 +20,5 @@ pickle-email-*.html
 config/initializers/secret_token.rb
 .DS_Store
 *.swp
+/test/dummy/log/*
+Gemfile.lock

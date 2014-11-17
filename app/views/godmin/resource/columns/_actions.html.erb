@@ -1,3 +1,11 @@
-<%= link_to 'Visa', [:admin, resource], class: '' %>
-<%= link_to 'Ändra', [:edit, :admin, resource], class: '' %>
-<%= link_to 'Ta bort', [:admin, resource], method: :delete, data: { confirm: "Är du säker?" }, class: '' %>
+<div class="btn-group btn-group-sm pull-right">
+  <% unless authorization_enabled? && !policy(resource).show? %>
+    <%= link_to translate_scoped("column_actions.show"), resource, class: "btn btn-default" %>
+  <% end %>
+  <% unless authorization_enabled? && !policy(resource).edit? %>
+    <%= link_to translate_scoped("column_actions.edit"), [:edit, resource], class: "btn btn-default"  %>
+  <% end %>
+  <% unless authorization_enabled? && !policy(resource).destroy? %>
+    <%= link_to translate_scoped("column_actions.destroy"), resource, method: :delete, data: { confirm: translate_scoped("column_actions.confirm_message") }, class: "btn btn-danger" %>
+  <% end %>
+</div>

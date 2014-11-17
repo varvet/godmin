@@ -1,22 +1,17 @@
-<%= render partial: 'header' %>
+<%= render partial: "breadcrumb", locals: { index: true } %>
 
-<%= render partial: 'breadcrumb_index' %>
+<%= render partial: "scopes" %>
 
 <% if filter_map.present? %>
-  <%= render partial: 'filters' %>
+  <%= render partial: "filters" %>
 <% end %>
 
-<%= form_tag(polymorphic_path([:batch_action, :admin, resource_class]), id: 'batch-process-form') do %>
+<%= form_tag [:batch_action, @resource_class], id: "batch-actions-form" do %>
 
-  <%= render partial: 'scopes' %>
+  <%= render partial: "actions" %>
 
-  <%= render partial: 'batch_actions' %>
-
-  <%= render partial: 'table' %>
-
-  <%= paginate collection %>
-  <div class="pull-right">
-    <%= page_entries_info collection %>
-  </div>
+  <%= render partial: "table" %>
 
 <% end %>
+
+<%= render partial: "pagination" %>

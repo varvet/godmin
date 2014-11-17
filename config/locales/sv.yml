@@ -1,11 +1,41 @@
 sv:
+  godmin:
+    batch_actions:
+      select_all: Markera alla
+      deselect_all: Avmarkera alla
+      confirm_message: Är du säker?
+    filters:
+      select:
+        placeholder:
+          one: Välj någonting
+          many: Välj någonting
+      buttons:
+        apply: Filtrera
+        clear: Rensa filter
+    column_actions:
+      show: Visa
+      edit: Ändra
+      destroy: Ta bort
+      confirm_message: Är du säker?
+    sessions:
+      sign_in: Logga in
+      sign_out: Logga ut
+      signed_in: Loggade in
+      signed_out: Loggade ut
+      failed_sign_in: Fel inloggningsuppgifter
+  views:
+    pagination:
+      first: "Första"
+      last: "Sista"
+      previous: "&laquo;"
+      next: "&raquo;"
+      truncate: "&hellip;"
   helpers:
-  # Kaminari
     page_entries_info:
       one_page:
         display_entries:
-          zero: "Inget hittades."
-          one: "Visar <b>1</b> %{entry_name}"
-          other: "Visar <b>alla %{count}</b>."
+          zero: "Inga %{entry_name} hittades"
+          one: "Visar 1 %{entry_name}"
+          other: "Visar alla %{count} %{entry_name}"
       more_pages:
-        display_entries: "Visar <b>%{first}&nbsp;-&nbsp;%{last}</b> av <b>%{total}</b> totalt."
+        display_entries: "Visar %{first}&nbsp;-&nbsp;%{last} av %{total} %{entry_name}"

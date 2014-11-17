@@ -1,42 +1,36 @@
 module ActionDispatch::Routing
   class Mapper
-
-    def embrace_godmin(name)
-      mount Godmin::Engine, at: name
-
-      namespace name.to_sym do
+    def godmin
+      override_resources do
         yield
       end
 
-      Godmin.mounted_as = name
-    end
-
-    def watches_over(resource)
-      resources resource do
-        post "batch_action", on: :collection
-        yield if block_given?
+      unless has_named_route?(:root)
+        root to: "application#welcome"
       end
     end
 
-    # def godmin_for(name)
-    #   mount Godmin::Engine, at: name
+    private
 
-    #   namespace name.to_sym do
-    #     yield
-    #   end
+    def override_resources
+      def resources(*resources)
+        unless Godmin.resources.include?(resources.first)
+          Godmin.resources << resources.first
+        end
 
-    #   Godmin.mounted_as = name
-    # end
+        super(*resources) do
+          if block_given?
+            yield
+          end
+          post "batch_action", on: :collection
+        end
+      end
 
-    # def resources(*resources, &block)
-    #   super do
-    #     post "batch_action", on: :collection
-    #   end
-    # end
+      yield
 
-    # # TODO: legacy names
-    # alias_method :embrace_godmin, :godmin_for
-    # alias_method :watches_over, :resources
-
+      def resources(*resources, &block)
+        super(*resources, &block)
+      end
+    end
   end
 end

@@ -1,0 +1,10 @@
+<div id="actions">
+  <div class="pull-left">
+    <%= render partial: "batch_actions" %>
+  </div>
+  <div class="pull-right">
+    <% unless authorization_enabled? && !policy(@resources).create? %>
+      <%= link_to t("helpers.submit.create", model: @resource_class.model_name.human), [:new, @resource_class.to_s.underscore], class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>

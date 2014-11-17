@@ -1,21 +1,22 @@
-require 'bootstrap-sass'
-require 'cancan'
-require 'inherited_resources'
-require 'kaminari'
-require 'simple_form'
-require 'godmin/engine'
-require 'godmin/rails'
-require 'godmin/version'
+require "bootstrap-sass"
+require "kaminari"
+require "select2-rails"
+require "simple_form"
+require "godmin/application"
+require "godmin/authentication"
+require "godmin/authorization"
+require "godmin/engine"
+require "godmin/rails"
+require "godmin/resolver"
+require "godmin/resource"
+require "godmin/version"
 
 module Godmin
-  mattr_accessor :mounted_as
-  self.mounted_as = nil
+  mattr_accessor :namespace
+  self.namespace = nil
 
-  mattr_accessor :authentication_method
-  self.authentication_method = false
-
-  mattr_accessor :current_user_method
-  self.current_user_method = false
+  mattr_accessor :resources
+  self.resources = []
 
   def self.configure
     yield self

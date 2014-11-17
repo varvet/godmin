@@ -1,25 +1,22 @@
-<div class="panel panel-default">
+<div id="filters" class="panel panel-default">
   <div class="panel-body">
-    <%= form_tag params, method: :get, class: "form-horizontal" do %>
-
-      <div class="form-group input-group-sm">
-        <% filter_map.each do |name, options| %>
-          <div class="col-lg-2" style="padding-top:10px">
-            <%= label_tag name, options[:label] %>
-            <%= filter_input_tag name, options %>
-          </div>
-        <% end %>
-        <div class="col-lg-2" style="padding-top:10px">
-          <%= button_tag class: "btn btn-primary btn-sm", style: "margin-top:23px;" do %>
-            <span class="glyphicon glyphicon-filter"></span> Filtrera
-          <% end %>
-          <%= link_to polymorphic_path([:admin, resource_class], scope: params[:scope]), class: "btn btn-danger btn-sm", style: "margin-top:23px;" do %>
-            <span class="glyphicon glyphicon-remove"></span> Rensa
-          <% end %>
-        </div>
-      </div>
+    <%= form_tag params, method: :get, class: "form-inline" do %>
 
       <%= hidden_field_tag :scope, nil, value: params[:scope] %>
+      <%= hidden_field_tag :order, nil, value: params[:order] %>
+
+      <% filter_map.each do |name, options| %>
+        <div class="filter form-group">
+          <%= label_tag name, translate_scoped("filters.labels.#{name}", default: name.to_s.titleize) %><br>
+          <%= filter_input_tag name, options %>
+        </div>
+      <% end %>
+
+      <div class="pull-right">
+        <label>&nbsp;</label><br>
+        <%= button_tag translate_scoped("filters.buttons.apply"), class: "btn btn-default" %>
+        <%= link_to translate_scoped("filters.buttons.clear"), polymorphic_path(@resource_class, scope: params[:scope], order: params[:order]), class: "btn btn-default" %>
+      </div>
 
     <% end %>
   </div>

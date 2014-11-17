@@ -1,46 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Godmin</title>
-  <%= stylesheet_link_tag    "godmin/application", "godmin", media: "all" %>
-  <%= javascript_include_tag "godmin/application", "godmin" %>
-  <%= yield :head %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
+<% content_for :body do %>
   <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
-        <%= link_to 'Godmin', main_app.admin_root_path, class: 'navbar-brand' %>
+        <%= link_to "Godmin", root_path, class: "navbar-brand" %>
       </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <%= render partial: 'shared/nav' %>
+        <%= render partial: "shared/navigation" %>
       </div>
     </div>
   </nav>
-
-  <div id="main-wrapper" class="container">
-
-    <% if flash[:alert] %>
-      <div class="alert alert-danger">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
-    <% if flash[:notice] %>
-      <div class="alert alert-info">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
-
-    <%= yield %>
-
-    <footer>
-      Powered by Godmin <%= Godmin::VERSION %> |
-      Mounted as <%= Godmin.mounted_as %>
-    </footer>
-
+  <div class="container">
+    <%= render "layouts/godmin/content" %>
   </div>
+<% end %>
 
-</body>
-</html>
+<%= render "layouts/godmin/layout" %>

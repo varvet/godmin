@@ -1,7 +1,5 @@
-<%= render partial: 'breadcrumb' %>
+<%= render partial: "breadcrumb", locals: { index: false } %>
 
-<% if resource.errors.present? %>
-  <%= render partial: 'errors', locals: { errors: resource.errors } %>
-<% end %>
+<%= render partial: "errors", locals: { errors: @resource.errors } %>
 
-<%= render partial: 'form' %>
+<%= render partial: "form" %>
