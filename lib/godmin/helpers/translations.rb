@@ -12,10 +12,11 @@ module Godmin
           scope ||= @resource_class.to_s.underscore
         end
 
-        defaults = []
-        defaults << ["godmin", scope, translate].compact.join(".").to_sym
-        defaults << ["godmin", translate].compact.join(".").to_sym
-        defaults << default
+        defaults = [
+          ["godmin", scope, translate].compact.join(".").to_sym,
+          ["godmin", translate].compact.join(".").to_sym,
+          default
+        ]
 
         view_context.translate(defaults.shift, default: defaults, **options)
       end
