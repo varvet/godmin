@@ -75,6 +75,36 @@ Godmin should be up and running at `localhost:3000/admin`
 
 ### Installation artefacts
 
+Installing Godmin does a number of things to the Rails application.
+
+A `config/initializers/godmin.rb` is created:
+```ruby
+Godmin.configure do |config|
+  config.namespace = nil
+end
+```
+
+If Godmin was installed inside an engine, as in the previous section, the namespace is the underscored name of the engine, e.g. `"admin"`.
+
+The `config/routes.rb` file is modified as such:
+```ruby
+Rails.application.routes.draw do
+  godmin do
+  end
+end
+```
+
+Resource routes placed within the `godmin` block are automatically added to the default navigation, and set up to work with batch actions. More on this in later sections.
+
+The application controller is modified as such:
+```ruby
+class ApplicationController < ActionController::Base
+  include Godmin::Application
+end
+```
+
+And finally, the `app/views/layouts` folder is removed by default, so as not to interfere with the Godmin layouts. It can be added back in case you wish to override the built in layouts.
+
 ## Getting started
 
 Godmin deals primarily with resources. A resource is something that can be administered through the Godmin user interface, often a Rails model. Let's say the application has an `Article` model with attributes such as `title`, `body` and `published`. To get going quickly, we can use a generator:
