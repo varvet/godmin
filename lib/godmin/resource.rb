@@ -1,11 +1,20 @@
+require "godmin/helpers/batch_actions"
+require "godmin/helpers/filters"
+require "godmin/helpers/tables"
+require "godmin/resource/batch_actions"
+require "godmin/resource/filters"
+require "godmin/resource/ordering"
+require "godmin/resource/pagination"
+require "godmin/resource/scopes"
+
 module Godmin
   module Resource
     extend ActiveSupport::Concern
 
     included do
-      include Godmin::Helpers::BatchActions
-      include Godmin::Helpers::Filters
-      include Godmin::Helpers::Tables
+      helper Godmin::Helpers::BatchActions
+      helper Godmin::Helpers::Filters
+      helper Godmin::Helpers::Tables
 
       include Godmin::Resource::BatchActions
       include Godmin::Resource::Filters

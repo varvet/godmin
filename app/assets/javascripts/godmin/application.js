@@ -15,14 +15,5 @@
 //= require bootstrap
 //= require selectize
 //= require godmin/batch_actions
+//= require godmin/navigation
 //= require godmin/select_tags
-
-$(function(){
-  // Remove empty navbar dropdowns
-  $('.navbar-nav .dropdown').each(function() {
-    var $el = $(this);
-    if($el.find('li').length == 0) {
-      $el.remove();
-    }
-  });
-});

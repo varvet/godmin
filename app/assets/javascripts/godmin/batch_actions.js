@@ -1,6 +1,5 @@
-(function($){
-  $(function(){
-
+(function($) {
+  $(function() {
     $form       = $('#batch-actions-form');
     $selectAll  = $form.find('.batch-actions-select-all');
     $selectNone = $form.find('.batch-actions-select-none');
@@ -39,6 +38,5 @@
       $form.find('#batch-actions-action').val($(this).data('value'));
       $form.submit();
     });
-
   });
 }(jQuery));

@@ -1,5 +1,7 @@
 # Godmin
 
+[![Build Status](https://travis-ci.org/varvet/godmin.svg?branch=master)](https://travis-ci.org/varvet/godmin)
+
 Godmin is an admin engine for Rails 4+.
 
 - [Installation](#installation)
@@ -74,6 +76,36 @@ $ admin/bin/rails generate godmin:install
 Godmin should be up and running at `localhost:3000/admin`
 
 ### Installation artefacts
+
+Installing Godmin does a number of things to the Rails application.
+
+A `config/initializers/godmin.rb` is created:
+```ruby
+Godmin.configure do |config|
+  config.namespace = nil
+end
+```
+
+If Godmin was installed inside an engine, as in the previous section, the namespace is the underscored name of the engine, e.g. `"admin"`.
+
+The `config/routes.rb` file is modified as such:
+```ruby
+Rails.application.routes.draw do
+  godmin do
+  end
+end
+```
+
+Resource routes placed within the `godmin` block are automatically added to the default navigation, and set up to work with batch actions. More on this in later sections.
+
+The application controller is modified as such:
+```ruby
+class ApplicationController < ActionController::Base
+  include Godmin::Application
+end
+```
+
+And finally, the `app/views/layouts` folder is removed by default, so as not to interfere with the Godmin layouts. It can be added back in case you wish to override the built in layouts.
 
 ## Getting started
 
@@ -180,7 +212,7 @@ When using `select` or `multiselect`, a collection must be specified. The collec
 filter :category, as: :select, collection: -> { [["News", 1], ["Posts", 2]] }
 ```
 
-When specifying a collection of ActiveRecords, two additional parameters, `option_text` and `option_value` can be specified. They default to `to_s` and `id` respectively. 
+When specifying a collection of ActiveRecords, two additional parameters, `option_text` and `option_value` can be specified. They default to `to_s` and `id` respectively.
 
 ```ruby
 filter :category, as: :select, collection: -> { Category.all }, option_text: "title"
@@ -270,6 +302,16 @@ end
 
 ## Views
 
+It is easy to override view templates and partials in Godmin, both globally and per resource. All you have to do is place a file with an identical name in your `app/views` directory. For instance, to override the `godmin/resource/index.html.erb` template for all resources, place a file under `app/views/resource/index.html.erb`. If you only wish to override it for articles, place it instead under `app/views/articles/index.html.erb`.
+
+If you wish to customize the content of a table column, you can place a partial under `app/views/{resource}/columns/{column_name}.html.erb`, e.g. `app/views/articles/columns/_title.html.erb`. The resource is available to the partial through the `resource` variable.
+
+Oftentimes, the default form provided by Godmin doesn't cut it. The `godmin/resource/_form.html.erb` partial is therefore one of the most common to override per resource.
+
+Likewise, the `godmin/shared/_navigation.html.erb` partial can be overridden to build a custom navigation bar.
+
+The full list of templates and partials that can be overridden [can be found here](https://github.com/varvet/godmin/tree/master/app/views/godmin)
+
 ## Models
 
 ## Authentication
@@ -299,7 +341,7 @@ The generated model looks like this:
 
 ```ruby
 class AdminUser < ActiveRecord::Base
-  include Godmin::AdminUser
+  include Godmin::Authentication::User
 
   def self.login_column
     :email
@@ -319,7 +361,7 @@ Along with a sessions controller:
 
 ```ruby
 class SessionsController < ApplicationController
-  include Godmin::Sessions
+  include Godmin::Authentication::Sessions
 end
 ```
 
@@ -403,14 +445,14 @@ $ bin/rails generate godmin:policy article
 This file `app/policies/article_policy.rb` will be created:
 
 ```ruby
-class ArticlePolicy < Godmin::Policy
+class ArticlePolicy < Godmin::Authorization::Policy
 end
 ```
 
 Permissions are specified by implementing methods on this class. Two methods are available to the methods, `user` and `record`, the signed in user and the record being authorized. An implemented policy can look something like this:
 
 ```ruby
-class ArticlePolicy < Godmin::Policy
+class ArticlePolicy < Godmin::Authorization::Policy
   def index?
     true
   end
@@ -436,5 +478,46 @@ end
 That is, everyone can list and view articles, only editors can create them, and only unpublished articles can be updated and destroyed.
 
 ## Localization
+
+Godmin supports localization out of the box. Strings can be translated both globally and per resource, similar to how views work.
+
+For a list of translatable strings, [look here](https://github.com/varvet/godmin/blob/resurrection/config/locales/en.yml).
+
+For instance, to translate the `godmin.batch_actions.select_all` string globally:
+
+```yml
+godmin:
+  batch_actions:
+    select_all: {translation}
+```
+
+Or, translate for a specific resource:
+
+```yml
+godmin:
+  articles:
+    batch_actions:
+      select_all: {translation}
+```
+
+In addition, all scopes, filters and batch actions that are added, can be localized:
+
+```yml
+godmin:
+  articles:
+    batch_actions:
+      publish: {translation}
+      unpublish: {translation}
+    filters:
+      labels:
+        title: {translation}
+    scopes:
+      unpublished: {translation}
+      published: {translation}
+```
+
+Godmin comes with built in support for English and Swedish.
+
+There is a view helper available named `translated_scoped` that can be used in overridden views. Please see the source code for information on how to use it.
 
 ## Contributors
