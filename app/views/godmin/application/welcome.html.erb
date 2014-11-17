@@ -13,30 +13,46 @@
         </a>
       </p>
     </div>
-    <h2>
-      Getting started<br>
-      <small>
-        Here's how to get rolling:
-      </small>
-    </h2>
-    <hr>
-    <h4>1. Use rails generate to create your admin resources</h4>
-    <p>
-      Generate some admin resources for your models. Provided you
-      have an Article model with a title
-      and a published column, run the following to
-      generate an admin controller + route:
-    </p>
-    <p>
-      <pre>$ bin/rails generate godmin:resource article title published</pre>
-    </p>
-    <hr>
-    <h4>2. Set up a root route to replace this page</h4>
-    <p>
-      You're seeing this page because you're running in development
-      mode and you haven't set a root route yet. Add the root route
-      to the godmin block in your <code>config/routes.rb</code>
-    </p>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Scopes</div>
+          <div class="panel-body">
+            <p>Scopes are a way of sectioning resources, useful for quick navigation.</p>
+            <%= link_to "Read more about scopes", "#" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Filters</div>
+          <div class="panel-body">
+            <p>Filters offer great flexibility when it comes to searching for resources.</p>
+            <%= link_to "Read more about filters", "#" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Batch actions</div>
+          <div class="panel-body">
+            <p>Batch actions are an easy way to perform the same action on multiple resources.</p>
+            <%= link_to "Read more about batch actions", "#" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Resource fetching</div>
+          <div class="panel-body">
+            <p>Control which resources to fetch, and apply arbitrary conditions, such as sorting.</p>
+            <%= link_to "Read more about resource fetching", "#" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="col-md-4">
     <div class="panel panel-default">
