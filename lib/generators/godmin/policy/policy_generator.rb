@@ -8,13 +8,13 @@ class Godmin::PolicyGenerator < Godmin::Generators::Base
       if namespace
         <<-END.strip_heredoc
           module #{namespace.camelize}
-            class #{@resource.underscore.camelize}Policy < Godmin::Policy
+            class #{@resource.underscore.camelize}Policy < Godmin::Authorization::Policy
             end
           end
         END
       else
         <<-END.strip_heredoc
-          class #{@resource.underscore.camelize}Policy < Godmin::Policy
+          class #{@resource.underscore.camelize}Policy < Godmin::Authorization::Policy
           end
         END
       end

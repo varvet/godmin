@@ -1,3 +1,6 @@
+require "godmin/authentication/sessions"
+require "godmin/authentication/user"
+
 module Godmin
   module Authentication
     extend ActiveSupport::Concern
