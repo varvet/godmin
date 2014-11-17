@@ -1,12 +1,6 @@
 module Godmin
   module Helpers
     module Filters
-      extend ActiveSupport::Concern
-
-      included do
-        helper_method :filter_input_tag
-      end
-
       def filter_input_tag(name, options)
         case options[:as]
         when :string
@@ -23,7 +17,7 @@ module Godmin
       private
 
       def filter_string_tag(name, _options)
-        view_context.text_field_tag(
+        text_field_tag(
           name,
           default_filter_value(name),
           name: "filter[#{name}]",
@@ -66,20 +60,20 @@ module Godmin
         collection = options[:collection].call
 
         if collection.is_a? ActiveRecord::Relation
-          choices = view_context.options_from_collection_for_select(
+          choices = options_from_collection_for_select(
             collection,
             options[:option_value],
             options[:option_text],
             selected: default_filter_value(name)
           )
         else
-          choices = view_context.options_for_select(
+          choices = options_for_select(
             collection,
             selected: default_filter_value(name)
           )
         end
 
-        view_context.select_tag(name, choices, html_options)
+        select_tag(name, choices, html_options)
       end
 
       def filter_checkbox_tags(name, options)
@@ -98,9 +92,9 @@ module Godmin
 
           is_checked = default_filter_value(name) ? default_filter_value(name).include?(value) : false
 
-          view_context.content_tag :div, class: "checkbox" do
-            view_context.label_tag("#{name}_#{value}") do
-              view_context.check_box_tag("filter[#{name}][]", value, is_checked, id: "#{name}_#{value}") << text
+          content_tag :div, class: "checkbox" do
+            label_tag("#{name}_#{value}") do
+              check_box_tag("filter[#{name}][]", value, is_checked, id: "#{name}_#{value}") << text
             end
           end
         end.join("\n").html_safe

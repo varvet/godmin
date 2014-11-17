@@ -10,7 +10,7 @@ class Godmin::AuthenticationGenerator < Godmin::Generators::Base
   def modify_model
     inject_into_file ["app/models", namespace, "#{@model.underscore}.rb"].compact.join("/"), after: "ActiveRecord::Base\n" do
       <<-END.strip_heredoc.indent(namespace.nil? ? 2 : 4)
-        include Godmin::AdminUser
+        include Godmin::Authentication::User
 
         def self.login_column
           :email
@@ -33,14 +33,14 @@ class Godmin::AuthenticationGenerator < Godmin::Generators::Base
         <<-END.strip_heredoc
           module #{namespace.camelize}
             class SessionsController < ApplicationController
-              include Godmin::Sessions
+              include Godmin::Authentication::Sessions
             end
           end
         END
       else
         <<-END.strip_heredoc
           class SessionsController < ApplicationController
-            include Godmin::Sessions
+            include Godmin::Authentication::Sessions
           end
         END
       end

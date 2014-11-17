@@ -1,3 +1,6 @@
+require "godmin/authorization/policy"
+require "godmin/authorization/policy_finder"
+
 module Godmin
   module Authorization
     extend ActiveSupport::Concern

@@ -180,7 +180,7 @@ When using `select` or `multiselect`, a collection must be specified. The collec
 filter :category, as: :select, collection: -> { [["News", 1], ["Posts", 2]] }
 ```
 
-When specifying a collection of ActiveRecords, two additional parameters, `option_text` and `option_value` can be specified. They default to `to_s` and `id` respectively. 
+When specifying a collection of ActiveRecords, two additional parameters, `option_text` and `option_value` can be specified. They default to `to_s` and `id` respectively.
 
 ```ruby
 filter :category, as: :select, collection: -> { Category.all }, option_text: "title"
@@ -299,7 +299,7 @@ The generated model looks like this:
 
 ```ruby
 class AdminUser < ActiveRecord::Base
-  include Godmin::AdminUser
+  include Godmin::Authentication::User
 
   def self.login_column
     :email
@@ -319,7 +319,7 @@ Along with a sessions controller:
 
 ```ruby
 class SessionsController < ApplicationController
-  include Godmin::Sessions
+  include Godmin::Authentication::Sessions
 end
 ```
 
@@ -403,14 +403,14 @@ $ bin/rails generate godmin:policy article
 This file `app/policies/article_policy.rb` will be created:
 
 ```ruby
-class ArticlePolicy < Godmin::Policy
+class ArticlePolicy < Godmin::Authorization::Policy
 end
 ```
 
 Permissions are specified by implementing methods on this class. Two methods are available to the methods, `user` and `record`, the signed in user and the record being authorized. An implemented policy can look something like this:
 
 ```ruby
-class ArticlePolicy < Godmin::Policy
+class ArticlePolicy < Godmin::Authorization::Policy
   def index?
     true
   end
