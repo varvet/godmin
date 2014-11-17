@@ -32,7 +32,7 @@ Godmin supports two common admin scenarios:
 2. Engine installation
 
 ### Standalone installation
-For admin-only applications, or for architectures where the admin lives in its own app, i.e. you want to access the admin section at `localhost:3000`.
+Use for admin-only applications, or for architectures where the admin lives in its own app. Typically, you want to access the admin section at `localhost:3000`.
 
 Add the gem to the application's `Gemfile`:
 ```ruby
@@ -47,7 +47,7 @@ $ bin/rails generate godmin:install
 Godmin should be up and running at `localhost:3000`
 
 ### Engine installation
-For when the admin is part of the same codebase as the main application, i.e. you want to access the admin section at `localhost:3000/admin`.
+Use when the admin is part of the same codebase as the main application. Typically you want to access the admin section at `localhost:3000/admin`.
 
 Generate a [mountable engine](http://guides.rubyonrails.org/engines.html):
 ```sh
@@ -482,7 +482,7 @@ That is, everyone can list and view articles, only editors can create them, and 
 
 Godmin supports localization out of the box. Strings can be translated both globally and per resource, similar to how views work.
 
-For a list of translatable strings, [look here](https://github.com/varvet/godmin/blob/resurrection/config/locales/en.yml).
+For a list of translatable strings, [look here](https://github.com/varvet/godmin/blob/master/config/locales/en.yml).
 
 For instance, to translate the `godmin.batch_actions.select_all` string globally:
 
