@@ -1,5 +1,7 @@
 # Godmin
 
+[![Build Status](https://travis-ci.org/varvet/godmin.svg?branch=master)](https://travis-ci.org/varvet/godmin)
+
 Godmin is an admin engine for Rails 4+.
 
 - [Installation](#installation)
