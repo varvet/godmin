@@ -477,4 +477,45 @@ That is, everyone can list and view articles, only editors can create them, and 
 
 ## Localization
 
+Godmin supports localization out of the box. Strings can be translated both globally and per resource, similar to how views work.
+
+For a list of translatable strings, [look here](https://github.com/varvet/godmin/blob/resurrection/config/locales/en.yml).
+
+For instance, to translate the `godmin.batch_actions.select_all` string globally:
+
+```yml
+godmin:
+  batch_actions:
+    select_all: {translation}
+```
+
+Or, translate for a specific resource:
+
+```yml
+godmin:
+  articles:
+    batch_actions:
+      select_all: {translation}
+```
+
+In addition, all scopes, filters and batch actions that are added, can be localized:
+
+```yml
+godmin:
+  articles:
+    batch_actions:
+      publish: {translation}
+      unpublish: {translation}
+    filters:
+      labels:
+        title: {translation}
+    scopes:
+      unpublished: {translation}
+      published: {translation}
+```
+
+Godmin comes with built in support for English and Swedish.
+
+There is a view helper available named `translated_scoped` that can be used in overridden views. Please see the source code for information on how to use it.
+
 ## Contributors
