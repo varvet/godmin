@@ -12,6 +12,7 @@ Gem::Specification.new do |gem|
   gem.homepage    = "https://github.com/varvet/godmin"
   gem.summary     = "Godmin is an admin engine for Rails 4+"
   gem.description = "Godmin is an admin engine for Rails 4+"
+  gem.license     = "MIT"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
