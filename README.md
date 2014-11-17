@@ -522,3 +522,9 @@ Godmin comes with built in support for English and Swedish.
 There is a view helper available named `translated_scoped` that can be used in overridden views. Please see the source code for information on how to use it.
 
 ## Contributors
+
+https://github.com/varvet/godmin/graphs/contributors
+
+## License
+
+Licensed under the MIT license. See the separate MIT-LICENSE file.
