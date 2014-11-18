@@ -6,6 +6,7 @@ module Godmin
       included do
         helper_method :current_page
         helper_method :pages
+        helper_method :total_pages
       end
 
       def apply_pagination(resources)
@@ -26,23 +27,24 @@ module Godmin
         (params[:page].to_i * self.class.per_page) - self.class.per_page
       end
 
-      # threshold: 5
-      # 1,2,(3),4,5,6,7,8,9,10,11,12 => 1,2,(3),4,5...
-      # 1,2,3,4,5,6,7,8,(9),10,11,12 => ...8,(9),10,11,12
-      # 1,2,3,4,5,6,(7),8,9,10,11,12 => ...5,6,(7),8,9...
-
       def pages
-        x = (1..(resource_class.count.to_f / self.class.per_page).ceil)
+        pages = (1..total_pages).to_a
 
-        if x.count > 5
-          if current_page < 5
-            x.to_a.slice(0, 5)
-          elsif current_page > (x.count - 5)
-            x.to_a.slice(-5, 5)
-          end
-        else
-          x
+        unless total_pages > 5
+          return pages
         end
+
+        if current_page < 5
+          pages.slice(0, 5)
+        elsif current_page > (total_pages - 5)
+          pages.slice(-5, 5)
+        else
+          pages.slice(pages.index(current_page) - 2, 5)
+        end
+      end
+
+      def total_pages
+        (resources.limit(nil).offset(nil).count.to_f / self.class.per_page).ceil
       end
 
       module ClassMethods

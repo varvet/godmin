@@ -23,19 +23,6 @@ sv:
       signed_in: Loggade in
       signed_out: Loggade ut
       failed_sign_in: Fel inloggningsuppgifter
-  views:
     pagination:
       first: "Första"
       last: "Sista"
-      previous: "&laquo;"
-      next: "&raquo;"
-      truncate: "&hellip;"
-  helpers:
-    page_entries_info:
-      one_page:
-        display_entries:
-          zero: "Inga %{entry_name} hittades"
-          one: "Visar 1 %{entry_name}"
-          other: "Visar alla %{count} %{entry_name}"
-      more_pages:
-        display_entries: "Visar %{first}&nbsp;-&nbsp;%{last} av %{total} %{entry_name}"

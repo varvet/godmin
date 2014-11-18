@@ -22,7 +22,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency "bcrypt", "~> 3.1.7"
   gem.add_dependency "bootstrap-sass", "~> 3.1.1.0"
   gem.add_dependency "coffee-rails", [">= 4.0", "< 4.2"]
-  gem.add_dependency "kaminari", "~> 0.16.1"
   gem.add_dependency "rails", [">= 4.0", "< 4.2"]
   gem.add_dependency "sass-rails", [">= 4.0", "< 4.2"]
   gem.add_dependency "select2-rails", "~> 3.5.7"
