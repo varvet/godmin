@@ -1,6 +1,33 @@
 <div class="pull-left">
-  <%= paginate @resources %>
+
+  <nav>
+    <ul class="pagination">
+      <% unless pages.first == 1 && current_page == pages.first %>
+        <li><%= link_to "First", params.merge(page: 1) %></li>
+        <li><%= link_to "«", params.merge(page: current_page - 1) %></li>
+      <% end %>
+      <% unless pages.first == 1 %>
+        <li><a href="#">...</a></li>
+      <% end %>
+      <% pages.each_with_index do |page, index| %>
+        <li class="<%= "active" if page == current_page %>">
+          <%= link_to page, params.merge(page: page) %>
+        </li>
+      <% end %>
+      <% unless pages.last == pages.count %>
+        <li><a href="#">...</a></li>
+      <% end %>
+      <% unless pages.last == pages.count && current_page == pages.last %>
+        <li><%= link_to "»", params.merge(page: current_page + 1) %></li>
+        <li><%= link_to "Last", params.merge(page: pages.last) %></li>
+      <% end %>
+    </ul>
+  </nav>
+
+
+
+  <%#= paginate @resources %>
 </div>
 <div class="pull-right">
-  <%= page_entries_info @resources %>
+  <%#= page_entries_info @resources %>
 </div>
