@@ -9,7 +9,7 @@
         <% unless pages.first == 1 %>
           <li><a href="#">...</a></li>
         <% end %>
-        <% pages.each_with_index do |page, index| %>
+        <% pages.each do |page| %>
           <li class="<%= "active" if page == current_page %>">
             <%= link_to page, params.merge(page: page) %>
           </li>
