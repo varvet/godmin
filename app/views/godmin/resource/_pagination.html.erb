@@ -19,7 +19,7 @@
         <% end %>
         <% unless pages.last == total_pages && current_page == pages.last %>
           <li><%= link_to "»", params.merge(page: current_page + 1) %></li>
-          <li><%= link_to "Last", params.merge(page: pages.last) %></li>
+          <li><%= link_to "Last", params.merge(page: total_pages) %></li>
         <% end %>
       </ul>
     </nav>
