@@ -1,10 +1,10 @@
 <%= simple_form_for @resource, html: { role: "form" } do |f| %>
   <% attrs_for_form.each do |attr| %>
     <div class="form-group">
-      <% if @resource_class.column_names.include? attr.to_s %>
-        <%= f.input attr, error: false, input_html: { class: "form-control" } %>
-      <% else %>
+      <% if @resource_class.reflect_on_association(attr) %>
         <%= f.association attr, error: false, input_html: { class: "form-control chosen" } %>
+      <% else %>
+        <%= f.input attr, error: false, input_html: { class: "form-control" } %>
       <% end %>
     </div>
   <% end %>
