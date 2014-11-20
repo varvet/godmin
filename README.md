@@ -67,7 +67,7 @@ mount Admin::Engine, at: "admin"
 
 Add the gem to the engine's gemspec, `admin/admin.gemspec`:
 ```ruby
-s.add_dependency("godmin", "~> 1.0.0")
+s.add_dependency "godmin", "~> x.x.x"
 ```
 
 Run the install generator within the scope of the engine, i.e. note the leading `admin/`:
