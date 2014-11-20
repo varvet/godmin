@@ -26,5 +26,9 @@
   <% end %>
 </div>
 <div class="pull-right">
-  <%#= page_entries_info @resources %>
+  Showing
+  <%= controller.class.per_page %>
+  out of
+  <%= total_resources %>
+  <%= @resource_class.model_name.human(count: 2) %>
 </div>
