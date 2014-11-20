@@ -31,4 +31,14 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
   def remove_layouts
     remove_dir "app/views/layouts"
   end
+
+  def require_if_namespaced
+    return unless namespace
+
+    inject_into_file ["lib/#{namespace}.rb" do
+      <<-END.strip_heredoc
+        require "godmin"
+      END
+    end
+  end
 end
