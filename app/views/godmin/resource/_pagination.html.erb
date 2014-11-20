@@ -3,7 +3,7 @@
     <nav>
       <ul class="pagination">
         <% unless pages.first == 1 && current_page == pages.first %>
-          <li><%= link_to "First", params.merge(page: 1) %></li>
+          <li><%= link_to translate_scoped("pagination.first"), params.merge(page: 1) %></li>
           <li><%= link_to "«", params.merge(page: current_page - 1) %></li>
         <% end %>
         <% unless pages.first == 1 %>
@@ -19,16 +19,22 @@
         <% end %>
         <% unless pages.last == total_pages && current_page == pages.last %>
           <li><%= link_to "»", params.merge(page: current_page + 1) %></li>
-          <li><%= link_to "Last", params.merge(page: total_pages) %></li>
+          <li><%= link_to translate_scoped("pagination.last"), params.merge(page: total_pages) %></li>
         <% end %>
       </ul>
     </nav>
   <% end %>
 </div>
 <div class="pull-right">
-  Showing
-  <%= controller.class.per_page %>
-  out of
-  <%= total_resources %>
-  <%= @resource_class.model_name.human(count: 2) %>
+  <% if @resources.length == 0 %>
+    <%= translate_scoped("pagination.display_entries.zero", {
+      resource: @resource_class.model_name.human(count: @resources.length).downcase
+    }) %>
+  <% else %>
+    <%= translate_scoped("pagination.display_entries.other", {
+      resource: @resource_class.model_name.human(count: @resources.length).downcase,
+      count: @resources.length,
+      total: total_resources
+    }) %>
+  <% end %>
 </div>

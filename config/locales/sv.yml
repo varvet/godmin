@@ -26,3 +26,6 @@ sv:
     pagination:
       first: "Första"
       last: "Sista"
+      display_entries:
+        zero: "Inga %{resource} funna"
+        other: "Visar %{count} av %{total} %{resource}"
