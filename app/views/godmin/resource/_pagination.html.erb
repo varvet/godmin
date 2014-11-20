@@ -7,7 +7,7 @@
           <li><%= link_to "«", params.merge(page: current_page - 1) %></li>
         <% end %>
         <% unless pages.first == 1 %>
-          <li><a href="#">...</a></li>
+          <li class="disabled"><%= link_to "…" %></li>
         <% end %>
         <% pages.each do |page| %>
           <li class="<%= "active" if page == current_page %>">
@@ -15,7 +15,7 @@
           </li>
         <% end %>
         <% unless pages.last == total_pages %>
-          <li><a href="#">...</a></li>
+          <li class="disabled"><%= link_to "…" %></li>
         <% end %>
         <% unless pages.last == total_pages && current_page == pages.last %>
           <li><%= link_to "»", params.merge(page: current_page + 1) %></li>
