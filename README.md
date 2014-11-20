@@ -62,7 +62,7 @@ gem "admin", path: "admin"
 
 Mount the engine in the application's `config/routes.rb`:
 ```ruby
-mount Admin::Engine, at: "/admin"
+mount Admin::Engine, at: "admin"
 ```
 
 Add the gem to the engine's gemspec, `admin/admin.gemspec`:
