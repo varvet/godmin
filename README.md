@@ -107,6 +107,8 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+If Godmin was installed inside an engine, a `require "godmin"` statement is placed in `{namespace}/lib/{namespace}.rb`.
+
 And finally, the `app/views/layouts` folder is removed by default, so as not to interfere with the Godmin layouts. It can be added back in case you wish to override the built in layouts.
 
 ## Getting started
