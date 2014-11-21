@@ -24,7 +24,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "coffee-rails", [">= 4.0", "< 4.2"]
   gem.add_dependency "rails", [">= 4.0", "< 4.2"]
   gem.add_dependency "sass-rails", [">= 4.0", "< 4.2"]
-  gem.add_dependency "select2-rails", "~> 3.5.7"
+  gem.add_dependency "selectize-rails", "~> 0.11.2"
   gem.add_dependency "simple_form", "~> 3.0.0"
 
   gem.add_development_dependency "sqlite3"

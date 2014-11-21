@@ -1,8 +1,7 @@
-(function($) {
-  $(function() {
-    $('.select-tag').select2({
-      allowClear: true,
-      width: '170px'
+(function($){
+  $(function(){
+    $('.select-tag').selectize({
+      inputClass: 'form-control selectize-input'
     });
   });
 }(jQuery));

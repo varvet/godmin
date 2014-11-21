@@ -62,12 +62,12 @@ gem "admin", path: "admin"
 
 Mount the engine in the application's `config/routes.rb`:
 ```ruby
-mount Admin::Engine, at: "/admin"
+mount Admin::Engine, at: "admin"
 ```
 
 Add the gem to the engine's gemspec, `admin/admin.gemspec`:
 ```ruby
-s.add_dependency("godmin", "~> 1.0.0")
+s.add_dependency "godmin", "~> x.x.x"
 ```
 
 Run the install generator within the scope of the engine, i.e. note the leading `admin/`:
@@ -106,6 +106,8 @@ class ApplicationController < ActionController::Base
   include Godmin::Application
 end
 ```
+
+If Godmin was installed inside an engine, a `require "godmin"` statement is placed in `{namespace}/lib/{namespace}.rb`.
 
 And finally, the `app/views/layouts` folder is removed by default, so as not to interfere with the Godmin layouts. It can be added back in case you wish to override the built in layouts.
 

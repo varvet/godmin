@@ -12,8 +12,8 @@
  */
 
 @import "bootstrap";
-@import "select2";
-@import "select2-bootstrap";
+@import "selectize";
+@import "selectize.bootstrap3";
 
 body {
   margin-bottom: 20px;
@@ -28,7 +28,7 @@ body {
 }
 
 #filters {
-  .filter {
+  .filter .form-control {
     min-width: 170px;
   }
 }
