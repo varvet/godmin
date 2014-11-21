@@ -26,6 +26,6 @@ en:
     pagination:
       first: "First"
       last: "Last"
-      display_entries:
+      entries:
         zero: "No %{resource} found"
         other: "Showing %{count} out of %{total} %{resource}"

@@ -25,13 +25,13 @@
     </nav>
   <% end %>
 </div>
-<div class="pull-right">
+<div class="pagination-entries pull-right hidden-xs">
   <% if @resources.length == 0 %>
-    <%= translate_scoped("pagination.display_entries.zero", {
+    <%= translate_scoped("pagination.entries.zero", {
       resource: @resource_class.model_name.human(count: @resources.length).downcase
     }) %>
   <% else %>
-    <%= translate_scoped("pagination.display_entries.other", {
+    <%= translate_scoped("pagination.entries.other", {
       resource: @resource_class.model_name.human(count: @resources.length).downcase,
       count: @resources.length,
       total: total_resources
