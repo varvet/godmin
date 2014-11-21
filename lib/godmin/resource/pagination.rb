@@ -31,14 +31,14 @@ module Godmin
       def pages
         pages = (1..total_pages).to_a
 
-        return pages unless total_pages > 5
+        return pages unless total_pages > 7
 
-        if current_page < 5
-          pages.slice(0, 5)
-        elsif current_page > (total_pages - 5)
-          pages.slice(-5, 5)
+        if current_page < 7
+          pages.slice(0, 7)
+        elsif current_page > (total_pages - 7)
+          pages.slice(-7, 7)
         else
-          pages.slice(pages.index(current_page) - 2, 5)
+          pages.slice(pages.index(current_page) - (7 / 2), 7)
         end
       end
 
