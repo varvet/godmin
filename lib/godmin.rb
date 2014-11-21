@@ -1,6 +1,6 @@
 require "bootstrap-sass"
 require "kaminari"
-require "select2-rails"
+require "selectize-rails"
 require "simple_form"
 require "godmin/application"
 require "godmin/authentication"
