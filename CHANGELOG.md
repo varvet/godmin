@@ -1,5 +1,13 @@
 # Changelog
 
+### 0.9.2 - Unreleased
+Features
+- Replaces select2 with [selectize](http://brianreavis.github.io/selectize.js/)
+
+Bug fixes
+- Form fallbacks to regular input instead of association. (https://github.com/varvet/godmin/issues/18)
+- Install generator adds `require "godmin"` if it is installed in an engine.
+
 ### 0.9.1 - 2014-11-18
 Bug fixes
 - Removed rails executable from /bin folder.
