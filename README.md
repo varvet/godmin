@@ -331,7 +331,7 @@ class ArticlesController
     articles_path
   end
 
-	def redirect_after_update
+  def redirect_after_update
     edit_article_path(@resource)
   end
 end
