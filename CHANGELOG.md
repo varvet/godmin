@@ -7,6 +7,7 @@ Features
 Bug fixes
 - Form fallbacks to regular input instead of association. (https://github.com/varvet/godmin/issues/18)
 - Install generator adds `require "godmin"` if it is installed in an engine.
+- Fixes default permitted params to work with multiword models.
 
 ### 0.9.1 - 2014-11-18
 Bug fixes
