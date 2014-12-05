@@ -83,7 +83,7 @@ module Godmin
 
       respond_to do |format|
         if @resource.save
-          format.html { redirect_to redirect_after_save, notice: "Resource was successfully created" }
+          format.html { redirect_to redirect_after_create, notice: t("godmin.flash.create") }
           format.json { render :show, status: :created, location: @resource }
         else
           format.html { render :edit }
@@ -95,7 +95,7 @@ module Godmin
     def update
       respond_to do |format|
         if @resource.update(resource_params)
-          format.html { redirect_to redirect_after_save, notice: "Resource was successfully updated" }
+          format.html { redirect_to redirect_after_update, notice: t("godmin.flash.update") }
           format.json { render :show, status: :ok, location: @resource }
         else
           format.html { render :edit }
@@ -108,7 +108,7 @@ module Godmin
       @resource.destroy
 
       respond_to do |format|
-        format.html { redirect_to redirect_after_destroy, notice: "Resource was successfully destroyed" }
+        format.html { redirect_to redirect_after_destroy, notice: t("godmin.flash.destroy") }
         format.json { head :no_content }
       end
     end
@@ -139,6 +139,14 @@ module Godmin
     def set_resource
       @resource ||= resource
       authorize(@resource) if authorization_enabled?
+    end
+
+    def redirect_after_create
+      redirect_after_save
+    end
+
+    def redirect_after_update
+      redirect_after_save
     end
 
     def redirect_after_save

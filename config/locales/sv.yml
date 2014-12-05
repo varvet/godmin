@@ -23,6 +23,10 @@ sv:
       signed_in: Loggade in
       signed_out: Loggade ut
       failed_sign_in: Fel inloggningsuppgifter
+    flash:
+      create: Resursen skapades
+      update: Resursen uppdaterades
+      destroy: Resursen togs bort
   views:
     pagination:
       first: "Första"
