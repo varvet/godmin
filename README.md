@@ -340,7 +340,7 @@ end
 If you wish to change the behaviour for every resource controller, consider creating a common resource controller that your other controllers can inherit from:
 
 ```ruby
-class ResourceController
+class ResourceController < ApplicationController
   include Godmin::Resource
 
   def redirect_after_save
