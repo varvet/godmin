@@ -3,6 +3,8 @@ module Godmin
     module Pagination
       extend ActiveSupport::Concern
 
+      WINDOW_SIZE = 7
+
       included do
         helper_method :current_page
         helper_method :pages
@@ -31,14 +33,14 @@ module Godmin
       def pages
         pages = (1..total_pages).to_a
 
-        return pages unless total_pages > 7
+        return pages unless total_pages > WINDOW_SIZE
 
-        if current_page < 7
-          pages.slice(0, 7)
-        elsif current_page > (total_pages - 7)
-          pages.slice(-7, 7)
+        if current_page < WINDOW_SIZE
+          pages.slice(0, WINDOW_SIZE)
+        elsif current_page > (total_pages - WINDOW_SIZE)
+          pages.slice(-WINDOW_SIZE, WINDOW_SIZE)
         else
-          pages.slice(pages.index(current_page) - (7 / 2), 7)
+          pages.slice(pages.index(current_page) - (WINDOW_SIZE / 2), WINDOW_SIZE)
         end
       end
 
