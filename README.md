@@ -1,6 +1,6 @@
 # Godmin
 
-[![Gem Version](https://badge.fury.io/rb/godmin.svg)](http://badge.fury.io/rb/godmin)
+[![Gem Version](http://img.shields.io/gem/v/godmin.svg)](https://rubygems.org/gems/godmin)
 [![Build Status](https://travis-ci.org/varvet/godmin.svg?branch=master)](https://travis-ci.org/varvet/godmin)
 [![Code Climate](https://codeclimate.com/github/varvet/godmin/badges/gpa.svg)](https://codeclimate.com/github/varvet/godmin)
 
