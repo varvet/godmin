@@ -22,8 +22,6 @@ module Godmin
       include Godmin::Resource::Ordering
       include Godmin::Resource::Pagination
 
-      respond_to :html, :json
-
       before_action :set_resource_class
       before_action :set_resources, only: :index
       before_action :set_resource, only: [:show, :new, :edit, :update, :destroy]
@@ -61,34 +59,58 @@ module Godmin
     end
 
     def index
-      respond_with(@resources)
+      respond_to do |format|
+        format.html
+        format.json { render json: @resources.to_json }
+      end
     end
 
     def show
-      respond_with(@resource)
+      respond_to do |format|
+        format.html
+        format.json { render json: @resource.to_json }
+      end
     end
 
     def new
-      respond_with(@resource)
     end
 
     def edit
-      respond_with(@resource)
     end
 
     def create
-      @resource = resource_class.create(resource_params)
-      respond_with(@resource)
+      @resource = resource_class.new(resource_params)
+
+      respond_to do |format|
+        if @resource.save
+          format.html { redirect_to redirect_after_create, notice: redirect_flash_message }
+          format.json { render :show, status: :created, location: @resource }
+        else
+          format.html { render :edit }
+          format.json { render json: @resource.errors, status: :unprocessable_entity }
+        end
+      end
     end
 
     def update
-      @resource.update(resource_params)
-      respond_with(@resource)
+      respond_to do |format|
+        if @resource.update(resource_params)
+          format.html { redirect_to redirect_after_update, notice: redirect_flash_message }
+          format.json { render :show, status: :ok, location: @resource }
+        else
+          format.html { render :edit }
+          format.json { render json: @resource.errors, status: :unprocessable_entity }
+        end
+      end
     end
 
     def destroy
       @resource.destroy
-      respond_with(@resource)
+
+      respond_to do |format|
+        format.html { redirect_to redirect_after_destroy, notice: redirect_flash_message }
+        format.json { head :no_content }
+      end
     end
 
     # Gives the view access to the list of column names
@@ -117,6 +139,26 @@ module Godmin
     def set_resource
       @resource ||= resource
       authorize(@resource) if authorization_enabled?
+    end
+
+    def redirect_after_create
+      redirect_after_save
+    end
+
+    def redirect_after_update
+      redirect_after_save
+    end
+
+    def redirect_after_save
+      @resource
+    end
+
+    def redirect_after_destroy
+      resource_class.model_name.route_key.to_sym
+    end
+
+    def redirect_flash_message
+      translate_scoped("flash.#{action_name}", resource: @resource.class.model_name.human)
     end
 
     def resource_params
