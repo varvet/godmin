@@ -1,6 +1,6 @@
 # Changelog
 
-### 0.9.2 - Unreleased
+### 0.9.2 - 2014-12-09
 Features
 - Replaces select2 with [selectize](http://brianreavis.github.io/selectize.js/)
 - Adds flash messages (https://github.com/varvet/godmin/issues/26)
