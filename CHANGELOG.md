@@ -5,6 +5,7 @@ Features
 - Replaces select2 with [selectize](http://brianreavis.github.io/selectize.js/)
 - Adds flash messages (https://github.com/varvet/godmin/issues/26)
 - Adds redirect hooks (https://github.com/varvet/godmin/issues/27)
+- Replaces kaminari
 
 Bug fixes
 - Form fallbacks to regular input instead of association. (https://github.com/varvet/godmin/issues/18)

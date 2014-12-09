@@ -1,6 +1,40 @@
 <div class="pull-left">
-  <%= paginate @resources %>
+  <% if total_pages > 1 %>
+    <nav>
+      <ul class="pagination">
+        <% unless pages.first == 1 && current_page == pages.first %>
+          <li><%= link_to translate_scoped("pagination.first"), params.merge(page: 1) %></li>
+          <li><%= link_to "«", params.merge(page: current_page - 1) %></li>
+        <% end %>
+        <% unless pages.first == 1 %>
+          <li class="disabled"><%= link_to "…" %></li>
+        <% end %>
+        <% pages.each do |page| %>
+          <li class="<%= "active" if page == current_page %>">
+            <%= link_to page, params.merge(page: page) %>
+          </li>
+        <% end %>
+        <% unless pages.last == total_pages %>
+          <li class="disabled"><%= link_to "…" %></li>
+        <% end %>
+        <% unless pages.last == total_pages && current_page == pages.last %>
+          <li><%= link_to "»", params.merge(page: current_page + 1) %></li>
+          <li><%= link_to translate_scoped("pagination.last"), params.merge(page: total_pages) %></li>
+        <% end %>
+      </ul>
+    </nav>
+  <% end %>
 </div>
-<div class="pull-right">
-  <%= page_entries_info @resources %>
+<div class="pagination-entries pull-right hidden-xs">
+  <% if @resources.length == 0 %>
+    <%= translate_scoped("pagination.entries.zero", {
+      resource: @resource_class.model_name.human(count: @resources.length).downcase
+    }) %>
+  <% else %>
+    <%= translate_scoped("pagination.entries.other", {
+      resource: @resource_class.model_name.human(count: @resources.length).downcase,
+      count: @resources.length,
+      total: total_resources
+    }) %>
+  <% end %>
 </div>

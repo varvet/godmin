@@ -1,5 +1,4 @@
 require "bootstrap-sass"
-require "kaminari"
 require "selectize-rails"
 require "simple_form"
 require "godmin/application"
