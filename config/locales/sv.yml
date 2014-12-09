@@ -24,9 +24,9 @@ sv:
       signed_out: Loggade ut
       failed_sign_in: Fel inloggningsuppgifter
     flash:
-      create: Resursen skapades
-      update: Resursen uppdaterades
-      destroy: Resursen togs bort
+      create: "%{resource} skapades"
+      update: "%{resource} uppdaterades"
+      destroy: "%{resource} togs bort"
   views:
     pagination:
       first: "Första"

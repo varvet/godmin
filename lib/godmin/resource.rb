@@ -83,7 +83,7 @@ module Godmin
 
       respond_to do |format|
         if @resource.save
-          format.html { redirect_to redirect_after_create, notice: t("godmin.flash.create") }
+          format.html { redirect_to redirect_after_create, notice: redirect_flash_message }
           format.json { render :show, status: :created, location: @resource }
         else
           format.html { render :edit }
@@ -95,7 +95,7 @@ module Godmin
     def update
       respond_to do |format|
         if @resource.update(resource_params)
-          format.html { redirect_to redirect_after_update, notice: t("godmin.flash.update") }
+          format.html { redirect_to redirect_after_update, notice: redirect_flash_message }
           format.json { render :show, status: :ok, location: @resource }
         else
           format.html { render :edit }
@@ -108,7 +108,7 @@ module Godmin
       @resource.destroy
 
       respond_to do |format|
-        format.html { redirect_to redirect_after_destroy, notice: t("godmin.flash.destroy") }
+        format.html { redirect_to redirect_after_destroy, notice: redirect_flash_message }
         format.json { head :no_content }
       end
     end
@@ -155,6 +155,10 @@ module Godmin
 
     def redirect_after_destroy
       resource_class.model_name.route_key.to_sym
+    end
+
+    def redirect_flash_message
+      translate_scoped("flash.#{action_name}", resource: @resource.class.model_name.human)
     end
 
     def resource_params
