@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.name        = "godmin"
   gem.version     = Godmin::VERSION
   gem.authors     = ["Jens Ljungblad", "Linus Pettersson", "Varvet"]
-  gem.email       = ["hej@varvet.se"]
+  gem.email       = ["info@varvet.se"]
   gem.homepage    = "https://github.com/varvet/godmin"
   gem.summary     = "Godmin is an admin engine for Rails 4+"
   gem.description = "Godmin is an admin engine for Rails 4+"
@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "bcrypt", "~> 3.1.7"
-  gem.add_dependency "bootstrap-sass", "~> 3.1.1.0"
+  gem.add_dependency "bootstrap-sass", "~> 3.3.1.0"
   gem.add_dependency "coffee-rails", [">= 4.0", "< 4.2"]
   gem.add_dependency "rails", [">= 4.0", "< 4.2"]
   gem.add_dependency "sass-rails", [">= 4.0", "< 4.2"]

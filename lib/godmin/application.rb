@@ -6,6 +6,8 @@ module Godmin
     extend ActiveSupport::Concern
 
     included do
+      include Godmin::Helpers::Translations
+
       helper Godmin::Helpers::Application
       helper Godmin::Helpers::Translations
 

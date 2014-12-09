@@ -23,6 +23,10 @@ en:
       signed_in: Signed in
       signed_out: Signed out
       failed_sign_in: Invalid credentials
+    flash:
+      create: "%{resource} was successfully created"
+      update: "%{resource} was successfully updated"
+      destroy: "%{resource} was successfully destroyed"
     pagination:
       first: "First"
       last: "Last"

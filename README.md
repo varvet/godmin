@@ -16,6 +16,7 @@ Godmin is an admin engine for Rails 4+.
 	- [Filters](#filters)
 	- [Batch actions](#batch-actions)
 	- [Resource fetching](#resource-fetching)
+	- [Redirecting](#redirecting)
 - [Views](#views)
 - [Models](#models)
 - [Authentication](#authentication)
@@ -24,6 +25,7 @@ Godmin is an admin engine for Rails 4+.
 - [Authorization](#authorization)
 - [Localization](#localization)
 - [Contributors](#contributors)
+- [License](#license)
 
 ## Installation
 
@@ -300,6 +302,50 @@ class ArticlesController
 
   def resources
     super.order(author: :desc)
+  end
+end
+```
+
+### Redirecting
+
+By default the user is redirected to the resource show page after create and update. To change this, there are four controller methods that can be overridden: `redirect_after_create`, `redirect_after_update`, `redirect_after_save`, and `redirect_after_destroy`.
+
+For instance, to have the article controller redirect to the index page after both create and update:
+
+```ruby
+class ArticlesController
+  include Godmin::Resource
+
+  def redirect_after_save
+    articles_path
+  end
+end
+```
+
+Or, to have the article controller redirect to the index page after create and the edit page after update:
+
+```ruby
+class ArticlesController
+  include Godmin::Resource
+
+  def redirect_after_create
+    articles_path
+  end
+
+  def redirect_after_update
+    edit_article_path(@resource)
+  end
+end
+```
+
+If you wish to change the behaviour for every resource controller, consider creating a common resource controller that your other controllers can inherit from:
+
+```ruby
+class ResourceController < ApplicationController
+  include Godmin::Resource
+
+  def redirect_after_save
+    resource_class.model_name.route_key.to_sym
   end
 end
 ```
