@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.9.3 - 2014-12-10
+Bug fixes
+- Pagination offset fix
+
 ### 0.9.2 - 2014-12-09
 Features
 - Replaces select2 with [selectize](http://brianreavis.github.io/selectize.js/)

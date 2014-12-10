@@ -27,7 +27,7 @@ module Godmin
       end
 
       def pagination_offset
-        (params[:page].to_i * self.class.per_page) - self.class.per_page
+        (current_page * self.class.per_page) - self.class.per_page
       end
 
       def pages
