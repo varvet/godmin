@@ -17,6 +17,7 @@ Godmin is an admin engine for Rails 4+.
 	- [Batch actions](#batch-actions)
 	- [Resource fetching](#resource-fetching)
 	- [Redirecting](#redirecting)
+	- [Pagination](#pagination)
 - [Views](#views)
 - [Models](#models)
 - [Authentication](#authentication)
@@ -346,6 +347,20 @@ class ResourceController < ApplicationController
 
   def redirect_after_save
     resource_class.model_name.route_key.to_sym
+  end
+end
+```
+
+### Pagination
+
+If you wish to change the number of resources per page, you can override the `per_page` class method in the controller:
+
+```ruby
+class ArticlesController
+  include Godmin::Resource
+
+  def self.per_page
+    50
   end
 end
 ```
