@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.9.4 - 2014-12-15
+Features
+- Added Godmin::FormBuilder
+
 ### 0.9.3 - 2014-12-10
 Bug fixes
 - Pagination offset fix
