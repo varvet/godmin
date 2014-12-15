@@ -1,4 +1,5 @@
 require "godmin/helpers/application"
+require "godmin/helpers/forms"
 require "godmin/helpers/translations"
 
 module Godmin
@@ -9,6 +10,7 @@ module Godmin
       include Godmin::Helpers::Translations
 
       helper Godmin::Helpers::Application
+      helper Godmin::Helpers::Forms
       helper Godmin::Helpers::Translations
 
       helper_method :authentication_enabled?
