@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.9.5 - 2014-12-15
+Bug fixes
+- Fixes Godmin::FormBuilder issue
+
 ### 0.9.4 - 2014-12-15
 Features
 - Added Godmin::FormBuilder
