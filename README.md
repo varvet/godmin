@@ -165,12 +165,7 @@ By now we have a basic admin interface for managing articles.
 
 ## Controllers
 
-We have already seen two controller methods at play: `attrs_for_index` and `attrs_for_form`. Now we will look at four additional controller concepts, namely:
-
-- Scopes
-- Filters
-- Batch actions
-- Resource fetching
+We have already seen two controller methods at play: `attrs_for_index` and `attrs_for_form`. We will now look at some additional controller concepts.
 
 ### Scopes
 
@@ -195,9 +190,7 @@ end
 
 ### Filters
 
-Filters offer great flexibility when it comes to searching for resources.
-
-Filters can be created as follows:
+Filters offer great flexibility when it comes to searching for resources, and can be created as follows:
 
 ```ruby
 class ArticlesController < ApplicationController
@@ -240,8 +233,6 @@ class ArticlesController < ApplicationController
   def batch_action_publish(resources)
     resources.each { |r| r.update_attributes(published: true) }
   end
-
-  ...
 end
 ```
 
@@ -309,7 +300,7 @@ end
 
 ### Redirecting
 
-By default the user is redirected to the resource show page after create and update. To change this, there are four controller methods that can be overridden: `redirect_after_create`, `redirect_after_update`, `redirect_after_save`, and `redirect_after_destroy`.
+By default the user is redirected to the resource show page after create and update, and to the index page after destroy. To change this, there are four controller methods that can be overridden: `redirect_after_create`, `redirect_after_update`, `redirect_after_save`, and `redirect_after_destroy`.
 
 For instance, to have the article controller redirect to the index page after both create and update:
 
