@@ -25,6 +25,7 @@ Godmin is an admin engine for Rails 4+.
 	- [Shared authentication](#shared-authentication)
 - [Authorization](#authorization)
 - [Localization](#localization)
+- [Plugins](#plugins)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -575,6 +576,12 @@ godmin:
 Godmin comes with built in support for English and Swedish.
 
 There is a view helper available named `translate_scoped` that can be used in overridden views. Please see the source code for information on how to use it.
+
+## Plugins
+
+Some additional features are available as plugins:
+
+- [Godmin Uploads](https://github.com/varvet/godmin-uploads)
 
 ## Contributors
 
