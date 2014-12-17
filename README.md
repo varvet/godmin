@@ -337,6 +337,8 @@ If you wish to change the behaviour for every resource controller, consider crea
 class ResourceController < ApplicationController
   include Godmin::Resource
 
+  protected
+
   def redirect_after_save
     resource_class.model_name.route_key.to_sym
   end
