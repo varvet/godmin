@@ -12,10 +12,12 @@ Godmin.Selects = (function() {
     initializeSelect($('.select-tag'));
   }
 
-  function initializeSelect($el) {
-    $el.selectize({
+  function initializeSelect($el, options) {
+    var defaults = {
       inputClass: 'form-control selectize-input'
-    });
+    };
+
+    $el.selectize($.extend(defaults, options));
   }
 
   return {
