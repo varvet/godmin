@@ -1,6 +1,12 @@
 require "godmin/generators/base"
 
 class Godmin::InstallGenerator < Godmin::Generators::Base
+  def modify_application_js
+    inject_into_file ["app/assets/javascripts", namespace, "application.js"].compact.join("/"), before: "//= require_tree ." do
+      "//= require godmin\n"
+    end
+  end
+
   def create_initializer
     create_file "config/initializers/godmin.rb" do
       <<-END.strip_heredoc
@@ -25,6 +31,18 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
       <<-END.strip_heredoc.indent(namespace == nil ? 2 : 4)
         include Godmin::Application
       END
+    end
+  end
+
+  def modify_application_js
+    inject_into_file ["app/assets/javascripts", namespace, "application.js"].compact.join("/"), before: "//= require_tree ." do
+      "//= require godmin\n"
+    end
+  end
+
+  def modify_application_css
+    inject_into_file ["app/assets/stylesheets", namespace, "application.css"].compact.join("/"), before: " *= require_tree ." do
+      " *= require godmin\n"
     end
   end
 
