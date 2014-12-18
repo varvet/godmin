@@ -602,6 +602,23 @@ Godmin.Datetimepickers.initializeTimepicker($el);
 Godmin.Datetimepickers.initializeDatetimepicker($el);
 ```
 
+Additional options can be passed down to [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker):
+
+```js
+Godmin.Datetimepickers.initializeDatetimepicker($el, {
+	useMinutes: false,
+	useSeconds: false
+});
+```
+
+If you wish to translate the datetimepicker, add the following to your `app/assets/javascripts/application.js`:
+
+```js
+//= require moment
+//= require moment/{locale} // e.g. moment/sv
+//= require godmin
+```
+
 Make a [selectize.js](http://brianreavis.github.io/selectize.js/) select box out of a text field or select box:
 
 ```ruby
