@@ -28,6 +28,18 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
     end
   end
 
+  def modify_application_js
+    inject_into_file ["app/assets/javascripts", namespace, "application.js"].compact.join("/"), before: "//= require_tree ." do
+      "//= require godmin\n"
+    end
+  end
+
+  def modify_application_css
+    inject_into_file ["app/assets/stylesheets", namespace, "application.css"].compact.join("/"), before: " *= require_tree ." do
+      " *= require godmin\n"
+    end
+  end
+
   def require_library_if_namespaced
     return unless namespace
 

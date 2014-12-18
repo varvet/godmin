@@ -6,7 +6,7 @@
   <%= render partial: "filters" %>
 <% end %>
 
-<%= form_tag [:batch_action, @resource_class], id: "batch-actions-form" do %>
+<%= form_tag [:batch_action, @resource_class], data: { behavior: "batch-actions-form" } do %>
 
   <%= render partial: "actions" %>
 

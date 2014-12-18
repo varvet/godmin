@@ -12,8 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require moment
 //= require bootstrap-sprockets
+//= require bootstrap-datetimepicker
 //= require selectize
-//= require godmin/batch_actions
+//= require godmin/batch-actions
+//= require godmin/datetimepickers
 //= require godmin/navigation
-//= require godmin/select_tags
+//= require godmin/select-boxes

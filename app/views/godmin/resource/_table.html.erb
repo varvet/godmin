@@ -19,7 +19,8 @@
       <% end %>
         <% if batch_action_map.present? %>
           <td align="center">
-            <%= check_box_tag "batch_action[items][#{resource.id}]" %>
+            <%= check_box_tag "batch_action[items][#{resource.id}]", nil, nil,
+              data: { behavior: "batch-actions-checkbox" } %>
           </td>
         <% end %>
         <% attrs_for_index.each do |attr| %>

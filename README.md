@@ -25,6 +25,7 @@ Godmin is an admin engine for Rails 4+.
 	- [Shared authentication](#shared-authentication)
 - [Authorization](#authorization)
 - [Localization](#localization)
+- [JavaScript](#javascript)
 - [Plugins](#plugins)
 - [Contributors](#contributors)
 - [License](#license)
@@ -110,6 +111,8 @@ class ApplicationController < ActionController::Base
   include Godmin::Application
 end
 ```
+
+Require statements are placed in both `app/assets/javascripts/application.js` and `app/assets/stylesheets/application.css`.
 
 If Godmin was installed inside an engine, a `require "godmin"` statement is placed in `{namespace}/lib/{namespace}.rb`.
 
@@ -578,6 +581,67 @@ godmin:
 Godmin comes with built in support for English and Swedish.
 
 There is a view helper available named `translate_scoped` that can be used in overridden views. Please see the source code for information on how to use it.
+
+## JavaScript
+
+Godmin comes with a small set of JavaScript components and APIs.
+
+### Datetimepickers
+
+Make a [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker) out of a text field:
+
+```ruby
+f.text_field :date, data: { behavior: "datepicker" }
+f.text_field :date, data: { behavior: "timepicker" }
+f.text_field :date, data: { behavior: "datetimepicker" }
+```
+
+If the field is added post page render, it can be initialized manually:
+
+```js
+Godmin.Datetimepickers.initializeDatepicker($el);
+Godmin.Datetimepickers.initializeTimepicker($el);
+Godmin.Datetimepickers.initializeDatetimepicker($el);
+```
+
+Additional options can be passed down to bootstrap-datetimepicker:
+
+```js
+Godmin.Datetimepickers.initializeDatetimepicker($el, {
+  useMinutes: false,
+  useSeconds: false
+});
+```
+
+If you wish to translate the datetimepicker, add the following to your `app/assets/javascripts/application.js`:
+
+```js
+//= require moment
+//= require moment/{locale} // e.g. moment/sv
+//= require godmin
+```
+
+### Select boxes
+
+Make a [selectize.js](http://brianreavis.github.io/selectize.js/) select box out of a text field or select box:
+
+```ruby
+f.text_field :tag_list, data: { behavior: "select-box" }
+```
+
+If the field is added post page render, it can be initialized manually:
+
+```js
+Godmin.SelectBoxes.initializeSelectBox($el);
+```
+
+Additional options can be passed down to selectize:
+
+```js
+Godmin.SelectBoxes.initializeSelectBox($el, {
+	create: true
+});
+```
 
 ## Plugins
 

@@ -32,8 +32,9 @@ module Godmin
           options,
           name: "filter[#{name}]",
           include_blank: true,
-          class: "form-control select-tag",
+          class: "form-control",
           data: {
+            behavior: "select-box",
             placeholder: translate_scoped("filters.select.placeholder.one")
           }
         )
@@ -45,8 +46,9 @@ module Godmin
           options,
           name: "filter[#{name}][]",
           multiple: true,
-          class: "form-control select-tag",
+          class: "form-control",
           data: {
+            behavior: "select-box",
             placeholder: translate_scoped("filters.select.placeholder.many")
           }
         )
