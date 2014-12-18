@@ -9,7 +9,7 @@ Godmin.SelectBoxes = (function() {
   function initializeEvents() {}
 
   function initializeState() {
-    initializeSelectBox($('[data-behavior=select-box]'));
+    initializeSelectBox($('[data-behavior~=select-box]'));
   }
 
   function initializeSelectBox($el, options) {

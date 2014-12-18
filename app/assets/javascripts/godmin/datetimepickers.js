@@ -9,9 +9,9 @@ Godmin.Datetimepickers = (function() {
   function initializeEvents() {}
 
   function initializeState() {
-    initializeDatepicker($('[data-behavior=datepicker]'));
-    initializeTimepicker($('[data-behavior=timepicker]'));
-    initializeDatetimepicker($('[data-behavior=datetimepicker]'));
+    initializeDatepicker($('[data-behavior~=datepicker]'));
+    initializeTimepicker($('[data-behavior~=timepicker]'));
+    initializeDatetimepicker($('[data-behavior~=datetimepicker]'));
   }
 
   function initializeDatepicker($el, options) {
