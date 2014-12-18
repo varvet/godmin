@@ -112,7 +112,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-Godmin is required in both `app/assets/javascripts/application.js` and `app/assets/stylesheets/application.css`.
+Require statements are placed in both `app/assets/javascripts/application.js` and `app/assets/stylesheets/application.css`.
 
 If Godmin was installed inside an engine, a `require "godmin"` statement is placed in `{namespace}/lib/{namespace}.rb`.
 
