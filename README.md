@@ -586,7 +586,9 @@ There is a view helper available named `translate_scoped` that can be used in ov
 
 Godmin comes with a small set of JavaScript components and APIs.
 
-Make a datepicker, timepicker or datetimepicker out of a text field:
+### Datetimepickers
+
+Make a [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker) out of a text field:
 
 ```ruby
 f.text_field :date, data: { behavior: "datepicker" }
@@ -602,7 +604,7 @@ Godmin.Datetimepickers.initializeTimepicker($el);
 Godmin.Datetimepickers.initializeDatetimepicker($el);
 ```
 
-Additional options can be passed down to [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker):
+Additional options can be passed down to bootstrap-datetimepicker:
 
 ```js
 Godmin.Datetimepickers.initializeDatetimepicker($el, {
@@ -618,6 +620,8 @@ If you wish to translate the datetimepicker, add the following to your `app/asse
 //= require moment/{locale} // e.g. moment/sv
 //= require godmin
 ```
+
+### Select boxes
 
 Make a [selectize.js](http://brianreavis.github.io/selectize.js/) select box out of a text field or select box:
 
