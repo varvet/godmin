@@ -5,6 +5,10 @@ Features
 - Bundled [datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker/)
 - Exposed JavaScript API
 
+Notes
+- You must now require godmin in application.js and application.css
+- You can no longer use the `select-tag` class to initialize a select box
+
 ### 0.9.5 - 2014-12-15
 Bug fixes
 - Fixes Godmin::FormBuilder issue
@@ -34,4 +38,3 @@ Bug fixes
 - Removed rails executable from /bin folder.
 
 ### 0.9.0 - 2014-11-17
-Public release.
