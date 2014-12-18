@@ -606,8 +606,8 @@ Additional options can be passed down to [bootstrap-datetimepicker](https://gith
 
 ```js
 Godmin.Datetimepickers.initializeDatetimepicker($el, {
-	useMinutes: false,
-	useSeconds: false
+  useMinutes: false,
+  useSeconds: false
 });
 ```
 
