@@ -586,15 +586,19 @@ There is a view helper available named `translate_scoped` that can be used in ov
 
 Godmin comes with a small set of JavaScript components and APIs.
 
-Make a datetimepicker out of a text field:
+Make a datepicker, timepicker or datetimepicker out of a text field:
 
 ```ruby
+f.text_field :date, data: { behavior: "datepicker" }
+f.text_field :date, data: { behavior: "timepicker" }
 f.text_field :date, data: { behavior: "datetimepicker" }
 ```
 
 If the field is added post page render, it can be initialized manually:
 
 ```js
+Godmin.Datetimepickers.initializeDatepicker($el);
+Godmin.Datetimepickers.initializeTimepicker($el);
 Godmin.Datetimepickers.initializeDatetimepicker($el);
 ```
 
