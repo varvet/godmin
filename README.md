@@ -608,6 +608,14 @@ If the field is added post page render, it can be initialized manually:
 Godmin.SelectBoxes.initializeSelectBox($el);
 ```
 
+Additional options can be passed down to selectize:
+
+```js
+Godmin.SelectBoxes.initializeSelectBox($el, {
+	create: true
+});
+```
+
 ## Plugins
 
 Some additional features are available as plugins:
