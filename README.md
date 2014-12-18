@@ -25,6 +25,7 @@ Godmin is an admin engine for Rails 4+.
 	- [Shared authentication](#shared-authentication)
 - [Authorization](#authorization)
 - [Localization](#localization)
+- [JavaScript](#javascript)
 - [Plugins](#plugins)
 - [Contributors](#contributors)
 - [License](#license)
@@ -578,6 +579,34 @@ godmin:
 Godmin comes with built in support for English and Swedish.
 
 There is a view helper available named `translate_scoped` that can be used in overridden views. Please see the source code for information on how to use it.
+
+## JavaScript
+
+Godmin comes with a small set of JavaScript components and APIs.
+
+Make a datetimepicker out of a text field:
+
+```ruby
+f.text_field :date, data: { behavior: "datetimepicker" }
+```
+
+If the field is added post page render, it can be initialized manually:
+
+```js
+Godmin.Datetimepickers.initializeDatetimepicker($el);
+```
+
+Make a [selectize.js](http://brianreavis.github.io/selectize.js/) select box out of a text field or select box:
+
+```ruby
+f.text_field :tag_list, data: { behavior: "select-box" }
+```
+
+If the field is added post page render, it can be initialized manually:
+
+```js
+Godmin.SelectBoxes.initializeSelectBox($el);
+```
 
 ## Plugins
 

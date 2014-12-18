@@ -1,6 +1,6 @@
 window.Godmin = window.Godmin || {};
 
-Godmin.Selects = (function() {
+Godmin.SelectBoxes = (function() {
   function initialize() {
     initializeEvents();
     initializeState();
@@ -9,10 +9,10 @@ Godmin.Selects = (function() {
   function initializeEvents() {}
 
   function initializeState() {
-    initializeSelect($('.select-tag'));
+    initializeSelectBox($('[data-behavior=select-box]'));
   }
 
-  function initializeSelect($el, options) {
+  function initializeSelectBox($el, options) {
     var defaults = {
       inputClass: 'form-control selectize-input'
     };
@@ -22,10 +22,10 @@ Godmin.Selects = (function() {
 
   return {
     initialize: initialize,
-    initializeSelect: initializeSelect
+    initializeSelectBox: initializeSelectBox
   };
 })();
 
 $(function() {
-  Godmin.Selects.initialize();
+  Godmin.SelectBoxes.initialize();
 });

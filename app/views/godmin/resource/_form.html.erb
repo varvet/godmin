@@ -2,7 +2,7 @@
   <% attrs_for_form.each do |attr| %>
     <div class="form-group">
       <% if @resource_class.reflect_on_association(attr) %>
-        <%= f.association attr, error: false, input_html: { class: "form-control select-tag" } %>
+        <%= f.association attr, error: false, input_html: { class: "form-control", data: { behavior: "select-box" } } %>
       <% else %>
         <%= f.input attr, error: false, input_html: { class: "form-control" } %>
       <% end %>
