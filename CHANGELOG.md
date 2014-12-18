@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.9.6 - 2014-12-18
+Features
+- Bundled [datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker/)
+- Exposed JavaScript API
+
 ### 0.9.5 - 2014-12-15
 Bug fixes
 - Fixes Godmin::FormBuilder issue
