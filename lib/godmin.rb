@@ -1,4 +1,5 @@
 require "bootstrap-sass"
+require "momentjs-rails"
 require "selectize-rails"
 require "simple_form"
 require "godmin/application"
