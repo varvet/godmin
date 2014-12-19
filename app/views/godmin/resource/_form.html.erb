@@ -1,12 +1,10 @@
-<%= simple_form_for @resource, html: { role: "form" } do |f| %>
-  <% attrs_for_form.each do |attr| %>
-    <div class="form-group">
-      <% if @resource_class.reflect_on_association(attr) %>
-        <%= f.association attr, error: false, input_html: { class: "form-control", data: { behavior: "select-box" } } %>
-      <% else %>
-        <%= f.input attr, error: false, input_html: { class: "form-control" } %>
-      <% end %>
-    </div>
+<%= form_for @resource do |f| %>
+  <% attrs_for_form.each do |attribute| %>
+    <% if f.object.class.reflect_on_association(attribute) %>
+      <%= f.association attribute %>
+    <% else %>
+      <%= f.input attribute %>
+    <% end %>
   <% end %>
-  <%= f.button :submit, class: "btn btn-default" %>
+  <%= f.submit %>
 <% end %>
