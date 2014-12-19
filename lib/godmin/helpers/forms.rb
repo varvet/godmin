@@ -16,9 +16,9 @@ module Godmin
         when :boolean
           check_box(attribute, options)
         when :date
-          text_field(attribute, value: localized_datetime(attribute, :date), data: { behavior: "datepicker" })
+          text_field(attribute, value: datetime_value(attribute, :datepicker), data: { behavior: "datepicker" })
         when :datetime
-          text_field(attribute, value: localized_datetime(attribute, :datetime), data: { behavior: "datetimepicker" })
+          text_field(attribute, value: datetime_value(attribute, :datetimepicker), data: { behavior: "datetimepicker" })
         else
           text_field(attribute, options)
         end
@@ -51,7 +51,7 @@ module Godmin
         @object.class.reflect_on_association(attribute)
       end
 
-      def localized_datetime(attribute, format)
+      def datetime_value(attribute, format)
         object.send(attribute).try(:strftime, @template.translate_scoped("datetimepickers.#{format}"))
       end
     end

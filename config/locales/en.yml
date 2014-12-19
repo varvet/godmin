@@ -34,5 +34,5 @@ en:
         zero: "No %{resource} found"
         other: "Showing %{count} out of %{total} %{resource}"
     datetimepickers:
-      date: ! "%m/%d/%Y"
-      datetime: ! "%m/%d/%Y%l:%M %p"
+      datepicker: ! "%m/%d/%Y"
+      datetimepicker: ! "%m/%d/%Y%l:%M %p"

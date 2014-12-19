@@ -34,5 +34,5 @@ sv:
         zero: "Inga %{resource} funna"
         other: "Visar %{count} av %{total} %{resource}"
     datetimepickers:
-      date: ! "%Y-%m-%d"
-      datetime: ! "%Y-%m-%d %H:%M"
+      datepicker: ! "%Y-%m-%d"
+      datetimepicker: ! "%Y-%m-%d %H:%M"
