@@ -19,6 +19,7 @@ Godmin is an admin engine for Rails 4+.
 	- [Redirecting](#redirecting)
 	- [Pagination](#pagination)
 - [Views](#views)
+  - [Forms](#forms)
 - [Models](#models)
 - [Authentication](#authentication)
 	- [Simple authentication](#simple-authentication)
@@ -368,11 +369,23 @@ It is easy to override view templates and partials in Godmin, both globally and 
 
 If you wish to customize the content of a table column, you can place a partial under `app/views/{resource}/columns/{column_name}.html.erb`, e.g. `app/views/articles/columns/_title.html.erb`. The resource is available to the partial through the `resource` variable.
 
-Oftentimes, the default form provided by Godmin doesn't cut it. The `godmin/resource/_form.html.erb` partial is therefore one of the most common to override per resource.
+Oftentimes, the default form provided by Godmin doesn't cut it. The `godmin/resource/_form.html.erb` partial is therefore one of the most common to override per resource. See below for more on form building.
 
 Likewise, the `godmin/shared/_navigation.html.erb` partial can be overridden to build a custom navigation bar.
 
 The full list of templates and partials that can be overridden [can be found here](https://github.com/varvet/godmin/tree/master/app/views/godmin)
+
+### Forms
+
+Godmin comes with its own FormBuilder that automatically generates bootstrapped markup. It is based on the [Rails Bootstrap Forms](https://github.com/bootstrap-ruby/rails-bootstrap-forms) FormBuilder, and all its methods are directly available. In addition it has a few convenience methods that can be leveraged.
+
+The `input` method will automatically detect the type of field from the database and generate an appropriate form field:
+
+```ruby
+form_for @resource do |f|
+  f.input :attribute
+end
+```
 
 ## Models
 
