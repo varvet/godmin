@@ -33,3 +33,6 @@ sv:
       entries:
         zero: "Inga %{resource} funna"
         other: "Visar %{count} av %{total} %{resource}"
+    datetimepickers:
+      datepicker: ! "%Y-%m-%d"
+      datetimepicker: ! "%Y-%m-%d %H:%M"
