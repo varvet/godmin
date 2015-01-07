@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.9.7 - 2015-01-07
+Features
+- Support for Rails 4.2
+- New form system (https://github.com/varvet/godmin/pull/50)
+
 ### 0.9.6 - 2014-12-18
 Features
 - Bundled [datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker/)
