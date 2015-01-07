@@ -16,9 +16,9 @@ module Godmin
         when :boolean
           check_box(attribute, options)
         when :date
-          text_field(attribute, value: datetime_value(attribute, :datepicker), data: { behavior: "datepicker" })
+          date_field(attribute, options)
         when :datetime
-          text_field(attribute, value: datetime_value(attribute, :datetimepicker), data: { behavior: "datetimepicker" })
+          datetime_field(attribute, options)
         else
           text_field(attribute, options)
         end
@@ -31,6 +31,14 @@ module Godmin
         else
           input(attribute, options)
         end
+      end
+
+      def date_field(attribute, options = {})
+        text_field(attribute, value: datetime_value(attribute, :datepicker), data: { behavior: "datepicker" })
+      end
+
+      def datetime_field(attribute, options = {})
+        text_field(attribute, value: datetime_value(attribute, :datetimepicker), data: { behavior: "datetimepicker" })
       end
 
       private
