@@ -60,7 +60,7 @@ module Godmin
       end
 
       def datetime_value(attribute, format)
-        object.send(attribute).try(:strftime, @template.translate_scoped("datetimepickers.#{format}"))
+        @object.send(attribute).try(:strftime, @template.translate_scoped("datetimepickers.#{format}"))
       end
     end
   end
