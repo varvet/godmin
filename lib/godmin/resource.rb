@@ -79,7 +79,7 @@ module Godmin
     end
 
     def create
-      @resource = resource_class.new(resource_params)
+      @resource = resources_relation.new(resource_params)
 
       respond_to do |format|
         if @resource.save
