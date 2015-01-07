@@ -2,7 +2,7 @@
 
 [![Gem Version](http://img.shields.io/gem/v/godmin.svg?style=flat)](https://rubygems.org/gems/godmin)
 [![Build Status](https://img.shields.io/travis/varvet/godmin/master.svg?style=flat)](https://travis-ci.org/varvet/godmin)
-[![Code Climate](https://codeclimate.com/github/varvet/godmin/badges/gpa.svg)](https://codeclimate.com/github/varvet/godmin)
+[![Code Climate](https://img.shields.io/codeclimate/github/varvet/godmin.svg?style=flat)](https://codeclimate.com/github/varvet/godmin)
 
 Godmin is an admin engine for Rails 4+.
 
