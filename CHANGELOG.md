@@ -1,6 +1,6 @@
 # Changelog
 
-### 0.9.8 - Unreleased
+### 0.9.8 - 2015-01-12
 Bug fixes
 - Created resources are now properly scoped by `resources_relation`
 - Fixes broken signin form
