@@ -3,6 +3,7 @@
 ### 0.9.8 - Unreleased
 Bug fixes
 - Created resources are now properly scoped by `resources_relation`
+- Fixes broken signin form
 
 ### 0.9.7 - 2015-01-07
 Features
