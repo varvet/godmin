@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav">
   <% Godmin.resources.each do |resource| %>
-    <% unless authorization_enabled? && !policy(resource).index? %>
+    <% if policy(resource).index? %>
       <% if controller.controller_name == resource.to_s %>
         <li class="active">
       <% else %>

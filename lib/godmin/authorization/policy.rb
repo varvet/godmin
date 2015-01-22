@@ -3,17 +3,18 @@ module Godmin
     class Policy
       attr_reader :user, :record
 
-      def initialize(user, record)
+      def initialize(user, record, default: false)
         @user = user
         @record = record
+        @default = default
       end
 
       def index?
-        false
+        @default
       end
 
       def show?
-        false
+        @default
       end
 
       def new?
@@ -25,15 +26,15 @@ module Godmin
       end
 
       def create?
-        false
+        @default
       end
 
       def update?
-        false
+        @default
       end
 
       def destroy?
-        false
+        @default
       end
     end
   end
