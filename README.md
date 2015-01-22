@@ -253,7 +253,7 @@ If you wish to implement your own redirect after a batch action, return false af
 ```ruby
 def batch_action_publish(resources)
   resources.each { |r| r.update_attributes(published: true) }
-  redirect_to articles_path(scope: published) and return false
+  redirect_to articles_path(scope: :published) and return false
 end
 ```
 
