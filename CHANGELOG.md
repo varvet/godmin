@@ -1,8 +1,9 @@
 # Changelog
 
-### 0.9.9 - Unreleased
+### 0.9.9 - 2015-01-23
 Features
 - Bump bootstrap to 3.3.3
+- Extracted button actions partial
 
 ### 0.9.8 - 2015-01-12
 Bug fixes
