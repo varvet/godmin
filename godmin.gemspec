@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "bcrypt", "~> 3.1.7"
-  gem.add_dependency "bootstrap-sass", "~> 3.3.1.0"
+  gem.add_dependency "bootstrap-sass", "~> 3.3.3"
   gem.add_dependency "bootstrap_form", "~> 2.2.0"
   gem.add_dependency "coffee-rails", [">= 4.0", "< 4.2"]
   gem.add_dependency "momentjs-rails", ">= 2.8.1"

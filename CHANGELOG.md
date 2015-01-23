@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.9.9 - Unreleased
+Features
+- Bump bootstrap to 3.3.3
+
 ### 0.9.8 - 2015-01-12
 Bug fixes
 - Created resources are now properly scoped by `resources_relation`
