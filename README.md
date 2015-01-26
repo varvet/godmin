@@ -261,11 +261,13 @@ end
 
 Resources are made available to the views through instance variables. The index view can access the resources using `@resources` while show, new and edit can access the single resource using `@resource`.
 
-In order to modify what resources to fetch, there are three methods that can be overridden per resource controller:
+In order to modify what resources to fetch, there are some methods that can be overridden per resource controller:
 
 - `resource_class`
-- `resource_relation`
+- `resources_relation`
 - `resources`
+- `build_resource`
+- `find_resource`
 
 To change the class name of the resource from the default based on the controller name:
 
@@ -299,6 +301,32 @@ class ArticlesController
 
   def resources
     super.order(author: :desc)
+  end
+end
+```
+
+To change the way a resource is constructed for `new` and `create` actions:
+
+```ruby
+class ArticlesController
+  include Godmin::Resource
+
+  def build_resource(params)
+    article = resources_relation.new(params)
+    article.setup_more_things
+    article
+  end
+end
+```
+
+To change the way a resource is fetched for `show`, `edit`, `update` and `destroy` actions:
+
+```ruby
+class ArticlesController
+  include Godmin::Resource
+
+  def find_resource(id)
+    resources_relation.find_by(slug: id)
   end
 end
 ```

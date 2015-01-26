@@ -24,38 +24,10 @@ module Godmin
 
       before_action :set_resource_class
       before_action :set_resources, only: :index
-      before_action :set_resource, only: [:show, :new, :edit, :update, :destroy]
+      before_action :set_resource, only: [:show, :new, :edit, :create, :update, :destroy]
 
       helper_method :attrs_for_index
       helper_method :attrs_for_form
-    end
-
-    def resource_class
-      controller_name.classify.constantize
-    end
-
-    def resources_relation
-      resource_class.all
-    end
-
-    def resources
-      apply_pagination(
-        apply_order(
-          apply_filters(
-            apply_scope(
-              resources_relation
-            )
-          )
-        )
-      )
-    end
-
-    def resource
-      if params[:id]
-        resources_relation.find(params[:id])
-      else
-        resources_relation.new
-      end
     end
 
     def index
@@ -72,15 +44,11 @@ module Godmin
       end
     end
 
-    def new
-    end
+    def new; end
 
-    def edit
-    end
+    def edit; end
 
     def create
-      @resource = resources_relation.new(resource_params)
-
       respond_to do |format|
         if @resource.save
           format.html { redirect_to redirect_after_create, notice: redirect_flash_message }
@@ -141,6 +109,51 @@ module Godmin
       authorize(@resource) if authorization_enabled?
     end
 
+    def resource_class
+      controller_name.classify.constantize
+    end
+
+    def resources_relation
+      resource_class.all
+    end
+
+    def resources
+      apply_pagination(
+        apply_order(
+          apply_filters(
+            apply_scope(
+              resources_relation
+            )
+          )
+        )
+      )
+    end
+
+    def resource
+      if params[:id]
+        find_resource(params[:id])
+      else
+        case action_name
+        when "create"
+          build_resource(resource_params)
+        when "new"
+          build_resource(nil)
+        end
+      end
+    end
+
+    def build_resource(params)
+      resources_relation.new(params)
+    end
+
+    def find_resource(id)
+      resources_relation.find(id)
+    end
+
+    def resource_params
+      params.require(resource_class.name.underscore.to_sym).permit(attrs_for_form)
+    end
+
     def redirect_after_create
       redirect_after_save
     end
@@ -159,10 +172,6 @@ module Godmin
 
     def redirect_flash_message
       translate_scoped("flash.#{action_name}", resource: @resource.class.model_name.human)
-    end
-
-    def resource_params
-      params.require(resource_class.name.underscore.to_sym).permit(attrs_for_form)
     end
   end
 end
