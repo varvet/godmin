@@ -312,9 +312,9 @@ class ArticlesController
   include Godmin::Resource
 
   def build_resource(params)
-    resource = resources_relation.new(params)
-    resource.stuff
-    resource
+    article = resources_relation.new(params)
+    article.setup_more_things
+    article
   end
 end
 ```
