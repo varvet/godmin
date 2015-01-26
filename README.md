@@ -264,7 +264,7 @@ Resources are made available to the views through instance variables. The index 
 In order to modify what resources to fetch, there are some methods that can be overridden per resource controller:
 
 - `resource_class`
-- `resource_relation`
+- `resources_relation`
 - `resources`
 - `build_resource`
 - `find_resource`
