@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.9.10 - Unreleased
+Features
+- Two new overridable methods for resources: `build_resource` and `find_resource` 
+
 ### 0.9.9 - 2015-01-23
 Features
 - Bump bootstrap to 3.3.3
