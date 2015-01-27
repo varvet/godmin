@@ -151,7 +151,7 @@ module Godmin
     end
 
     def resource_params
-      params.require(resource_class.name.underscore.to_sym).permit(attrs_for_form)
+      params.require(resource_class.name.parameterize("_").to_sym).permit(attrs_for_form)
     end
 
     def redirect_after_create
