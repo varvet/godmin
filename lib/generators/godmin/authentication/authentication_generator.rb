@@ -1,15 +1,16 @@
-require "godmin/generators/base"
+require "active_support/all"
 
-class Godmin::AuthenticationGenerator < Godmin::Generators::Base
-  argument :model, type: :string, default: "admin_user"
+class Godmin::AuthenticationGenerator < Rails::Generators::NamedBase
+  argument :name, type: :string, default: "admin_user"
+  source_root File.expand_path("../templates", __FILE__)
 
   def create_model
-    generate "model", "#{@model} email:string password_digest:text --no-test-framework"
+    generate "model", "#{name} email:string password_digest:text --no-test-framework"
   end
 
   def modify_model
-    inject_into_file ["app/models", namespace, "#{@model.underscore}.rb"].compact.join("/"), after: "ActiveRecord::Base\n" do
-      <<-END.strip_heredoc.indent(namespace.nil? ? 2 : 4)
+    inject_into_file File.join("app/models", class_path, "#{file_name}.rb"), after: "ActiveRecord::Base\n" do
+      <<-END.strip_heredoc.indent(namespace ? 4 : 2)
         include Godmin::Authentication::User
 
         def self.login_column
@@ -20,40 +21,20 @@ class Godmin::AuthenticationGenerator < Godmin::Generators::Base
   end
 
   def create_route
-    inject_into_file "config/routes.rb", after: "godmin do\n" do
-      <<-END.strip_heredoc.indent(4)
-        resource :session, only: [:new, :create, :destroy]
-      END
-    end
+    route "resource :session, only: [:new, :create, :destroy]"
   end
 
   def create_sessions_controller
-    create_file ["app/controllers", namespace, "sessions_controller.rb"].compact.join("/") do
-      if namespace
-        <<-END.strip_heredoc
-          module #{namespace.camelize}
-            class SessionsController < ApplicationController
-              include Godmin::Authentication::Sessions
-            end
-          end
-        END
-      else
-        <<-END.strip_heredoc
-          class SessionsController < ApplicationController
-            include Godmin::Authentication::Sessions
-          end
-        END
-      end
-    end
+    template "sessions_controller.rb", File.join("app/controllers", class_path, "sessions_controller.rb")
   end
 
   def modify_application_controller
-    inject_into_file ["app/controllers", namespace, "application_controller.rb"].compact.join("/"), after: "Godmin::Application\n" do
-      <<-END.strip_heredoc.indent(namespace.nil? ? 2 : 4)
+    inject_into_file File.join("app/controllers", class_path, "application_controller.rb"), after: "Godmin::Application\n" do
+      <<-END.strip_heredoc.indent(namespace ? 4 : 2)
         include Godmin::Authentication
 
         def admin_user_class
-          #{[namespace, @model.underscore].compact.join("/").camelize}
+          #{class_name}
         end
       END
     end
