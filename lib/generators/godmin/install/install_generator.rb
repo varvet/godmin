@@ -5,7 +5,7 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
     create_file "config/initializers/godmin.rb" do
       <<-END.strip_heredoc
         Godmin.configure do |config|
-          config.namespace = #{namespace ? "\"#{namespace}\"" : "nil"}
+          config.namespace = #{namespace ? "\"#{namespaced_path.join("/")}\"" : "nil"}
         end
       END
     end
@@ -21,29 +21,29 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
   end
 
   def modify_application_controller
-    inject_into_file ["app/controllers", namespace, "application_controller.rb"].compact.join("/"), after: "ActionController::Base\n" do
-      <<-END.strip_heredoc.indent(namespace == nil ? 2 : 4)
+    inject_into_file File.join("app/controllers", namespaced_path, "application_controller.rb"), after: "ActionController::Base\n" do
+      <<-END.strip_heredoc.indent(namespace ? 4 : 2)
         include Godmin::Application
       END
     end
   end
 
   def modify_application_js
-    inject_into_file ["app/assets/javascripts", namespace, "application.js"].compact.join("/"), before: "//= require_tree ." do
+    inject_into_file File.join("app/assets/javascripts", namespaced_path, "application.js"), before: "//= require_tree ." do
       "//= require godmin\n"
     end
   end
 
   def modify_application_css
-    inject_into_file ["app/assets/stylesheets", namespace, "application.css"].compact.join("/"), before: " *= require_tree ." do
+    inject_into_file File.join("app/assets/stylesheets", namespaced_path, "application.css"), before: " *= require_tree ." do
       " *= require godmin\n"
     end
   end
 
   def require_library_if_namespaced
-    return unless namespace
+    return unless namespaced?
 
-    inject_into_file "lib/#{namespace}.rb", before: "require" do
+    inject_into_file File.join("lib", namespaced_path) + ".rb", before: "require" do
       <<-END.strip_heredoc
         require "godmin"
       END

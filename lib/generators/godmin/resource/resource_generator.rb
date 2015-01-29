@@ -1,56 +1,17 @@
-require "godmin/generators/base"
+require "godmin/generators/named_base"
 
-class Godmin::ResourceGenerator < Godmin::Generators::Base
-  argument :resource, type: :string
+class Godmin::ResourceGenerator < Godmin::Generators::NamedBase
   argument :attributes, type: :array, default: [], banner: "attribute attribute"
 
-  def create_route
+  def add_route
     inject_into_file "config/routes.rb", after: "godmin do\n" do
       <<-END.strip_heredoc.indent(4)
-        resources :#{@resource.tableize}
+        resources :#{file_name.pluralize}
       END
     end
   end
 
   def create_controller
-    create_file ["app/controllers", "#{controller_name}.rb"].compact.join("/") do
-      if namespace
-        <<-END.strip_heredoc
-          module #{namespace.camelize}
-            class #{@resource.tableize.camelize}Controller < ApplicationController
-              include Godmin::Resource
-
-              def attrs_for_index
-                #{attributes.map(&:to_sym)}
-              end
-
-              def attrs_for_form
-                #{attributes.map(&:to_sym)}
-              end
-            end
-          end
-        END
-      else
-        <<-END.strip_heredoc
-          class #{@resource.tableize.camelize}Controller < ApplicationController
-            include Godmin::Resource
-
-            def attrs_for_index
-              #{attributes.map(&:to_sym)}
-            end
-
-            def attrs_for_form
-              #{attributes.map(&:to_sym)}
-            end
-          end
-        END
-      end
-    end
-  end
-
-  private
-
-  def controller_name
-    [namespace, "#{@resource.tableize}_controller"].compact.join("/")
+    template "resource_controller.rb", File.join("app/controllers", class_path, "#{file_name.pluralize}_controller.rb")
   end
 end

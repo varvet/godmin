@@ -1,29 +1,7 @@
-require "godmin/generators/base"
+require "godmin/generators/named_base"
 
-class Godmin::PolicyGenerator < Godmin::Generators::Base
-  argument :resource, type: :string
-
-  def create_controller
-    create_file ["app/policies", "#{policy_name}.rb"].compact.join("/") do
-      if namespace
-        <<-END.strip_heredoc
-          module #{namespace.camelize}
-            class #{@resource.underscore.camelize}Policy < Godmin::Authorization::Policy
-            end
-          end
-        END
-      else
-        <<-END.strip_heredoc
-          class #{@resource.underscore.camelize}Policy < Godmin::Authorization::Policy
-          end
-        END
-      end
-    end
-  end
-
-  private
-
-  def policy_name
-    [namespace, "#{@resource.underscore}_policy"].compact.join("/")
+class Godmin::PolicyGenerator < Godmin::Generators::NamedBase
+  def create_policy
+    template "policy.rb", File.join("app/policies", class_path, "#{file_name}_policy.rb")
   end
 end
