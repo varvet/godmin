@@ -8,15 +8,14 @@ module Godmin
       template_paths(prefix, partial).each do |path|
         template = super(name, path, partial, details)
 
-        if template.present?
-          break
-        end
+        break if template.present?
       end
 
       template
     end
 
     def template_paths(prefix, _partial)
+      prefix = clean_prefix(prefix)
       [
         [namespace, controller_name, prefix],
         [namespace, controller_name],
@@ -25,6 +24,12 @@ module Godmin
         [namespace, "resource"],
         [namespace]
       ].map { |path| path.compact.join("/") }.compact
+    end
+
+    private
+
+    def clean_prefix(prefix)
+      prefix.gsub(/^#{namespace}\//, "")
     end
   end
 

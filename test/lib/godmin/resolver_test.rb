@@ -2,7 +2,7 @@ require "test_helper"
 
 module Godmin
   class ResolverTest < ActiveSupport::TestCase
-    def test_foo_resolver_template_paths
+    def test_engine_resolver_template_paths
       namespaced_as "namespace" do
         assert_equal [
           "namespace/controller_name/prefix",
@@ -15,7 +15,20 @@ module Godmin
       end
     end
 
-    def test_bar_resolver_template_paths
+    def test_engine_resolver_template_paths_when_namespace_is_in_prefix
+      namespaced_as "namespace" do
+        assert_equal [
+          "namespace/controller_name/prefix",
+          "namespace/controller_name",
+          "namespace/prefix",
+          "namespace/resource/prefix",
+          "namespace/resource",
+          "namespace"
+        ], EngineResolver.new("controller_name").template_paths("namespace/prefix", false)
+      end
+    end
+
+    def test_godmin_resolver_template_paths
       namespaced_as "namespace" do
         assert_equal [
           "godmin/controller_name/prefix",

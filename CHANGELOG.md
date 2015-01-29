@@ -6,6 +6,7 @@ Features
 
 Bug fixes
 - Fixes a bug where the wrong template would be picked (https://github.com/varvet/godmin/issues/39)
+- Fixes a bug so the resolver works with namespaces templates.
 
 ### 0.9.9 - 2015-01-23
 Features
