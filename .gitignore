@@ -22,3 +22,4 @@ config/initializers/secret_token.rb
 *.swp
 /test/dummy/log/*
 Gemfile.lock
+tags
