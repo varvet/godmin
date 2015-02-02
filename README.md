@@ -689,6 +689,7 @@ Godmin.SelectBoxes.initializeSelectBox($el, {
 Some additional features are available as plugins:
 
 - [Godmin Uploads](https://github.com/varvet/godmin-uploads)
+- [Godmin Tagger](https://github.com/varvet/godmin-tagger)
 
 ## Contributors
 
