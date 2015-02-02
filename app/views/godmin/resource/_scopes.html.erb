@@ -3,7 +3,10 @@
     <ul class="nav nav-tabs">
       <% scope_map.each do |name, options| %>
         <li class="<%= "active" if params[:scope] == name.to_s %>">
-          <%= link_to translate_scoped("scopes.#{name.to_s.underscore}", default: name.to_s.titleize) + " (#{scope_count(name)})", url_for(params.merge(scope: name, only_path: true).except(:page)) %>
+          <%= link_to url_for(params.merge(scope: name, only_path: true).except(:page)) do %>
+            <%= translate_scoped("scopes.#{name.to_s.underscore}", default: name.to_s.titleize) %>
+            <span class="text-muted"> (<%= scope_count(name) %>)</span>
+          <% end %>
         </li>
       <% end %>
     </ul>
