@@ -5,6 +5,7 @@ module Godmin
 
       included do
         helper_method :scope_map
+        helper_method :scope_count
       end
 
       def scope_map
@@ -12,9 +13,7 @@ module Godmin
       end
 
       def apply_scope(resources)
-        if params[:scope].blank?
-          params[:scope] = default_scope
-        end
+        params[:scope] = default_scope if params[:scope].blank?
 
         if params[:scope] && scope_map.key?(params[:scope].to_sym)
           send("scope_#{params[:scope]}", resources)
@@ -24,6 +23,10 @@ module Godmin
       end
 
       protected
+
+      def scope_count(scope)
+        send("scope_#{scope}", resources).limit(nil).offset(nil).count
+      end
 
       def default_scope
         scope = scope_map.find -> { scope_map.first } do |_key, value|
