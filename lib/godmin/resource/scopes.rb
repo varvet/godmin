@@ -27,7 +27,7 @@ module Godmin
       def scope_count(scope)
         apply_filters(
           send("scope_#{scope}", resources_relation)
-        ).limit(nil).offset(nil).count
+        ).count
       end
 
       def default_scope
