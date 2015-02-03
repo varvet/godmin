@@ -7,6 +7,10 @@ module Godmin
 
     included do
       helper_method :policy
+
+      rescue_from NotAuthorizedError do
+        render text: "Forbidden", status: 403, layout: false
+      end
     end
 
     def authorize(record)
