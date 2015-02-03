@@ -46,8 +46,9 @@ Add the gem to the application's `Gemfile`:
 gem "godmin"
 ```
 
-Run the install generator:
+Bundle then run the install generator:
 ```sh
+$ bundle install
 $ bin/rails generate godmin:install
 ```
 
@@ -76,8 +77,9 @@ Add the gem to the engine's gemspec, `admin/admin.gemspec`:
 s.add_dependency "godmin", "~> x.x.x"
 ```
 
-Run the install generator within the scope of the engine, i.e. note the leading `admin/`:
+Bundle then run the install generator within the scope of the engine, i.e. note the leading `admin/`:
 ```sh
+$ bundle install
 $ admin/bin/rails generate godmin:install
 ```
 
