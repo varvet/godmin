@@ -580,6 +580,24 @@ end
 
 That is, everyone can list and view articles, only editors can create them, and only unpublished articles can be updated and destroyed.
 
+When a user is not authorized to access a resource, `NotAuthorizedError` is raised. By default this error is rescued in Godmin and it renders some text and returns status code `403 Forbidden`.
+If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`.
+
+```ruby
+module Admin
+  class ApplicationController < ActionController::Base
+    include Godmin::Application
+    include Godmin::Authentication
+    include Godmin::Authorization
+
+    # Renders 404 page and returns status code 404.
+    rescue_from NotAuthorizedError do
+      render file: "#{Rails.root}/public/404.html", status: 404, layout: false
+    end
+  end
+end
+```
+
 ## Localization
 
 Godmin supports localization out of the box. Strings can be translated both globally and per resource, similar to how views work.
