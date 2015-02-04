@@ -12,6 +12,12 @@ module Godmin
         self.class.scope_map
       end
 
+      def scope_count(scope)
+        apply_filters(
+          send("scope_#{scope}", resources_relation)
+        ).count
+      end
+
       def apply_scope(resources)
         params[:scope] = default_scope if params[:scope].blank?
 
@@ -23,12 +29,6 @@ module Godmin
       end
 
       protected
-
-      def scope_count(scope)
-        apply_filters(
-          send("scope_#{scope}", resources_relation)
-        ).count
-      end
 
       def default_scope
         scope = scope_map.find -> { scope_map.first } do |_key, value|
