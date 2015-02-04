@@ -8,6 +8,7 @@ Bug fixes
 - Fixes a bug where the wrong template would be picked (https://github.com/varvet/godmin/issues/39)
 - Fixes a bug so the resolver works with namespaces templates.
 - Fixes an autoloading issue (https://github.com/varvet/godmin/issues/60)
+- Godmin rescues `NotAuthorizedError` and returns a 403 Forbidden HTTP status.
 
 Other
 - Cleaned up generators (https://github.com/varvet/godmin/issues/28)
