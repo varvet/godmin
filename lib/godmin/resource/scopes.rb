@@ -5,16 +5,21 @@ module Godmin
 
       included do
         helper_method :scope_map
+        helper_method :scope_count
       end
 
       def scope_map
         self.class.scope_map
       end
 
+      def scope_count(scope)
+        apply_filters(
+          send("scope_#{scope}", resources_relation)
+        ).count
+      end
+
       def apply_scope(resources)
-        if params[:scope].blank?
-          params[:scope] = default_scope
-        end
+        params[:scope] = default_scope if params[:scope].blank?
 
         if params[:scope] && scope_map.key?(params[:scope].to_sym)
           send("scope_#{params[:scope]}", resources)

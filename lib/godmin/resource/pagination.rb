@@ -31,25 +31,27 @@ module Godmin
       end
 
       def pages
-        pages = (1..total_pages).to_a
+        @pages ||= begin
+          pages = (1..total_pages).to_a
 
-        return pages unless total_pages > WINDOW_SIZE
+          return pages unless total_pages > WINDOW_SIZE
 
-        if current_page < WINDOW_SIZE
-          pages.slice(0, WINDOW_SIZE)
-        elsif current_page > (total_pages - WINDOW_SIZE)
-          pages.slice(-WINDOW_SIZE, WINDOW_SIZE)
-        else
-          pages.slice(pages.index(current_page) - (WINDOW_SIZE / 2), WINDOW_SIZE)
+          if current_page < WINDOW_SIZE
+            pages.slice(0, WINDOW_SIZE)
+          elsif current_page > (total_pages - WINDOW_SIZE)
+            pages.slice(-WINDOW_SIZE, WINDOW_SIZE)
+          else
+            pages.slice(pages.index(current_page) - (WINDOW_SIZE / 2), WINDOW_SIZE)
+          end
         end
       end
 
       def total_pages
-        (total_resources.to_f / self.class.per_page).ceil
+        @total_pages ||= (total_resources.to_f / self.class.per_page).ceil
       end
 
       def total_resources
-        resources.limit(nil).offset(nil).count
+        @total_resource ||= resources.limit(nil).offset(nil).count
       end
 
       module ClassMethods
