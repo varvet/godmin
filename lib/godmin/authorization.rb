@@ -7,6 +7,10 @@ module Godmin
 
     included do
       helper_method :policy
+
+      rescue_from NotAuthorizedError do
+        render text: "You are not authorized to do this", status: 403, layout: "godmin/login"
+      end
     end
 
     def authorize(record)
