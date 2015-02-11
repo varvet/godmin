@@ -1,5 +1,6 @@
 sv:
   godmin:
+    title: Godmin
     batch_actions:
       select_all: Markera alla
       deselect_all: Avmarkera alla
