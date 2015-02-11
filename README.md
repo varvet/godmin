@@ -20,7 +20,6 @@ Godmin is an admin engine for Rails 4+.
 	- [Pagination](#pagination)
 - [Views](#views)
   - [Forms](#forms)
-- [Models](#models)
 - [Authentication](#authentication)
 	- [Simple authentication](#simple-authentication)
 	- [Shared authentication](#shared-authentication)
@@ -52,7 +51,7 @@ $ bundle install
 $ bin/rails generate godmin:install
 ```
 
-Godmin should be up and running at `localhost:3000`
+Godmin should be up and running at `localhost:3000`.
 
 ### Engine installation
 Use when the admin is part of the same codebase as the main application. E.g. you want to access the admin section at `localhost:3000/admin`.
@@ -61,7 +60,7 @@ Generate a [mountable engine](http://guides.rubyonrails.org/engines.html):
 ```sh
 $ bin/rails plugin new admin --mountable
 ```
-
+t
 Add the engine to the application's `Gemfile`:
 ```ruby
 gem "admin", path: "admin"
@@ -136,7 +135,7 @@ $ admin/bin/rails generate godmin:resource article title published
 
 This does a number of things.
 
-First, it inserts a route in the `config/routes.rb` file that looks like this:
+First, it inserts a route in the `config/routes.rb` file:
 
 ```ruby
 godmin do
@@ -144,7 +143,7 @@ godmin do
 end
 ```
 
-Second, it creates a controller that looks something like this:
+Second, it creates a controller:
 
 ```ruby
 class ArticlesController < ApplicationController
@@ -263,7 +262,7 @@ end
 
 Resources are made available to the views through instance variables. The index view can access the resources using `@resources` while show, new and edit can access the single resource using `@resource`.
 
-In order to modify what resources to fetch, there are some methods that can be overridden per resource controller:
+In order to modify resource fetching and construction, these methods can be overridden per resource controller:
 
 - `resource_class`
 - `resources_relation`
@@ -327,8 +326,8 @@ To change the way a resource is fetched for `show`, `edit`, `update` and `destro
 class ArticlesController
   include Godmin::Resource
 
-  def find_resource(id)
-    resources_relation.find_by(slug: id)
+  def find_resource(slug)
+    resources_relation.find_by(slug: slug)
   end
 end
 ```
@@ -395,7 +394,7 @@ end
 
 ## Views
 
-It is easy to override view templates and partials in Godmin, both globally and per resource. All you have to do is place a file with an identical name in your `app/views` directory. For instance, to override the `godmin/resource/index.html.erb` template for all resources, place a file under `app/views/resource/index.html.erb`. If you only wish to override it for articles, place it instead under `app/views/articles/index.html.erb`.
+It's easy to override view templates and partials in Godmin, both globally and per resource. All you have to do is place a file with an identical name in your `app/views` directory. For instance, to override the `godmin/resource/index.html.erb` template for all resources, place a file under `app/views/resource/index.html.erb`. If you only wish to override it for articles, place it instead under `app/views/articles/index.html.erb`.
 
 If you wish to customize the content of a table column, you can place a partial under `app/views/{resource}/columns/{column_name}.html.erb`, e.g. `app/views/articles/columns/_title.html.erb`. The resource is available to the partial through the `resource` variable.
 
@@ -403,7 +402,7 @@ Oftentimes, the default form provided by Godmin doesn't cut it. The `godmin/reso
 
 Likewise, the `godmin/shared/_navigation.html.erb` partial can be overridden to build a custom navigation bar.
 
-The full list of templates and partials that can be overridden [can be found here](https://github.com/varvet/godmin/tree/master/app/views/godmin)
+The full list of templates and partials that can be overridden [can be found here](https://github.com/varvet/godmin/tree/master/app/views/godmin).
 
 ### Forms
 
@@ -417,13 +416,11 @@ form_for @resource do |f|
 end
 ```
 
-## Models
-
 ## Authentication
 
-Multiple authentication scenarios are supported. Godmin comes with a built in authentication solution that can be used to sign in to the admin section via the admin interface. In addition, when running an admin engine, it is possible to set up a shared authentication solution so that administrators can sign in via the main app.
+Multiple authentication scenarios are supported. Godmin comes with a lightweight built in authentication solution that can be used to sign in to the admin section via the admin interface. In addition, when running an admin engine, it is possible to set up a shared authentication solution so that administrators can sign in via the main app.
 
-### Simple authentication
+### Built in authentication
 
 This example uses the built in authentication solution. Authentication is isolated to the admin section and administrators sign in via the admin interface.
 
@@ -442,7 +439,7 @@ $ bin/rake admin:install:migrations
 $ bin/rake db:migrate
 ```
 
-The generated model looks like this:
+A model is generated:
 
 ```ruby
 class AdminUser < ActiveRecord::Base
@@ -470,7 +467,7 @@ class SessionsController < ApplicationController
 end
 ```
 
-Finally, the application controller is tweaked to look something like this:
+Finally, the application controller is modified:
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -489,7 +486,7 @@ Authentication is now required when visiting the admin section.
 
 This example uses [Devise](https://github.com/plataformatec/devise) to set up a shared authentication solution between the main app and an admin engine. Administrators sign in and out via the main application.
 
-There is no need to run a generator in this instance. Simple add the authentication module to the admin application controller like so:
+There is no need to run a generator in this instance. Simply add the authentication module to the admin application controller like so:
 
 ```ruby
 module Admin
@@ -523,7 +520,7 @@ module Admin
 end
 ```
 
-That's it. The admin section is now authenticated using Devise.
+The admin section is now authenticated using Devise.
 
 ## Authorization
 
@@ -582,8 +579,8 @@ end
 
 That is, everyone can list and view articles, only editors can create them, and only unpublished articles can be updated and destroyed.
 
-When a user is not authorized to access a resource, `NotAuthorizedError` is raised. By default this error is rescued in Godmin and it renders some text and returns status code `403 Forbidden`.
-If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`.
+When a user is not authorized to access a resource, a `NotAuthorizedError` is raised. By default this error is rescued by Godmin and turned into a status code `403 Forbidden` response.
+If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`:
 
 ```ruby
 module Admin
@@ -656,9 +653,9 @@ Godmin comes with a small set of JavaScript components and APIs.
 Make a [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker) out of a text field:
 
 ```ruby
-f.text_field :date, data: { behavior: "datepicker" }
-f.text_field :date, data: { behavior: "timepicker" }
-f.text_field :date, data: { behavior: "datetimepicker" }
+f.datepicker_field :date
+f.timepicker_field :date
+f.datetimepicker_field :date
 ```
 
 If the field is added post page render, it can be initialized manually:
@@ -691,6 +688,7 @@ If you wish to translate the datetimepicker, add the following to your `app/asse
 Make a [selectize.js](http://brianreavis.github.io/selectize.js/) select box out of a text field or select box:
 
 ```ruby
+f.select :authors, Author.all, {}, data: { behavior: "select-box" }
 f.text_field :tag_list, data: { behavior: "select-box" }
 ```
 
