@@ -2,8 +2,9 @@ sv:
   godmin:
     title: Godmin
     batch_actions:
-      select_all: Markera alla
-      deselect_all: Avmarkera alla
+      buttons:
+        select_all: Markera alla
+        deselect_all: Avmarkera alla
       confirm_message: Är du säker?
     filters:
       select:

@@ -1,7 +1,17 @@
-LineLength:
-  Description: Limit lines to 120 characters.
+AllCops:
+  RunRailsCops: true
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
   Max: 120
 
-StringLiterals:
-  EnforcedStyle: double_quotes
+Metrics/ClassLength:
+  Max: 300
 
+Metrics/MethodLength:
+  Max: 25
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
