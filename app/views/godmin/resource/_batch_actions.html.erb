@@ -1,7 +1,7 @@
 <% if batch_action_map.present? %>
-  <%= link_to translate_scoped("batch_actions.select_all"), "#", class: "btn btn-default",
+  <%= link_to translate_scoped("batch_actions.buttons.select_all"), "#", class: "btn btn-default",
     data: { behavior: "batch-actions-select batch-actions-select-all" } %>
-  <%= link_to translate_scoped("batch_actions.deselect_all"), "#", class: "btn btn-default hidden",
+  <%= link_to translate_scoped("batch_actions.buttons.deselect_all"), "#", class: "btn btn-default hidden",
     data: { behavior: "batch-actions-select batch-actions-select-none" } %>
 
   <div class="btn-group">

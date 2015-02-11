@@ -14,6 +14,7 @@ Bug fixes
 
 Other
 - Cleaned up generators (https://github.com/varvet/godmin/issues/28)
+- Restructured the locale files a bit
 
 ### 0.9.9 - 2015-01-23
 Features

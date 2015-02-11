@@ -2,8 +2,9 @@ en:
   godmin:
     title: Godmin
     batch_actions:
-      select_all: Select all
-      deselect_all: Deselect all
+      buttons:
+        select_all: Select all
+        deselect_all: Deselect all
       confirm_message: Are you sure?
     filters:
       select:

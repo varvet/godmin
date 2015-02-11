@@ -606,12 +606,13 @@ Godmin supports localization out of the box. Strings can be translated both glob
 
 For a list of translatable strings, [look here](https://github.com/varvet/godmin/blob/master/config/locales/en.yml).
 
-For instance, to translate the `godmin.batch_actions.select_all` string globally:
+For instance, to translate the `godmin.batch_actions.buttons.select_all` string globally:
 
 ```yml
 godmin:
   batch_actions:
-    select_all: {translation}
+    buttons:
+      select_all: {translation}
 ```
 
 Or, translate for a specific resource:
@@ -620,7 +621,8 @@ Or, translate for a specific resource:
 godmin:
   articles:
     batch_actions:
-      select_all: {translation}
+      buttons:
+        select_all: {translation}
 ```
 
 In addition, all scopes, filters and batch actions that are added, can be localized:
@@ -629,14 +631,16 @@ In addition, all scopes, filters and batch actions that are added, can be locali
 godmin:
   articles:
     batch_actions:
-      publish: {translation}
-      unpublish: {translation}
+      labels:
+        publish: {translation}
+        unpublish: {translation}
     filters:
       labels:
         title: {translation}
     scopes:
-      unpublished: {translation}
-      published: {translation}
+      labels:
+        unpublished: {translation}
+        published: {translation}
 ```
 
 Godmin comes with built in support for English and Swedish.
