@@ -619,7 +619,7 @@ Or, translate for a specific resource:
 
 ```yml
 godmin:
-  articles:
+  article:
     batch_actions:
       buttons:
         select_all: {translation}
@@ -629,7 +629,7 @@ In addition, all scopes, filters and batch actions that are added, can be locali
 
 ```yml
 godmin:
-  articles:
+  article:
     batch_actions:
       labels:
         publish: {translation}
