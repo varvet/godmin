@@ -611,8 +611,8 @@ For instance, to translate the `godmin.batch_actions.buttons.select_all` string 
 ```yml
 godmin:
   batch_actions:
-		buttons:
-    	select_all: {translation}
+    buttons:
+      select_all: {translation}
 ```
 
 Or, translate for a specific resource:
@@ -621,8 +621,8 @@ Or, translate for a specific resource:
 godmin:
   articles:
     batch_actions:
-			buttons:
-      	select_all: {translation}
+      buttons:
+        select_all: {translation}
 ```
 
 In addition, all scopes, filters and batch actions that are added, can be localized:
@@ -631,16 +631,16 @@ In addition, all scopes, filters and batch actions that are added, can be locali
 godmin:
   articles:
     batch_actions:
-			labels:
-	      publish: {translation}
-	      unpublish: {translation}
+      labels:
+        publish: {translation}
+        unpublish: {translation}
     filters:
       labels:
         title: {translation}
     scopes:
-			labels:
-	      unpublished: {translation}
-	      published: {translation}
+      labels:
+        unpublished: {translation}
+        published: {translation}
 ```
 
 Godmin comes with built in support for English and Swedish.
