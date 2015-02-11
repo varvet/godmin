@@ -4,6 +4,7 @@
 Features
 - Shows the number of items in each scope in the scope tab (https://github.com/varvet/godmin/issues/16)
 - Two new overridable methods for resources: `build_resource` and `find_resource`
+- Translatable title (https://github.com/varvet/godmin/issues/17)
 
 Bug fixes
 - Fixes a bug where the wrong template would be picked (https://github.com/varvet/godmin/issues/39)
