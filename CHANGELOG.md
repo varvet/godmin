@@ -1,6 +1,6 @@
 # Changelog
 
-### 0.10.0 - Unreleased
+### 0.10.0 - 2015-02-11
 Features
 - Shows the number of items in each scope in the scope tab (https://github.com/varvet/godmin/issues/16)
 - Two new overridable methods for resources: `build_resource` and `find_resource`
