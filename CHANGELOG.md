@@ -3,6 +3,7 @@
 ### 0.10.0 - Unreleased
 Features
 - Two new overridable methods for resources: `build_resource` and `find_resource`
+- Translatable title (https://github.com/varvet/godmin/issues/17)
 
 Bug fixes
 - Fixes a bug where the wrong template would be picked (https://github.com/varvet/godmin/issues/39)
