@@ -56,7 +56,7 @@ module Godmin
 
       module ClassMethods
         def per_page
-          10
+          25
         end
       end
     end
