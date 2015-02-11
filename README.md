@@ -60,7 +60,7 @@ Generate a [mountable engine](http://guides.rubyonrails.org/engines.html):
 ```sh
 $ bin/rails plugin new admin --mountable
 ```
-t
+
 Add the engine to the application's `Gemfile`:
 ```ruby
 gem "admin", path: "admin"
