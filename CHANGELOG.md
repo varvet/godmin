@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.10.1 - 2015-02-13
+Bug fixes
+- Fixes multi-select selectize issue (https://github.com/varvet/godmin/issues/71)
+
 ### 0.10.0 - 2015-02-11
 Features
 - Shows the number of items in each scope in the scope tab (https://github.com/varvet/godmin/issues/16)
