@@ -14,7 +14,7 @@ Godmin.SelectBoxes = (function() {
 
   function initializeSelectBox($el, options) {
     var defaults = {
-      inputClass: 'form-control selectize-input'
+      inputClass: 'selectize-input'
     };
 
     $el.selectize($.extend(defaults, options));
