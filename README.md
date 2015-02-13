@@ -653,9 +653,8 @@ Godmin comes with a small set of JavaScript components and APIs.
 Make a [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker) out of a text field:
 
 ```ruby
-f.datepicker_field :date
-f.timepicker_field :date
-f.datetimepicker_field :date
+f.date_field :date
+f.datetime_field :date
 ```
 
 If the field is added post page render, it can be initialized manually:
