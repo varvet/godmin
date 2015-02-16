@@ -54,6 +54,13 @@ Godmin.BatchActions = (function() {
 
   function triggerAction() {
     $form.find('[data-behavior~=batch-actions-action]').val($(this).data('value'));
+
+    var ids = $form.find('[data-behavior~=batch-actions-checkbox]:checked').map(function() {
+      return this.id;
+    }).toArray().join(',');
+
+    $form.attr('action', $form.attr('action') + '/' + ids);
+
     $form.submit();
   }
 

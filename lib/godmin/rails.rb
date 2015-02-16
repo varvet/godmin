@@ -18,12 +18,13 @@ module ActionDispatch::Routing
           Godmin.resources << resources.first
         end
 
-        super(*resources) do
-          if block_given?
-            yield
-          end
-          post "batch_action", on: :collection
-        end
+        super
+        # super(*resources) do
+        #   if block_given?
+        #     yield
+        #   end
+        #   # post "batch_action", on: :collection
+        # end
       end
 
       yield
