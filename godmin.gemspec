@@ -10,8 +10,8 @@ Gem::Specification.new do |gem|
   gem.authors     = ["Jens Ljungblad", "Linus Pettersson", "Varvet"]
   gem.email       = ["info@varvet.se"]
   gem.homepage    = "https://github.com/varvet/godmin"
-  gem.summary     = "Godmin is an admin engine for Rails 4+"
-  gem.description = "Godmin is an admin engine for Rails 4+"
+  gem.summary     = "Godmin is an admin framework for Rails 4+"
+  gem.description = "Godmin is an admin framework for Rails 4+"
   gem.license     = "MIT"
 
   gem.files         = `git ls-files`.split($/)
