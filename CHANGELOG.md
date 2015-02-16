@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.10.2 - 2015-02-16
+Bug fixes
+- Fixes standard resource params for multi-word models
+
 ### 0.10.1 - 2015-02-13
 Bug fixes
 - Fixes multi-select selectize issue (https://github.com/varvet/godmin/issues/71)
