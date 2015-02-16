@@ -4,9 +4,9 @@
 [![Build Status](https://img.shields.io/travis/varvet/godmin/master.svg)](https://travis-ci.org/varvet/godmin)
 [![Code Climate](https://img.shields.io/codeclimate/github/varvet/godmin.svg)](https://codeclimate.com/github/varvet/godmin)
 
-Godmin is an admin framework for Rails 4+.
-
 ![Godmin Screenshot](https://raw.githubusercontent.com/varvet/godmin/master/screenshot.png)
+
+Godmin is an admin framework for Rails 4+.
 
 - [Installation](#installation)
 	- [Standalone installation](#standalone-installation)
