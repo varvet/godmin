@@ -19,12 +19,6 @@ module ActionDispatch::Routing
         end
 
         super
-        # super(*resources) do
-        #   if block_given?
-        #     yield
-        #   end
-        #   # post "batch_action", on: :collection
-        # end
       end
 
       yield
