@@ -29,26 +29,21 @@ module Godmin
 
       def update
         if params[:id].include?(",")
-          batch_action
+          item_ids = params[:id].split(",").map(&:to_i)
+
+          if batch_action_map.key?(params[:batch_action][:action].to_sym)
+            # Store the batched item ids so they can be highlighted later
+            flash[:batch_actioned_ids] = item_ids
+
+            # If the batch action returns false, it is because it has implemented
+            # its own redirect. Therefore we return wihout redirecting.
+            return unless send("batch_action_#{params[:batch_action][:action]}", resource_class.find(item_ids))
+          end
+
+          redirect_to :back
         else
           super
         end
-      end
-
-      private
-
-      def batch_action
-        item_ids = params[:id].split(",").map(&:to_i)
-
-        if batch_action_map.key?(params[:batch_action][:action].to_sym)
-          flash[:batch_actioned_ids] = item_ids
-
-          # If the batch action returns false, it is because it has implemented
-          # its own redirect. Therefore we return wihout redirecting.
-          return unless send("batch_action_#{params[:batch_action][:action]}", resource_class.find(item_ids))
-        end
-
-        redirect_to :back
       end
 
       module ClassMethods
