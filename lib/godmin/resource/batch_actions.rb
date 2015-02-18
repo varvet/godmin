@@ -12,9 +12,9 @@ module Godmin
       end
 
       def update
-        return super unless params[:id].include?(",")
+        return super unless params[:batch_action].present? # params[:id].include?(",")
 
-        item_ids = params[:id].split(",").map(&:to_i)
+        item_ids = params[:batch_action][:items].keys.map(&:to_i)
 
         if batch_action_map.key?(params[:batch_action][:action].to_sym)
           # Store the batched item ids so they can be highlighted later
