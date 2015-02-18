@@ -1,6 +1,6 @@
 # Changelog
 
-### 0.10.3 - Unreleased
+### 0.10.3 - 2015-02-18
 Bug fixes
 - Adds the possibility to pass options to the `date_field` and `datetime_field` form helpers
 
