@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.10.3 - Unreleased
+Bug fixes
+- Adds the possibility to pass options to the `date_field` and `datetime_field` form helpers
+
 ### 0.10.2 - 2015-02-16
 Bug fixes
 - Fixes standard resource params for multi-word models
