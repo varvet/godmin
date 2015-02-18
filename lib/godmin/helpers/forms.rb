@@ -34,11 +34,17 @@ module Godmin
       end
 
       def date_field(attribute, options = {})
-        text_field(attribute, value: datetime_value(attribute, :datepicker), data: { behavior: "datepicker" })
+        text_field(attribute, options.deep_merge(
+          value: datetime_value(attribute, :datepicker),
+          data: { behavior: "datepicker" }
+        ))
       end
 
       def datetime_field(attribute, options = {})
-        text_field(attribute, value: datetime_value(attribute, :datetimepicker), data: { behavior: "datetimepicker" })
+        text_field(attribute, options.deep_merge(
+          value: datetime_value(attribute, :datetimepicker),
+          data: { behavior: "datetimepicker" }
+        ))
       end
 
       private
