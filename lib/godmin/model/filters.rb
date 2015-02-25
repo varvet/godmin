@@ -3,19 +3,18 @@ module Godmin
     module Filters
       extend ActiveSupport::Concern
 
-      module ClassMethods
-        def apply_filters(filter_params)
-          scope = all
-          if filter_params.present?
-            filter_params.each do |name, value|
-              if filter_map.key?(name.to_sym) && value.present?
-                scope = scope.send("filter_#{name}", value)
-              end
+      def apply_filters(filter_params, scope)
+        if filter_params.present?
+          filter_params.each do |name, value|
+            if self.class.filter_map.key?(name.to_sym) && value.present?
+              scope = send("filter_#{name}", scope, value)
             end
           end
-          scope
         end
+        scope
+      end
 
+      module ClassMethods
         def filter_map
           @filter_map ||= {}
         end

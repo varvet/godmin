@@ -1,17 +1,23 @@
 require "godmin/model/filters"
-require "godmin/model/scopes"
+# require "godmin/model/scopes"
 
 module Godmin
   module Model
     extend ActiveSupport::Concern
 
     include Godmin::Model::Filters
-    include Godmin::Model::Scopes
+    # include Godmin::Model::Scopes
 
-    module ClassMethods
-      def resources(params)
-        apply_filters(params[:filter]).apply_scope(params[:scope])
-      end
+    def resource_class
+      Article
+    end
+
+    def resources_relation
+      resource_class.all
+    end
+
+    def resources(params)
+      apply_filters(params[:filter], resources_relation) #.apply_scope(params[:scope])
     end
   end
 end

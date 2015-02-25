@@ -20,7 +20,7 @@ module Godmin
       include Godmin::Resource::Ordering
       include Godmin::Resource::Pagination
 
-      before_action :set_resource_class
+      before_action :set_resource_class, :set_thing
       before_action :set_resources, only: :index
       before_action :set_resource, only: [:show, :new, :edit, :create, :update, :destroy]
 
@@ -107,16 +107,20 @@ module Godmin
       authorize(@resource) if authorization_enabled?
     end
 
-    def resource_class
-      controller_path.classify.constantize
+    def set_thing
+      @thing = thing
     end
 
-    def resources_relation
-      resource_class.all
+    def resource_class
+      thing.resource_class
+    end
+
+    def thing
+      Admin::ArticleThing.new
     end
 
     def resources
-      resources_relation.resources(params)
+      thing.resources(params)
       # apply_pagination(
       #   apply_order(
       #     apply_filters(
