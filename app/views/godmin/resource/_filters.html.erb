@@ -5,7 +5,7 @@
       <%= hidden_field_tag :scope, nil, value: params[:scope] %>
       <%= hidden_field_tag :order, nil, value: params[:order] %>
 
-      <% filter_map.each do |name, options| %>
+      <% @resource_class.filter_map.each do |name, options| %>
         <div class="filter form-group">
           <%= label_tag name, translate_scoped("filters.labels.#{name}", default: name.to_s.titleize) %><br>
           <%= filter_input_tag name, options %>

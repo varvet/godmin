@@ -2,10 +2,9 @@ require "godmin/helpers/batch_actions"
 require "godmin/helpers/filters"
 require "godmin/helpers/tables"
 require "godmin/resource/batch_actions"
-require "godmin/resource/filters"
 require "godmin/resource/ordering"
 require "godmin/resource/pagination"
-require "godmin/resource/scopes"
+# require "godmin/resource/scopes"
 
 module Godmin
   module Resource
@@ -17,8 +16,7 @@ module Godmin
       helper Godmin::Helpers::Tables
 
       include Godmin::Resource::BatchActions
-      include Godmin::Resource::Filters
-      include Godmin::Resource::Scopes
+      # include Godmin::Resource::Scopes
       include Godmin::Resource::Ordering
       include Godmin::Resource::Pagination
 
@@ -110,7 +108,7 @@ module Godmin
     end
 
     def resource_class
-      controller_name.classify.constantize
+      controller_path.classify.constantize
     end
 
     def resources_relation
@@ -118,15 +116,16 @@ module Godmin
     end
 
     def resources
-      apply_pagination(
-        apply_order(
-          apply_filters(
-            apply_scope(
-              resources_relation
-            )
-          )
-        )
-      )
+      resources_relation.resources(params)
+      # apply_pagination(
+      #   apply_order(
+      #     apply_filters(
+      #       apply_scope(
+      #         resources_relation
+      #       )
+      #     )
+      #   )
+      # )
     end
 
     def resource
@@ -151,7 +150,7 @@ module Godmin
     end
 
     def resource_params
-      params.require(resource_class.name.underscore.parameterize("_").to_sym).permit(attrs_for_form)
+      params.require(resource_class.model_name.param_key.to_sym).permit(attrs_for_form)
     end
 
     def redirect_after_create

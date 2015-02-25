@@ -2,7 +2,7 @@
 
 <%= render partial: "scopes" %>
 
-<% if filter_map.present? %>
+<% if @resource_class.filter_map.present? %>
   <%= render partial: "filters" %>
 <% end %>
 

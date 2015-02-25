@@ -19,3 +19,26 @@ def namespaced_as(namespace)
   yield
   Godmin.namespace = nil
 end
+
+module Godmin
+  class TestArticle < ActiveRecord::Base
+    mattr_accessor :called_filters do
+      {}
+    end
+
+    include Godmin::Model
+
+    filter :title
+    filter :country, as: :select, collection: %w(Sweden Canada)
+
+    def self.filter_title(value)
+      called_filters[:title] = value
+      all
+    end
+
+    def self.filter_country(value)
+      called_filters[:country] = value
+      all
+    end
+  end
+end
