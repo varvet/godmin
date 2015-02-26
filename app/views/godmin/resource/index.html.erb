@@ -2,9 +2,7 @@
 
 <%= render partial: "scopes" %>
 
-<% if @thing.class.filter_map.present? %>
-  <%= render partial: "filters" %>
-<% end %>
+<%= render partial: "filters" %>
 
 <%= form_tag [:batch_action, @resource_class], data: { behavior: "batch-actions-form" } do %>
 

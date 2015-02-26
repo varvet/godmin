@@ -1,23 +1,25 @@
-<div id="filters" class="panel panel-default">
-  <div class="panel-body">
-    <%= form_tag params, method: :get, class: "form-inline" do %>
+<% if @thing.filter_map.present? %>
+  <div id="filters" class="panel panel-default">
+    <div class="panel-body">
+      <%= form_tag params, method: :get, class: "form-inline" do %>
 
-      <%= hidden_field_tag :scope, nil, value: params[:scope] %>
-      <%= hidden_field_tag :order, nil, value: params[:order] %>
+        <%= hidden_field_tag :scope, nil, value: params[:scope] %>
+        <%= hidden_field_tag :order, nil, value: params[:order] %>
 
-      <% @thing.class.filter_map.each do |name, options| %>
-        <div class="filter form-group">
-          <%= label_tag name, translate_scoped("filters.labels.#{name}", default: name.to_s.titleize) %><br>
-          <%= filter_input_tag name, options %>
+        <% @thing.filter_map.each do |name, options| %>
+          <div class="filter form-group">
+            <%= label_tag name, translate_scoped("filters.labels.#{name}", default: name.to_s.titleize) %><br>
+            <%= filter_input_tag name, options %>
+          </div>
+        <% end %>
+
+        <div class="pull-right">
+          <label>&nbsp;</label><br>
+          <%= button_tag translate_scoped("filters.buttons.apply"), class: "btn btn-default" %>
+          <%= link_to translate_scoped("filters.buttons.clear"), polymorphic_path(@resource_class, scope: params[:scope], order: params[:order]), class: "btn btn-default" %>
         </div>
+
       <% end %>
-
-      <div class="pull-right">
-        <label>&nbsp;</label><br>
-        <%= button_tag translate_scoped("filters.buttons.apply"), class: "btn btn-default" %>
-        <%= link_to translate_scoped("filters.buttons.clear"), polymorphic_path(@resource_class, scope: params[:scope], order: params[:order]), class: "btn btn-default" %>
-      </div>
-
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

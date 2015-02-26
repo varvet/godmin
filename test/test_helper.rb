@@ -3,6 +3,11 @@ ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
+require "minitest/reporters"
+
+Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(
+  color: true
+)]
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -21,24 +26,41 @@ def namespaced_as(namespace)
 end
 
 module Godmin
-  class TestArticle < ActiveRecord::Base
-    mattr_accessor :called_filters do
-      {}
+  class ArticleThing
+    include Godmin::Model
+
+    mattr_accessor :called_methods do
+      { scopes: {}, filters: {} }
     end
 
-    include Godmin::Model
+    scope :unpublished, default: true
+    scope :published
 
     filter :title
     filter :country, as: :select, collection: %w(Sweden Canada)
 
-    def self.filter_title(value)
-      called_filters[:title] = value
-      all
+    def resources_relation
+      [:foo, :bar, :baz]
     end
 
-    def self.filter_country(value)
-      called_filters[:country] = value
-      all
+    def scope_published(resources)
+      called_methods[:scopes][:published] = resources
+      resources.slice(0, 1)
+    end
+
+    def scope_unpublished(resources)
+      called_methods[:scopes][:unpublished] = resources
+      resources.slice(1, 3)
+    end
+
+    def filter_title(resources, value)
+      called_methods[:filters][:title] = [resources, value]
+      resources
+    end
+
+    def filter_country(resources, value)
+      called_methods[:filters][:country] = [resources, value]
+      resources
     end
   end
 end

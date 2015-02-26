@@ -1,11 +1,11 @@
-<% unless true # @resource_class.scope_map.empty? %>
+<% unless @thing.scope_map.empty? %>
   <div id="scopes">
     <ul class="nav nav-tabs">
-      <% @resource_class.scope_map.each do |name, options| %>
-        <li class="<%= "active" if params[:scope] == name.to_s %>">
+      <% @thing.scope_map.each do |name, options| %>
+        <li class="<%= "active" if @thing.scoped_by?(name) %>">
           <%= link_to url_for(params.merge(scope: name, only_path: true).except(:page)) do %>
             <%= translate_scoped("scopes.labels.#{name.to_s.underscore}", default: name.to_s.titleize) %>
-            <span class="text-muted"> (<%= @resource_class.scope_count(name) %>)</span>
+            <span class="text-muted"> (<%= @thing.scope_count(name) %>)</span>
           <% end %>
         </li>
       <% end %>

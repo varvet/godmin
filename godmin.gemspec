@@ -29,4 +29,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency "selectize-rails", "~> 0.11.2"
 
   gem.add_development_dependency "sqlite3"
+  gem.add_development_dependency "minitest"
+  gem.add_development_dependency "minitest-reporters"
 end

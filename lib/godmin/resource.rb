@@ -15,12 +15,14 @@ module Godmin
       helper Godmin::Helpers::Filters
       helper Godmin::Helpers::Tables
 
+      # include Godmin::Resource::Filters
       include Godmin::Resource::BatchActions
       # include Godmin::Resource::Scopes
       include Godmin::Resource::Ordering
       include Godmin::Resource::Pagination
 
-      before_action :set_resource_class, :set_thing
+      before_action :set_thing
+      before_action :set_resource_class
       before_action :set_resources, only: :index
       before_action :set_resource, only: [:show, :new, :edit, :create, :update, :destroy]
 
@@ -93,64 +95,47 @@ module Godmin
 
     protected
 
+    def set_thing
+      @thing = thing_class.new
+    end
+
     def set_resource_class
-      @resource_class ||= resource_class
+      @resource_class = resource_class
     end
 
     def set_resources
-      @resources ||= resources
+      @resources = resources
       authorize(@resources) if authorization_enabled?
     end
 
     def set_resource
-      @resource ||= resource
+      @resource = resource
       authorize(@resource) if authorization_enabled?
     end
 
-    def set_thing
-      @thing = thing
+    def thing_class
+      Admin::ArticleThing
     end
 
     def resource_class
-      thing.resource_class
-    end
-
-    def thing
-      Admin::ArticleThing.new
+      @thing.resource_class
     end
 
     def resources
-      thing.resources(params)
-      # apply_pagination(
-      #   apply_order(
-      #     apply_filters(
-      #       apply_scope(
-      #         resources_relation
-      #       )
-      #     )
-      #   )
-      # )
+      @thing.resources(params)
     end
 
     def resource
       if params[:id]
-        find_resource(params[:id])
+        @thing.find_resource(params[:id])
       else
         case action_name
         when "create"
-          build_resource(resource_params)
+          @thing.build_resource(resource_params)
         when "new"
-          build_resource(nil)
+          @thing.build_resource(nil)
         end
       end
-    end
-
-    def build_resource(params)
-      resources_relation.new(params)
-    end
-
-    def find_resource(id)
-      resources_relation.find(id)
     end
 
     def resource_params
