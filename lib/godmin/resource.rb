@@ -2,9 +2,7 @@ require "godmin/helpers/batch_actions"
 require "godmin/helpers/filters"
 require "godmin/helpers/tables"
 require "godmin/resource/batch_actions"
-require "godmin/resource/ordering"
 require "godmin/resource/pagination"
-# require "godmin/resource/scopes"
 
 module Godmin
   module Resource
@@ -15,10 +13,7 @@ module Godmin
       helper Godmin::Helpers::Filters
       helper Godmin::Helpers::Tables
 
-      # include Godmin::Resource::Filters
       include Godmin::Resource::BatchActions
-      # include Godmin::Resource::Scopes
-      include Godmin::Resource::Ordering
       include Godmin::Resource::Pagination
 
       before_action :set_thing
