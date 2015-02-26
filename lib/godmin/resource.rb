@@ -2,7 +2,6 @@ require "godmin/helpers/batch_actions"
 require "godmin/helpers/filters"
 require "godmin/helpers/tables"
 require "godmin/resource/batch_actions"
-require "godmin/resource/pagination"
 
 module Godmin
   module Resource
@@ -14,7 +13,6 @@ module Godmin
       helper Godmin::Helpers::Tables
 
       include Godmin::Resource::BatchActions
-      include Godmin::Resource::Pagination
 
       before_action :set_thing
       before_action :set_resource_class

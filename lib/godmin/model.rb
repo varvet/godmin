@@ -1,6 +1,7 @@
 require "godmin/model/filters"
 require "godmin/model/scopes"
 require "godmin/model/ordering"
+require "godmin/model/pagination"
 
 module Godmin
   module Model
@@ -9,6 +10,7 @@ module Godmin
     include Godmin::Model::Filters
     include Godmin::Model::Scopes
     include Godmin::Model::Ordering
+    include Godmin::Model::Pagination
 
     def initialize(resource_class = nil)
       @resource_class = resource_class
@@ -22,23 +24,13 @@ module Godmin
       resource_class.all
     end
 
-    # def resources
-    #   apply_pagination(
-    #     apply_order(
-    #       apply_filters(
-    #         apply_scope(
-    #           resources_relation
-    #         )
-    #       )
-    #     )
-    #   )
-    # end
-
     def resources(params)
-      apply_order(params[:order],
-        apply_filters(params[:filter],
-          apply_scope(params[:scope],
-            resources_relation
+      apply_pagination(params[:page],
+        apply_order(params[:order],
+          apply_filters(params[:filter],
+            apply_scope(params[:scope],
+              resources_relation
+            )
           )
         )
       )

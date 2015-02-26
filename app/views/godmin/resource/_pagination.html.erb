@@ -1,25 +1,25 @@
 <div class="pull-left">
-  <% if total_pages > 1 %>
+  <% if @thing.paginator.total_pages > 1 %>
     <nav>
       <ul class="pagination">
-        <% unless pages.first == 1 && current_page == pages.first %>
+        <% unless @thing.paginator.pages.first == 1 && @thing.paginator.current_page == @thing.paginator.pages.first %>
           <li><%= link_to translate_scoped("pagination.first"), params.merge(page: 1) %></li>
-          <li><%= link_to "«", params.merge(page: current_page - 1) %></li>
+          <li><%= link_to "«", params.merge(page: @thing.paginator.current_page - 1) %></li>
         <% end %>
-        <% unless pages.first == 1 %>
+        <% unless @thing.paginator.pages.first == 1 %>
           <li class="disabled"><%= link_to "…" %></li>
         <% end %>
-        <% pages.each do |page| %>
-          <li class="<%= "active" if page == current_page %>">
+        <% @thing.paginator.pages.each do |page| %>
+          <li class="<%= "active" if page == @thing.paginator.current_page %>">
             <%= link_to page, params.merge(page: page) %>
           </li>
         <% end %>
-        <% unless pages.last == total_pages %>
+        <% unless @thing.paginator.pages.last == @thing.paginator.total_pages %>
           <li class="disabled"><%= link_to "…" %></li>
         <% end %>
-        <% unless pages.last == total_pages && current_page == pages.last %>
-          <li><%= link_to "»", params.merge(page: current_page + 1) %></li>
-          <li><%= link_to translate_scoped("pagination.last"), params.merge(page: total_pages) %></li>
+        <% unless @thing.paginator.pages.last == @thing.paginator.total_pages && @thing.paginator.current_page == @thing.paginator.pages.last %>
+          <li><%= link_to "»", params.merge(page: @thing.paginator.current_page + 1) %></li>
+          <li><%= link_to translate_scoped("pagination.last"), params.merge(page: @thing.paginator.total_pages) %></li>
         <% end %>
       </ul>
     </nav>
@@ -34,7 +34,7 @@
     <%= translate_scoped("pagination.entries.other", {
       resource: @resource_class.model_name.human(count: @resources.length).downcase,
       count: @resources.length,
-      total: total_resources
+      total: @thing.paginator.total_resources
     }) %>
   <% end %>
 </div>

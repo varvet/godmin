@@ -8,7 +8,7 @@ module Godmin
       def apply_scope(scope_param, resources)
         @scope = scope_param.blank? ? default_scope : scope_param
 
-        if @scope && scope_map.key?(@scope.to_sym)
+        if scope && scope_map.key?(scope.to_sym)
           send("scope_#{@scope}", resources)
         else
           fail NotImplementedError, "Scope #{@scope} not implemented"
@@ -18,6 +18,8 @@ module Godmin
       def scope
         @scope
       end
+
+      # TODO: make setter for scope
 
       def scoped_by?(name)
         @scope == name.to_s
