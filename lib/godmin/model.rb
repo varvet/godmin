@@ -10,8 +10,12 @@ module Godmin
     include Godmin::Model::Scopes
     include Godmin::Model::Ordering
 
+    def initialize(resource_class = nil)
+      @resource_class = resource_class
+    end
+
     def resource_class
-      Article
+      @resource_class
     end
 
     def resources_relation

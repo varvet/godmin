@@ -91,7 +91,7 @@ module Godmin
     protected
 
     def set_thing
-      @thing = thing_class.new
+      @thing = thing_class.new(Article)
     end
 
     def set_resource_class
