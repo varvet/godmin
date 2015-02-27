@@ -1,10 +1,10 @@
 <div id="table" class="table-responsive">
   <table class="table table-bordered table-hover">
     <tr>
-      <% if batch_action_map.present? %>
+      <% if @thing.batch_action_map.present? %>
         <th></th>
       <% end %>
-      <% attrs_for_index.each do |attr| %>
+      <% @thing.attrs_for_index.each do |attr| %>
         <th>
           <%= column_header attr %>
         </th>
@@ -17,13 +17,13 @@
       <% else %>
         <tr>
       <% end %>
-        <% if batch_action_map.present? %>
+        <% if @thing.batch_action_map.present? %>
           <td align="center">
             <%= check_box_tag "batch_action[items][#{resource.id}]", nil, nil,
               data: { behavior: "batch-actions-checkbox" } %>
           </td>
         <% end %>
-        <% attrs_for_index.each do |attr| %>
+        <% @thing.attrs_for_index.each do |attr| %>
           <td>
             <%= column_value(resource, attr) %>
           </td>

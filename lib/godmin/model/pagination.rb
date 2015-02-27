@@ -4,7 +4,7 @@ module Godmin
       extend ActiveSupport::Concern
 
       def apply_pagination(page_param, resources)
-        @paginator = Paginator.new(per_page, page_param, resources)
+        @paginator = Paginator.new(resources, per_page: per_page, current_page: page_param)
         @paginator.paginate
       end
 

@@ -33,6 +33,9 @@ module Godmin
       { scopes: {}, filters: {} }
     end
 
+    attrs_for_index :id, :title, :country
+    attrs_for_form :id, :title, :country, :body
+
     scope :unpublished, default: true
     scope :published
 

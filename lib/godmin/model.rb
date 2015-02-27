@@ -1,16 +1,18 @@
+require "godmin/model/batch_actions"
 require "godmin/model/filters"
-require "godmin/model/scopes"
 require "godmin/model/ordering"
 require "godmin/model/pagination"
+require "godmin/model/scopes"
 
 module Godmin
   module Model
     extend ActiveSupport::Concern
 
+    include Godmin::Model::BatchActions
     include Godmin::Model::Filters
-    include Godmin::Model::Scopes
     include Godmin::Model::Ordering
     include Godmin::Model::Pagination
+    include Godmin::Model::Scopes
 
     def initialize(resource_class = nil)
       @resource_class = resource_class
@@ -42,6 +44,26 @@ module Godmin
 
     def find_resource(id)
       resources_relation.find(id)
+    end
+
+    def attrs_for_index
+      self.class.attrs_for_index
+    end
+
+    def attrs_for_form
+      self.class.attrs_for_form
+    end
+
+    module ClassMethods
+      def attrs_for_index(*attrs)
+        @attrs_for_index = attrs if attrs.present?
+        @attrs_for_index || []
+      end
+
+      def attrs_for_form(*attrs)
+        @attrs_for_form = attrs if attrs.present?
+        @attrs_for_form || []
+      end
     end
   end
 end

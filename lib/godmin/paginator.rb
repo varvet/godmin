@@ -4,14 +4,14 @@ module Godmin
 
     attr_reader :per_page, :current_page
 
-    def initialize(per_page, current_page, resources)
-      @per_page = per_page
-      @current_page = current_page.present? ? current_page.to_i : 1
-      @resources = resources
+    def initialize(resources, per_page: 25, current_page: 1)
+      @resources    = resources
+      @per_page     = per_page
+      @current_page = current_page.to_i
     end
 
     def paginate
-      @resources.limit(pagination_limit).offset(pagination_offset)
+      @resources.limit(per_page).offset(offset)
     end
 
     def pages
@@ -31,7 +31,7 @@ module Godmin
     end
 
     def total_pages
-      @total_pages ||= (total_resources.to_f / @per_page).ceil
+      @total_pages ||= (total_resources.to_f / per_page).ceil
     end
 
     def total_resources
@@ -40,12 +40,8 @@ module Godmin
 
     private
 
-    def pagination_limit
-      @per_page
-    end
-
-    def pagination_offset
-      (current_page * @per_page) - @per_page
+    def offset
+      (current_page * per_page) - per_page
     end
   end
 end
