@@ -4,7 +4,7 @@
 
 <%= render partial: "filters" %>
 
-<%= form_tag [:batch_action, @resource_class], data: { behavior: "batch-actions-form" } do %>
+<%= form_tag @resource_class, method: :put, data: { behavior: "batch-actions-form" } do %>
 
   <%= render partial: "actions" %>
 

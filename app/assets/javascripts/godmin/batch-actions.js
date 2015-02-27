@@ -32,8 +32,14 @@ Godmin.BatchActions = (function() {
     $selectNone.removeClass('hidden');
   }
 
+  function checkedCheckboxes() {
+    return $form.find('[data-behavior~=batch-actions-checkbox]:checked').map(function() {
+      return this.id.match(/\d+/);
+    }).toArray().join(',');
+  }
+
   function toggleCheckboxes() {
-    if ($form.find('[data-behavior~=batch-actions-checkbox]:checked').length > 0) {
+    if (checkedCheckboxes().length > 0) {
       $form.find('[data-behavior~=batch-actions-checkbox]').prop('checked', false).trigger('change');
       setSelectToAll();
     } else {
@@ -43,7 +49,7 @@ Godmin.BatchActions = (function() {
   }
 
   function toggleActions() {
-    if ($form.find('[data-behavior~=batch-actions-checkbox]:checked').length) {
+    if (checkedCheckboxes().length) {
       $('[data-behavior~=batch-actions-action-link]').removeClass('hidden');
       setSelectToNone();
     } else {
@@ -53,8 +59,10 @@ Godmin.BatchActions = (function() {
   }
 
   function triggerAction() {
-    $form.find('[data-behavior~=batch-actions-action]').val($(this).data('value'));
-    $form.submit();
+    $form.find('[data-behavior~=batch-actions-action]').val(
+      $(this).data('value')
+    );
+    $form.attr('action', $form.attr('action') + '/' + checkedCheckboxes()).submit();
   }
 
   return {
