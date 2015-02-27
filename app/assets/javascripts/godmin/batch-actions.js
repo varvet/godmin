@@ -1,23 +1,23 @@
 window.Godmin = window.Godmin || {};
 
 Godmin.BatchActions = (function() {
-  var $form;
+  var $container;
   var $selectAll;
   var $selectNone;
 
   function initialize() {
-    $form       = $('form[data-behavior~=batch-actions-form]');
-    $selectAll  = $form.find('[data-behavior~=batch-actions-select-all]');
-    $selectNone = $form.find('[data-behavior~=batch-actions-select-none]');
+    $container  = $('[data-behavior~=batch-actions-container]');
+    $selectAll  = $container.find('[data-behavior~=batch-actions-select-all]');
+    $selectNone = $container.find('[data-behavior~=batch-actions-select-none]');
 
     initializeEvents();
     initializeState();
   }
 
   function initializeEvents() {
-    $form.find('[data-behavior~=batch-actions-select]').on('click', toggleCheckboxes);
-    $form.find('[data-behavior~=batch-actions-checkbox]').on('change', toggleActions);
-    $(document).delegate('[data-behavior~=batch-actions-action-link]', 'click', triggerAction);
+    $container.find('[data-behavior~=batch-actions-select]').on('click', toggleCheckboxes);
+    $container.find('[data-behavior~=batch-actions-checkbox]').on('change', toggleActions);
+    $(document).delegate('[data-behavior~=batch-actions-action-link]', 'mousedown', triggerAction);
   }
 
   function initializeState() {}
@@ -33,17 +33,17 @@ Godmin.BatchActions = (function() {
   }
 
   function checkedCheckboxes() {
-    return $form.find('[data-behavior~=batch-actions-checkbox]:checked').map(function() {
+    return $container.find('[data-behavior~=batch-actions-checkbox]:checked').map(function() {
       return this.id.match(/\d+/);
     }).toArray().join(',');
   }
 
   function toggleCheckboxes() {
     if (checkedCheckboxes().length > 0) {
-      $form.find('[data-behavior~=batch-actions-checkbox]').prop('checked', false).trigger('change');
+      $container.find('[data-behavior~=batch-actions-checkbox]').prop('checked', false).trigger('change');
       setSelectToAll();
     } else {
-      $form.find('[data-behavior~=batch-actions-checkbox]').prop('checked', true).trigger('change');
+      $container.find('[data-behavior~=batch-actions-checkbox]').prop('checked', true).trigger('change');
       setSelectToNone();
     }
   }
@@ -59,10 +59,7 @@ Godmin.BatchActions = (function() {
   }
 
   function triggerAction() {
-    $form.find('[data-behavior~=batch-actions-action]').val(
-      $(this).data('value')
-    );
-    $form.attr('action', $form.attr('action') + '/' + checkedCheckboxes()).submit();
+    $(this).attr('href', $(this).attr('href') + '/' + checkedCheckboxes() + '?batch_action=' + $(this).data('value'));
   }
 
   return {

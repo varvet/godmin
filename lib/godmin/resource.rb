@@ -12,15 +12,10 @@ module Godmin
       helper Godmin::Helpers::Filters
       helper Godmin::Helpers::Tables
 
-      # include Godmin::Resource::BatchActions
-
       before_action :set_thing
       before_action :set_resource_class
       before_action :set_resources, only: :index
-      before_action :set_resource, only: [:show, :new, :edit, :create, :update, :destroy]
-
-      # helper_method :attrs_for_index
-      # helper_method :attrs_for_form
+      before_action :set_resource, only: [:show, :new, :edit, :create, :destroy]
     end
 
     def index
@@ -54,6 +49,10 @@ module Godmin
     end
 
     def update
+      return if perform_batch_action
+
+      set_resource
+
       respond_to do |format|
         if @resource.update(resource_params)
           format.html { redirect_to redirect_after_update, notice: redirect_flash_message }
@@ -92,6 +91,24 @@ module Godmin
     def set_resource
       @resource = resource
       authorize(@resource) if authorization_enabled?
+    end
+
+    def perform_batch_action
+      return false unless params[:batch_action].present?
+
+      item_ids = params[:id].split(",").map(&:to_i)
+
+      if @thing.batch_action?(params[:batch_action])
+        flash[:batch_actioned_ids] = item_ids
+
+        @thing.batch_action(params[:batch_action], item_ids)
+
+        if respond_to?("redirect_after_batch_action_#{params[:batch_action]}")
+          redirect_to send("redirect_after_batch_action_#{params[:batch_action]}") and return true
+        end
+      end
+
+      redirect_to :back and return true
     end
 
     def thing_class

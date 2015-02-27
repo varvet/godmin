@@ -5,8 +5,11 @@ module Godmin
         return unless include_batch_action_link?(options)
 
         link_to(
-          translate_scoped("batch_actions.labels.#{name}", default: name.to_s.titleize), "#",
-          class: "btn btn-default hidden", data: {
+          translate_scoped("batch_actions.labels.#{name}", default: name.to_s.titleize),
+          @resource_class,
+          method: :patch,
+          class: "btn btn-default hidden",
+          data: {
             behavior: "batch-actions-action-link",
             confirm: options[:confirm] ? translate_scoped("batch_actions.confirm_message") : false,
             value: name
