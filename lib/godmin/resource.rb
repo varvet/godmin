@@ -99,7 +99,7 @@ module Godmin
       item_ids = params[:id].split(",").map(&:to_i)
 
       if @thing.batch_action?(params[:batch_action])
-        flash[:batch_actioned_ids] = item_ids
+        flash[:updated_ids] = item_ids
 
         @thing.batch_action(params[:batch_action], item_ids)
 
