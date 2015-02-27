@@ -4,7 +4,7 @@ module Godmin
   module Model
     class OrderingTest < ActiveSupport::TestCase
       def setup
-        @resource_class = Class.new do
+        resource_class = Class.new do
           def self.table_name
             "articles"
           end
@@ -18,7 +18,7 @@ module Godmin
           end
         end
 
-        @article_thing = ArticleThing.new(@resource_class)
+        @article_thing = ArticleThing.new(resource_class)
       end
 
       def test_apply_order

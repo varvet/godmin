@@ -98,15 +98,23 @@ module Godmin
 
       item_ids = params[:id].split(",").map(&:to_i)
 
-      if @thing.batch_action?(params[:batch_action])
+      if @thing.batch_action(params[:batch_action], item_ids)
         flash[:updated_ids] = item_ids
-
-        @thing.batch_action(params[:batch_action], item_ids)
 
         if respond_to?("redirect_after_batch_action_#{params[:batch_action]}")
           redirect_to send("redirect_after_batch_action_#{params[:batch_action]}") and return true
         end
       end
+
+      # if @thing.batch_action?(params[:batch_action])
+      #   flash[:updated_ids] = item_ids
+      #
+      #   @thing.batch_action(params[:batch_action], item_ids)
+      #
+      #   if respond_to?("redirect_after_batch_action_#{params[:batch_action]}")
+      #     redirect_to send("redirect_after_batch_action_#{params[:batch_action]}") and return true
+      #   end
+      # end
 
       redirect_to :back and return true
     end
