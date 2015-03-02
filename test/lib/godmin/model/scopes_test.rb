@@ -3,8 +3,17 @@ require "test_helper"
 module Godmin
   module Model
     class ScopesTest < ActiveSupport::TestCase
+      class NoScopesThing
+        include Godmin::Model
+      end
+
       def setup
         @article_thing = ArticleThing.new
+      end
+
+      def test_returns_resources_when_no_scopes_are_defined
+        @foo_thing = NoScopesThing.new
+        assert_equal :resources, @foo_thing.apply_scope("", :resources)
       end
 
       def test_calls_default_scope
