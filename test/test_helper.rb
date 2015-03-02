@@ -27,7 +27,7 @@ end
 
 module Godmin
   class ArticleThing
-    include Godmin::Model
+    include Godmin::Resources::ResourceService
 
     mattr_accessor :called_methods do
       { scopes: {}, filters: {}, batch_actions: {} }
