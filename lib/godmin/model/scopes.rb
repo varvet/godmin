@@ -6,7 +6,7 @@ module Godmin
       delegate :scope_map, to: "self.class"
 
       def apply_scope(scope_param, resources)
-        @scope = scope_param.blank? ? default_scope : scope_param
+        self.scope = scope_param
 
         if scope && scope_map.key?(scope.to_sym)
           send("scope_#{@scope}", resources)
@@ -15,11 +15,13 @@ module Godmin
         end
       end
 
+      def scope=(scope)
+        @scope = scope.blank? ? default_scope : scope
+      end
+
       def scope
         @scope
       end
-
-      # TODO: make setter for scope
 
       def scoped_by?(name)
         @scope == name.to_s

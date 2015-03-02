@@ -6,9 +6,12 @@ module Godmin
       delegate :batch_action_map, to: "self.class"
 
       def batch_action(action, item_ids)
-        return false unless batch_action?(action)
-        send("batch_action_#{action}", resource_class.find(item_ids))
-        true
+        if batch_action?(action)
+          send("batch_action_#{action}", resource_class.find(item_ids))
+          true
+        else
+          false
+        end
       end
 
       def batch_action?(action)
