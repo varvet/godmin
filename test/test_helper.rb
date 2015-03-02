@@ -26,7 +26,7 @@ def namespaced_as(namespace)
 end
 
 module Godmin
-  class ArticleThing
+  class ArticleService
     include Godmin::Resources::ResourceService
 
     mattr_accessor :called_methods do

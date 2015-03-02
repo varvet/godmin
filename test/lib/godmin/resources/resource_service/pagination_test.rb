@@ -1,10 +1,10 @@
 require "test_helper"
 
 module Godmin
-  module Model
+  module ResourceService
     class PaginationTest < ActiveSupport::TestCase
       def setup
-        @article_thing = ArticleThing.new
+        @article_service = ArticleService.new
 
         resources_class = Class.new do
           def limit(_limit_param)
@@ -20,11 +20,11 @@ module Godmin
       end
 
       def test_paginator_is_set_correctly
-        @article_thing.apply_pagination(1, @resources)
+        @article_service.apply_pagination(1, @resources)
 
-        assert_kind_of Paginator, @article_thing.paginator
-        assert_equal   1,         @article_thing.paginator.current_page
-        assert_equal   25,        @article_thing.paginator.per_page
+        assert_kind_of Paginator, @article_service.paginator
+        assert_equal   1,         @article_service.paginator.current_page
+        assert_equal   25,        @article_service.paginator.per_page
       end
     end
   end

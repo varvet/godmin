@@ -1,4 +1,4 @@
-<% if @thing.filter_map.present? %>
+<% if @resource_service.filter_map.present? %>
   <div id="filters" class="panel panel-default">
     <div class="panel-body">
       <%= form_tag params, method: :get, class: "form-inline" do %>
@@ -6,7 +6,7 @@
         <%= hidden_field_tag :scope, nil, value: params[:scope] %>
         <%= hidden_field_tag :order, nil, value: params[:order] %>
 
-        <% @thing.filter_map.each do |name, options| %>
+        <% @resource_service.filter_map.each do |name, options| %>
           <div class="filter form-group">
             <%= label_tag name, translate_scoped("filters.labels.#{name}", default: name.to_s.titleize) %><br>
             <%= filter_input_tag name, options %>

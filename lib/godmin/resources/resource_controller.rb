@@ -12,7 +12,7 @@ module Godmin
         helper Godmin::Helpers::Filters
         helper Godmin::Helpers::Tables
 
-        before_action :set_thing
+        before_action :set_resource_service
         before_action :set_resource_class
         before_action :set_resources, only: :index
         before_action :set_resource, only: [:show, :new, :edit, :create, :destroy]
@@ -75,8 +75,8 @@ module Godmin
 
       protected
 
-      def set_thing
-        @thing = thing_class.new(Article)
+      def set_resource_service
+        @resource_service = resource_service_class.new(Article)
       end
 
       def set_resource_class
@@ -98,7 +98,7 @@ module Godmin
 
         item_ids = params[:id].split(",").map(&:to_i)
 
-        if @thing.batch_action(params[:batch_action], item_ids)
+        if @resource_service.batch_action(params[:batch_action], item_ids)
           flash[:updated_ids] = item_ids
 
           if respond_to?("redirect_after_batch_action_#{params[:batch_action]}")
@@ -109,33 +109,33 @@ module Godmin
         redirect_to :back and return true
       end
 
-      def thing_class
-        Admin::ArticleThing
+      def resource_service_class
+        Admin::ArticleService
       end
 
       def resource_class
-        @thing.resource_class
+        @resource_service.resource_class
       end
 
       def resources
-        @thing.resources(params)
+        @resource_service.resources(params)
       end
 
       def resource
         if params[:id]
-          @thing.find_resource(params[:id])
+          @resource_service.find_resource(params[:id])
         else
           case action_name
           when "create"
-            @thing.build_resource(resource_params)
+            @resource_service.build_resource(resource_params)
           when "new"
-            @thing.build_resource(nil)
+            @resource_service.build_resource(nil)
           end
         end
       end
 
       def resource_params
-        params.require(resource_class.model_name.param_key.to_sym).permit(@thing.attrs_for_form)
+        params.require(resource_class.model_name.param_key.to_sym).permit(@resource_service.attrs_for_form)
       end
 
       def redirect_after_create
