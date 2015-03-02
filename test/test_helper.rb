@@ -25,7 +25,10 @@ def namespaced_as(namespace)
   Godmin.namespace = nil
 end
 
-module Godmin
+# module Godmin
+  class Article
+  end
+
   class ArticleService
     include Godmin::Resources::ResourceService
 
@@ -77,4 +80,4 @@ module Godmin
       called_methods[:batch_actions][:publish] = resources
     end
   end
-end
+# end

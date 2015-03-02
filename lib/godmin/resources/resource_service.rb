@@ -19,8 +19,9 @@ module Godmin
         @resource_class = resource_class
       end
 
+      # TODO: should this raise its own error?
       def resource_class
-        @resource_class
+        @resource_class || self.class.name.demodulize.chomp("Service").constantize
       end
 
       def resources_relation

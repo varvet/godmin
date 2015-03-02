@@ -76,7 +76,7 @@ module Godmin
       protected
 
       def set_resource_service
-        @resource_service = resource_service_class.new(Article)
+        @resource_service = resource_service_class.new
       end
 
       def set_resource_class
@@ -93,30 +93,16 @@ module Godmin
         authorize(@resource) if authorization_enabled?
       end
 
-      def perform_batch_action
-        return false unless params[:batch_action].present?
-
-        item_ids = params[:id].split(",").map(&:to_i)
-
-        if @resource_service.batch_action(params[:batch_action], item_ids)
-          flash[:updated_ids] = item_ids
-
-          if respond_to?("redirect_after_batch_action_#{params[:batch_action]}")
-            redirect_to send("redirect_after_batch_action_#{params[:batch_action]}") and return true
-          end
-        end
-
-        redirect_to :back and return true
-      end
-
       def resource_service_class
-        Admin::ArticleService
+        "#{controller_path.singularize}_service".classify.constantize
       end
 
+      # TODO: should we remove this?
       def resource_class
         @resource_service.resource_class
       end
 
+      # TODO: should we remove this?
       def resources
         @resource_service.resources(params)
       end
@@ -156,6 +142,22 @@ module Godmin
 
       def redirect_flash_message
         translate_scoped("flash.#{action_name}", resource: @resource.class.model_name.human)
+      end
+
+      def perform_batch_action
+        return false unless params[:batch_action].present?
+
+        item_ids = params[:id].split(",").map(&:to_i)
+
+        if @resource_service.batch_action(params[:batch_action], item_ids)
+          flash[:updated_ids] = item_ids
+
+          if respond_to?("redirect_after_batch_action_#{params[:batch_action]}")
+            redirect_to send("redirect_after_batch_action_#{params[:batch_action]}") and return true
+          end
+        end
+
+        redirect_to :back and return true
       end
     end
   end

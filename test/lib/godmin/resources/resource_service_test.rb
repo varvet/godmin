@@ -6,8 +6,8 @@ module Godmin
       @article_service = ArticleService.new
     end
 
-    def test_responds_to_resources
-      assert @article_service.respond_to?(:resources)
+    def test_resource_class
+      assert_equal Article, @article_service.resource_class
     end
 
     def test_attrs_for_index
