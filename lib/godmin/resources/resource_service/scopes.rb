@@ -7,6 +7,8 @@ module Godmin
         delegate :scope_map, to: "self.class"
 
         def apply_scope(scope_param, resources)
+          return resources if scope_map.empty?
+
           self.scope = scope_param
 
           if scope && scope_map.key?(scope.to_sym)
