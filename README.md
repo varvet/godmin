@@ -110,7 +110,7 @@ Resource routes placed within the `godmin` block are automatically added to the 
 The application controller is modified as such:
 ```ruby
 class ApplicationController < ActionController::Base
-  include Godmin::Application
+  include Godmin::ApplicationController
 end
 ```
 
@@ -135,7 +135,7 @@ $ admin/bin/rails generate godmin:resource article title published
 
 This does a number of things.
 
-First, it inserts a route in the `config/routes.rb` file:
+It inserts a route in the `config/routes.rb` file:
 
 ```ruby
 godmin do
@@ -143,43 +143,44 @@ godmin do
 end
 ```
 
-Second, it creates a controller:
+It creates a controller:
 
 ```ruby
 class ArticlesController < ApplicationController
-  include Godmin::Resource
+  include Godmin::Resources::ResourceController
+end
+```
 
-  def attrs_for_index
-    [:title, :published]
-  end
+It creates a service object:
 
-  def attrs_for_form
-    [:title, :published]
-  end
+```ruby
+class ArticleService
+  include Godmin::Resources::ResourceService
+
+  attrs_for_index :title, :published
+  attrs_for_form :title, :published
 end
 ```
 
 Using `attrs_for_index` we can control what fields are displayed in the table listing, and using `attrs_for_form` we can control what fields are available in the new and edit forms. We can, for instance, add the `body` field to `attrs_for_form` to make it appear in forms:
 
 ```ruby
-def attrs_for_form
-  [:title, :body, :published]
-end
+attrs_for_form :title, :body, :published
 ```
 
 By now we have a basic admin interface for managing articles.
 
-## Controllers
+## Resources
 
-We have already seen two controller methods at play: `attrs_for_index` and `attrs_for_form`. We will now look at some additional controller concepts.
+We have already seen two methods at play: `attrs_for_index` and `attrs_for_form`. We will now look at some additional resource concepts.
 
 ### Scopes
 
 Scopes are a way of sectioning resources, useful for quick navigation, and can be created as follows:
 
 ```ruby
-class ArticlesController < ApplicationController
-  include Godmin::Resource
+class ArticleService
+  include Godmin::Resources::ResourceService
 
   scope :unpublished, default: true
   scope :published
@@ -199,8 +200,8 @@ end
 Filters offer great flexibility when it comes to searching for resources, and can be created as follows:
 
 ```ruby
-class ArticlesController < ApplicationController
-  include Godmin::Resource
+class ArticleService
+  include Godmin::Resources::ResourceService
 
   filter :title
 
@@ -229,8 +230,8 @@ filter :category, as: :select, collection: -> { Category.all }, option_text: "ti
 Batch actions can be created as follows:
 
 ```ruby
-class ArticlesController < ApplicationController
-  include Godmin::Resource
+class ArticleService
+  include Godmin::Resources::ResourceService
 
   batch_action :publish
   batch_action :unpublish
@@ -249,12 +250,15 @@ batch_action :publish, only: [:unpublished]
 batch_action :unpublish, only: [:published]
 ```
 
-If you wish to implement your own redirect after a batch action, return false afterwards:
+If you wish to implement your own redirect after a batch action, it needs to be implemented in the controller:
 
 ```ruby
-def batch_action_publish(resources)
-  resources.each { |r| r.update_attributes(published: true) }
-  redirect_to articles_path(scope: :published) and return false
+class ArticlesController < ApplicationController
+  include Godmin::Resources::ResourceController
+
+	def redirect_after_batch_action_publish
+		redirect_to articles_path(scope: :published)
+	end
 end
 ```
 
@@ -262,7 +266,7 @@ end
 
 Resources are made available to the views through instance variables. The index view can access the resources using `@resources` while show, new and edit can access the single resource using `@resource`.
 
-In order to modify resource fetching and construction, these methods can be overridden per resource controller:
+In order to modify resource fetching and construction, these methods can be overridden per resource service:
 
 - `resource_class`
 - `resources_relation`
@@ -270,11 +274,11 @@ In order to modify resource fetching and construction, these methods can be over
 - `build_resource`
 - `find_resource`
 
-To change the class name of the resource from the default based on the controller name:
+To change the class name of the resource from the default based on the service class name:
 
 ```ruby
-class ArticlesController
-  include Godmin::Resource
+class ArticleService
+  include Godmin::Resources::ResourceService
 
   def resource_class
     FooArticle
@@ -285,8 +289,8 @@ end
 To scope resources, e.g. based on the signed in user:
 
 ```ruby
-class ArticlesController
-  include Godmin::Resource
+class ArticleService
+  include Godmin::Resources::ResourceService
 
   def resources_relation
     admin_user.articles
@@ -297,8 +301,8 @@ end
 To add to the resources query, e.g. to change the default order:
 
 ```ruby
-class ArticlesController
-  include Godmin::Resource
+class ArticleService
+  include Godmin::Resources::ResourceService
 
   def resources
     super.order(author: :desc)
@@ -309,8 +313,8 @@ end
 To change the way a resource is constructed for `new` and `create` actions:
 
 ```ruby
-class ArticlesController
-  include Godmin::Resource
+class ArticleService
+  include Godmin::Resources::ResourceService
 
   def build_resource(params)
     article = resources_relation.new(params)
@@ -323,8 +327,8 @@ end
 To change the way a resource is fetched for `show`, `edit`, `update` and `destroy` actions:
 
 ```ruby
-class ArticlesController
-  include Godmin::Resource
+class ArticleService
+  include Godmin::Resources::ResourceService
 
   def find_resource(slug)
     resources_relation.find_by(slug: slug)
@@ -463,7 +467,7 @@ Along with a sessions controller:
 
 ```ruby
 class SessionsController < ApplicationController
-  include Godmin::Authentication::Sessions
+  include Godmin::Authentication::SessionsController
 end
 ```
 
@@ -471,7 +475,7 @@ Finally, the application controller is modified:
 
 ```ruby
 class ApplicationController < ActionController::Base
-  include Godmin::Application
+  include Godmin::ApplicationController
   include Godmin::Authentication
 
   def admin_user_class
@@ -491,7 +495,7 @@ There is no need to run a generator in this instance. Simply add the authenticat
 ```ruby
 module Admin
   class ApplicationController < ActionController::Base
-    include Godmin::Application
+    include Godmin::ApplicationController
     include Godmin::Authentication
   end
 end
@@ -502,7 +506,7 @@ Provided you have `User` model set up with Devise in the main application, overr
 ```ruby
 module Admin
   class ApplicationController < ActionController::Base
-    include Godmin::Application
+    include Godmin::ApplicationController
     include Godmin::Authentication
 
     def authenticate_admin_user
@@ -530,7 +534,7 @@ Add the authorization module to the application controller:
 
 ```ruby
 class ApplicationController < ActionController::Base
-  include Godmin::Application
+  include Godmin::ApplicationController
   include Godmin::Authentication
   include Godmin::Authorization
 
@@ -585,7 +589,7 @@ If you want to change this behaviour you can rescue the error yourself in the ap
 ```ruby
 module Admin
   class ApplicationController < ActionController::Base
-    include Godmin::Application
+    include Godmin::ApplicationController
     include Godmin::Authentication
     include Godmin::Authorization
 
