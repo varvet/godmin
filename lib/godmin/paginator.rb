@@ -4,10 +4,10 @@ module Godmin
 
     attr_reader :per_page, :current_page
 
-    def initialize(resources, per_page: 25, current_page: 1)
+    def initialize(resources, per_page: 25, current_page: nil)
       @resources    = resources
       @per_page     = per_page
-      @current_page = current_page.to_i
+      @current_page = current_page ? current_page.to_i : 1
     end
 
     def paginate
