@@ -76,7 +76,11 @@ module Godmin
       protected
 
       def set_resource_service
-        @resource_service = resource_service_class.new
+        @resource_service = if authentication_enabled?
+                              resource_service_class.new(nil, admin_user: admin_user)
+                            else
+                              resource_service_class.new
+                            end
       end
 
       def set_resource_class

@@ -15,7 +15,10 @@ module Godmin
       include Pagination
       include Scopes
 
-      def initialize(resource_class = nil)
+      attr_reader :options
+
+      def initialize(resource_class = nil, options = {})
+        @options = options
         @resource_class = resource_class
       end
 
