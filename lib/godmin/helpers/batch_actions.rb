@@ -21,8 +21,8 @@ module Godmin
 
       def include_batch_action_link?(options)
         (options[:only].nil? && options[:except].nil?) ||
-          (options[:only] && options[:only].include?(params[:scope].to_sym)) ||
-          (options[:except] && !options[:except].include?(params[:scope].to_sym))
+          (options[:only] && options[:only].include?(@resource_service.scope.to_sym)) ||
+          (options[:except] && !options[:except].include?(@resource_service.scope.to_sym))
       end
     end
   end

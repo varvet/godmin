@@ -156,7 +156,7 @@ module Godmin
         if @resource_service.batch_action(params[:batch_action], item_ids)
           flash[:updated_ids] = item_ids
 
-          if respond_to?("redirect_after_batch_action_#{params[:batch_action]}")
+          if respond_to?("redirect_after_batch_action_#{params[:batch_action]}", true)
             redirect_to send("redirect_after_batch_action_#{params[:batch_action]}") and return true
           end
         end
