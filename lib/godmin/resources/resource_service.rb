@@ -51,6 +51,14 @@ module Godmin
         resources_relation.find(id)
       end
 
+      def create_resource(resource)
+        resource.save
+      end
+
+      def update_resource(resource, params)
+        resource.update(params)
+      end
+
       def attrs_for_index
         self.class.attrs_for_index
       end

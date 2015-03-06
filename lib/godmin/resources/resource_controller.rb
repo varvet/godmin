@@ -38,7 +38,7 @@ module Godmin
 
       def create
         respond_to do |format|
-          if @resource.save
+          if @resource_service.create_resource(@resource)
             format.html { redirect_to redirect_after_create, notice: redirect_flash_message }
             format.json { render :show, status: :created, location: @resource }
           else
@@ -54,7 +54,7 @@ module Godmin
         set_resource
 
         respond_to do |format|
-          if @resource.update(resource_params)
+          if @resource_service.update_resource(@resource, resource_params)
             format.html { redirect_to redirect_after_update, notice: redirect_flash_message }
             format.json { render :show, status: :ok, location: @resource }
           else
