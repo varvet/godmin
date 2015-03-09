@@ -257,10 +257,10 @@ If you wish to implement your own redirect after a batch action, it needs to be 
 ```ruby
 class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
-
-	def redirect_after_batch_action_publish
-		redirect_to articles_path(scope: :published)
-	end
+  
+  def redirect_after_batch_action_publish
+    redirect_to articles_path(scope: :published)
+  end
 end
 ```
 
@@ -296,7 +296,7 @@ To scope resources, e.g. based on the signed in user:
 class ArticleService
   include Godmin::Resources::ResourceService
 
-	# The signed in admin user is available to all service objects via the options hash
+  # The signed in admin user is available to all service objects via the options hash
   def resources_relation
     options[:admin_user].articles
   end
@@ -321,8 +321,8 @@ To change the way a resource is fetched for `show`, `edit`, `update` and `destro
 class ArticleService
   include Godmin::Resources::ResourceService
 
-  def find_resource(slug)
-    resources_relation.find_by(slug: slug)
+  def find_resource(id)
+    resources_relation.find_by(slug: id)
   end
 end
 ```
@@ -347,7 +347,7 @@ To change the way a resource is saved in the `create` action:
 class ArticleService
   include Godmin::Resources::ResourceService
 
-	# This method should return true or false
+  # This method should return true or false
   def create_resource(resource)
     resource.save_in_some_interesting_way
   end
@@ -360,10 +360,10 @@ To change the way a resource is saved in the `update` action:
 class ArticleService
   include Godmin::Resources::ResourceService
 
-	# This method should return true or false
+  # This method should return true or false
   def update_resource(resource, params)
-		resource.assign_attributes(params)
-		resource.save_in_some_interesting_way
+    resource.assign_attributes(params)
+    resource.save_in_some_interesting_way
   end
 end
 ```
@@ -388,7 +388,7 @@ Or, to have the article controller redirect to the index page after create and t
 
 ```ruby
 class ArticlesController < ApplicationController
-	include Godmin::Resources::ResourceController
+  include Godmin::Resources::ResourceController
 
   def redirect_after_create
     articles_path
@@ -404,7 +404,7 @@ If you wish to change the behaviour for every resource controller, consider crea
 
 ```ruby
 class ResourceController < ApplicationController
-	include Godmin::Resources::ResourceController
+  include Godmin::Resources::ResourceController
 
   protected
 
