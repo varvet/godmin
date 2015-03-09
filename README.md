@@ -172,7 +172,7 @@ By now we have a basic admin interface for managing articles.
 
 ## Resources
 
-As we saw in the example above, resources are divided into controllers and service objects (for the lack of a better term) where actions, redirects, params permitting etc are located in the controller and resource fetching, building, sorting, filtering etc are located in the service object. This makes the service objects small and easy to test.
+As we saw in the example above, resources are divided into controllers and, for the lack of a better term, service objects.  Actions, redirects, params permitting etc go in the controller while resource fetching, building, sorting, filtering etc go in the service object. This makes the service objects small and easy to test.
 
 We have already seen two methods at play: `attrs_for_index` and `attrs_for_form`. We will now look at some additional resource concepts.
 
