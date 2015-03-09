@@ -240,7 +240,7 @@ class ArticleService
   batch_action :destroy, confirm: true
 
   def batch_action_publish(resources)
-		resources.each(&:publish!)
+    resources.each(&:publish!)
   end
 end
 ```
