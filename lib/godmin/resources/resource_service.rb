@@ -43,12 +43,12 @@ module Godmin
         )
       end
 
-      def build_resource(params)
-        resources_relation.new(params)
-      end
-
       def find_resource(id)
         resources_relation.find(id)
+      end
+
+      def build_resource(params)
+        resources_relation.new(params)
       end
 
       def create_resource(resource)

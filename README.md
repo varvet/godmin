@@ -15,7 +15,7 @@ Godmin is an admin framework for Rails 4+.
 	- [Scopes](#scopes)
 	- [Filters](#filters)
 	- [Batch actions](#batch-actions)
-	- [Resource fetching](#resource-fetching)
+	- [Resource fetching, building and saving](#resource-fetching-building-and-saving)
 	- [Redirecting](#redirecting)
 	- [Pagination](#pagination)
 - [Views](#views)
@@ -105,7 +105,7 @@ Rails.application.routes.draw do
 end
 ```
 
-Resource routes placed within the `godmin` block are automatically added to the default navigation, and set up to work with batch actions. More on this in later sections.
+Resource routes placed within the `godmin` block are automatically added to the default navigation.
 
 The application controller is modified as such:
 ```ruby
@@ -171,6 +171,8 @@ attrs_for_form :title, :body, :published
 By now we have a basic admin interface for managing articles.
 
 ## Resources
+
+As we saw in the example above, resources are divided into controllers and service objects (for the lack of a better term) where actions, redirects, params permitting etc are located in the controller and resource fetching, building, sorting, filtering etc are located in the service object. This makes the service objects small and easy to test.
 
 We have already seen two methods at play: `attrs_for_index` and `attrs_for_form`. We will now look at some additional resource concepts.
 
@@ -238,7 +240,7 @@ class ArticleService
   batch_action :destroy, confirm: true
 
   def batch_action_publish(resources)
-    resources.each { |r| r.update_attributes(published: true) }
+		resources.each(&:publish!)
   end
 end
 ```
@@ -262,17 +264,19 @@ class ArticlesController < ApplicationController
 end
 ```
 
-### Resource fetching
+### Resource fetching, building and saving
 
-Resources are made available to the views through instance variables. The index view can access the resources using `@resources` while show, new and edit can access the single resource using `@resource`.
+Resources are made available to the views through instance variables. The index view can access the resources using `@resources` while show, new and edit can access the single resource using `@resource`. In addition, the resource class is available as `@resource_class` and the service object is available as `@resource_service`.
 
 In order to modify resource fetching and construction, these methods can be overridden per resource service:
 
 - `resource_class`
 - `resources_relation`
 - `resources`
-- `build_resource`
 - `find_resource`
+- `build_resource`
+- `create_resource`
+- `update_resource`
 
 To change the class name of the resource from the default based on the service class name:
 
@@ -292,8 +296,9 @@ To scope resources, e.g. based on the signed in user:
 class ArticleService
   include Godmin::Resources::ResourceService
 
+	# The signed in admin user is available to all service objects via the options hash
   def resources_relation
-    admin_user.articles
+    options[:admin_user].articles
   end
 end
 ```
@@ -310,20 +315,6 @@ class ArticleService
 end
 ```
 
-To change the way a resource is constructed for `new` and `create` actions:
-
-```ruby
-class ArticleService
-  include Godmin::Resources::ResourceService
-
-  def build_resource(params)
-    article = resources_relation.new(params)
-    article.setup_more_things
-    article
-  end
-end
-```
-
 To change the way a resource is fetched for `show`, `edit`, `update` and `destroy` actions:
 
 ```ruby
@@ -336,6 +327,47 @@ class ArticleService
 end
 ```
 
+To change the way a resource is constructed for `new` and `create` actions:
+
+```ruby
+class ArticleService
+  include Godmin::Resources::ResourceService
+
+  def build_resource(_params)
+    article = super
+    article.setup_more_things
+    article
+  end
+end
+```
+
+To change the way a resource is saved in the `create` action:
+
+```ruby
+class ArticleService
+  include Godmin::Resources::ResourceService
+
+	# This method should return true or false
+  def create_resource(resource)
+    resource.save_in_some_interesting_way
+  end
+end
+```
+
+To change the way a resource is saved in the `update` action:
+
+```ruby
+class ArticleService
+  include Godmin::Resources::ResourceService
+
+	# This method should return true or false
+  def update_resource(resource, params)
+		resource.assign_attributes(params)
+		resource.save_in_some_interesting_way
+  end
+end
+```
+
 ### Redirecting
 
 By default the user is redirected to the resource show page after create and update, and to the index page after destroy. To change this, there are four controller methods that can be overridden: `redirect_after_create`, `redirect_after_update`, `redirect_after_save`, and `redirect_after_destroy`.
@@ -343,8 +375,8 @@ By default the user is redirected to the resource show page after create and upd
 For instance, to have the article controller redirect to the index page after both create and update:
 
 ```ruby
-class ArticlesController
-  include Godmin::Resource
+class ArticlesController < ApplicationController
+  include Godmin::Resources::ResourceController
 
   def redirect_after_save
     articles_path
@@ -355,8 +387,8 @@ end
 Or, to have the article controller redirect to the index page after create and the edit page after update:
 
 ```ruby
-class ArticlesController
-  include Godmin::Resource
+class ArticlesController < ApplicationController
+	include Godmin::Resources::ResourceController
 
   def redirect_after_create
     articles_path
@@ -372,7 +404,7 @@ If you wish to change the behaviour for every resource controller, consider crea
 
 ```ruby
 class ResourceController < ApplicationController
-  include Godmin::Resource
+	include Godmin::Resources::ResourceController
 
   protected
 
@@ -384,13 +416,13 @@ end
 
 ### Pagination
 
-If you wish to change the number of resources per page, you can override the `per_page` class method in the controller:
+If you wish to change the number of resources per page, you can override the `per_page` method in the service object:
 
 ```ruby
-class ArticlesController
-  include Godmin::Resource
+class ArticlesService
+  include Godmin::Resources::Service
 
-  def self.per_page
+  def per_page
     50
   end
 end
