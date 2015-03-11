@@ -36,7 +36,7 @@ module Godmin
           apply_order(params[:order],
             apply_filters(params[:filter],
               apply_scope(params[:scope],
-                resources_relation(params)
+                resources_relation
               )
             )
           )
