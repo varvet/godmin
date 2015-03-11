@@ -27,7 +27,7 @@ module Godmin
         @resource_class || self.class.name.demodulize.chomp("Service").constantize
       end
 
-      def resources_relation
+      def resources_relation(params)
         resource_class.all
       end
 
@@ -36,7 +36,7 @@ module Godmin
           apply_order(params[:order],
             apply_filters(params[:filter],
               apply_scope(params[:scope],
-                resources_relation
+                resources_relation(params)
               )
             )
           )
