@@ -27,7 +27,7 @@ module Godmin
         @resource_class || self.class.name.demodulize.chomp("Service").constantize
       end
 
-      def resources_relation(params)
+      def resources_relation
         resource_class.all
       end
 
