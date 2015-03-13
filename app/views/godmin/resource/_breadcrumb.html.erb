@@ -7,9 +7,6 @@
     <li>
       <%= link_to @resource_class.model_name.human(count: 2), @resource_class %>
     </li>
-  <% end %>
-  </li>
-  <% unless index %>
     <li class="active">
       <% if @resource.new_record? %>
         <%= t("helpers.submit.create", model: @resource_class.model_name.human) %>
