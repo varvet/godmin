@@ -43,6 +43,9 @@ body {
   td {
     vertical-align: middle;
   }
+  td .btn-group {
+    display: flex;
+  }
 }
 
 .pagination {
@@ -54,14 +57,9 @@ body {
 }
 
 .highlight {
+  -moz-animation: highlight 3s;
   -webkit-animation: highlight 3s;
 }
 
-@-webkit-keyframes highlight {
-  from {
-    background: #fffbcc;
-  }
-  to {
-    background: none;
-  }
-}
+@-moz-keyframes highlight { from { background: #fffbcc; } to { background: none; } }
+@-webkit-keyframes highlight { from { background: #fffbcc; } to { background: none; } }
