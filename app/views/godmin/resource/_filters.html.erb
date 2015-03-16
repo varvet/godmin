@@ -16,7 +16,7 @@
         <div class="pull-right">
           <label>&nbsp;</label><br>
           <%= button_tag translate_scoped("filters.buttons.apply"), class: "btn btn-default" %>
-          <%= link_to translate_scoped("filters.buttons.clear"), polymorphic_path(@resource_class, scope: params[:scope], order: params[:order]), class: "btn btn-default" %>
+          <%= link_to translate_scoped("filters.buttons.clear"), url_for(params.slice(:scope, :order)), class: "btn btn-default" %>
         </div>
 
       <% end %>
