@@ -17,10 +17,20 @@ module Godmin
             end
 
           if Godmin.namespace
-            "#{Godmin.namespace.classify}::#{klass}Policy"
-          else
-            "#{klass}Policy"
+            prefix = "#{Godmin.namespace.classify}::"
           end
+          policy_class = "#{klass}Policy"
+          add_prefix_once(prefix, policy_class)
+        end
+
+        private
+
+        def add_prefix_once(prefix, s)
+            if s.start_with?(prefix)
+              s
+            else
+              "#{prefix}#{s}"
+            end
         end
       end
     end

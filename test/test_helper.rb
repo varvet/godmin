@@ -80,4 +80,9 @@ end
       called_methods[:batch_actions][:publish] = resources
     end
   end
+
+  module Namespace
+   class Foo
+   end
+  end
 # end
