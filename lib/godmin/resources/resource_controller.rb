@@ -78,9 +78,9 @@ module Godmin
       def set_resource_service
         @resource_service =
           if authentication_enabled?
-            resource_service(admin_user: admin_user)
+            resource_service_class.new(admin_user: admin_user)
           else
-            resource_service({})
+            resource_service_class.new
           end
       end
 
@@ -100,10 +100,6 @@ module Godmin
 
       def resource_service_class
         "#{controller_path.singularize}_service".classify.constantize
-      end
-
-      def resource_service(options)
-        resource_service_class.new(nil, options)
       end
 
       def resource_class

@@ -10,7 +10,7 @@ module Godmin
           end
         end
 
-        @article_service = ArticleService.new(resource_class)
+        @article_service = ArticleService.new(resource_class: resource_class)
       end
 
       def test_batch_action
