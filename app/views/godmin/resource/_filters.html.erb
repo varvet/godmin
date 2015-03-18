@@ -8,8 +8,10 @@
 
         <% @resource_service.filter_map.each do |name, options| %>
           <div class="filter form-group">
-            <%= label_tag name, translate_scoped("filters.labels.#{name}", default: name.to_s.titleize) %><br>
-            <%= filter_input_tag name, options %>
+            <%= filter_input name, options do %>
+              <%= label_tag name, translate_scoped("filters.labels.#{name}", default: name.to_s.titleize) %><br>
+              <%= filter_input_tag name, options %>
+            <% end %>
           </div>
         <% end %>
 

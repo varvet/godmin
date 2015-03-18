@@ -1,10 +1,18 @@
 module Godmin
   module Helpers
     module Filters
-      def filter_input_tag(name, options)
+      def filter_input(name, options)
+        if lookup_context.exists?("filters/#{name}", nil, true)
+          render partial: "filters/#{name}", locals: { name: name, options: options }
+        else
+          yield
+        end
+      end
+
+      def filter_input_tag(name, options, html_options = {})
         case options[:as]
         when :string
-          filter_string_tag(name, options)
+          filter_string_tag(name, options, html_options)
         when :select
           filter_select_tag(name, options)
         when :multiselect
@@ -16,13 +24,14 @@ module Godmin
 
       private
 
-      def filter_string_tag(name, _options)
+      def filter_string_tag(name, _options, html_options)
         text_field_tag(
           name,
           default_filter_value(name),
-          name: "filter[#{name}]",
-          class: "form-control",
-          placeholder: translate_scoped("filters.labels.#{name}", default: name.to_s.titleize)
+          { name: "filter[#{name}]",
+            class: "form-control",
+            placeholder: translate_scoped("filters.labels.#{name}", default: name.to_s.titleize)
+          }.deep_merge(html_options)
         )
       end
 
