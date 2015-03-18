@@ -47,7 +47,7 @@ module Godmin
         resources_relation.find(id)
       end
 
-      def build_resource(params = {})
+      def build_resource(params)
         resources_relation.new(params)
       end
 
