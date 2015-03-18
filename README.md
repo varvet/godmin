@@ -638,8 +638,8 @@ class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
 
   def policy_class(_record)
-		FooArticlePolicy.new
-	end
+    FooArticlePolicy.new
+  end
 end
 ```
 
