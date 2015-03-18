@@ -257,7 +257,7 @@ If you wish to implement your own redirect after a batch action, it needs to be 
 ```ruby
 class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
-  
+
   def redirect_after_batch_action_publish
     redirect_to articles_path(scope: :published)
   end
@@ -619,17 +619,27 @@ When a user is not authorized to access a resource, a `NotAuthorizedError` is ra
 If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`:
 
 ```ruby
-module Admin
-  class ApplicationController < ActionController::Base
-    include Godmin::ApplicationController
-    include Godmin::Authentication
-    include Godmin::Authorization
+class ApplicationController < ActionController::Base
+  include Godmin::ApplicationController
+  include Godmin::Authentication
+  include Godmin::Authorization
 
-    # Renders 404 page and returns status code 404.
-    rescue_from NotAuthorizedError do
-      render file: "#{Rails.root}/public/404.html", status: 404, layout: false
-    end
+  # Renders 404 page and returns status code 404.
+  rescue_from NotAuthorizedError do
+    render file: "#{Rails.root}/public/404.html", status: 404, layout: false
   end
+end
+```
+
+Policies are located based on the name of the controller. If you wish to specify what policy to use manually, override the following method in the controller:
+
+```ruby
+class ArticlesController < ApplicationController
+  include Godmin::Resources::ResourceController
+
+  def policy_class(_record)
+		FooArticlePolicy.new
+	end
 end
 ```
 
