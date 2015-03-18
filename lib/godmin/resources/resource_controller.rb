@@ -76,12 +76,7 @@ module Godmin
       protected
 
       def set_resource_service
-        @resource_service =
-          if authentication_enabled?
-            resource_service_class.new(admin_user: admin_user)
-          else
-            resource_service_class.new
-          end
+        @resource_service = resource_service
       end
 
       def set_resource_class
@@ -100,6 +95,14 @@ module Godmin
 
       def resource_service_class
         "#{controller_path.singularize}_service".classify.constantize
+      end
+
+      def resource_service
+        if authentication_enabled?
+          resource_service_class.new(admin_user: admin_user)
+        else
+          resource_service_class.new
+        end
       end
 
       def resource_class
