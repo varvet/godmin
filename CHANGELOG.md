@@ -1,5 +1,13 @@
 # Changelog
 
+### 0.11.0 - Unreleased
+Other
+- Split resources into controllers and service objects (https://github.com/varvet/godmin/pull/79)
+- Renames the following modules:
+  - Godmin::Application -> Godmin::ApplicationController
+  - Godmin::Resource -> Godmin::Resources::ResourceController
+  - Godmin::Sessions -> Godmin::SessionsController
+
 ### 0.10.3 - 2015-02-18
 Bug fixes
 - Adds the possibility to pass options to the `date_field` and `datetime_field` form helpers

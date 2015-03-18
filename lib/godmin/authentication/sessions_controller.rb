@@ -1,6 +1,6 @@
 module Godmin
   module Authentication
-    module Sessions
+    module SessionsController
       extend ActiveSupport::Concern
 
       included do

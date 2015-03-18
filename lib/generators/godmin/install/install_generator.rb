@@ -23,7 +23,7 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
   def modify_application_controller
     inject_into_file File.join("app/controllers", namespaced_path, "application_controller.rb"), after: "ActionController::Base\n" do
       <<-END.strip_heredoc.indent(namespace ? 4 : 2)
-        include Godmin::Application
+        include Godmin::ApplicationController
       END
     end
   end

@@ -3,7 +3,7 @@ require "godmin/helpers/forms"
 require "godmin/helpers/translations"
 
 module Godmin
-  module Application
+  module ApplicationController
     extend ActiveSupport::Concern
 
     included do

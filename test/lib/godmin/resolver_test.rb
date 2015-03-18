@@ -28,6 +28,12 @@ module Godmin
       end
     end
 
+    def test_engine_resolver_template_paths_when_prefix_contains_godmin
+      namespaced_as "namespace" do
+        assert_equal [], EngineResolver.new("controller_name").template_paths("godmin/namespace/prefix", false)
+      end
+    end
+
     def test_godmin_resolver_template_paths
       namespaced_as "namespace" do
         assert_equal [

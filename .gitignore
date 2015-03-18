@@ -21,5 +21,6 @@ config/initializers/secret_token.rb
 .DS_Store
 *.swp
 /test/dummy/log/*
+/test/dummy/db/*.sqlite3
 Gemfile.lock
 tags
