@@ -711,6 +711,7 @@ Some additional features are available as plugins:
 
 - [Godmin Uploads](https://github.com/varvet/godmin-uploads)
 - [Godmin Tags](https://github.com/varvet/godmin-tags)
+- [Godmin Redactor](https://github.com/varvet/godmin-redactor)
 
 ## Contributors
 
