@@ -21,8 +21,12 @@ module Godmin
       end
     end
 
+    def policy_class(record)
+      PolicyFinder.find(record).constantize
+    end
+
     def policy(record)
-      policies[record] ||= PolicyFinder.find(record).constantize.new(admin_user, record)
+      policies[record] ||= policy_class(record).new(admin_user, record)
     end
 
     def policies

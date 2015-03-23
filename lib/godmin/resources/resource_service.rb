@@ -17,14 +17,13 @@ module Godmin
 
       attr_reader :options
 
-      def initialize(resource_class = nil, options = {})
+      def initialize(options = {})
         @options = options
-        @resource_class = resource_class
       end
 
       # TODO: should this raise its own error?
       def resource_class
-        @resource_class || self.class.name.demodulize.chomp("Service").constantize
+        @options[:resource_class] || self.class.name.demodulize.chomp("Service").constantize
       end
 
       def resources_relation
