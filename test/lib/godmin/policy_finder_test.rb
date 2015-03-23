@@ -12,6 +12,13 @@ module Godmin
         end
       end
 
+      def test_find_by_namespaced_model
+        namespaced_as "namespace" do
+          policy = PolicyFinder.find(Namespace::Foo)
+          assert_equal "Namespace::FooPolicy", policy
+        end
+      end
+
       def test_find_by_class
         namespaced_as "namespace" do
           policy = PolicyFinder.find(Object)
