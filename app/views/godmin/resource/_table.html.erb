@@ -1,10 +1,10 @@
 <div id="table" class="table-responsive">
   <table class="table table-bordered table-hover">
     <tr>
-      <% if batch_action_map.present? %>
+      <% if @resource_service.batch_action_map.present? %>
         <th></th>
       <% end %>
-      <% attrs_for_index.each do |attr| %>
+      <% @resource_service.attrs_for_index.each do |attr| %>
         <th>
           <%= column_header attr %>
         </th>
@@ -12,18 +12,18 @@
       <th></th>
     </tr>
     <% @resources.each do |resource| %>
-      <% if flash[:batch_actioned_ids] && flash[:batch_actioned_ids].include?(resource.id) %>
+      <% if flash[:updated_ids] && flash[:updated_ids].include?(resource.id) %>
         <tr class="highlight">
       <% else %>
         <tr>
       <% end %>
-        <% if batch_action_map.present? %>
+        <% if @resource_service.batch_action_map.present? %>
           <td align="center">
             <%= check_box_tag "batch_action[items][#{resource.id}]", nil, nil,
               data: { behavior: "batch-actions-checkbox" } %>
           </td>
         <% end %>
-        <% attrs_for_index.each do |attr| %>
+        <% @resource_service.attrs_for_index.each do |attr| %>
           <td>
             <%= column_value(resource, attr) %>
           </td>

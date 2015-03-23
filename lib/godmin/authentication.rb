@@ -1,4 +1,4 @@
-require "godmin/authentication/sessions"
+require "godmin/authentication/sessions_controller"
 require "godmin/authentication/user"
 
 module Godmin

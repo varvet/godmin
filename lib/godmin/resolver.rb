@@ -36,15 +36,20 @@ module Godmin
   class EngineResolver < Resolver
     def initialize(controller_name)
       super [Godmin.namespace, "app/views"].compact.join("/")
-      self.namespace       = Godmin.namespace
+      self.namespace = Godmin.namespace
       self.controller_name = controller_name
+    end
+
+    def template_paths(prefix, _partial)
+      return [] if prefix =~ /^godmin\//
+      super
     end
   end
 
   class GodminResolver < Resolver
     def initialize(controller_name)
       super [Godmin::Engine.root, "app/views"].compact.join("/")
-      self.namespace       = "godmin"
+      self.namespace = "godmin"
       self.controller_name = controller_name
     end
   end

@@ -1,17 +1,10 @@
 <%= render partial: "breadcrumb", locals: { index: true } %>
-
 <%= render partial: "scopes" %>
+<%= render partial: "filters" %>
 
-<% if filter_map.present? %>
-  <%= render partial: "filters" %>
-<% end %>
-
-<%= form_tag [:batch_action, @resource_class], data: { behavior: "batch-actions-form" } do %>
-
+<div data-behavior="batch-actions-container">
   <%= render partial: "actions" %>
-
   <%= render partial: "table" %>
-
-<% end %>
+</div>
 
 <%= render partial: "pagination" %>
