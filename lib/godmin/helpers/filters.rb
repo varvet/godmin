@@ -1,14 +1,6 @@
 module Godmin
   module Helpers
     module Filters
-      def filter_input(name, options)
-        if lookup_context.exists?("filters/#{name}", nil, true)
-          render partial: "filters/#{name}", locals: { name: name, options: options }
-        else
-          yield
-        end
-      end
-
       def filter_input_tag(name, options, html_options = {})
         case options[:as]
         when :string

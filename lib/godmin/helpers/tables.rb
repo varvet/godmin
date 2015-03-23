@@ -20,9 +20,7 @@ module Godmin
       end
 
       def column_value(resource, attribute)
-        if lookup_context.exists?("columns/#{attribute}", nil, true)
-          render partial: "columns/#{attribute}", locals: { resource: resource }
-        else
+        partial_override "columns/#{attribute}", resource: resource do
           column_value = resource.send(attribute)
 
           if column_value.is_a?(Date) || column_value.is_a?(Time)

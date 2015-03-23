@@ -8,7 +8,7 @@
 
         <% @resource_service.filter_map.each do |name, options| %>
           <div class="filter form-group">
-            <%= filter_input name, options do %>
+            <%= partial_override "filters/#{name}", name: name, options: options do %>
               <%= label_tag name, translate_scoped("filters.labels.#{name}", default: name.to_s.titleize) %><br>
               <%= filter_input_tag name, options %>
             <% end %>
@@ -20,7 +20,6 @@
           <%= button_tag translate_scoped("filters.buttons.apply"), class: "btn btn-default" %>
           <%= link_to translate_scoped("filters.buttons.clear"), url_for(params.slice(:scope, :order)), class: "btn btn-default" %>
         </div>
-
       <% end %>
     </div>
   </div>
