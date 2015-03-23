@@ -21,7 +21,7 @@ Godmin is an admin framework for Rails 4+.
 - [Views](#views)
   - [Forms](#forms)
 - [Authentication](#authentication)
-	- [Simple authentication](#simple-authentication)
+	- [Built in authentication](#built-in-authentication)
 	- [Shared authentication](#shared-authentication)
 - [Authorization](#authorization)
 - [Localization](#localization)
