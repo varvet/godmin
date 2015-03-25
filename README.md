@@ -258,7 +258,7 @@ If you wish to implement your own redirect after a batch action, it needs to be 
 class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
 
-	private
+  private
 
   def redirect_after_batch_action_publish
     redirect_to articles_path(scope: :published)
@@ -378,7 +378,7 @@ When using `attrs_for_form`, parameters are automatically permitted. If building
 class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
 
-	private
+  private
 
   def resource_params
     params.require(:article).permit(:title, :body)
@@ -396,7 +396,7 @@ For instance, to have the article controller redirect to the index page after bo
 class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
 
-	private
+  private
 
   def redirect_after_save
     articles_path
@@ -410,7 +410,7 @@ Or, to have the article controller redirect to the index page after create and t
 class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
 
-	private
+  private
 
   def redirect_after_create
     articles_path
