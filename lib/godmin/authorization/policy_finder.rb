@@ -3,6 +3,8 @@ module Godmin
     class PolicyFinder
       class << self
         def find(object)
+          return object.policy_class if object.respond_to?(:policy_class)
+          return object.class.policy_class if object.class.respond_to?(:policy_class)
           klass =
             if object.respond_to?(:model_name)
               object.model_name
@@ -20,7 +22,7 @@ module Godmin
             "#{Godmin.namespace.classify}::#{klass}Policy"
           else
             "#{klass}Policy"
-          end
+          end.constantize
         end
       end
     end
