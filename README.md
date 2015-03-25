@@ -631,12 +631,10 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-Policies are located based on the name of the controller. If you wish to specify what policy to use manually, override the following method in the controller:
+If you wish to specify what policy to use manually, override the following method in your model. It does not have to be an ActiveRecord object, but any object will do.
 
 ```ruby
-class ArticlesController < ApplicationController
-  include Godmin::Resources::ResourceController
-
+class Article
   def policy_class(_record)
     FooArticlePolicy
   end
