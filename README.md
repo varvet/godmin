@@ -11,7 +11,7 @@ Godmin is an admin framework for Rails 4+.
 	- [Engine installation](#engine-installation)
 	- [Installation artefacts](#installation-artefacts)
 - [Getting started](#getting-started)
-- [Controllers](#controllers)
+- [Resources](#resources)
 	- [Scopes](#scopes)
 	- [Filters](#filters)
 	- [Batch actions](#batch-actions)
@@ -45,7 +45,7 @@ Add the gem to the application's `Gemfile`:
 gem "godmin"
 ```
 
-Bundle then run the install generator:
+Bundle, then run the install generator:
 ```sh
 $ bundle install
 $ bin/rails generate godmin:install
@@ -76,7 +76,7 @@ Add the gem to the engine's gemspec, `admin/admin.gemspec`:
 s.add_dependency "godmin", "~> x.x.x"
 ```
 
-Bundle then run the install generator within the scope of the engine, i.e. note the leading `admin/`:
+Bundle, then run the install generator within the scope of the engine, i.e. note the leading `admin/`:
 ```sh
 $ bundle install
 $ admin/bin/rails generate godmin:install
@@ -172,7 +172,7 @@ By now we have a basic admin interface for managing articles.
 
 ## Resources
 
-As we saw in the example above, resources are divided into controllers and, for the lack of a better term, service objects.  Actions, redirects, params permitting etc go in the controller while resource fetching, building, sorting, filtering etc go in the service object. This makes the service objects small and easy to test.
+As we saw in the example above, resources are divided into controllers and service objects. Actions, redirects, params permitting etc go in the controller while resource fetching, building, sorting, filtering etc go in the service object. This makes the service objects small and easy to test.
 
 We have already seen two methods at play: `attrs_for_index` and `attrs_for_form`. We will now look at some additional resource concepts.
 
@@ -257,6 +257,8 @@ If you wish to implement your own redirect after a batch action, it needs to be 
 ```ruby
 class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
+
+	private
 
   def redirect_after_batch_action_publish
     redirect_to articles_path(scope: :published)
@@ -368,6 +370,22 @@ class ArticleService
 end
 ```
 
+#### Strong parameters
+
+When using `attrs_for_form`, parameters are automatically permitted. If building a custom form, see the [forms](#forms) section, parameters can be permitted by overriding the `resource_params` method in the controller:
+
+```ruby
+class ArticlesController < ApplicationController
+  include Godmin::Resources::ResourceController
+
+	private
+
+  def resource_params
+    params.require(:article).permit(:title, :body)
+  end
+end
+```
+
 ### Redirecting
 
 By default the user is redirected to the resource show page after create and update, and to the index page after destroy. To change this, there are four controller methods that can be overridden: `redirect_after_create`, `redirect_after_update`, `redirect_after_save`, and `redirect_after_destroy`.
@@ -377,6 +395,8 @@ For instance, to have the article controller redirect to the index page after bo
 ```ruby
 class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
+
+	private
 
   def redirect_after_save
     articles_path
@@ -389,6 +409,8 @@ Or, to have the article controller redirect to the index page after create and t
 ```ruby
 class ArticlesController < ApplicationController
   include Godmin::Resources::ResourceController
+
+	private
 
   def redirect_after_create
     articles_path
@@ -406,7 +428,7 @@ If you wish to change the behaviour for every resource controller, consider crea
 class ResourceController < ApplicationController
   include Godmin::Resources::ResourceController
 
-  protected
+  private
 
   def redirect_after_save
     resource_class.model_name.route_key.to_sym
@@ -643,11 +665,9 @@ end
 
 ## Localization
 
-Godmin supports localization out of the box. Strings can be translated both globally and per resource, similar to how views work.
+Godmin supports localization out of the box. For a list of translatable strings, [look here](https://github.com/varvet/godmin/blob/master/config/locales/en.yml).
 
-For a list of translatable strings, [look here](https://github.com/varvet/godmin/blob/master/config/locales/en.yml).
-
-For instance, to translate the `godmin.batch_actions.buttons.select_all` string globally:
+Strings can be translated both globally and per resource, similar to how views work. For instance, to translate the `godmin.batch_actions.buttons.select_all` string globally:
 
 ```yml
 godmin:
