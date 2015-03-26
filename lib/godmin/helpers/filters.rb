@@ -1,8 +1,8 @@
 module Godmin
   module Helpers
     module Filters
-      def filter_form
-        bootstrap_form_tag url: params, method: :get, layout: :inline, builder: FormBuilders::FilterFormBuilder do |f|
+      def filter_form(url: params)
+        bootstrap_form_tag url: url, method: :get, layout: :inline, builder: FormBuilders::FilterFormBuilder do |f|
           yield(f)
         end
       end
