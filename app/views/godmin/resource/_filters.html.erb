@@ -6,7 +6,7 @@
         <%= f.hidden_field :order, value: params[:order] %>
 
         <% @resource_service.filter_map.each do |name, options| %>
-          <%= partial_override "filters/#{name}", name: name, options: options do %>
+          <%= partial_override "filters/#{name}", f: f, name: name, options: options do %>
             <%= f.filter_field(name, options) %>
           <% end %>
         <% end %>
