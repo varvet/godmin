@@ -1,24 +1,20 @@
 <% if @resource_service.filter_map.present? %>
   <div id="filters" class="panel panel-default">
     <div class="panel-body">
-      <%= form_tag params, method: :get, class: "form-inline" do %>
-
-        <%= hidden_field_tag :scope, nil, value: params[:scope] %>
-        <%= hidden_field_tag :order, nil, value: params[:order] %>
+      <%= filter_form do |f| %>
+        <%= f.hidden_field :scope, value: params[:scope] %>
+        <%= f.hidden_field :order, value: params[:order] %>
 
         <% @resource_service.filter_map.each do |name, options| %>
-          <div class="filter form-group">
-            <%= partial_override "filters/#{name}", name: name, options: options do %>
-              <%= label_tag name, translate_scoped("filters.labels.#{name}", default: name.to_s.titleize) %><br>
-              <%= filter_input_tag name, options %>
-            <% end %>
-          </div>
+          <%= partial_override "filters/#{name}", name: name, options: options do %>
+            <%= f.filter_field(name, options) %>
+          <% end %>
         <% end %>
 
-        <div class="pull-right">
-          <label>&nbsp;</label><br>
-          <%= button_tag translate_scoped("filters.buttons.apply"), class: "btn btn-default" %>
-          <%= link_to translate_scoped("filters.buttons.clear"), url_for(params.slice(:scope, :order)), class: "btn btn-default" %>
+        <div class="form-group pull-right">
+          <label class="control-label">&nbsp;</label><br>
+          <%= f.apply_filters_button %>
+          <%= f.clear_filters_button %>
         </div>
       <% end %>
     </div>
