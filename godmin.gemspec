@@ -26,7 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "momentjs-rails", ">= 2.8.1"
   gem.add_dependency "rails", "~> 4.0"
   gem.add_dependency "sass-rails", ">= 4.0"
-  gem.add_dependency "selectize-rails", "~> 0.11.2"
+  gem.add_dependency "selectize-rails", "~> 0.12.0"
 
   gem.add_development_dependency "sqlite3"
   gem.add_development_dependency "minitest"
