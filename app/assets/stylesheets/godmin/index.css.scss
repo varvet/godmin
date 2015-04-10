@@ -38,6 +38,9 @@ body {
   .filter .form-control.selectize-control {
     height: 34px;
   }
+  .filter .form-control.selectize-control.single .item {
+    padding-right: 25px;
+  }
 }
 
 #actions {
