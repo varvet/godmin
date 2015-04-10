@@ -29,8 +29,17 @@ body {
 }
 
 #filters {
+  .filter .control-label {
+    display: block;
+  }
   .filter .form-control {
     min-width: 170px;
+  }
+  .filter .form-control.selectize-control {
+    height: 34px;
+  }
+  .filter .form-control.selectize-control.single .item {
+    padding-right: 25px;
   }
 }
 
