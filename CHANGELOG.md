@@ -1,6 +1,6 @@
 # Changelog
 
-### 0.11.0 - Unreleased
+### 0.11.0 - 2015-04-13
 Other
 - Split resources into controllers and service objects (https://github.com/varvet/godmin/pull/79)
 - Renames the following modules:
