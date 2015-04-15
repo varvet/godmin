@@ -26,6 +26,7 @@ module Godmin
         text_field(
           name, {
             name: "filter[#{name}]",
+            label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
             value: default_filter_value(name),
             placeholder: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
             wrapper_class: "filter"
@@ -37,6 +38,7 @@ module Godmin
         filter_select(
           name, options, {
             name: "filter[#{name}]",
+            label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
             data: {
               placeholder: @template.translate_scoped("filters.select.placeholder.one")
             }
@@ -48,6 +50,7 @@ module Godmin
         filter_select(
           name, options, {
             name: "filter[#{name}][]",
+            label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
             multiple: true,
             data: {
               placeholder: @template.translate_scoped("filters.select.placeholder.many")
