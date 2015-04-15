@@ -152,6 +152,7 @@ module Godmin
 
       def perform_batch_action
         return false unless params[:batch_action].present?
+        authorize resource_class, "batch_action_#{params[:batch_action]}?"
 
         item_ids = params[:id].split(",").map(&:to_i)
 
