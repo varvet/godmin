@@ -38,7 +38,6 @@ module Godmin
         filter_select(
           name, options, {
             name: "filter[#{name}]",
-            label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
             data: {
               placeholder: @template.translate_scoped("filters.select.placeholder.one")
             }
@@ -50,7 +49,6 @@ module Godmin
         filter_select(
           name, options, {
             name: "filter[#{name}][]",
-            label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
             multiple: true,
             data: {
               placeholder: @template.translate_scoped("filters.select.placeholder.many")
@@ -98,7 +96,10 @@ module Godmin
           end
 
         select(
-          name, choices, { include_blank: true, wrapper_class: "filter" }, {
+          name, choices, {
+            include_blank: true, wrapper_class: "filter",
+            label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize)
+          }, {
             data: { behavior: "select-box" }
           }.deep_merge(html_options)
         )
