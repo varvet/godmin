@@ -65,7 +65,7 @@ module Godmin
       end
 
       def destroy
-        @resource.destroy
+        @resource_service.destroy_resource(@resource)
 
         respond_to do |format|
           format.html { redirect_to redirect_after_destroy, notice: redirect_flash_message }

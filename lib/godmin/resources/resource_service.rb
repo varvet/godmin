@@ -58,6 +58,10 @@ module Godmin
         resource.update(params)
       end
 
+      def destroy_resource(resource)
+        resource.destroy
+      end
+
       def attrs_for_index
         self.class.attrs_for_index
       end
