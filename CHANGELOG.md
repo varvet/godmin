@@ -3,6 +3,7 @@
 ### 0.11.1 - Unreleased
 Features
 - Adds `destroy_resource` method to `ResourceService`
+- Adds query param to authorize
 
 Bug fixes
 - Fixes a regression where filter labels were not translated
