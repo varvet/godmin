@@ -1,5 +1,12 @@
 # Changelog
 
+### 0.11.1 - Unreleased
+Features
+- Adds `destroy_resource` method to `ResourceService`
+
+Bug fixes
+- Fixes a regression where filter labels were not translated
+
 ### 0.11.0 - 2015-04-13
 Other
 - Split resources into controllers and service objects (https://github.com/varvet/godmin/pull/79)
