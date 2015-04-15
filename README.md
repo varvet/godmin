@@ -370,6 +370,18 @@ class ArticleService
 end
 ```
 
+To change the way a resource is destroyed in the `destroy` action:
+
+```ruby
+class ArticleService
+  include Godmin::Resources::ResourceService
+
+  def destroy_resource(resource)
+    resource.paranoid_destroy
+  end
+end
+```
+
 #### Strong parameters
 
 When using `attrs_for_form`, parameters are automatically permitted. If building a custom form, see the [forms](#forms) section, parameters can be permitted by overriding the `resource_params` method in the controller:
