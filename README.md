@@ -279,6 +279,7 @@ In order to modify resource fetching and construction, these methods can be over
 - `build_resource`
 - `create_resource`
 - `update_resource`
+- `destroy_resource`
 
 To change the class name of the resource from the default based on the service class name:
 

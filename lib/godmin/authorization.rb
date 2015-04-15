@@ -13,11 +13,11 @@ module Godmin
       end
     end
 
-    def authorize(record)
+    def authorize(record, query = nil)
       policy = policy(record)
 
-      unless policy.public_send(action_name + "?")
-        raise NotAuthorizedError
+      unless policy.public_send(query || action_name + "?")
+        fail NotAuthorizedError
       end
     end
 
