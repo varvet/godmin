@@ -158,7 +158,7 @@ class ArticleService
   include Godmin::Resources::ResourceService
 
   attrs_for_index :title, :published
-	attrs_for_show :title, :published
+  attrs_for_show :title, :published
   attrs_for_form :title, :published
 end
 ```
