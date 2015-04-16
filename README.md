@@ -24,7 +24,6 @@ Godmin is an admin framework for Rails 4+.
 	- [Built in authentication](#built-in-authentication)
 	- [Shared authentication](#shared-authentication)
 - [Authorization](#authorization)
-  - [Batch actions](#batch-actions)
 - [Localization](#localization)
 - [JavaScript](#javascript)
 - [Plugins](#plugins)
@@ -267,7 +266,7 @@ class ArticlesController < ApplicationController
 end
 ```
 
-If you are using Godmin's built in authorization functionality you must [authorize your batch actions in your policy](#batch-actions).
+If you are using Godmin's built in authorization functionality you must [authorize your batch actions in your policy](#batch-action-authorization).
 
 ### Resource fetching, building and saving
 
@@ -657,7 +656,7 @@ end
 
 That is, everyone can list and view articles, only editors can create them, and only unpublished articles can be updated and destroyed.
 
-### Batch actions
+### Batch action authorization
 Batch actions must be authorized in your policy if you are using Godmin's built in authorization functionality. The policy method is called once for each record before they are passed to the batch action method defined by the user. If a user is not allowed to "batch action" a particular record, it will be filtered out before passed to the batch action method. Note that this does not raise any `NotAuthorizedError`.
 
 ```ruby
