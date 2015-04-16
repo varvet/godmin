@@ -4,6 +4,7 @@
 Features
 - Adds `destroy_resource` method to `ResourceService`
 - Adds query param to authorize
+- Adds authorization to batch actions
 
 Bug fixes
 - Fixes a regression where filter labels were not translated
