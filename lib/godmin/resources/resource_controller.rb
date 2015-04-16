@@ -155,7 +155,9 @@ module Godmin
 
         item_ids = params[:id].split(",").map(&:to_i)
         records = @resource_class.find(item_ids)
-        records = records.select { |r| policy(r).send("batch_action_#{params[:batch_action]}?") }
+        if authorization_enabled?
+          records = records.select { |r| policy(r).send("batch_action_#{params[:batch_action]}?") }
+        end
 
         if @resource_service.batch_action(params[:batch_action], records)
           flash[:updated_ids] = item_ids
