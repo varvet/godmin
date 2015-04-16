@@ -656,6 +656,7 @@ end
 
 That is, everyone can list and view articles, only editors can create them, and only unpublished articles can be updated and destroyed.
 
+### Handle unauthorized access
 When a user is not authorized to access a resource, a `NotAuthorizedError` is raised. By default this error is rescued by Godmin and turned into a status code `403 Forbidden` response.
 If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`:
 
@@ -672,6 +673,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+### Override policy object
 If you wish to specify what policy to use manually, override the following method in your model. It does not have to be an ActiveRecord object, but any object will do.
 
 ```ruby
