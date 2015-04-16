@@ -14,7 +14,8 @@ en:
       buttons:
         apply: Filter
         clear: Clear filter
-    column_actions:
+    actions:
+      label: Actions
       show: Show
       edit: Edit
       destroy: Destroy

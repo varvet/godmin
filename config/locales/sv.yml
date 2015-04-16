@@ -14,7 +14,8 @@ sv:
       buttons:
         apply: Filtrera
         clear: Rensa filter
-    column_actions:
+    actions:
+      label: Alternativ
       show: Visa
       edit: Ändra
       destroy: Ta bort
