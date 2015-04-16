@@ -4,7 +4,8 @@
 Features
 - Adds `destroy_resource` method to `ResourceService`
 - Adds query param to authorize
-- Adds authorization to batch actions
+- Adds authorization to batch actions (https://github.com/varvet/godmin/issues/33)
+- Adds show page (https://github.com/varvet/godmin/issues/77)
 
 Bug fixes
 - Fixes a regression where filter labels were not translated

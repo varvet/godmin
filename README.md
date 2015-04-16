@@ -158,11 +158,12 @@ class ArticleService
   include Godmin::Resources::ResourceService
 
   attrs_for_index :title, :published
+	attrs_for_show :title, :published
   attrs_for_form :title, :published
 end
 ```
 
-Using `attrs_for_index` we can control what fields are displayed in the table listing, and using `attrs_for_form` we can control what fields are available in the new and edit forms. We can, for instance, add the `body` field to `attrs_for_form` to make it appear in forms:
+Using `attrs_for_index` we can control what fields are displayed in the table listing, using `attrs_for_show` we can control what fields are displayed on the show page, and using `attrs_for_form` we can control what fields are available in the new and edit forms. We can, for instance, add the `body` field to `attrs_for_form` to make it appear in forms:
 
 ```ruby
 attrs_for_form :title, :body, :published
