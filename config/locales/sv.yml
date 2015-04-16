@@ -29,6 +29,7 @@ sv:
       create: "%{resource} skapades"
       update: "%{resource} uppdaterades"
       destroy: "%{resource} togs bort"
+      batch_action: "%{number_of_affected_records} %{resource} av %{total_number_of_records} påverkades"
     pagination:
       first: "Första"
       last: "Sista"

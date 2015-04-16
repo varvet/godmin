@@ -29,6 +29,7 @@ en:
       create: "%{resource} was successfully created"
       update: "%{resource} was successfully updated"
       destroy: "%{resource} was successfully destroyed"
+      batch_action: "%{number_of_affected_records} %{resource} of %{total_number_of_records} were affected"
     pagination:
       first: "First"
       last: "Last"
