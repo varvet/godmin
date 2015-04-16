@@ -656,17 +656,6 @@ end
 
 That is, everyone can list and view articles, only editors can create them, and only unpublished articles can be updated and destroyed.
 
-### Batch action authorization
-Batch actions must be authorized in your policy if you are using Godmin's built in authorization functionality. The policy method is called once for each record before they are passed to the batch action method defined by the user. If a user is not allowed to "batch action" a particular record, it will be filtered out before passed to the batch action method. Note that this does not raise any `NotAuthorizedError`.
-
-```ruby
-class ArticlePolicy < Godmin::Authorization::Policy
-  def batch_action_destroy?
-    @record.user_id == user.id
-  end
-end
-```
-
 When a user is not authorized to access a resource, a `NotAuthorizedError` is raised. By default this error is rescued by Godmin and turned into a status code `403 Forbidden` response.
 If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`:
 
@@ -689,6 +678,17 @@ If you wish to specify what policy to use manually, override the following metho
 class Article
   def policy_class(_record)
     FooArticlePolicy
+  end
+end
+```
+
+### Batch action authorization
+Batch actions must be authorized in your policy if you are using Godmin's built in authorization functionality. The policy method is called once for each record before they are passed to the batch action method defined by the user. If a user is not allowed to "batch action" a particular record, it will be filtered out before passed to the batch action method. Note that this does not raise any `NotAuthorizedError`.
+
+```ruby
+class ArticlePolicy < Godmin::Authorization::Policy
+  def batch_action_destroy?
+    @record.user_id == user.id
   end
 end
 ```
