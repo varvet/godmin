@@ -4,13 +4,7 @@ module Godmin
   module ResourceService
     class BatchActionsTest < ActiveSupport::TestCase
       def setup
-        resource_class = Class.new do
-          def self.find(ids)
-            ids
-          end
-        end
-
-        @article_service = ArticleService.new(resource_class: resource_class)
+        @article_service = ArticleService.new
       end
 
       def test_batch_action
