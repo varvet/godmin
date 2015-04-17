@@ -9,12 +9,19 @@ module Godmin
         def apply_filters(filter_params, resources)
           if filter_params.present?
             filter_params.each do |name, value|
-              if filter_map.key?(name.to_sym) && value.present?
+              if apply_filter?(name, value)
                 resources = send("filter_#{name}", resources, value)
               end
             end
           end
           resources
+        end
+
+        private
+
+        def apply_filter?(name, value)
+          return false if value == [""]
+          filter_map.key?(name.to_sym) && value.present?
         end
 
         module ClassMethods

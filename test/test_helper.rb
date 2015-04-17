@@ -32,9 +32,7 @@ end
   class ArticleService
     include Godmin::Resources::ResourceService
 
-    mattr_accessor :called_methods do
-      { scopes: {}, filters: {}, batch_actions: {} }
-    end
+    attr_accessor :called_methods
 
     attrs_for_index :id, :title, :country
     attrs_for_form :id, :title, :country, :body
@@ -44,9 +42,15 @@ end
 
     filter :title
     filter :country, as: :select, collection: %w(Sweden Canada)
+    filter :tags, as: :multiselect, collection: %w(Apple Banana)
 
     batch_action :unpublish
     batch_action :publish, confirm: true, only: :unpublished, except: :published
+
+    def initialize(*)
+      super
+      @called_methods = { scopes: {}, filters: {}, batch_actions: {} }
+    end
 
     def resources_relation
       [:foo, :bar, :baz]
@@ -69,6 +73,11 @@ end
 
     def filter_country(resources, value)
       called_methods[:filters][:country] = [resources, value]
+      resources
+    end
+
+    def filter_tags(resources, value)
+      called_methods[:filters][:tags] = [resources, value]
       resources
     end
 

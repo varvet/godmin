@@ -18,6 +18,16 @@ module Godmin
         assert_equal [:resources, "Sweden"], @article_service.called_methods[:filters][:country]
       end
 
+      def test_calls_filter_when_present_multiselect
+        @article_service.apply_filters({ tags: ["Banana"] }, :resources)
+        assert_equal [:resources, ["Banana"]], @article_service.called_methods[:filters][:tags]
+      end
+
+      def test_does_not_call_filter_when_empty_multiselect
+        @article_service.apply_filters({ tags: [""] }, :resources)
+        assert_equal nil, @article_service.called_methods[:filters][:tags]
+      end
+
       def test_filter_map_with_default_options
         expected_filter_map = { as: :string, option_text: "to_s", option_value: "id", collection: nil }
         assert_equal expected_filter_map, @article_service.filter_map[:title]
