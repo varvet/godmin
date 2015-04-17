@@ -24,6 +24,12 @@ body {
   margin-top: 20px;
 }
 
+#breadcrumb {
+  .dropdown:before {
+    content: " ";
+  }
+}
+
 #scopes {
   margin-bottom: 20px;
 }

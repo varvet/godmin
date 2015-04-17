@@ -1,1 +1,10 @@
-The fate of this page has yet to be determined...
+<%= render partial: "breadcrumb" %>
+
+<table class="table table-bordere table-striped">
+  <% @resource_service.attrs_for_show.each do |attr| %>
+    <tr>
+      <th><%= @resource_class.human_attribute_name(attr) %></th>
+      <td><%= column_value(@resource, attr) %></td>
+    </tr>
+  <% end %>
+</table>

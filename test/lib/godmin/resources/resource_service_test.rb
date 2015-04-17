@@ -14,6 +14,10 @@ module Godmin
       assert_equal [:id, :title, :country], @article_service.attrs_for_index
     end
 
+    def test_attrs_for_show
+      assert_equal [:title, :country], @article_service.attrs_for_show
+    end
+
     def test_attrs_for_form
       assert_equal [:id, :title, :country, :body], @article_service.attrs_for_form
     end

@@ -66,6 +66,10 @@ module Godmin
         self.class.attrs_for_index
       end
 
+      def attrs_for_show
+        self.class.attrs_for_show
+      end
+
       def attrs_for_form
         self.class.attrs_for_form
       end
@@ -74,6 +78,11 @@ module Godmin
         def attrs_for_index(*attrs)
           @attrs_for_index = attrs if attrs.present?
           @attrs_for_index || []
+        end
+
+        def attrs_for_show(*attrs)
+          @attrs_for_show = attrs if attrs.present?
+          @attrs_for_show || []
         end
 
         def attrs_for_form(*attrs)

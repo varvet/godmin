@@ -35,6 +35,7 @@ end
     attr_accessor :called_methods
 
     attrs_for_index :id, :title, :country
+    attrs_for_show :title, :country
     attrs_for_form :id, :title, :country, :body
 
     scope :unpublished, default: true
