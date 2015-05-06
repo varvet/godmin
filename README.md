@@ -262,7 +262,7 @@ class ArticlesController < ApplicationController
   private
 
   def redirect_after_batch_action_publish
-    redirect_to articles_path(scope: :published)
+    articles_path(scope: :published)
   end
 end
 ```
