@@ -1,0 +1,7 @@
+<div class="pull-right hidden-xs">
+  <% if @resources.length > 0 %>
+    <%= link_to(url_for(params.merge(format: "csv", only_path: true).except(:page)), { class: "btn btn-default"}) do %>
+      CSV
+    <% end %>
+  <% end %>
+</div>
