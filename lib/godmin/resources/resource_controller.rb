@@ -1,4 +1,3 @@
-require "csv"
 require "godmin/helpers/batch_actions"
 require "godmin/helpers/filters"
 require "godmin/helpers/tables"
@@ -23,9 +22,7 @@ module Godmin
         respond_to do |format|
           format.html
           format.json { render json: @resources.to_json }
-          format.csv do
-            headers["Content-Type"] ||= "text/csv"
-          end
+          format.csv
         end
       end
 

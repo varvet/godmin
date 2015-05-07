@@ -1,4 +1,0 @@
-<%= CSV.generate_line @resource_service.attrs_for_index %>
-<%- @resources.limit(nil).offset(nil).each do |resource| -%>
-  <%= CSV.generate_line(@resource_service.attrs_for_index.map { |attr| column_value(resource, attr).to_s.squish }) %>
-<%- end -%>

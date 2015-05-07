@@ -74,6 +74,10 @@ module Godmin
         self.class.attrs_for_form
       end
 
+      def attrs_for_export
+        self.class.attrs_for_export
+      end
+
       module ClassMethods
         def attrs_for_index(*attrs)
           @attrs_for_index = attrs if attrs.present?
@@ -88,6 +92,11 @@ module Godmin
         def attrs_for_form(*attrs)
           @attrs_for_form = attrs if attrs.present?
           @attrs_for_form || []
+        end
+
+        def attrs_for_export(*attrs)
+          @attrs_for_export = attrs if attrs.present?
+          @attrs_for_export || []
         end
       end
     end

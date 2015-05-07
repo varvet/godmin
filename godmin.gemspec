@@ -23,6 +23,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "bootstrap-sass", "~> 3.3.3"
   gem.add_dependency "bootstrap_form", "~> 2.2.0"
   gem.add_dependency "coffee-rails", [">= 4.0", "< 4.2"]
+  gem.add_dependency "csv_builder", "~> 2.1.1"
   gem.add_dependency "momentjs-rails", ">= 2.8.1"
   gem.add_dependency "rails", "~> 4.0"
   gem.add_dependency "sass-rails", ">= 4.0"
