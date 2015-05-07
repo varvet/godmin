@@ -13,7 +13,7 @@ Godmin.Navigation = (function() {
   }
 
   function removeEmptyDropdowns() {
-    $('.navbar-nav .dropdown').each(function() {
+    $('.navbar-nav .dropdown, .breadcrumb .dropdown').each(function() {
       if ($(this).find('li').length === 0) {
         $(this).remove();
       }
