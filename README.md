@@ -788,6 +788,13 @@ f.select :authors, Author.all, {}, data: { behavior: "select-box" }
 f.text_field :tag_list, data: { behavior: "select-box" }
 ```
 
+If you want to change the text that appears when an option does not exist and will be created, set the data attribute `data-add-label`.
+
+```ruby
+f.text_field :tag_list, data: { behavior: "select-box", add_label: "Create:" }
+#=> Create: foobar...
+```
+
 If the field is added post page render, it can be initialized manually:
 
 ```js

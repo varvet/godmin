@@ -17,7 +17,7 @@ Godmin.SelectBoxes = (function() {
       inputClass: 'selectize-input',
       render: {
         option_create: function(data, escape) {
-          return '<div class="create">' + (this.$input.data("add-text") || "Add") + ' <strong>' + escape(data.input) + '</strong>&hellip;</div>';
+          return '<div class="create">' + (this.$input.data("add-label") || "+") + ' <strong>' + escape(data.input) + '</strong>&hellip;</div>';
         }
       }
     };
