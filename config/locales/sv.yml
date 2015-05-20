@@ -21,6 +21,7 @@ sv:
       destroy: Ta bort
       confirm_message: Är du säker?
       export: Exportera
+      export_as: Som
     sessions:
       sign_in: Logga in
       sign_out: Logga ut
