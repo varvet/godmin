@@ -1,6 +1,6 @@
 # Changelog
 
-### 0.11.1 - Unreleased
+### 0.11.1 - 2015-05-20
 Features
 - Adds `destroy_resource` method to `ResourceService`
 - Adds query param to authorize
