@@ -23,7 +23,11 @@ module Godmin
 
       # TODO: should this raise its own error?
       def resource_class
-        @options[:resource_class] || self.class.name.demodulize.chomp("Service").constantize
+        @options[:resource_class] || resource_class_name.constantize
+      end
+
+      def resource_class_name
+        self.class.name.demodulize.chomp("Service")
       end
 
       def resources_relation
@@ -31,11 +35,11 @@ module Godmin
       end
 
       def resources(params)
-        apply_pagination(params[:page],
-          apply_order(params[:order],
-            apply_filters(params[:filter],
-              apply_scope(params[:scope],
-                resources_relation
+        apply_pagination(
+          params[:page], apply_order(
+            params[:order], apply_filters(
+              params[:filter], apply_scope(
+                params[:scope], resources_relation
               )
             )
           )

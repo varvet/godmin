@@ -20,6 +20,7 @@ sv:
       edit: Ändra
       destroy: Ta bort
       confirm_message: Är du säker?
+      export: Exportera
     sessions:
       sign_in: Logga in
       sign_out: Logga ut
