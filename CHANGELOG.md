@@ -7,6 +7,8 @@ Features
 - Adds authorization to batch actions (https://github.com/varvet/godmin/issues/33)
 - Adds show page (https://github.com/varvet/godmin/issues/77)
 - Adds option to change add text on dropdowns (https://github.com/varvet/godmin/pull/106)
+- Adds CSV export (https://github.com/varvet/godmin/issues/86)
+- JSON export can now be controlled using `attrs_for_export` or by overriding a jbuilder
 
 Bug fixes
 - Fixes a regression where filter labels were not translated

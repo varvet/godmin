@@ -20,6 +20,8 @@ en:
       edit: Edit
       destroy: Destroy
       confirm_message: Are you sure?
+      export: Export
+      export_as: As
     sessions:
       sign_in: Sign in
       sign_out: Sign out

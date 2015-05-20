@@ -21,14 +21,15 @@ module Godmin
       def index
         respond_to do |format|
           format.html
-          format.json { render json: @resources.to_json }
+          format.json
+          format.csv
         end
       end
 
       def show
         respond_to do |format|
           format.html
-          format.json { render json: @resource.to_json }
+          format.json
         end
       end
 

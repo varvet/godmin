@@ -21,5 +21,9 @@ module Godmin
     def test_attrs_for_form
       assert_equal [:id, :title, :country, :body], @article_service.attrs_for_form
     end
+
+    def test_attrs_for_export
+      assert_equal [:id, :title], @article_service.attrs_for_export
+    end
   end
 end
