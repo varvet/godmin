@@ -14,8 +14,7 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
   def create_routes
     inject_into_file "config/routes.rb", before: /^end/ do
       <<-END.strip_heredoc.indent(2)
-        godmin do
-        end
+        root to: "application#welcome"
       END
     end
   end

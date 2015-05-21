@@ -4,11 +4,7 @@ class Godmin::ResourceGenerator < Godmin::Generators::NamedBase
   argument :attributes, type: :array, default: [], banner: "attribute attribute"
 
   def add_route
-    inject_into_file "config/routes.rb", after: "godmin do\n" do
-      <<-END.strip_heredoc.indent(4)
-        resources :#{file_name.pluralize}
-      END
-    end
+    route "resources :#{file_name.pluralize}"
   end
 
   def add_navigation
