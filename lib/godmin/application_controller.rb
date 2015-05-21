@@ -1,5 +1,6 @@
 require "godmin/helpers/application"
 require "godmin/helpers/forms"
+require "godmin/helpers/navigation"
 require "godmin/helpers/translations"
 
 module Godmin
@@ -11,6 +12,7 @@ module Godmin
 
       helper Godmin::Helpers::Application
       helper Godmin::Helpers::Forms
+      helper Godmin::Helpers::Navigation
       helper Godmin::Helpers::Translations
 
       helper_method :authentication_enabled?
