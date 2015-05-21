@@ -16,10 +16,10 @@ Godmin.Navigation = (function() {
   function setActiveLink() {
     var $links = $('.nav.navbar-nav a[href="' + window.location.pathname + window.location.search + '"]');
 
-    if ($links.length === 0 ) {
-      addActiveClass($('.nav.navbar-nav a[href="' + window.location.pathname + '"]'));
-    } else {
+    if ($links.length) {
       addActiveClass($links);
+    } else {
+      addActiveClass($('.nav.navbar-nav a[href="' + window.location.pathname + '"]'));
     }
   }
 
