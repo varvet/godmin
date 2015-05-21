@@ -1,5 +1,17 @@
 # Changelog
 
+### 0.12.0 - Unreleased
+Features
+- Adds new navigation helpers for building a custom navbar (https://github.com/varvet/godmin/issues/54)
+
+Other
+- Removes the godmin router method
+
+In order to upgrade:
+- Remove the `godmin do` block from the `config/routes.rb` file
+- Specify a root route if there is none already
+- Create a `shared/_navigation.html.erb` partial if there is none already
+
 ### 0.11.1 - 2015-05-20
 Features
 - Adds `destroy_resource` method to `ResourceService`
