@@ -1,12 +1,6 @@
 module Godmin
   module Helpers
     module Navigation
-      def navbar(options = {})
-        content_tag :ul, { class: "nav navbar-nav" }.merge(options) do
-          yield
-        end
-      end
-
       def navbar_item(resource, url = resource, show: nil, icon: nil, **options)
         show ||= lambda do
           resource.is_a?(String) ? true : policy(resource).index?

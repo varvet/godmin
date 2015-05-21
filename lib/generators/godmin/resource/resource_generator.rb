@@ -11,6 +11,14 @@ class Godmin::ResourceGenerator < Godmin::Generators::NamedBase
     end
   end
 
+  def add_navigation
+    append_to_file File.join("app/views", namespaced_path, "shared/_navigation.html.erb") do
+      <<-END.strip_heredoc
+        <%= navbar_item #{class_name} %>
+      END
+    end
+  end
+
   def create_controller
     template "resource_controller.rb", File.join("app/controllers", class_path, "#{file_name.pluralize}_controller.rb")
   end

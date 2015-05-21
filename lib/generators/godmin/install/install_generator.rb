@@ -20,6 +20,10 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
     end
   end
 
+  def create_navigation
+    create_file File.join("app/views", namespaced_path, "shared/_navigation.html.erb")
+  end
+
   def modify_application_controller
     inject_into_file File.join("app/controllers", namespaced_path, "application_controller.rb"), after: "ActionController::Base\n" do
       <<-END.strip_heredoc.indent(namespace ? 4 : 2)

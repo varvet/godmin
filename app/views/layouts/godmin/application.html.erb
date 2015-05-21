@@ -5,7 +5,18 @@
         <%= link_to t("godmin.title"), root_path, class: "navbar-brand" %>
       </div>
       <div class="collapse navbar-collapse">
-        <%= render partial: "shared/navigation" %>
+        <ul class="nav navbar-nav">
+          <%= render partial: "shared/navigation" %>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if authentication_enabled? &&
+                admin_user.singleton_class.include?(Godmin::Authentication::User) &&
+                admin_user_signed_in? %>
+            <li>
+              <%= link_to translate_scoped("sessions.sign_out"), session_path, method: :delete %>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </nav>
