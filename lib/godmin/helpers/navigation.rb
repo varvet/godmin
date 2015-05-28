@@ -14,7 +14,7 @@ module Godmin
               yield
             end
           else
-            resource.respond_to?(:model_name) ? resource.model_name.human(count: 2) : resource
+            resource.respond_to?(:model_name) ? resource.model_name.human(count: :many) : resource
           end
 
         content_tag :li do
