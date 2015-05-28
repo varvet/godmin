@@ -497,7 +497,7 @@ navbar_item Article
 
 # Links to a custom path with a custom link text
 navbar_item Article, articles_path(scope: :published) do
-	"Published articles"
+  "Published articles"
 end
 
 # Links to a custom path with a custom link text without specifying resource
@@ -520,10 +520,10 @@ The `navbar_dropdown` and `navbar_divider` helpers can be used to build dropdown
 
 ```ruby
 navbar_dropdown "Multiple things" do
-	navbar_item Article
-	navbar_item Comment
-	navbar_divider
-	navbar_item User
+  navbar_item Article
+  navbar_item Comment
+  navbar_divider
+  navbar_item User
 end
 ```
 
