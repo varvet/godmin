@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.11.3 - Unreleased
+Bug fixes
+- Fixes issue with authentication generator not modifying the application controller
+
 ### 0.11.2 - 2015-06-22
 Bug fixes
 - Fixes broken collection select helper

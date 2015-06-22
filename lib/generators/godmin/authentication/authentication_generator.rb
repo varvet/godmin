@@ -28,7 +28,7 @@ class Godmin::AuthenticationGenerator < Godmin::Generators::NamedBase
   end
 
   def modify_application_controller
-    inject_into_file File.join("app/controllers", namespaced_path, "application_controller.rb"), after: "Godmin::Application\n" do
+    inject_into_file File.join("app/controllers", namespaced_path, "application_controller.rb"), after: "Godmin::ApplicationController\n" do
       <<-END.strip_heredoc.indent(namespace ? 4 : 2)
         include Godmin::Authentication
 
