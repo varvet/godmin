@@ -27,7 +27,7 @@ module Godmin
       def association(attribute, options = {})
         case association_type(attribute)
         when :belongs_to
-          select attribute, association_collection(attribute), {}, data: { behavior: "select-box" }
+          select "#{attribute}_id", association_collection_for_select(attribute), {}, data: { behavior: "select-box" }
         else
           input(attribute, options)
         end
@@ -63,6 +63,10 @@ module Godmin
 
       def association_reflection(attribute)
         @object.class.reflect_on_association(attribute)
+      end
+
+      def association_collection_for_select(attribute)
+        association_collection(attribute).map { |a| [a.to_s, a.id] }
       end
 
       def datetime_value(attribute, options, format)

@@ -12,6 +12,13 @@ In order to upgrade:
 - Specify a root route if there is none already
 - Create a `shared/_navigation.html.erb` partial if there is none already
 
+Bug fixes
+- Fixes issue with authentication generator not modifying the application controller
+
+### 0.11.2 - 2015-06-22
+Bug fixes
+- Fixes broken collection select helper
+
 ### 0.11.1 - 2015-05-20
 Features
 - Adds `destroy_resource` method to `ResourceService`
