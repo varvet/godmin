@@ -9,7 +9,23 @@ Godmin.Navigation = (function() {
   function initializeEvents() {}
 
   function initializeState() {
+    setActiveLink();
     removeEmptyDropdowns();
+  }
+
+  function setActiveLink() {
+    var $links = $('.nav.navbar-nav a[href="' + window.location.pathname + window.location.search + '"]');
+
+    if ($links.length) {
+      addActiveClass($links);
+    } else {
+      addActiveClass($('.nav.navbar-nav a[href="' + window.location.pathname + '"]'));
+    }
+  }
+
+  function addActiveClass($links) {
+    $links.closest('li').addClass('active');
+    $links.closest('li.dropdown').addClass('active');
   }
 
   function removeEmptyDropdowns() {

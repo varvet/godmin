@@ -20,6 +20,7 @@ Godmin is an admin framework for Rails 4+.
 	- [Pagination](#pagination)
 - [Views](#views)
   - [Forms](#forms)
+	- [Navigation](#navigation)
 - [Authentication](#authentication)
 	- [Built in authentication](#built-in-authentication)
 	- [Shared authentication](#shared-authentication)
@@ -97,16 +98,6 @@ end
 
 If Godmin was installed inside an engine, as in the previous section, the namespace is the underscored name of the engine, e.g. `"admin"`.
 
-The `config/routes.rb` file is modified as such:
-```ruby
-Rails.application.routes.draw do
-  godmin do
-  end
-end
-```
-
-Resource routes placed within the `godmin` block are automatically added to the default navigation.
-
 The application controller is modified as such:
 ```ruby
 class ApplicationController < ActionController::Base
@@ -117,6 +108,8 @@ end
 Require statements are placed in both `app/assets/javascripts/application.js` and `app/assets/stylesheets/application.css`.
 
 If Godmin was installed inside an engine, a `require "godmin"` statement is placed in `{namespace}/lib/{namespace}.rb`.
+
+An `app/views/shared/_navigation.html.erb` partial is created.
 
 And finally, the `app/views/layouts` folder is removed by default, so as not to interfere with the Godmin layouts. It can be added back in case you wish to override the built in layouts.
 
@@ -138,9 +131,13 @@ This does a number of things.
 It inserts a route in the `config/routes.rb` file:
 
 ```ruby
-godmin do
-  resources :articles
-end
+resources :articles
+```
+
+It inserts a `navbar_item` in the `app/views/shared/_navigation.html.erb` partial:
+
+```erb
+<%= navbar_item Article %>
 ```
 
 It creates a controller:
@@ -472,13 +469,11 @@ It's easy to override view templates and partials in Godmin, both globally and p
 
 If you wish to customize the content of a table column, you can place a partial under `app/views/{resource}/columns/{column_name}.html.erb`, e.g. `app/views/articles/columns/_title.html.erb`. The resource is available to the partial through the `resource` variable.
 
-Oftentimes, the default form provided by Godmin doesn't cut it. The `godmin/resource/_form.html.erb` partial is therefore one of the most common to override per resource. See below for more on form building.
-
-Likewise, the `godmin/shared/_navigation.html.erb` partial can be overridden to build a custom navigation bar.
-
 The full list of templates and partials that can be overridden [can be found here](https://github.com/varvet/godmin/tree/master/app/views/godmin).
 
 ### Forms
+
+Oftentimes, the default form provided by Godmin doesn't cut it. The `godmin/resource/_form.html.erb` partial is therefore one of the most common to override per resource.
 
 Godmin comes with its own FormBuilder that automatically generates bootstrapped markup. It is based on the [Rails Bootstrap Forms](https://github.com/bootstrap-ruby/rails-bootstrap-forms) FormBuilder, and all its methods are directly available. In addition it has a few convenience methods that can be leveraged.
 
@@ -487,6 +482,48 @@ The `input` method will automatically detect the type of field from the database
 ```ruby
 form_for @resource do |f|
   f.input :attribute
+end
+```
+
+### Navigation
+
+Godmin comes with built in view helpers for generating the navbar.
+
+The `navbar_item` helper generates a link in the navbar. It can be used in a number of different ways.
+
+```ruby
+# Links to the index page of the article resource
+navbar_item Article
+
+# Links to a custom path with a custom link text
+navbar_item Article, articles_path(scope: :published) do
+  "Published articles"
+end
+
+# Links to a custom path with a custom link text without specifying resource
+navbar_item "Some text", some_path
+```
+
+The `show` option can be passed a proc that evaluates to true or false. This is used to control if the link should be shown or not. By default it checks against the resource policy object if authorization is enabled.
+
+```ruby
+navbar_item Article, show: -> { show? }
+```
+
+The `icon` option can be passed a glyphicon:
+
+```ruby
+navbar_item Article, icon: "book"
+```
+
+The `navbar_dropdown` and `navbar_divider` helpers can be used to build dropdown menus.
+
+```ruby
+navbar_dropdown "Multiple things" do
+  navbar_item Article
+  navbar_item Comment
+  navbar_divider
+  navbar_item User
 end
 ```
 

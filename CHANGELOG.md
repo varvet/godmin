@@ -1,6 +1,17 @@
 # Changelog
 
-### 0.11.3 - Unreleased
+### 0.12.0 - Unreleased
+Features
+- Adds new navigation helpers for building a custom navbar (https://github.com/varvet/godmin/issues/54)
+
+Other
+- Removes the godmin router method
+
+In order to upgrade:
+- Remove the `godmin do` block from the `config/routes.rb` file
+- Specify a root route if there is none already
+- Create a `shared/_navigation.html.erb` partial if there is none already
+
 Bug fixes
 - Fixes issue with authentication generator not modifying the application controller
 

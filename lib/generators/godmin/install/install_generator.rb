@@ -14,10 +14,13 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
   def create_routes
     inject_into_file "config/routes.rb", before: /^end/ do
       <<-END.strip_heredoc.indent(2)
-        godmin do
-        end
+        root to: "application#welcome"
       END
     end
+  end
+
+  def create_navigation
+    create_file File.join("app/views", namespaced_path, "shared/_navigation.html.erb")
   end
 
   def modify_application_controller
