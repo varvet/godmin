@@ -6,7 +6,17 @@ Godmin.Datetimepickers = (function() {
     initializeState();
   }
 
-  function initializeEvents() {}
+  function initializeEvents() {
+    $('form').on('dp.change', function(e) {
+      $(e.target).attr('data-timestamp', e.date.format());
+    });
+
+    $('form').on('submit', function() {
+      $('[data-timestamp]').each(function() {
+        $(this).val($(this).attr('data-timestamp'));
+      });
+    });
+  }
 
   function initializeState() {
     initializeDatepicker($('[data-behavior~=datepicker]'));

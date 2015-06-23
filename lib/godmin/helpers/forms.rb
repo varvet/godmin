@@ -36,14 +36,20 @@ module Godmin
       def date_field(attribute, options = {})
         text_field(attribute, options.deep_merge(
           value: datetime_value(attribute, options, :datepicker),
-          data: { behavior: "datepicker" }
+          data: {
+            behavior: "datepicker",
+            timestamp: datetime_timestamp(attribute, options)
+          }
         ))
       end
 
       def datetime_field(attribute, options = {})
         text_field(attribute, options.deep_merge(
           value: datetime_value(attribute, options, :datetimepicker),
-          data: { behavior: "datetimepicker" }
+          data: {
+            behavior: "datetimepicker",
+            timestamp: datetime_timestamp(attribute, options)
+          }
         ))
       end
 
@@ -72,6 +78,11 @@ module Godmin
       def datetime_value(attribute, options, format)
         value = options[:value] || @object.send(attribute)
         value.try(:strftime, @template.translate_scoped("datetimepickers.#{format}"))
+      end
+
+      def datetime_timestamp(attribute, options)
+        value = options[:value] || @object.send(attribute)
+        value.to_s
       end
     end
   end
