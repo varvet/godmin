@@ -41,4 +41,4 @@ en:
         other: "Showing %{count} out of %{total} %{resource}"
     datetimepickers:
       datepicker: ! "%m/%d/%Y"
-      datetimepicker: ! "%m/%d/%Y%l:%M %p"
+      datetimepicker: ! "%m/%d/%Y %l:%M %p"
