@@ -6,6 +6,8 @@
 
 Godmin is an admin framework for Rails 4+.
 
+![Screenshot](https://raw.githubusercontent.com/varvet/godmin/master/screenshot.png)
+
 - [Installation](#installation)
 	- [Standalone installation](#standalone-installation)
 	- [Engine installation](#engine-installation)
