@@ -816,6 +816,8 @@ If you wish to translate the datetimepicker, add the following to your `app/asse
 //= require godmin
 ```
 
+Please note that the datepickers default to en-GB, not en-US, because Rails cannot automatically parse en-US dates.
+
 ### Select boxes
 
 Make a [selectize.js](http://brianreavis.github.io/selectize.js/) select box out of a text field or select box:
