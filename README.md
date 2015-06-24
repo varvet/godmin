@@ -18,6 +18,7 @@ Godmin is an admin framework for Rails 4+.
 	- [Resource fetching, building and saving](#resource-fetching-building-and-saving)
 	- [Redirecting](#redirecting)
 	- [Pagination](#pagination)
+	- [Exporting](#exporting)
 - [Views](#views)
   - [Forms](#forms)
 	- [Navigation](#navigation)
@@ -172,7 +173,7 @@ By now we have a basic admin interface for managing articles.
 
 As we saw in the example above, resources are divided into controllers and service objects. Actions, redirects, params permitting etc go in the controller while resource fetching, building, sorting, filtering etc go in the service object. This makes the service objects small and easy to test.
 
-We have already seen two methods at play: `attrs_for_index` and `attrs_for_form`. We will now look at some additional resource concepts.
+We have already seen three methods at play: `attrs_for_index`, `attrs_for_show` and `attrs_for_form`. We will now look at some additional resource concepts.
 
 ### Scopes
 
@@ -460,6 +461,18 @@ class ArticlesService
   def per_page
     50
   end
+end
+```
+
+### Exporting
+
+The `attrs_for_export` method in the service object makes it possible to mark attributes or methods on the model as exportable. When implemented, an export button will appear on the index page with options for both CSV and JSON export.
+
+```ruby
+class ArticlesService
+  include Godmin::Resources::Service
+
+  attrs_for_export :id, :title, :created_at, :updated_at
 end
 ```
 
