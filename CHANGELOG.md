@@ -1,6 +1,6 @@
 # Changelog
 
-### 0.12.0 - Unreleased
+### 0.12.0 - 2015-06-30
 Features
 - Adds new navigation helpers for building a custom navbar (https://github.com/varvet/godmin/issues/54)
 
