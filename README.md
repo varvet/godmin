@@ -25,7 +25,7 @@ Godmin differs from tools like [ActiveAdmin](http://activeadmin.info/) and [Rail
 	- [Exporting](#exporting)
 - [Views](#views)
   - [Forms](#forms)
-	- [Navigation](#navigation)
+  - [Navigation](#navigation)
 - [Authentication](#authentication)
 	- [Built in authentication](#built-in-authentication)
 	- [Shared authentication](#shared-authentication)
