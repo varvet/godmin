@@ -8,7 +8,7 @@ module Godmin
       end
 
       def setup
-        @article_service = ArticleService.new
+        @article_service = Fakes::ArticleService.new
       end
 
       def test_returns_resources_when_no_scopes_are_defined
