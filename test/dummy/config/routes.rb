@@ -1,4 +1,3 @@
 Rails.application.routes.draw do
-
-  mount Godmin::Engine => "/godmin"
+  root to: "application#welcome"
 end

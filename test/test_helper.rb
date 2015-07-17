@@ -4,6 +4,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require "minitest/reporters"
+require "capybara/rails"
 
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(
   color: true
@@ -25,6 +26,7 @@ def namespaced_as(namespace)
   Godmin.namespace = nil
 end
 
+# TODO: move to dummy folder or something?
 # module Godmin
   class Article
   end
@@ -92,3 +94,7 @@ end
     end
   end
 # end
+
+class ActionDispatch::IntegrationTest
+  include Capybara::DSL
+end

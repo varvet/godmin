@@ -29,6 +29,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "sass-rails", ">= 4.0"
   gem.add_dependency "selectize-rails", "~> 0.12.0"
 
+  gem.add_development_dependency "capybara"
   gem.add_development_dependency "sqlite3"
   gem.add_development_dependency "minitest"
   gem.add_development_dependency "minitest-reporters"
