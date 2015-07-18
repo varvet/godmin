@@ -29,6 +29,7 @@ module Godmin
 
     def prepend_view_paths
       append_view_path Godmin::ResourceResolver.new(controller_path)
+      append_view_path Godmin::SharedResolver.new(controller_path)
       # prepend_view_path Godmin::GodminResolver.new(controller_name)
       # prepend_view_path Godmin::EngineResolver.new(controller_name)
     end
