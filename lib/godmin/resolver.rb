@@ -7,16 +7,14 @@
 # Issues:
 # - Adding template files during tests seem to lead to random test failures,
 #   running single tests work fine though...
-# - The base path of the resolver shouldn't need to be absolute. It works
-#   fine while running the app, but not in the tests...
+# - Will the admin prefix be present if app run in engine?
 
 module Godmin
   class BaseResolver < ::ActionView::FileSystemResolver
     def initialize(controller_path)
-      # TODO: this is where tests fail if we don't use absolute path
-      # it should be enough with just app/views, which would solve
-      # the namespace issue
-      super File.join(Rails.application.root, "app/views")
+      super File.join(
+        [Rails.application.root, Godmin.namespace, "app/views"].compact
+      )
       @controller_path = controller_path
     end
 
