@@ -3,8 +3,8 @@ ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
-require "minitest/reporters"
 require "capybara/rails"
+require "minitest/reporters"
 
 # TODO: what to call these?
 require File.expand_path("../fakes/article.rb",  __FILE__)
@@ -32,4 +32,13 @@ end
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
+
+  private
+
+  def with_template(path, content)
+    path = File.expand_path("../dummy/app/views/#{path}", __FILE__)
+    File.open(path, "w") { |file| file.write content }
+    yield
+    File.delete(path)
+  end
 end

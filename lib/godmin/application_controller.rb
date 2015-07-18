@@ -28,8 +28,9 @@ module Godmin
     private
 
     def prepend_view_paths
-      prepend_view_path Godmin::GodminResolver.new(controller_name)
-      prepend_view_path Godmin::EngineResolver.new(controller_name)
+      append_view_path Godmin::ResourceResolver.new(controller_path)
+      # prepend_view_path Godmin::GodminResolver.new(controller_name)
+      # prepend_view_path Godmin::EngineResolver.new(controller_name)
     end
 
     def authentication_enabled?
