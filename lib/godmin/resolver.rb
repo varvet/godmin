@@ -39,6 +39,7 @@ module Godmin
     def template_paths(_prefix, _partial)
       [
         File.join(@path, "resource", "columns"), # could be prefix, if it can be cleaned?
+        File.join(@path, "resource", "filters"), # could be prefix, if it can be cleaned?
         File.join(@path, "resource"),
         File.join(Godmin::Engine.root, "app/views/godmin/resource")
       ]
