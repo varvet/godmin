@@ -36,4 +36,8 @@ Dummy::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  # Disable caching of templates so that our template override
+  # tests work properly.
+  config.action_view.cache_template_loading = false
 end

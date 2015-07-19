@@ -5,10 +5,6 @@
 # - We really need tests for mounted stuff as well..
 
 # Issues:
-# - Adding template files during tests seem to lead to random test failures,
-#   running single tests work fine though... It works better if cache_classes
-#   is set to false in the environtment config... Using a different capybara
-#   driver does nothing.
 # - Will the admin prefix be present if app run in engine?
 
 module Godmin

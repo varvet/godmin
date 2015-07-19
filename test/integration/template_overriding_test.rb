@@ -7,25 +7,21 @@ class TemplateOverridingTest < ActionDispatch::IntegrationTest
   end
 
   def test_override_template
-    with_template "articles/index.html.erb", "foo" do
-      visit articles_path
-      assert page.has_content? "foo"
-    end
+    add_template "articles/index.html.erb", "foo"
+    visit articles_path
+    assert page.has_content? "foo"
   end
 
   def test_override_resource_template
-    with_template "resource/index.html.erb", "foo" do
-      visit articles_path
-      assert page.has_content? "foo"
-    end
+    add_template "resource/index.html.erb", "foo"
+    visit articles_path
+    assert page.has_content? "foo"
   end
 
   def test_override_template_and_resource_template
-    with_template "articles/index.html.erb", "foo" do
-      with_template "resource/index.html.erb", "bar" do
-        visit articles_path
-        assert page.has_content? "foo"
-      end
-    end
+    add_template "articles/index.html.erb", "foo"
+    add_template "resource/index.html.erb", "bar"
+    visit articles_path
+    assert page.has_content? "foo"
   end
 end
