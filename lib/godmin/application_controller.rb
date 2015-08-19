@@ -17,6 +17,7 @@ module Godmin
 
       helper_method :authentication_enabled?
       helper_method :authorization_enabled?
+      helper_method :blamespace
 
       before_action :prepend_view_paths
 
@@ -27,9 +28,56 @@ module Godmin
 
     private
 
+    def blamespace
+      return unless engine_constant
+      engine_constant.to_s.underscore
+    end
+
+    def engine_constant
+      GodminEngine.foo(self)
+    end
+
+    class GodminEngine
+      def self.foo(obj)
+        engine = obj.class.to_s.deconstantize.split("::").reverse.map(&:constantize).detect do |mod|
+          mod.respond_to?(:use_relative_model_naming?) && mod.use_relative_model_naming?
+        end
+        if engine
+          RealEngine.new(engine)
+        else
+          FakeEngine.new
+        end
+      end
+    end
+
+    class RealEngine
+      attr_reader :engine
+      def intialize(engine)
+        @engine = engine
+      end
+
+      def root
+        engine.root
+      end
+
+      def name
+        engine.engine_name
+      end
+    end
+
+    class FakeEngine
+      def root
+        Rails.application.root
+      end
+
+      def name
+        nil
+      end
+    end
+
     def prepend_view_paths
-      append_view_path Godmin::ResourceResolver.new(controller_path)
-      append_view_path Godmin::GodminResolver.new(controller_path)
+      append_view_path Godmin::ResourceResolver.new(controller_path, engine_constant)
+      append_view_path Godmin::GodminResolver.new(controller_path, engine_constant)
     end
 
     def authentication_enabled?
