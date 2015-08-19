@@ -20,7 +20,7 @@ module Godmin
       end
 
       def column_value(resource, attribute)
-        partial_override "#{resource.model_name.route_key}/columns/#{attribute}", resource: resource do
+        partial_override "#{controller_path}/columns/#{attribute}", resource: resource do
           column_value = resource.send(attribute)
 
           if column_value.is_a?(Date) || column_value.is_a?(Time)
