@@ -6,10 +6,10 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <%= render partial: "shared/navigation" %>
+          <%= render partial: [Godmin.namespace, "shared/navigation"].compact.join("/") %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <%= render partial: "shared/navigation_aside" %>
+          <%= render partial: [Godmin.namespace, "shared/navigation_aside"].compact.join("/") %>
         </ul>
       </div>
     </div>
