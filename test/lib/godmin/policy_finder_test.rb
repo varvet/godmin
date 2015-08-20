@@ -21,38 +21,28 @@ module Godmin
   module Authorization
     class PolicyFinderTest < ActiveSupport::TestCase
       def test_find_by_model
-        namespaced_as "namespace" do
-          policy = PolicyFinder.find(ArticlePolicyTest)
-          assert_equal Namespace::ArticlePolicyTestPolicy, policy
-        end
+        policy = PolicyFinder.find(ArticlePolicyTest, "namespace")
+        assert_equal Namespace::ArticlePolicyTestPolicy, policy
       end
 
       def test_find_by_class
-        namespaced_as "namespace" do
-          policy = PolicyFinder.find(Object)
-          assert_equal Namespace::ObjectPolicy, policy
-        end
+        policy = PolicyFinder.find(Object, "namespace")
+        assert_equal Namespace::ObjectPolicy, policy
       end
 
       def test_find_by_symbol
-        namespaced_as "namespace" do
-          policy = PolicyFinder.find(:article_policy_test)
-          assert_equal Namespace::ArticlePolicyTestPolicy, policy
-        end
+        policy = PolicyFinder.find(:article_policy_test, "namespace")
+        assert_equal Namespace::ArticlePolicyTestPolicy, policy
       end
 
       def test_override_policy_class_on_class
-        namespaced_as "namespace" do
-          policy = PolicyFinder.find(OverriddenPolicyTest)
-          assert_equal Namespace::ObjectPolicy, policy
-        end
+        policy = PolicyFinder.find(OverriddenPolicyTest, "namespace")
+        assert_equal Namespace::ObjectPolicy, policy
       end
 
       def test_override_policy_class_on_instance
-        namespaced_as "namespace" do
-          policy = PolicyFinder.find(OverriddenPolicyTest.new)
-          assert_equal Namespace::ObjectPolicy, policy
-        end
+        policy = PolicyFinder.find(OverriddenPolicyTest.new, "namespace")
+        assert_equal Namespace::ObjectPolicy, policy
       end
     end
   end

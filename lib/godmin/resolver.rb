@@ -28,7 +28,7 @@ module Godmin
   class ResourceResolver < BaseResolver
     def template_paths(_name, prefix, _partial)
       [
-        File.join(@path, clean_prefix(prefix, @engine.name)),
+        File.join(@path, clean_prefix(prefix, @engine.namespace)),
         File.join(Godmin::Engine.root, "app/views", clean_prefix(prefix, "godmin"))
       ]
     end
@@ -53,7 +53,7 @@ module Godmin
     private
 
     def clean_prefix(prefix)
-      prefix.sub(/\A#{@engine.name}/, "")
+      prefix.sub(/\A#{@engine.namespace}/, "")
     end
   end
 end
