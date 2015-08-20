@@ -2,7 +2,7 @@ module Godmin
   module Authorization
     class PolicyFinder
       class << self
-        def find(object)
+        def find(object, namespace)
           return object.policy_class if object.respond_to?(:policy_class)
           return object.class.policy_class if object.class.respond_to?(:policy_class)
           klass =
@@ -18,8 +18,8 @@ module Godmin
               object.class
             end
 
-          if Godmin.namespace
-            "#{Godmin.namespace.classify}::#{klass}Policy"
+          if namespace
+            "#{namespace.classify}::#{klass}Policy"
           else
             "#{klass}Policy"
           end.constantize

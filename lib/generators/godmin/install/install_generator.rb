@@ -1,16 +1,6 @@
 require "godmin/generators/base"
 
 class Godmin::InstallGenerator < Godmin::Generators::Base
-  def create_initializer
-    create_file "config/initializers/godmin.rb" do
-      <<-END.strip_heredoc
-        Godmin.configure do |config|
-          config.namespace = #{namespace ? "\"#{namespaced_path.join("/")}\"" : "nil"}
-        end
-      END
-    end
-  end
-
   def create_routes
     inject_into_file "config/routes.rb", before: /^end/ do
       <<-END.strip_heredoc.indent(2)

@@ -94,15 +94,6 @@ Godmin should be up and running at `localhost:3000/admin`
 
 Installing Godmin does a number of things to the Rails application.
 
-A `config/initializers/godmin.rb` is created:
-```ruby
-Godmin.configure do |config|
-  config.namespace = nil
-end
-```
-
-If Godmin was installed inside an engine, as in the previous section, the namespace is the underscored name of the engine, e.g. `"admin"`.
-
 The application controller is modified as such:
 ```ruby
 class ApplicationController < ActionController::Base
