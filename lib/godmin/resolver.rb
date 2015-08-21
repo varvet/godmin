@@ -9,7 +9,7 @@ module Godmin
     def find_templates(name, prefix, partial, details)
       templates = []
 
-      template_paths(name, prefix, partial).each do |path|
+      template_paths(prefix).each do |path|
         if templates.present?
           break
         else
@@ -26,7 +26,7 @@ module Godmin
   # { name: form } => [app/views/resource/_form, godmin/app/views/godmin/resource/_form]
   # { name: title } => [app/views/resource/columns/_title]
   class ResourceResolver < BaseResolver
-    def template_paths(_name, prefix, _partial)
+    def template_paths(prefix)
       [
         File.join(@path, clean_prefix(prefix, @engine_namespace)),
         File.join(Godmin::Engine.root, "app/views", clean_prefix(prefix, "godmin"))
@@ -44,7 +44,7 @@ module Godmin
   # { name: welcome, prefix: application } => [godmin/app/views/godmin/application/welcome]
   # { name: navigation, prefix: shared } => [godmin/app/views/godmin/shared/navigation]
   class GodminResolver < BaseResolver
-    def template_paths(_name, prefix, _partial)
+    def template_paths(prefix)
       [
         File.join(Godmin::Engine.root, "app/views/godmin", clean_prefix(prefix))
       ]

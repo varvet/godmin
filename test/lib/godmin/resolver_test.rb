@@ -2,53 +2,48 @@ require "test_helper"
 
 module Godmin
   class ResolverTest < ActiveSupport::TestCase
-    def test_engine_resolver_template_paths
-      skip
-      namespaced_as "namespace" do
-        assert_equal [
-          "namespace/controller_name/prefix",
-          "namespace/controller_name",
-          "namespace/prefix",
-          "namespace/resource/prefix",
-          "namespace/resource",
-          "namespace"
-        ], EngineResolver.new("controller_name").template_paths("prefix", false)
+    module Admin
+      class Engine < Rails::Engine
+        isolate_namespace Admin
       end
+
+      class Controller < ActionController::Base; end
     end
 
-    def test_engine_resolver_template_paths_when_namespace_is_in_prefix
-      skip
-      namespaced_as "namespace" do
-        assert_equal [
-          "namespace/controller_name/prefix",
-          "namespace/controller_name",
-          "namespace/prefix",
-          "namespace/resource/prefix",
-          "namespace/resource",
-          "namespace"
-        ], EngineResolver.new("controller_name").template_paths("namespace/prefix", false)
-      end
+    class Controller < ActionController::Base; end
+
+    def test_default_resource_resolver
+      resolver = ResourceResolver.new("articles", EngineWrapper.new(Controller))
+
+      assert_equal [
+        File.join(Rails.application.root, "app/views/resource"),
+        File.join(Godmin::Engine.root, "app/views/godmin/resource")
+      ], resolver.template_paths("articles")
     end
 
-    def test_engine_resolver_template_paths_when_prefix_contains_godmin
-      skip
-      namespaced_as "namespace" do
-        assert_equal [], EngineResolver.new("controller_name").template_paths("godmin/namespace/prefix", false)
-      end
+    def test_default_godmin_resolver
+      resolver = GodminResolver.new("articles", EngineWrapper.new(Controller))
+
+      assert_equal [
+        File.join(Godmin::Engine.root, "app/views/godmin/shared")
+      ], resolver.template_paths("shared")
     end
 
-    def test_godmin_resolver_template_paths
-      skip
-      namespaced_as "namespace" do
-        assert_equal [
-          "godmin/controller_name/prefix",
-          "godmin/controller_name",
-          "godmin/prefix",
-          "godmin/resource/prefix",
-          "godmin/resource",
-          "godmin"
-        ], GodminResolver.new("controller_name").template_paths("prefix", false)
-      end
+    def test_engine_resource_resolver
+      resolver = ResourceResolver.new("godmin/resolver_test/admin/articles", EngineWrapper.new(Admin::Controller))
+
+      assert_equal [
+        File.join(Admin::Engine.root, "app/views/godmin/resolver_test/admin/resource"),
+        File.join(Godmin::Engine.root, "app/views/godmin/resource")
+      ], resolver.template_paths("godmin/resolver_test/admin/articles")
+    end
+
+    def test_engine_godmin_resolver
+      resolver = GodminResolver.new("godmin/resolver_test/admin/articles", EngineWrapper.new(Admin::Controller))
+
+      assert_equal [
+        File.join(Godmin::Engine.root, "app/views/godmin/shared")
+      ], resolver.template_paths("godmin/resolver_test/admin/shared")
     end
   end
 end
