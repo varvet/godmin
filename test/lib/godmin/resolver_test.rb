@@ -12,7 +12,7 @@ module Godmin
 
     class Controller < ActionController::Base; end
 
-    def test_default_resource_resolver
+    def test_resource_resolver_when_not_namespaced
       resolver = ResourceResolver.new("articles", EngineWrapper.new(Controller))
 
       assert_equal [
@@ -21,7 +21,7 @@ module Godmin
       ], resolver.template_paths("articles")
     end
 
-    def test_default_godmin_resolver
+    def test_godmin_resolver_when_not_namespaced
       resolver = GodminResolver.new("articles", EngineWrapper.new(Controller))
 
       assert_equal [
@@ -29,7 +29,7 @@ module Godmin
       ], resolver.template_paths("shared")
     end
 
-    def test_engine_resource_resolver
+    def test_resource_resolver_when_namespaced
       resolver = ResourceResolver.new("godmin/resolver_test/admin/articles", EngineWrapper.new(Admin::Controller))
 
       assert_equal [
@@ -38,7 +38,7 @@ module Godmin
       ], resolver.template_paths("godmin/resolver_test/admin/articles")
     end
 
-    def test_engine_godmin_resolver
+    def test_godmin_resolver_when_namespaced
       resolver = GodminResolver.new("godmin/resolver_test/admin/articles", EngineWrapper.new(Admin::Controller))
 
       assert_equal [
