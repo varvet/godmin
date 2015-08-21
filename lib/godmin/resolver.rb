@@ -21,32 +21,13 @@ module Godmin
     end
   end
 
-  # # Matches templates such as:
-  # # { name: index } => [app/views/resource/index, godmin/app/views/godmin/resource/index]
-  # # { name: form } => [app/views/resource/_form, godmin/app/views/godmin/resource/_form]
-  # # { name: title } => [app/views/resource/columns/_title]
-  # class ResourceResolver < BaseResolver
-  #   def template_paths(prefix)
-  #     [
-  #       File.join(@engine_wrapper.root, "app/views", clean_prefix_1(prefix)),
-  #       File.join(Godmin::Engine.root, "app/views", clean_prefix_2(prefix))
-  #     ]
-  #   end
-  #
-  #   private
-  #
-  #   def clean_prefix_1(prefix)
-  #     prefix.sub(/\A#{@controller_path}/, File.join(@engine_wrapper.namespaced_path, "resource"))
-  #   end
-  #
-  #   def clean_prefix_2(prefix)
-  #     prefix.sub(/\A#{@controller_path}/, "godmin/resource")
-  #   end
-  # end
-
   # Matches templates such as:
+  #
+  # { name: index, prefix: articles }      => [app/views/resource/index, godmin/app/views/godmin/resource/index]
+  # { name: form, prefix: articles }       => [app/views/resource/_form, godmin/app/views/godmin/resource/_form]
+  # { name: title, prefix: columns }       => [app/views/resource/columns/_title]
   # { name: welcome, prefix: application } => [godmin/app/views/godmin/application/welcome]
-  # { name: navigation, prefix: shared } => [godmin/app/views/godmin/shared/navigation]
+  # { name: navigation, prefix: shared }   => [godmin/app/views/godmin/shared/navigation]
   class GodminResolver < BaseResolver
     def template_paths(prefix)
       [
