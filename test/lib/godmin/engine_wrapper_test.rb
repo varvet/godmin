@@ -2,9 +2,9 @@ require "test_helper"
 
 module Godmin
   class EngineWrapperTest < ActiveSupport::TestCase
-    module FooBarBaz
+    module Admin
       class Engine < Rails::Engine
-        isolate_namespace FooBarBaz
+        isolate_namespace Admin
       end
 
       class Controller < ActionController::Base; end
@@ -33,23 +33,23 @@ module Godmin
     end
 
     def test_engine_namespace
-      engine_wrapper = EngineWrapper.new(FooBarBaz::Controller)
-      assert_equal FooBarBaz, engine_wrapper.namespace
+      engine_wrapper = EngineWrapper.new(Admin::Controller)
+      assert_equal Admin, engine_wrapper.namespace
     end
 
     def test_engine_namespaced?
-      engine_wrapper = EngineWrapper.new(FooBarBaz::Controller)
+      engine_wrapper = EngineWrapper.new(Admin::Controller)
       assert_equal true, engine_wrapper.namespaced?
     end
 
     def test_engine_namespaced_path
-      engine_wrapper = EngineWrapper.new(FooBarBaz::Controller)
-      assert_equal ["godmin", "engine_wrapper_test", "foo_bar_baz"], engine_wrapper.namespaced_path
+      engine_wrapper = EngineWrapper.new(Admin::Controller)
+      assert_equal ["godmin", "engine_wrapper_test", "admin"], engine_wrapper.namespaced_path
     end
 
     def test_engine_root
-      engine_wrapper = EngineWrapper.new(FooBarBaz::Controller)
-      assert_equal FooBarBaz::Engine.root, engine_wrapper.root
+      engine_wrapper = EngineWrapper.new(Admin::Controller)
+      assert_equal Admin::Engine.root, engine_wrapper.root
     end
   end
 end
