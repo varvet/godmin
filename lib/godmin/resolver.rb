@@ -1,5 +1,5 @@
 module Godmin
-  class BaseResolver < ::ActionView::FileSystemResolver
+  class Resolver < ::ActionView::FileSystemResolver
     def initialize(controller_path, engine_wrapper)
       super ""
       @controller_path = controller_path
@@ -19,16 +19,14 @@ module Godmin
 
       templates
     end
-  end
 
-  # Matches templates such as:
-  #
-  # { name: index, prefix: articles }      => [app/views/resource/index, godmin/app/views/godmin/resource/index]
-  # { name: form, prefix: articles }       => [app/views/resource/_form, godmin/app/views/godmin/resource/_form]
-  # { name: title, prefix: columns }       => [app/views/resource/columns/_title]
-  # { name: welcome, prefix: application } => [godmin/app/views/godmin/application/welcome]
-  # { name: navigation, prefix: shared }   => [godmin/app/views/godmin/shared/navigation]
-  class GodminResolver < BaseResolver
+    # Matches templates such as:
+    #
+    # { name: index, prefix: articles }      => [app/views/resource/index, godmin/app/views/godmin/resource/index]
+    # { name: form, prefix: articles }       => [app/views/resource/_form, godmin/app/views/godmin/resource/_form]
+    # { name: title, prefix: columns }       => [app/views/resource/columns/_title]
+    # { name: welcome, prefix: application } => [godmin/app/views/godmin/application/welcome]
+    # { name: navigation, prefix: shared }   => [godmin/app/views/godmin/shared/navigation]
     def template_paths(prefix)
       [
         File.join(@engine_wrapper.root, "app/views", resource_path_for_engine(prefix)),

@@ -18,7 +18,7 @@ module Godmin
     end
 
     def test_godmin_resolver_when_not_namespaced
-      resolver = GodminResolver.new("articles", @engine_wrapper_1)
+      resolver = Resolver.new("articles", @engine_wrapper_1)
 
       assert_equal [
         File.join(@engine_wrapper_1.root, "app/views/resource"),
@@ -28,7 +28,7 @@ module Godmin
     end
 
     def test_godmin_resolver_when_namespaced
-      resolver = GodminResolver.new("godmin/resolver_test/admin/articles", @engine_wrapper_2)
+      resolver = Resolver.new("godmin/resolver_test/admin/articles", @engine_wrapper_2)
 
       assert_equal [
         File.join(@engine_wrapper_2.root, "app/views/godmin/resolver_test/admin/resource"),
