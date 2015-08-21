@@ -1,8 +1,8 @@
 module Godmin
   class BaseResolver < ::ActionView::FileSystemResolver
-    def initialize(controller_path, engine)
-      super File.join(engine.root, "app/views")
-      @engine = engine
+    def initialize(controller_path, engine_wrapper)
+      super File.join(engine_wrapper.root, "app/views")
+      @engine_namespace = engine_wrapper.namespace.to_s.underscore
       @controller_path = controller_path
     end
 
@@ -28,7 +28,7 @@ module Godmin
   class ResourceResolver < BaseResolver
     def template_paths(_name, prefix, _partial)
       [
-        File.join(@path, clean_prefix(prefix, @engine.namespace)),
+        File.join(@path, clean_prefix(prefix, @engine_namespace)),
         File.join(Godmin::Engine.root, "app/views", clean_prefix(prefix, "godmin"))
       ]
     end
@@ -53,7 +53,7 @@ module Godmin
     private
 
     def clean_prefix(prefix)
-      prefix.sub(/\A#{@engine.namespace}/, "")
+      prefix.sub(/\A#{@engine_namespace}/, "")
     end
   end
 end

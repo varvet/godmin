@@ -6,10 +6,10 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <%= render partial: [engine_namespace, "shared/navigation"].compact.join("/") %>
+          <%= render partial: File.join(engine_wrapper.namespaced_path, "shared/navigation") %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <%= render partial: [engine_namespace, "shared/navigation_aside"].compact.join("/") %>
+          <%= render partial: File.join(engine_wrapper.namespaced_path, "shared/navigation_aside") %>
         </ul>
       </div>
     </div>

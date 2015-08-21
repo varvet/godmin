@@ -2,8 +2,8 @@
 <html>
   <head>
     <title><%= t("godmin.title") %></title>
-    <%= stylesheet_link_tag [engine_namespace, "application"].compact.join("/"), media: "all" %>
-    <%= javascript_include_tag [engine_namespace, "application"].compact.join("/") %>
+    <%= stylesheet_link_tag File.join(engine_wrapper.namespaced_path, "application"), media: "all" %>
+    <%= javascript_include_tag File.join(engine_wrapper.namespaced_path, "application") %>
     <%= csrf_meta_tags %>
     <%= yield :head %>
   </head>
