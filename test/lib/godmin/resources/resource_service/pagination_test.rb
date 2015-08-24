@@ -4,7 +4,7 @@ module Godmin
   module ResourceService
     class PaginationTest < ActiveSupport::TestCase
       def setup
-        @article_service = ArticleService.new
+        @article_service = Fakes::ArticleService.new
 
         resources_class = Class.new do
           def limit(_limit_param)
