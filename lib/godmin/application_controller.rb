@@ -33,8 +33,7 @@ module Godmin
     end
 
     def append_view_paths
-      append_view_path Godmin::ResourceResolver.new(controller_path, engine_wrapper)
-      append_view_path Godmin::GodminResolver.new(controller_path, engine_wrapper)
+      append_view_path Godmin::Resolver.new(controller_path, engine_wrapper)
     end
 
     def authentication_enabled?

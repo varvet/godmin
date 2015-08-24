@@ -1,9 +1,9 @@
 module Godmin
-  class BaseResolver < ::ActionView::FileSystemResolver
+  class Resolver < ::ActionView::FileSystemResolver
     def initialize(controller_path, engine_wrapper)
-      super File.join(engine_wrapper.root, "app/views")
-      @engine_namespace = engine_wrapper.namespace.to_s.underscore
+      super ""
       @controller_path = controller_path
+      @engine_wrapper = engine_wrapper
     end
 
     def find_templates(name, prefix, partial, details)
@@ -19,41 +19,34 @@ module Godmin
 
       templates
     end
-  end
 
-  # Matches templates such as:
-  # { name: index } => [app/views/resource/index, godmin/app/views/godmin/resource/index]
-  # { name: form } => [app/views/resource/_form, godmin/app/views/godmin/resource/_form]
-  # { name: title } => [app/views/resource/columns/_title]
-  class ResourceResolver < BaseResolver
+    # Matches templates such as:
+    #
+    # { name: index, prefix: articles }      => [app/views/resource/index, godmin/app/views/godmin/resource/index]
+    # { name: form, prefix: articles }       => [app/views/resource/_form, godmin/app/views/godmin/resource/_form]
+    # { name: title, prefix: columns }       => [app/views/resource/columns/_title]
+    # { name: welcome, prefix: application } => [godmin/app/views/godmin/application/welcome]
+    # { name: navigation, prefix: shared }   => [godmin/app/views/godmin/shared/navigation]
     def template_paths(prefix)
       [
-        File.join(@path, clean_prefix(prefix, @engine_namespace)),
-        File.join(Godmin::Engine.root, "app/views", clean_prefix(prefix, "godmin"))
+        File.join(@engine_wrapper.root, "app/views", resource_path_for_engine(prefix)),
+        File.join(Godmin::Engine.root, "app/views/godmin", resource_path_for_godmin(prefix)),
+        File.join(Godmin::Engine.root, "app/views/godmin", default_path_for_godmin(prefix))
       ]
     end
 
     private
 
-    def clean_prefix(prefix, namespace)
-      prefix.sub(/\A#{@controller_path}/, [namespace, "resource"].compact.join("/"))
-    end
-  end
-
-  # Matches templates such as:
-  # { name: welcome, prefix: application } => [godmin/app/views/godmin/application/welcome]
-  # { name: navigation, prefix: shared } => [godmin/app/views/godmin/shared/navigation]
-  class GodminResolver < BaseResolver
-    def template_paths(prefix)
-      [
-        File.join(Godmin::Engine.root, "app/views/godmin", clean_prefix(prefix))
-      ]
+    def resource_path_for_engine(prefix)
+      prefix.sub(/\A#{@controller_path}/, File.join(@engine_wrapper.namespaced_path, "resource"))
     end
 
-    private
+    def resource_path_for_godmin(prefix)
+      prefix.sub(/\A#{@controller_path}/, "resource")
+    end
 
-    def clean_prefix(prefix)
-      prefix.sub(/\A#{@engine_namespace}/, "")
+    def default_path_for_godmin(prefix)
+      prefix.sub(/\A#{File.join(@engine_wrapper.namespaced_path)}/, "")
     end
   end
 end
