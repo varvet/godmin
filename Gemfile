@@ -9,3 +9,7 @@ gemspec
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
+
+# The dummy app loads whatever is specified in this gemfile, therefore
+# we add the admin engine used by the dummy app here
+gem "admin", path: "test/dummy/admin", group: [:test, :development]
