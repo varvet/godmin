@@ -1,10 +1,10 @@
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-6 col-md-offset-3">
     <div class="jumbotron">
-      <h1>Welcome aboard</h1>
+      <h1>Welcome</h1>
       <p>
-        You are now experiencing, first-hand, the power of Godmin:
-        an admin framework for Rails 4+, tweakable to the max.
+        You are running Godmin <%= Godmin::VERSION %>.
+        Add your own root route to the routes file in order to remove this page.
       </p>
       <p>
         <a href="https://github.com/varvet/godmin/" class="btn btn-primary btn-lg" role="button">
@@ -12,54 +12,6 @@
           Browse the documentation
         </a>
       </p>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="panel panel-default">
-          <div class="panel-heading">Scopes</div>
-          <div class="panel-body">
-            <p>Scopes are a way of sectioning resources, useful for quick navigation.</p>
-            <%= link_to "Read more about scopes", "#" %>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="panel panel-default">
-          <div class="panel-heading">Filters</div>
-          <div class="panel-body">
-            <p>Filters offer great flexibility when it comes to searching for resources.</p>
-            <%= link_to "Read more about filters", "#" %>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="panel panel-default">
-          <div class="panel-heading">Batch actions</div>
-          <div class="panel-body">
-            <p>Batch actions are an easy way to perform the same action on multiple resources.</p>
-            <%= link_to "Read more about batch actions", "#" %>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="panel panel-default">
-          <div class="panel-heading">Resource fetching</div>
-          <div class="panel-body">
-            <p>Control which resources to fetch, and apply arbitrary conditions, such as sorting.</p>
-            <%= link_to "Read more about resource fetching", "#" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">Version</div>
-      <div class="panel-body">
-        You are running Godmin <%= Godmin::VERSION %>
-      </div>
     </div>
   </div>
 </div>
