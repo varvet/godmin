@@ -30,8 +30,8 @@ module Godmin
     def template_paths(prefix)
       [
         File.join(@engine_wrapper.root, "app/views", resource_path_for_engine(prefix)),
-        File.join(Godmin::Engine.root, "app/views/godmin", resource_path_for_godmin(prefix)),
-        File.join(Godmin::Engine.root, "app/views/godmin", default_path_for_godmin(prefix))
+        File.join(Godmin::Engine.root, "app/views/godmin", default_path_for_godmin(prefix)),
+        File.join(Godmin::Engine.root, "app/views/godmin", resource_path_for_godmin(prefix))
       ]
     end
 
