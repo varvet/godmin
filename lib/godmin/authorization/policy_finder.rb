@@ -20,7 +20,7 @@ module Godmin
             end
 
           if namespace
-            "#{namespace.classify}::#{klass}Policy"
+            "#{namespace}::#{klass}Policy"
           else
             "#{klass}Policy"
           end.constantize

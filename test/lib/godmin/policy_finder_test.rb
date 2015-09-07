@@ -15,7 +15,7 @@ module Godmin
           end
         end
 
-        policy = PolicyFinder.find(klass, "godmin/authorization/policy_finder_test")
+        policy = PolicyFinder.find(klass, Godmin::Authorization::PolicyFinderTest)
         assert_equal ArticlePolicy, policy
       end
 
@@ -25,7 +25,7 @@ module Godmin
       end
 
       def test_find_by_symbol
-        policy = PolicyFinder.find(:article, "godmin/authorization/policy_finder_test")
+        policy = PolicyFinder.find(:article, Godmin::Authorization::PolicyFinderTest)
         assert_equal ArticlePolicy, policy
       end
 
