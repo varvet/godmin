@@ -1,6 +1,8 @@
 bundler_args: --without debug
 
 script: "bundle exec rake test"
+sudo: false
+cache: bundler
 
 rvm:
   - 2.0.0
