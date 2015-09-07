@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### 0.12.2 - 2015-09-07
 Bug fixes
 - Fixes broken sign in page
 
