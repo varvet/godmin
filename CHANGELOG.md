@@ -4,6 +4,13 @@
 Bug fixes
 - Fixes issue where column ordering on index table didn't work (https://github.com/varvet/godmin/issues/124)
 
+Other
+- Adds integration tests
+- Removes the namespace config in `initializers/godmin.rb`
+
+In order to upgrade:
+- Remove the `initializers/godmin.rb` file
+
 ### 0.12.0 - 2015-06-30
 Features
 - Adds new navigation helpers for building a custom navbar (https://github.com/varvet/godmin/issues/54)
