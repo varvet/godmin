@@ -1,0 +1,2 @@
+class SecretArticle < Article
+end

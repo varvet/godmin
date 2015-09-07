@@ -22,8 +22,8 @@ module Godmin
 
       assert_equal [
         File.join(@engine_wrapper_1.root, "app/views/resource"),
-        File.join(Godmin::Engine.root, "app/views/godmin/resource"),
-        File.join(Godmin::Engine.root, "app/views/godmin/articles")
+        File.join(Godmin::Engine.root, "app/views/godmin/articles"),
+        File.join(Godmin::Engine.root, "app/views/godmin/resource")
       ], resolver.template_paths("articles")
     end
 
@@ -32,8 +32,8 @@ module Godmin
 
       assert_equal [
         File.join(@engine_wrapper_2.root, "app/views/godmin/resolver_test/admin/resource"),
-        File.join(Godmin::Engine.root, "app/views/godmin/resource"),
-        File.join(Godmin::Engine.root, "app/views/godmin/articles")
+        File.join(Godmin::Engine.root, "app/views/godmin/articles"),
+        File.join(Godmin::Engine.root, "app/views/godmin/resource")
       ], resolver.template_paths("godmin/resolver_test/admin/articles")
     end
   end
