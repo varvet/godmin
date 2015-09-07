@@ -17,8 +17,9 @@ module Godmin
 
       helper_method :authentication_enabled?
       helper_method :authorization_enabled?
+      helper_method :engine_wrapper
 
-      before_action :prepend_view_paths
+      before_action :append_view_paths
 
       layout "godmin/application"
     end
@@ -27,9 +28,12 @@ module Godmin
 
     private
 
-    def prepend_view_paths
-      prepend_view_path Godmin::GodminResolver.new(controller_name)
-      prepend_view_path Godmin::EngineResolver.new(controller_name)
+    def engine_wrapper
+      EngineWrapper.new(self.class)
+    end
+
+    def append_view_paths
+      append_view_path Godmin::Resolver.new(controller_path, engine_wrapper)
     end
 
     def authentication_enabled?

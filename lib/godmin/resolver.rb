@@ -1,56 +1,52 @@
 module Godmin
   class Resolver < ::ActionView::FileSystemResolver
-    attr_accessor :namespace, :controller_name
-
-    def find_templates(name, prefix, partial, details)
-      template = []
-
-      template_paths(prefix, partial).each do |path|
-        template = super(name, path, partial, details)
-
-        break if template.present?
-      end
-
-      template
+    def initialize(controller_path, engine_wrapper)
+      super ""
+      @controller_path = controller_path
+      @engine_wrapper = engine_wrapper
     end
 
-    def template_paths(prefix, _partial)
-      prefix = clean_prefix(prefix)
+    def find_templates(name, prefix, partial, details)
+      templates = []
+
+      template_paths(prefix).each do |path|
+        if templates.present?
+          break
+        else
+          templates = super(name, path, partial, details)
+        end
+      end
+
+      templates
+    end
+
+    # Matches templates such as:
+    #
+    # { name: index, prefix: articles }      => [app/views/resource/index, godmin/app/views/godmin/resource/index]
+    # { name: form, prefix: articles }       => [app/views/resource/_form, godmin/app/views/godmin/resource/_form]
+    # { name: title, prefix: columns }       => [app/views/resource/columns/_title]
+    # { name: welcome, prefix: application } => [godmin/app/views/godmin/application/welcome]
+    # { name: navigation, prefix: shared }   => [godmin/app/views/godmin/shared/navigation]
+    def template_paths(prefix)
       [
-        [namespace, controller_name, prefix],
-        [namespace, controller_name],
-        [namespace, prefix],
-        [namespace, "resource", prefix],
-        [namespace, "resource"],
-        [namespace]
-      ].map { |path| path.compact.join("/") }.compact
+        File.join(@engine_wrapper.root, "app/views", resource_path_for_engine(prefix)),
+        File.join(Godmin::Engine.root, "app/views/godmin", resource_path_for_godmin(prefix)),
+        File.join(Godmin::Engine.root, "app/views/godmin", default_path_for_godmin(prefix))
+      ]
     end
 
     private
 
-    def clean_prefix(prefix)
-      prefix.gsub(/^#{namespace}\//, "")
-    end
-  end
-
-  class EngineResolver < Resolver
-    def initialize(controller_name)
-      super [Godmin.namespace, "app/views"].compact.join("/")
-      self.namespace = Godmin.namespace
-      self.controller_name = controller_name
+    def resource_path_for_engine(prefix)
+      prefix.sub(/\A#{@controller_path}/, File.join(@engine_wrapper.namespaced_path, "resource"))
     end
 
-    def template_paths(prefix, _partial)
-      return [] if prefix =~ /^godmin\//
-      super
+    def resource_path_for_godmin(prefix)
+      prefix.sub(/\A#{@controller_path}/, "resource")
     end
-  end
 
-  class GodminResolver < Resolver
-    def initialize(controller_name)
-      super [Godmin::Engine.root, "app/views"].compact.join("/")
-      self.namespace = "godmin"
-      self.controller_name = controller_name
+    def default_path_for_godmin(prefix)
+      prefix.sub(/\A#{File.join(@engine_wrapper.namespaced_path)}/, "")
     end
   end
 end

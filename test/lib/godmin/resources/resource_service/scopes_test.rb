@@ -3,17 +3,17 @@ require "test_helper"
 module Godmin
   module ResourceService
     class ScopesTest < ActiveSupport::TestCase
-      class NoScopesService
-        include Godmin::Resources::ResourceService
-      end
-
       def setup
-        @article_service = ArticleService.new
+        @article_service = Fakes::ArticleService.new
       end
 
       def test_returns_resources_when_no_scopes_are_defined
-        @foo_thing = NoScopesService.new
-        assert_equal :resources, @foo_thing.apply_scope("", :resources)
+        service_class = Class.new do
+          include Godmin::Resources::ResourceService
+        end
+
+        service = service_class.new
+        assert_equal :resources, service.apply_scope("", :resources)
       end
 
       def test_calls_default_scope

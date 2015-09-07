@@ -2,8 +2,8 @@
 <html>
   <head>
     <title><%= t("godmin.title") %></title>
-    <%= stylesheet_link_tag [Godmin.namespace, "application"].compact.join("/"), media: "all" %>
-    <%= javascript_include_tag [Godmin.namespace, "application"].compact.join("/") %>
+    <%= stylesheet_link_tag File.join(engine_wrapper.namespaced_path, "application").gsub(/^\//, ""), media: "all" %>
+    <%= javascript_include_tag File.join(engine_wrapper.namespaced_path, "application").gsub(/^\//, "") %>
     <%= csrf_meta_tags %>
     <%= yield :head %>
   </head>

@@ -3,11 +3,11 @@ require "test_helper"
 module Godmin
   class ResourceServiceTest < ActiveSupport::TestCase
     def setup
-      @article_service = ArticleService.new
+      @article_service = Fakes::ArticleService.new
     end
 
     def test_resource_class
-      assert_equal Article, @article_service.resource_class
+      assert_equal Fakes::Article, @article_service.resource_class
     end
 
     def test_attrs_for_index

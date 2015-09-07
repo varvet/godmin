@@ -4,7 +4,7 @@ module Godmin
   module ResourceService
     class FiltersTest < ActiveSupport::TestCase
       def setup
-        @article_service = ArticleService.new
+        @article_service = Fakes::ArticleService.new
       end
 
       def test_calls_one_filter

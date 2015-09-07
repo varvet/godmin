@@ -1,12 +1,15 @@
 require "bootstrap-sass"
 require "bootstrap_form"
 require "csv_builder"
+require "jquery-rails"
 require "momentjs-rails"
+require "sass-rails"
 require "selectize-rails"
 require "godmin/application_controller"
 require "godmin/authentication"
 require "godmin/authorization"
 require "godmin/engine"
+require "godmin/engine_wrapper"
 require "godmin/paginator"
 require "godmin/resolver"
 require "godmin/resources/resource_controller"
@@ -14,10 +17,4 @@ require "godmin/resources/resource_service"
 require "godmin/version"
 
 module Godmin
-  mattr_accessor :namespace
-  self.namespace = nil
-
-  def self.configure
-    yield self
-  end
 end

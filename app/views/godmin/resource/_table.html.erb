@@ -28,7 +28,7 @@
             </td>
           <% end %>
           <td>
-            <%= render partial: "columns/actions", locals: { resource: resource } %>
+            <%= render partial: "#{controller_path}/columns/actions", locals: { resource: resource } %>
           </td>
         </tr>
       <% end %>

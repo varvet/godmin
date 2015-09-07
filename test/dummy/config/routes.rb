@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-
-  mount Godmin::Engine => "/godmin"
+  resources :articles
+  root to: "application#welcome"
+  mount Admin::Engine, at: "admin"
 end
