@@ -41,7 +41,7 @@ class ActionDispatch::IntegrationTest
   private
 
   def add_template(path, content)
-    template_path = File.expand_path("../dummy/app/views/#{path}", __FILE__)
+    template_path = File.expand_path("../dummy/#{path}", __FILE__)
     @template_paths << template_path
     File.write(template_path, content)
   end
