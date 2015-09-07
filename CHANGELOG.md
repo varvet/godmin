@@ -1,5 +1,9 @@
 # Changelog
 
+### Not released
+Bug fixes
+- Fixes issue where column ordering on index table didn't work (https://github.com/varvet/godmin/issues/124)
+
 ### 0.12.0 - 2015-06-30
 Features
 - Adds new navigation helpers for building a custom navbar (https://github.com/varvet/godmin/issues/54)
