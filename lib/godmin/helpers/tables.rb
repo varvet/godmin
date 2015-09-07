@@ -4,11 +4,11 @@ module Godmin
       def column_header(attribute)
         if @resource_class.column_names.include?(attribute.to_s)
           direction =
-            if params[:order]
-              if params[:order].split("_").first == attribute.to_s
-                params[:order].split("_").last == "desc" ? "asc" : "desc"
-              else
-                params[:order].split("_").last
+            if params[:order].present?
+              if params[:order].match(/\A#{attribute.to_s}_(asc|desc)\z/)
+                $1 == "desc" ? "asc" : "desc"
+              elsif params[:order].match(/\A\w+_(asc|desc)\z/)
+                $1
               end
             else
               "desc"

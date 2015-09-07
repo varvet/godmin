@@ -22,7 +22,7 @@ module Godmin
     end
 
     def policy(record)
-      policies[record] ||= PolicyFinder.find(record, engine_namespace).new(admin_user, record)
+      policies[record] ||= PolicyFinder.find(record, engine_wrapper.namespace).new(admin_user, record)
     end
 
     def policies

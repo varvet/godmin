@@ -6,7 +6,7 @@
           <th></th>
         <% end %>
         <% @resource_service.attrs_for_index.each do |attr| %>
-          <th>
+          <th class="column-<%= attr %>">
             <%= column_header attr %>
           </th>
         <% end %>
