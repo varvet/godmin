@@ -1,6 +1,6 @@
 # Changelog
 
-### Not released
+### 0.12.1 - 2015-09-07
 Bug fixes
 - Fixes issue where column ordering on index table didn't work (https://github.com/varvet/godmin/issues/124)
 
