@@ -22,7 +22,7 @@ module Godmin
       def namespaced_path
         @namespaced_path ||= begin
           if namespaced?
-            namespace.name.classify.split("::").map(&:underscore)
+            namespace.name.split("::").map(&:underscore)
           else
             []
           end

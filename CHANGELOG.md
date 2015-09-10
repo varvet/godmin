@@ -1,5 +1,9 @@
 # Changelog
 
+### Unreleased
+Bug fixes
+- Adds support for plural engines (https://github.com/varvet/godmin/pull/128)
+
 ### 0.12.2 - 2015-09-07
 Bug fixes
 - Fixes broken sign in page

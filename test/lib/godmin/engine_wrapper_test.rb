@@ -10,6 +10,14 @@ module Godmin
       class Controller < ActionController::Base; end
     end
 
+    module Admins
+      class Engine < Rails::Engine
+        isolate_namespace Admins
+      end
+
+      class Controller < ActionController::Base; end
+    end
+
     class Controller < ActionController::Base; end
 
     def test_default_namespace
@@ -45,6 +53,11 @@ module Godmin
     def test_engine_namespaced_path
       engine_wrapper = EngineWrapper.new(Admin::Controller)
       assert_equal ["godmin", "engine_wrapper_test", "admin"], engine_wrapper.namespaced_path
+    end
+
+    def test_plural_engine_namespaced_path
+      engine_wrapper = EngineWrapper.new(Admins::Controller)
+      assert_equal ["godmin", "engine_wrapper_test", "admins"], engine_wrapper.namespaced_path
     end
 
     def test_engine_root
