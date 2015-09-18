@@ -1,8 +1,9 @@
 # Changelog
 
-### Unreleased
+### 0.12.3 - Unreleased
 Bug fixes
 - Adds support for plural engines (https://github.com/varvet/godmin/pull/128)
+- Remove turbolinks from application.js if present (https://github.com/varvet/godmin/issues/129)
 
 ### 0.12.2 - 2015-09-07
 Bug fixes
