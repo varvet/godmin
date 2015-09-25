@@ -1,13 +1,13 @@
-gem "godmin", "~> 0.12.3"
+require "active_support/all"
+
+gem "godmin"
 
 after_bundle do
   generate(:model, "article title:string body:text published:boolean published_at:datetime")
   generate("godmin:install")
   generate("godmin:resource", "article")
 
-  require "active_support/all"
-
-  inject_into_file "app/controllers/articles_controller.rb", before: "end" do
+  inject_into_file "app/controllers/articles_controller.rb", before: /^end/ do
     <<-END.strip_heredoc.indent(2)
 
       private
@@ -26,7 +26,7 @@ after_bundle do
   gsub_file "app/services/article_service.rb", "attrs_for_show", "attrs_for_show :title, :body, :published, :published_at"
   gsub_file "app/services/article_service.rb", "attrs_for_form", "attrs_for_form :title, :body, :published, :published_at"
 
-  inject_into_file "app/services/article_service.rb", before: "end" do
+  inject_into_file "app/services/article_service.rb", before: /^end/ do
     <<-END.strip_heredoc.indent(2)
       attrs_for_export :id, :title, :published, :published_at
 
