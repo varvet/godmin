@@ -1,6 +1,6 @@
 require "active_support/all"
 
-gem "godmin"
+gem "godmin", "> 0.12"
 
 after_bundle do
   generate(:model, "article title:string body:text published:boolean published_at:datetime")
