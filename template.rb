@@ -140,7 +140,7 @@ def migrate_and_seed
   rake("db:seed")
 end
 
-if yes?("Install admin engine?")
+if yes?("Place godmin in admin engine?")
   install_engine
 else
   install_standalone
