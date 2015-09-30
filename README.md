@@ -44,6 +44,11 @@ Godmin supports two common admin scenarios:
 1. Standalone installation
 2. Engine installation
 
+If you want to set up an example app that you can play around with, run the following:
+```sh
+rails new sandbox -m https://raw.githubusercontent.com/varvet/godmin/master/template.rb
+```
+
 ### Standalone installation
 Use for admin-only applications, or for architectures where the admin lives in its own app. E.g. you want to access the admin section at `localhost:3000`.
 
