@@ -1,4 +1,7 @@
 # Changelog
+### 0.12.4
+Bug fixes
+- Fixes a bug which made it impossible to override the datetimepicker locale (https://github.com/varvet/godmin/issues/132)
 
 ### 0.12.3 - 2015-09-18
 Bug fixes

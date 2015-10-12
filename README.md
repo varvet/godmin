@@ -822,7 +822,7 @@ Godmin.Datetimepickers.initializeDatetimepicker($el, {
 });
 ```
 
-If you wish to translate the datetimepicker, add the following to your `app/assets/javascripts/application.js`:
+If you wish to translate the datetimepicker, change `moment/en-gb` in your `app/assets/javascripts/application.js` to your desired locale:
 
 ```js
 //= require moment

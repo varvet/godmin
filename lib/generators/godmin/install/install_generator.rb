@@ -25,7 +25,11 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
     application_js = File.join("app/assets/javascripts", namespaced_path, "application.js")
 
     inject_into_file application_js, before: "//= require_tree ." do
-      "//= require godmin\n"
+      <<-END.strip_heredoc
+        //= require moment
+        //= require moment/en-gb
+        //= require godmin
+      END
     end
 
     gsub_file application_js, /\/\/= require turbolinks\n/, ""

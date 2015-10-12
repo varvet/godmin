@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require moment
-//= require moment/en-gb
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
 //= require selectize
