@@ -10,13 +10,13 @@
  *
  *= require_self
  */
-@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
 @import "selectize";
 @import "selectize.bootstrap3";
 
 body {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -35,6 +35,10 @@ body {
 }
 
 #filters {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+
   .filter .control-label {
     display: block;
   }

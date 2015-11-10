@@ -1,4 +1,4 @@
-require "bootstrap-sass"
+require "bootstrap"
 require "bootstrap_form"
 require "csv_builder"
 require "jquery-rails"

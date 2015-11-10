@@ -58,7 +58,7 @@ module Godmin
       end
 
       def apply_filters_button
-        submit @template.translate_scoped("filters.buttons.apply")
+        submit @template.translate_scoped("filters.buttons.apply"), class: "btn btn-secondary"
       end
 
       def clear_filters_button
@@ -67,7 +67,7 @@ module Godmin
           @template.url_for(
             @template.params.slice(:scope, :order)
           ),
-          class: "btn btn-default"
+          class: "btn btn-secondary"
         )
       end
 
