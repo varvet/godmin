@@ -48,13 +48,29 @@ def install_engine
 end
 
 def generate_model
-  generate(:model, "article title:string body:text published:boolean published_at:datetime")
+  generate(:model, "article title:string body:text author:string published:boolean published_at:datetime")
 
   append_to_file "db/seeds.rb" do
     <<-END.strip_heredoc
-      Article.create! title: "The first article", published: false
-      Article.create! title: "The second article", published: false
-      Article.create! title: "The third article", published: true, published_at: Time.zone.now
+      def title
+        5.times.map { lorem.sample }.join(" ").capitalize
+      end
+
+      def lorem
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.".gsub(/[.,]/, "").downcase.split(" ")
+      end
+
+      def author
+        ["Lorem Ipsum", "Magna Aliqua", "Commodo Consequat"].sample
+      end
+
+      def published
+        [true, true, false].sample
+      end
+
+      35.times do |i|
+        Article.create! title: title, author: author, published: published
+      end
     END
   end
 end
@@ -91,13 +107,13 @@ def modify_service(namespace = nil)
       "app/services/article_service.rb"
     end
 
-  gsub_file article_service, "attrs_for_index", "attrs_for_index :title, :published_at"
-  gsub_file article_service, "attrs_for_show", "attrs_for_show :title, :body, :published, :published_at"
-  gsub_file article_service, "attrs_for_form", "attrs_for_form :title, :body, :published, :published_at"
+  gsub_file article_service, "attrs_for_index", "attrs_for_index :title, :author, :published_at"
+  gsub_file article_service, "attrs_for_show", "attrs_for_show :title, :body, :author, :published, :published_at"
+  gsub_file article_service, "attrs_for_form", "attrs_for_form :title, :body, :author, :published, :published_at"
 
-  inject_into_file article_service, after: "attrs_for_form :title, :body, :published, :published_at \n" do
+  inject_into_file article_service, after: "attrs_for_form :title, :body, :author, :published, :published_at \n" do
     <<-END.strip_heredoc.indent(namespace ? 4 : 2)
-      attrs_for_export :id, :title, :published, :published_at
+      attrs_for_export :id, :title, :author, :published, :published_at
 
       scope :unpublished
       scope :published
@@ -111,9 +127,14 @@ def modify_service(namespace = nil)
       end
 
       filter :title
+      filter :author
 
       def filter_title(articles, value)
         articles.where(title: value)
+      end
+
+      def filter_author(articles, value)
+        articles.where(author: value)
       end
 
       batch_action :unpublish, except: [:unpublished]
