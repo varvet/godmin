@@ -8,7 +8,7 @@ module Godmin
           translate_scoped("batch_actions.labels.#{name}", default: name.to_s.titleize),
           @resource_class,
           method: :patch,
-          class: "btn btn-secondary hidden",
+          class: "btn btn-secondary",
           data: {
             behavior: "batch-actions-action-link",
             confirm: options[:confirm] ? translate_scoped("batch_actions.confirm_message") : false,

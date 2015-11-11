@@ -4,11 +4,13 @@ Godmin.BatchActions = (function() {
   var $container;
   var $selectAll;
   var $selectNone;
+  var $actionLinks;
 
   function initialize() {
-    $container  = $('[data-behavior~=batch-actions-container]');
-    $selectAll  = $container.find('[data-behavior~=batch-actions-select-all]');
-    $selectNone = $container.find('[data-behavior~=batch-actions-select-none]');
+    $container   = $('[data-behavior~=batch-actions-container]');
+    $selectAll   = $container.find('[data-behavior~=batch-actions-select-all]');
+    $selectNone  = $container.find('[data-behavior~=batch-actions-select-none]');
+    $actionLinks = $container.find('[data-behavior~=batch-actions-action-link]');
 
     initializeEvents();
     initializeState();
@@ -22,6 +24,7 @@ Godmin.BatchActions = (function() {
 
   function initializeState() {
     $selectNone.hide();
+    $actionLinks.hide();
   }
 
   function setSelectToAll() {
@@ -54,10 +57,10 @@ Godmin.BatchActions = (function() {
 
   function toggleActions() {
     if (checkedCheckboxes().length) {
-      $('[data-behavior~=batch-actions-action-link]').show();
+      $actionLinks.show();
       setSelectToNone();
     } else {
-      $('[data-behavior~=batch-actions-action-link]').hide();
+      $actionLinks.hide();
       setSelectToAll();
     }
   }
