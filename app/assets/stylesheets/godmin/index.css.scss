@@ -10,6 +10,14 @@
  *
  *= require_self
  */
+
+$container-max-widths: (
+  sm: 100%,
+  md: 100%,
+  lg: 100%,
+  xl: 1410px
+) !default;
+
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
 @import "selectize";
