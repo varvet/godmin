@@ -1,6 +1,8 @@
 require "active_support/all"
 
 def install_standalone
+  add_postgres
+
   gem "godmin", "> 0.12"
 
   after_bundle do
@@ -16,6 +18,8 @@ def install_standalone
 end
 
 def install_engine
+  add_postgres
+
   run_ruby_script("bin/rails plugin new admin --mountable")
 
   gsub_file "admin/admin.gemspec", "TODO: ", ""
@@ -44,6 +48,19 @@ def install_engine
     modify_service("admin")
 
     migrate_and_seed
+  end
+end
+
+def add_postgres
+
+  gsub_file "Gemfile", "sqlite3", "pg"
+
+  db_yml = "config/database.yml"
+  inject_into_file db_yml, "  adapter: postgresql\n", after: "production:\n  <<: *default\n", force: true
+  gsub_file db_yml, "  database: db/production.sqlite3\n", ""
+
+gem_group :development, :test do
+    gem "sqlite3"
   end
 end
 
@@ -161,8 +178,19 @@ def migrate_and_seed
   rake("db:seed")
 end
 
-if yes?("Place godmin in admin engine?")
-  install_engine
+with_engine = "--with-engine"
+without_engine = "--without-engine"
+
+if ARGV.count > (ARGV - [with_engine, without_engine]).count
+  if ARGV.include? with_engine
+    install_engine
+  elsif ARGV.include? without_engine
+    install_standalone
+  end
 else
-  install_standalone
+  if yes?("Place godmin in admin engine?")
+    install_engine
+  else
+    install_standalone
+  end
 end

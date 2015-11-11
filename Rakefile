@@ -30,5 +30,35 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
+namespace :deploy do
+  desc "Update the sandbox app on Github"
+  task :update do
+    sandbox = "godmin-sandbox"
+    sandbox_dir = "/tmp/#{sandbox}-#{Time.now.strftime("%Y%m%d")}"
+    puts "Working in #{sandbox_dir}"
+    template_file = File.expand_path("../template.rb", __FILE__)
+    system("rm -rf #{sandbox_dir}")
+    system("mkdir #{sandbox_dir}")
+    system("cd #{sandbox_dir} && git clone git@github.com:varvet/#{sandbox}.git")
+    system("cd #{sandbox_dir}/#{sandbox} && rm -rf *")
+    system("cd #{sandbox_dir} && rails new #{sandbox} -m #{template_file} --without-engine")
+    system("cd #{sandbox_dir}/#{sandbox} && bundle")
+    system("cd #{sandbox_dir}/#{sandbox} && git status")
+    # system("cd #{sandbox_dir}/#{sandbox} && git add .")
+    # system("cd #{sandbox_dir}/#{sandbox} && git commit -m 'Initial commit'")
+    # system("cd #{sandbox_dir}/#{sandbox} && git push origin master")
+  end
+
+  desc "Empty and reseed database on Heroku"
+  task :reseed do
+    app = "godmin-sandbox"
+    Bundler.with_clean_env do
+      system("heroku pg:reset DATABASE_URL --confirm #{app}")
+      system("heroku run rake db:migrate --app #{app}")
+      system("heroku run rake db:seed --app #{app}")
+    end
+  end
+
+end
 
 task default: :test
