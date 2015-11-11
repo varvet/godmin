@@ -1,5 +1,5 @@
 <% if @resource_service.filter_map.present? %>
-  <div id="filters">
+  <div id="filters" class="hidden-sm-down">
     <%= filter_form do |f| %>
       <%= f.hidden_field :scope, value: params[:scope] %>
       <%= f.hidden_field :order, value: params[:order] %>
