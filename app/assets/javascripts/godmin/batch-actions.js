@@ -20,16 +20,18 @@ Godmin.BatchActions = (function() {
     $(document).delegate('[data-behavior~=batch-actions-action-link]', 'mousedown', triggerAction);
   }
 
-  function initializeState() {}
+  function initializeState() {
+    $selectNone.hide();
+  }
 
   function setSelectToAll() {
-    $selectAll.removeClass('hidden');
-    $selectNone.addClass('hidden');
+    $selectAll.show();
+    $selectNone.hide();
   }
 
   function setSelectToNone() {
-    $selectAll.addClass('hidden');
-    $selectNone.removeClass('hidden');
+    $selectAll.hide();
+    $selectNone.show();
   }
 
   function checkedCheckboxes() {
@@ -38,7 +40,9 @@ Godmin.BatchActions = (function() {
     }).toArray().join(',');
   }
 
-  function toggleCheckboxes() {
+  function toggleCheckboxes(e) {
+    e.preventDefault();
+
     if (checkedCheckboxes().length > 0) {
       $container.find('[data-behavior~=batch-actions-checkbox]').prop('checked', false).trigger('change');
       setSelectToAll();
@@ -50,10 +54,10 @@ Godmin.BatchActions = (function() {
 
   function toggleActions() {
     if (checkedCheckboxes().length) {
-      $('[data-behavior~=batch-actions-action-link]').removeClass('hidden');
+      $('[data-behavior~=batch-actions-action-link]').show();
       setSelectToNone();
     } else {
-      $('[data-behavior~=batch-actions-action-link]').addClass('hidden');
+      $('[data-behavior~=batch-actions-action-link]').hide();
       setSelectToAll();
     }
   }
