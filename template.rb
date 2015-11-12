@@ -163,6 +163,8 @@ def modify_service(namespace = nil)
 end
 
 def migrate_and_seed
+  rake("db:drop")
+  rake("db:create")
   rake("db:migrate")
   rake("db:seed")
 end
