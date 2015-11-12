@@ -33,20 +33,33 @@ end
 namespace :deploy do
   desc "Update the sandbox app on Github"
   task :update do
+
+    sha = `git rev-parse HEAD`.strip
+    message = "Generated from: https://github.com/varvet/godmin/commit/#{sha}"
+
     sandbox = "godmin-sandbox"
-    sandbox_dir = "/tmp/#{sandbox}-#{Time.now.strftime("%Y%m%d")}"
+    sandbox_dir = "/tmp/#{sandbox}-#{sha}"
     puts "Working in #{sandbox_dir}"
     template_file = File.expand_path("../template.rb", __FILE__)
-    system("rm -rf #{sandbox_dir}")
-    system("mkdir #{sandbox_dir}")
-    system("cd #{sandbox_dir} && git clone git@github.com:varvet/#{sandbox}.git")
-    system("cd #{sandbox_dir}/#{sandbox} && rm -rf *")
-    system("cd #{sandbox_dir} && rails new #{sandbox} -m #{template_file} --without-engine")
-    system("cd #{sandbox_dir}/#{sandbox} && bundle")
-    system("cd #{sandbox_dir}/#{sandbox} && git status")
-    # system("cd #{sandbox_dir}/#{sandbox} && git add .")
-    # system("cd #{sandbox_dir}/#{sandbox} && git commit -m 'Initial commit'")
-    # system("cd #{sandbox_dir}/#{sandbox} && git push origin master")
+
+    `rm -rf #{sandbox_dir} && mkdir #{sandbox_dir}`
+    `cd #{sandbox_dir} && git clone git@github.com:varvet/#{sandbox}.git 2>/dev/null`
+
+    last_message = `cd #{sandbox_dir}/#{sandbox} && git log -1 --pretty=%B`.strip
+
+    if message != last_message
+      `cd #{sandbox_dir}/#{sandbox} && rm -rf *`
+      `cd #{sandbox_dir} && rails new #{sandbox} -m #{template_file} --without-engine`
+      `cd #{sandbox_dir}/#{sandbox} && bundle`
+      `cd #{sandbox_dir}/#{sandbox} && git add --all`
+      `cd #{sandbox_dir}/#{sandbox} && git commit -m '#{message}'`
+      `cd #{sandbox_dir}/#{sandbox} && git push origin master --force 2>/dev/null`
+      puts message
+    else
+      puts "No changes detected since #{sha}"
+    end
+
+    `rm -rf #{sandbox_dir}`
   end
 
   desc "Empty and reseed database on Heroku"
@@ -58,7 +71,6 @@ namespace :deploy do
       system("heroku run rake db:seed --app #{app}")
     end
   end
-
 end
 
 task default: :test
