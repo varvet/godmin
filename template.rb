@@ -1,7 +1,7 @@
 require "active_support/all"
 
 def install_standalone
-  add_postgres
+  modify_database
 
   gem "godmin", "> 0.12"
 
@@ -19,7 +19,7 @@ def install_standalone
 end
 
 def install_engine
-  add_postgres
+  modify_database
 
   run_ruby_script("bin/rails plugin new admin --mountable")
 
@@ -53,7 +53,7 @@ def install_engine
   end
 end
 
-def add_postgres
+def modify_database
 
   gsub_file "Gemfile", "sqlite3", "pg"
 
@@ -61,7 +61,7 @@ def add_postgres
   inject_into_file db_yml, "  adapter: postgresql\n", after: "production:\n  <<: *default\n", force: true
   gsub_file db_yml, "  database: db/production.sqlite3\n", ""
 
-gem_group :development, :test do
+  gem_group :development, :test do
     gem "sqlite3"
   end
 end
