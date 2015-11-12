@@ -33,33 +33,26 @@ end
 namespace :deploy do
   desc "Update the sandbox app on Github"
   task :update do
-
     sha = `git rev-parse HEAD`.strip
     message = "Generated from: https://github.com/varvet/godmin/commit/#{sha}"
+    template_path = File.expand_path("../template.rb", __FILE__)
 
-    sandbox = "godmin-sandbox"
-    sandbox_dir = "/tmp/#{sandbox}-#{sha}"
-    puts "Working in #{sandbox_dir}"
-    template_file = File.expand_path("../template.rb", __FILE__)
-
-    `rm -rf #{sandbox_dir} && mkdir #{sandbox_dir}`
-    `cd #{sandbox_dir} && git clone git@github.com:varvet/#{sandbox}.git 2>/dev/null`
-
-    last_message = `cd #{sandbox_dir}/#{sandbox} && git log -1 --pretty=%B`.strip
-
-    if message != last_message
-      `cd #{sandbox_dir}/#{sandbox} && rm -rf *`
-      `cd #{sandbox_dir} && rails new #{sandbox} -m #{template_file} --without-engine`
-      `cd #{sandbox_dir}/#{sandbox} && bundle`
-      `cd #{sandbox_dir}/#{sandbox} && git add --all`
-      `cd #{sandbox_dir}/#{sandbox} && git commit -m '#{message}'`
-      `cd #{sandbox_dir}/#{sandbox} && git push origin master --force 2>/dev/null`
-      puts message
-    else
-      puts "No changes detected since #{sha}"
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        system("git clone git@github.com:varvet/godmin-sandbox.git")
+        if $?.success?
+          Dir.chdir "godmin-sandbox" do
+            system("rm -rf *")
+            system("rails new . -d postgresql -m #{template_path} --without-engine")
+            if $?.success?
+              system("git add --all")
+              system("git commit -m '#{message}'")
+              system("git push origin master")
+            end
+          end
+        end
+      end
     end
-
-    `rm -rf #{sandbox_dir}`
   end
 
   desc "Empty and reseed database on Heroku"
