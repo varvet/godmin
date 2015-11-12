@@ -45,7 +45,7 @@ body {
 #filters {
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #eceeef;
 
   .filter .control-label {
     display: block;
@@ -90,3 +90,37 @@ body {
 
 @-moz-keyframes highlight { from { background: #fffbcc; } to { background: none; } }
 @-webkit-keyframes highlight { from { background: #fffbcc; } to { background: none; } }
+
+
+
+
+.sidebar {
+  padding-right: 30px;
+  border-right: 1px solid #eceeef;
+  text-align: right;
+
+  .sidebar-title {
+    font-size: 1.2rem;
+    line-height: 3rem;
+  }
+
+  .nav-item {
+    padding: 6px 0;
+
+    &:first-child {
+      padding-top: 12px;
+    }
+
+    &:last-child {
+      padding-bottom: 12px;
+    }
+  }
+
+  .nav-link {
+    color: #bbb;
+
+    &.active {
+      color: #777;
+    }
+  }
+}
