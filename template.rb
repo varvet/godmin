@@ -10,6 +10,7 @@ def install_standalone
     generate("godmin:install")
     generate("godmin:resource", "article")
 
+    modify_routes
     modify_controller
     modify_service
 
@@ -44,6 +45,7 @@ def install_engine
       END
     end
 
+    modify_routes
     modify_controller("admin")
     modify_service("admin")
 
@@ -90,6 +92,10 @@ def generate_model
       end
     END
   end
+end
+
+def modify_routes
+    gsub_file "config/routes.rb", "application#welcome", "articles#index"
 end
 
 def modify_controller(namespace = nil)
@@ -147,11 +153,11 @@ def modify_service(namespace = nil)
       filter :author
 
       def filter_title(articles, value)
-        articles.where(title: value)
+        articles.where("title LIKE ?", "%\#{value}%")
       end
 
       def filter_author(articles, value)
-        articles.where(author: value)
+        articles.where("author LIKE ?", "%\#{value}%")
       end
 
       batch_action :unpublish, except: [:unpublished]
