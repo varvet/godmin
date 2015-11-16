@@ -3,7 +3,7 @@ require "test_helper"
 class TemplateOverridingTest < ActionDispatch::IntegrationTest
   def test_default_template
     visit articles_path
-    assert page.has_content? "Create Article"
+    assert page.has_content? "Create"
   end
 
   def test_override_template
@@ -27,7 +27,7 @@ class TemplateOverridingTest < ActionDispatch::IntegrationTest
 
   def test_default_template_in_engine
     visit admin.articles_path
-    assert page.has_content? "Create Article"
+    assert page.has_content? "Create"
   end
 
   def test_override_template_in_engine
