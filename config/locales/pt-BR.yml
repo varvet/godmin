@@ -1,4 +1,7 @@
 pt-BR:
+  helpers:
+    submit:
+      create: Novo
   godmin:
     title: Godmin
     batch_actions:

@@ -1,4 +1,7 @@
 en:
+  helpers:
+    submit:
+      create: Create
   godmin:
     title: Godmin
     batch_actions:
