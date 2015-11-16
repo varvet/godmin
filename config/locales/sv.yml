@@ -1,4 +1,7 @@
 sv:
+  helpers:
+    submit:
+      create: Skapa
   godmin:
     title: Godmin
     batch_actions:

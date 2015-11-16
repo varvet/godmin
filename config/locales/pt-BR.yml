@@ -1,0 +1,47 @@
+pt-BR:
+  helpers:
+    submit:
+      create: Novo
+  godmin:
+    title: Godmin
+    batch_actions:
+      buttons:
+        select_all: Selecionar todos
+        deselect_all: Remover seleção
+      confirm_message: Você tem certeza?
+    filters:
+      select:
+        placeholder:
+          one: Selecionar um
+          many: Selecionar vários
+      buttons:
+        apply: Filtrar
+        clear: Limpar filtro
+    actions:
+      label: Ações
+      show: Exibir
+      edit: Editar
+      destroy: Remover
+      confirm_message: Você tem certeza?
+      export: Exportar
+      export_as: Como
+    sessions:
+      sign_in: Entrar
+      sign_out: Sair
+      signed_in: Conectado
+      signed_out: Desconectado
+      failed_sign_in: Credenciais inválidas
+    flash:
+      create: "%{resource} foi criado com sucesso"
+      update: "%{resource} foi atualizado com sucesso"
+      destroy: "%{resource} foi removido com sucesso"
+      batch_action: "%{number_of_affected_records} de %{total_number_of_records} %{resource} foram modificados"
+    pagination:
+      first: "Primeiro"
+      last: "Último"
+      entries:
+        zero: "Nenhum %{resource} encontrado"
+        other: "Exibindo %{count} de %{total} %{resource}"
+    datetimepickers:
+      datepicker: ! "%d/%m/%Y"
+      datetimepicker: ! "%d/%m/%Y %H:%M"
