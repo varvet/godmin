@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.1 - Unreleased
+Features
+- Adds locale for pt-BR (Brazilian Portuguese) ([Ramiro Varandas Jr](https://github.com/ramirovjr)) (https://github.com/varvet/godmin/pull/141)
+
 ### 1.0.0 - 2015-11-13
 Release of 1.0.0 :tada:
 
