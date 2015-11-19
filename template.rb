@@ -162,7 +162,6 @@ def modify_models
 
     END
   end
-
 end
 
 def modify_article_controller(namespace = nil)
