@@ -11,6 +11,7 @@ def install_standalone
 
     modify_menu
     modify_routes
+    modify_locales
     modify_models
     modify_author_service
     modify_article_controller
@@ -48,6 +49,7 @@ def install_engine
 
     modify_menu("admin")
     modify_routes("admin")
+    modify_locales
     modify_models
     modify_author_service("admin")
     modify_article_controller("admin")
@@ -111,6 +113,22 @@ def modify_menu(namespace = nil)
       <%= navbar_divider %>
       <%= navbar_item "Please retweet ;)", "https://twitter.com/varvet/status/665092299995676672" %>
     <% end %>
+    END
+  end
+end
+
+def modify_locales
+  inject_into_file "config/locales/en.yml", after: "hello: \"Hello world\"\n" do
+    <<-END.strip_heredoc.indent(2)
+
+    activerecord:
+      models:
+        article:
+          one: Article
+          other: Articles
+        author:
+          one: Author
+          other: Authors
     END
   end
 end
