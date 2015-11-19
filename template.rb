@@ -104,8 +104,13 @@ def modify_menu(namespace = nil)
 
   create_file navigation_file do
     <<-END.strip_heredoc
-    <%= navbar_item "Godmin on Github", "https://github.com/varvet/godmin" %>
-    <%= navbar_item "The source of this page!", "https://github.com/varvet/godmin-sandbox" %>
+    <%= navbar_dropdown "Take me places" do %>
+      <%= navbar_item "Godmin on Github", "https://github.com/varvet/godmin" %>
+      <%= navbar_item "The source of this page!", "https://github.com/varvet/godmin-sandbox" %>
+      <%= navbar_item "The blog post", "https://www.varvet.se/blog/update/2015/11/13/introducing-godmin-1-0.html" %>
+      <%= navbar_divider %>
+      <%= navbar_item "Please retweet ;)", "https://twitter.com/varvet/status/665092299995676672" %>
+    <% end %>
     END
   end
 end
