@@ -314,8 +314,8 @@ To add to the resources query, e.g. to change the default order:
 class ArticleService
   include Godmin::Resources::ResourceService
 
-  def resources
-    super.order(author: :desc)
+  def resources(params)
+    super(params).order(author: :desc)
   end
 end
 ```
