@@ -118,7 +118,7 @@ def modify_menu(namespace = nil)
 end
 
 def modify_locales
-  inject_into_file "config/locales/en.yml", after: "hello: \"Hello world\"\n" do
+  append_to_file "config/locales/en.yml" do
     <<-END.strip_heredoc.indent(2)
 
     activerecord:
