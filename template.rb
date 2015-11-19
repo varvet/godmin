@@ -97,7 +97,7 @@ end
 def modify_menu(namespace = nil)
   navigation_file =
     if namespace
-      "admin/app/views/shared/_navigation_aside.html.erb"
+      "admin/app/views/admin/shared/_navigation_aside.html.erb"
     else
       "app/views/shared/_navigation_aside.html.erb"
     end
