@@ -29,7 +29,7 @@ def install_engine
 
   inject_into_file "admin/admin.gemspec", before: /^end/ do
     <<-END.strip_heredoc.indent(2)
-      s.add_dependency "godmin", "> 0.12"
+      s.add_dependency "godmin", "~> 1.0.0"
     END
   end
 
