@@ -1,5 +1,5 @@
 module Godmin
-  class Resolver < ::ActionView::FileSystemResolver
+  class Resolver < ::ActionView::FallbackFileSystemResolver
     def initialize(controller_path, engine_wrapper)
       super ""
       @controller_path = controller_path
