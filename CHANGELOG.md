@@ -7,6 +7,7 @@ Features
 
 Bug fixes
 - Fixes a bug that masked errors in templates with a template not found error (https://github.com/varvet/godmin/pull/142)
+- Permits belongs to association by default (https://github.com/varvet/godmin/pull/149)
 
 ### 1.0.0 - 2015-11-13
 Release of 1.0.0 :tada:
