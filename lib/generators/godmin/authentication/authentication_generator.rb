@@ -33,7 +33,7 @@ class Godmin::AuthenticationGenerator < Godmin::Generators::NamedBase
         include Godmin::Authentication
 
         def admin_user_class
-          #{class_name}
+          #{full_class_name}
         end
       END
     end
