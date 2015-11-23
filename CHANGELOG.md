@@ -2,7 +2,10 @@
 
 ### 1.0.1 - Unreleased
 Features
-- Adds locale for pt-BR (Brazilian Portuguese) ([Ramiro Varandas Jr](https://github.com/ramirovjr)) (https://github.com/varvet/godmin/pull/141)
+- Adds locale for pt-BR (Brazilian Portuguese) (https://github.com/varvet/godmin/pull/141)
+
+Bug fixes
+- Fixes a bug that masked errors in templates with a template not found error (https://github.com/varvet/godmin/pull/142)
 
 ### 1.0.0 - 2015-11-13
 Release of 1.0.0 :tada:
