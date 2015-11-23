@@ -128,7 +128,19 @@ module Godmin
       end
 
       def resource_params
-        params.require(resource_class.model_name.param_key.to_sym).permit(@resource_service.attrs_for_form)
+        params.require(@resource_class.model_name.param_key.to_sym).permit(resource_params_defaults)
+      end
+
+      def resource_params_defaults
+        @resource_service.attrs_for_form.map do |attribute|
+          association = @resource_class.reflect_on_association(attribute)
+
+          if association && association.macro == :belongs_to
+            association.foreign_key.to_sym
+          else
+            attribute
+          end
+        end
       end
 
       def redirect_after_create
