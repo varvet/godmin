@@ -3,6 +3,7 @@
 ### 1.0.1 - Unreleased
 Features
 - Adds locale for pt-BR (Brazilian Portuguese) (https://github.com/varvet/godmin/pull/141)
+- New sandbox template with with more examples (https://github.com/varvet/godmin/pull/135)
 
 Bug fixes
 - Fixes a bug that masked errors in templates with a template not found error (https://github.com/varvet/godmin/pull/142)
