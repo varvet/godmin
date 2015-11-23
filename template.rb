@@ -106,13 +106,13 @@ def modify_menu(namespace = nil)
 
   create_file navigation_file do
     <<-END.strip_heredoc
-    <%= navbar_dropdown "Take me places" do %>
-      <%= navbar_item "Godmin on Github", "https://github.com/varvet/godmin" %>
-      <%= navbar_item "The source of this page!", "https://github.com/varvet/godmin-sandbox" %>
-      <%= navbar_item "The blog post", "https://www.varvet.se/blog/update/2015/11/13/introducing-godmin-1-0.html" %>
-      <%= navbar_divider %>
-      <%= navbar_item "Please retweet ;)", "https://twitter.com/varvet/status/665092299995676672" %>
-    <% end %>
+      <%= navbar_dropdown "Take me places" do %>
+        <%= navbar_item "Godmin on Github", "https://github.com/varvet/godmin" %>
+        <%= navbar_item "The source of this page!", "https://github.com/varvet/godmin-sandbox" %>
+        <%= navbar_item "The blog post", "https://www.varvet.se/blog/update/2015/11/13/introducing-godmin-1-0.html" %>
+        <%= navbar_divider %>
+        <%= navbar_item "Please retweet ;)", "https://twitter.com/varvet/status/665092299995676672" %>
+      <% end %>
     END
   end
 end
@@ -145,12 +145,12 @@ def modify_routes(namespace = nil)
 end
 
 def modify_models
-  inject_into_file "app/models/article.rb", before: "end" do
+  inject_into_file "app/models/article.rb", after: "end" do
     <<-END.strip_heredoc.indent(2)
+
       def to_s
         title
       end
-
     END
   end
 
@@ -159,7 +159,6 @@ def modify_models
       def to_s
         name
       end
-
     END
   end
 end
