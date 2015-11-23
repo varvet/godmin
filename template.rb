@@ -145,7 +145,7 @@ def modify_routes(namespace = nil)
 end
 
 def modify_models
-  inject_into_file "app/models/article.rb", after: "end" do
+  inject_into_file "app/models/article.rb", before: "end" do
     <<-END.strip_heredoc.indent(2)
 
       def to_s
