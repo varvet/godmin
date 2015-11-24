@@ -9,7 +9,7 @@ module Godmin
 
       def full_class_name
         if namespace
-          "#{namespace}::#{class_name }"
+          "#{namespace}::#{class_name}"
         else
           class_name
         end
