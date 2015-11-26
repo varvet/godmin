@@ -7,6 +7,14 @@ module Godmin
 
       private
 
+      def full_class_name
+        if namespace
+          "#{namespace}::#{class_name}"
+        else
+          class_name
+        end
+      end
+
       def class_name
         @class_name ||= name.classify
       end
