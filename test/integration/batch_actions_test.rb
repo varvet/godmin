@@ -2,7 +2,7 @@ require "test_helper"
 
 class BatchActionsTest < ActionDispatch::IntegrationTest
   def test_batch_action
-    Capybara.current_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver
 
     Article.create! title: "foo"
     Article.create! title: "bar"
