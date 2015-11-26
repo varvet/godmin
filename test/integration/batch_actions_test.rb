@@ -15,8 +15,8 @@ class BatchActionsTest < ActionDispatch::IntegrationTest
     within "#actions" do
       click_link "Destroy"
     end
-    assert_not page.has_content? "foo"
-    assert_not page.has_content? "bar"
+    assert page.has_no_content? "foo"
+    assert page.has_no_content? "bar"
 
     Capybara.use_default_driver
   end

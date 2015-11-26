@@ -167,17 +167,18 @@ module Godmin
         return false unless params[:batch_action].present?
 
         item_ids = params[:id].split(",").map(&:to_i)
-        records = @resource_class.find(item_ids)
+
+        records = @resource_class.where(id: item_ids)
+
         if authorization_enabled?
-          records = records.select { |r| policy(r).send("batch_action_#{params[:batch_action]}?") }
+          authorize(records, "batch_action_#{params[:batch_action]}?")
         end
 
         if @resource_service.batch_action(params[:batch_action], records)
           flash[:updated_ids] = item_ids
           flash[:notice] = translate_scoped("flash.batch_action",
                                             number_of_affected_records: records.length,
-                                            total_number_of_records: item_ids.length,
-                                            resource: @resource_class.model_name.human(count: item_ids.length))
+                                            resource: @resource_class.model_name.human(count: records.length))
 
           if respond_to?("redirect_after_batch_action_#{params[:batch_action]}", true)
             redirect_to send("redirect_after_batch_action_#{params[:batch_action]}") and return true

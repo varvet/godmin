@@ -14,6 +14,6 @@ class ArticleService
   batch_action :destroy
 
   def batch_action_destroy(articles)
-    articles.each(&:destroy!)
+    articles.destroy_all
   end
 end
