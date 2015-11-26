@@ -6,4 +6,14 @@ class ArticleService
   attrs_for_form :title, :body, :published
 
   filter :title
+
+  def filter_title(articles, value)
+    articles.where(title: value)
+  end
+
+  batch_action :destroy
+
+  def batch_action_destroy(articles)
+    articles.each(&:destroy!)
+  end
 end
