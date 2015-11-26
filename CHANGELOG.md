@@ -4,6 +4,7 @@
 Features
 - Adds locale for pt-BR (Brazilian Portuguese) (https://github.com/varvet/godmin/pull/141)
 - New sandbox template with with more examples (https://github.com/varvet/godmin/pull/135)
+- Enables responsive design (https://github.com/varvet/godmin/pull/146)
 
 Bug fixes
 - Fixes a bug that masked errors in templates with a template not found error (https://github.com/varvet/godmin/pull/142)
