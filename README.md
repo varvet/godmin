@@ -295,7 +295,7 @@ class ArticleService
 end
 ```
 
-To scope resources, e.g. based on the signed in user:
+To scope resources for quering and building, e.g. based on the signed in user:
 
 ```ruby
 class ArticleService
@@ -303,12 +303,12 @@ class ArticleService
 
   # The signed in admin user is available to all service objects via the options hash
   def resources_relation
-    options[:admin_user].articles
+    super.where(user: options[:admin_user])
   end
 end
 ```
 
-To add to the resources query, e.g. to change the default order:
+To add to the index page resources query, e.g. to change the default order:
 
 ```ruby
 class ArticleService
