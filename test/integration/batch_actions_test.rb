@@ -2,6 +2,8 @@ require "test_helper"
 
 class BatchActionsTest < ActionDispatch::IntegrationTest
   def test_batch_action
+    Capybara.current_driver = :poltergeist
+
     Article.create! title: "foo"
     Article.create! title: "bar"
 
@@ -15,5 +17,7 @@ class BatchActionsTest < ActionDispatch::IntegrationTest
     end
     assert_not page.has_content? "foo"
     assert_not page.has_content? "bar"
+
+    Capybara.use_default_driver
   end
 end
