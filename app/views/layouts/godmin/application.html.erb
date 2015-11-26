@@ -2,9 +2,15 @@
   <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#godmin-navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
         <%= link_to t("godmin.title"), root_path, class: "navbar-brand" %>
       </div>
-      <div class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse" id="godmin-navbar-collapse">
         <ul class="nav navbar-nav">
           <%= render partial: File.join(engine_wrapper.namespaced_path, "shared/navigation") %>
         </ul>
