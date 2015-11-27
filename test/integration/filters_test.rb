@@ -9,10 +9,12 @@ class FiltersTest < ActionDispatch::IntegrationTest
 
     fill_in "Title", with: "foo"
     click_button "Filter"
+    assert_equal 200, page.status_code
     assert page.has_content? "foo"
     assert page.has_no_content? "bar"
 
     click_link "Clear filter"
+    assert_equal 200, page.status_code
     assert page.has_content? "foo"
     assert page.has_content? "bar"
   end
