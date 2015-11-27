@@ -742,7 +742,7 @@ Batch actions must be authorized in your policy if you are using Godmin's built 
 ```ruby
 class ArticlePolicy < Godmin::Authorization::Policy
   def batch_action_destroy?
-		record.all? { |r| r.user_id == user.id }
+    record.all? { |r| r.user_id == user.id }
   end
 end
 ```
