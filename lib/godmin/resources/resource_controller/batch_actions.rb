@@ -28,7 +28,8 @@ module Godmin
             flash[:updated_ids] = batch_action_ids
 
             if respond_to?("redirect_after_batch_action_#{params[:batch_action]}", true)
-              redirect_to send("redirect_after_batch_action_#{params[:batch_action]}") and return
+              redirect_to send("redirect_after_batch_action_#{params[:batch_action]}")
+              return
             end
           end
 
