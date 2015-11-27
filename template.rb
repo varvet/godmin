@@ -10,6 +10,7 @@ def install_standalone
     generate("godmin:resource", "author")
 
     modify_menu
+    modify_rakefile
     modify_routes
     modify_locales
     modify_models
@@ -48,6 +49,7 @@ def install_engine
     end
 
     modify_menu("admin")
+    modify_rakefile
     modify_routes("admin")
     modify_locales
     modify_models
@@ -113,6 +115,31 @@ def modify_menu(namespace = nil)
         <%= navbar_divider %>
         <%= navbar_item "Please retweet ;)", "https://twitter.com/varvet/status/665092299995676672" %>
       <% end %>
+    END
+  end
+end
+
+def modify_rakefile
+  append_to_file "RakeFile" do
+    <<-END.strip_heredoc
+
+      namespace :sandbox do
+        desc "Reseed the database"
+        task reseed: :environment do
+          Rake::Task["sandbox:reset"].invoke
+          Rake::Task["db:schema:load"].invoke
+          Rake::Task["db:seed"].invoke
+        end
+        desc "Reset the database"
+        task reset: :environment do
+          ActiveRecord::Base.connection.tables.each do |table|
+            if table != "schema_migrations"
+              query = "DROP TABLE IF EXISTS \#{table} CASCADE;"
+              ActiveRecord::Base.connection.execute(query)
+            end
+          end
+        end
+      end
     END
   end
 end

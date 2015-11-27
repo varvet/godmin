@@ -57,9 +57,7 @@ namespace :sandbox do
   task :reseed do
     app = "godmin-sandbox"
     Bundler.with_clean_env do
-      system("heroku pg:reset DATABASE_URL --confirm #{app}")
-      system("heroku run rake db:migrate --app #{app}")
-      system("heroku run rake db:seed --app #{app}")
+      system("heroku run rake sandbox:reseed --app #{app}")
     end
   end
 end
