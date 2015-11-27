@@ -32,7 +32,7 @@ pt-BR:
       create: "%{resource} foi criado com sucesso"
       update: "%{resource} foi atualizado com sucesso"
       destroy: "%{resource} foi removido com sucesso"
-      batch_action: "%{number_of_affected_records} de %{total_number_of_records} %{resource} foram modificados"
+      batch_action: "%{number_of_records} %{resource} foram modificados"
     pagination:
       first: "Primeiro"
       last: "Último"

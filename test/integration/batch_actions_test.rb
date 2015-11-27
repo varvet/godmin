@@ -15,6 +15,7 @@ class BatchActionsTest < ActionDispatch::IntegrationTest
     within "#actions" do
       click_link "Destroy"
     end
+    assert_equal articles_path, current_path
     assert page.has_no_content? "foo"
     assert page.has_no_content? "bar"
 
