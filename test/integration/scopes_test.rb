@@ -2,8 +2,6 @@ require "test_helper"
 
 class ScopesTest < ActionDispatch::IntegrationTest
   def test_scopes
-    Capybara.current_driver = Capybara.javascript_driver
-
     Article.create! title: "foo"
     Article.create! title: "bar"
     Article.create! title: "baz", published: true
