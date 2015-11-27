@@ -27,7 +27,8 @@ module Godmin
       def association(attribute, options = {})
         case association_type(attribute)
         when :belongs_to
-          select "#{attribute}_id", association_collection_for_select(attribute), {}, data: { behavior: "select-box" }
+          select_options = ->() { options[:collection] || association_collection_for_select(attribute) }
+          select "#{attribute}_id", select_options.call, {}, data: { behavior: "select-box" }
         else
           input(attribute, options)
         end

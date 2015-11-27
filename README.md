@@ -499,6 +499,18 @@ form_for @resource do |f|
 end
 ```
 
+The `association` method can be used to populate select tags
+
+```ruby
+# Article :belongs_to Author
+
+form_for @resource do |f|
+  f.input :article_title
+  f.association :author # [[article1.to_s, 1], [article2.to_s, 2], etc.]
+  f.association :author, collection: Author.whatever.pluck(:name, :id) # override default behaviour
+end
+```
+
 ### Navigation
 
 Godmin comes with built in view helpers for generating the navbar.
