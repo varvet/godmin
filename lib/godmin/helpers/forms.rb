@@ -4,6 +4,11 @@ module Godmin
       def form_for(record, options = {}, &block)
         super(record, { builder: FormBuilders::FormBuilder, inline_errors: false }.merge(options), &block)
       end
+
+      def select_tag(name, option_tags = nil, options = {})
+        options.deep_merge!(data: { behavior: "select-box" })
+        super
+      end
     end
   end
 
@@ -27,8 +32,7 @@ module Godmin
       def association(attribute, options = {})
         case association_type(attribute)
         when :belongs_to
-          select_options = ->() { options[:collection] || association_collection_for_select(attribute) }
-          select "#{attribute}_id", select_options.call, {}, data: { behavior: "select-box" }
+          select "#{attribute}_id", association_collection_for_select(attribute)
         else
           input(attribute, options)
         end
@@ -46,6 +50,16 @@ module Godmin
           value: datetime_value(attribute, options, :datetimepicker),
           data: { behavior: "datetimepicker" }
         ))
+      end
+
+      def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
+        html_options.deep_merge!(data: { behavior: "select-box" })
+        super
+      end
+
+      def select(method, choices = nil, options = {}, html_options = {}, &block)
+        html_options.deep_merge!(data: { behavior: "select-box" })
+        super
       end
 
       private

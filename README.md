@@ -499,7 +499,7 @@ form_for @resource do |f|
 end
 ```
 
-The `association` method can be used to populate select tags
+The `association` method can be used to populate a select tag from a `belongs_to` association easily. For anything more complicated, revert to the standard rails form builder methods.
 
 ```ruby
 # Article :belongs_to Author
@@ -507,7 +507,7 @@ The `association` method can be used to populate select tags
 form_for @resource do |f|
   f.input :article_title
   f.association :author # [[article1.to_s, 1], [article2.to_s, 2], etc.]
-  f.association :author, collection: Author.whatever.pluck(:name, :id) # override default behaviour
+  f.collection_select :author_id, Author.whatever, :id, :name, include_blank: true
 end
 ```
 
