@@ -832,6 +832,14 @@ If you wish to translate the datetimepicker, change `moment/en-gb` in your `app/
 
 Please note that the datepickers default to en-GB, not en-US, because Rails cannot automatically parse en-US dates.
 
+To use an alternative format, use the format option.
+
+```js
+Godmin.Datetimepickers.initializeDatepicker($elems, {
+  format: 'YYYY-MM-DD'
+});
+```
+
 ### Select boxes
 
 Make a [selectize.js](http://brianreavis.github.io/selectize.js/) select box out of a text field or select box:
