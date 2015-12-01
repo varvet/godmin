@@ -168,6 +168,11 @@ Using `attrs_for_index` we can control what fields are displayed in the table li
 attrs_for_form :title, :body, :published
 ```
 
+For quick prototyping, we could build the parameters this way (if appropriate).
+```ruby
+attrs_for_show *Article.column_names
+```
+
 By now we have a basic admin interface for managing articles.
 
 ## Resources
@@ -480,6 +485,13 @@ end
 ## Views
 
 It's easy to override view templates and partials in Godmin, both globally and per resource. All you have to do is place a file with an identical name in your `app/views` directory. For instance, to override the `godmin/resource/index.html.erb` template for all resources, place a file under `app/views/resource/index.html.erb`. If you only wish to override it for articles, place it instead under `app/views/articles/index.html.erb`.
+
+You can also inherit from the default template as such:
+```ruby
+<%= render template: 'godmin/resource/show' %>
+
+<p>Append stuff here</p>
+```
 
 If you wish to customize the content of a table column, you can place a partial under `app/views/{resource}/columns/{column_name}.html.erb`, e.g. `app/views/articles/columns/_title.html.erb`. The resource is available to the partial through the `resource` variable.
 
