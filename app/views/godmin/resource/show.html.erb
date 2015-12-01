@@ -1,6 +1,6 @@
 <%= render partial: "breadcrumb" %>
 
-<table class="table table-bordered table-striped">
+<table class="table table-striped">
   <% @resource_service.attrs_for_show.each do |attr| %>
     <tr>
       <th><%= @resource_class.human_attribute_name(attr) %></th>
