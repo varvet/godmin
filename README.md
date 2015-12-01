@@ -488,7 +488,7 @@ It's easy to override view templates and partials in Godmin, both globally and p
 
 You can also inherit from the default template as such:
 ```ruby
-<%= render file: 'godmin/resource/show' %>
+<%= render template: 'godmin/resource/show' %>
 
 <p>Append stuff here</p>
 ```
