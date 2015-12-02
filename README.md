@@ -218,7 +218,7 @@ class ArticleService
 end
 ```
 
-There are four types of filters: `string`, `select`, `multiselect` and `checkboxes`, specified using the `as` parameter.
+There are three types of filters: `string`, `select` and `multiselect`, specified using the `as` parameter.
 
 When using `select` or `multiselect`, a collection must be specified. The collection must conform to the format used by Rails `options_for_select` helpers. It can be either an array consisting of name/value tuples, or a collection of ActiveRecords.
 
