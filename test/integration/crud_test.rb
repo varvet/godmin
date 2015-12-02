@@ -14,7 +14,10 @@ class SignInTest < ActionDispatch::IntegrationTest
   def test_show_resource
     article = Article.create! title: "foo", body: "bar"
 
-    visit article_path(article)
+    visit articles_path
+    within "[data-resource-id='#{article.id}']" do
+      click_link "Show"
+    end
 
     assert page.has_content? "Title foo"
     assert page.has_content? "Body bar"
@@ -35,7 +38,10 @@ class SignInTest < ActionDispatch::IntegrationTest
   def test_update_resource
     article = Article.create! title: "foo", body: "bar"
 
-    visit edit_article_path(article)
+    visit articles_path
+    within "[data-resource-id='#{article.id}']" do
+      click_link "Edit"
+    end
     fill_in "Title", with: "baz"
     click_button "Update Article"
 
