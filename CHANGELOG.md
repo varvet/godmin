@@ -1,11 +1,12 @@
 # Changelog
 
-### 1.0.1 - Unreleased
+### Unreleased
 Features
 - Adds locale for pt-BR (Brazilian Portuguese) (https://github.com/varvet/godmin/pull/141)
 - New sandbox template with with more examples (https://github.com/varvet/godmin/pull/135)
 - Permits belongs to association by default (https://github.com/varvet/godmin/pull/149)
 - Enables responsive design (https://github.com/varvet/godmin/pull/146)
+- Batch actions now receive a relation instead of an array (https://github.com/varvet/godmin/pull/158)
 
 Bug fixes
 - Fixes a bug that masked errors in templates with a template not found error (https://github.com/varvet/godmin/pull/142)
