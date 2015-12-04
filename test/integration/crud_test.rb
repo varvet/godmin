@@ -19,6 +19,7 @@ class CrudTest < ActionDispatch::IntegrationTest
       click_link "Show"
     end
 
+    assert_equal article_path(article), current_path
     assert page.has_content? "Title foo"
     assert page.has_content? "Body bar"
   end

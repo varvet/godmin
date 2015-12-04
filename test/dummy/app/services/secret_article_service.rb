@@ -1,2 +1,0 @@
-class SecretArticleService < ArticleService
-end
