@@ -737,7 +737,7 @@ end
 ```
 
 ### Batch action authorization
-Batch actions must be authorized in your policy if you are using Godmin's built in authorization functionality. The policy method is called with the list of all records to be processed.
+Batch actions must be authorized in your policy if you are using Godmin's built in authorization functionality. The policy method is called with the relation containing all records to be processed.
 
 ```ruby
 class ArticlePolicy < Godmin::Authorization::Policy
