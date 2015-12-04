@@ -406,6 +406,36 @@ class ArticlesController < ApplicationController
 end
 ```
 
+#### Passing parameters to the service object
+
+Sometimes you want to pass additional params to the service object, other that those passed in `resource_params`. In order to do this, you need to pass them along when initializing the service object in the controller:
+
+```ruby
+class ArticlesController < ApplicationController
+  include Godmin::Resources::ResourceController
+
+  private
+
+	def resource_service
+	  service = super
+	  service.options[:some_param] = params[:some_param]
+	  service
+	end
+end
+```
+
+You can then access it from the service object:
+
+```ruby
+class ArticleService
+  include Godmin::Resources::ResourceService
+
+	def some_method
+    options[:some_param]
+  end
+end
+```
+
 ### Redirecting
 
 By default the user is redirected to the resource show page after create and update, and to the index page after destroy. To change this, there are four controller methods that can be overridden: `redirect_after_create`, `redirect_after_update`, `redirect_after_save`, and `redirect_after_destroy`.
