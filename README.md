@@ -416,11 +416,11 @@ class ArticlesController < ApplicationController
 
   private
 
-	def resource_service
-	  service = super
-	  service.options[:some_param] = params[:some_param]
-	  service
-	end
+  def resource_service
+    service = super
+    service.options[:some_param] = params[:some_param]
+    service
+  end
 end
 ```
 
@@ -430,7 +430,7 @@ You can then access it from the service object:
 class ArticleService
   include Godmin::Resources::ResourceService
 
-	def some_method
+  def some_method
     options[:some_param]
   end
 end
