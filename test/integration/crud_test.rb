@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SignInTest < ActionDispatch::IntegrationTest
+class CrudTest < ActionDispatch::IntegrationTest
   def test_list_resources
     Article.create! title: "foo"
     Article.create! title: "bar"
