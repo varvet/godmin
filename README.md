@@ -749,12 +749,12 @@ end
 ```
 
 ### Batch action authorization
-Batch actions must be authorized in your policy if you are using Godmin's built in authorization functionality. The policy method is called once for each record before they are passed to the batch action method defined by the user. If a user is not allowed to "batch action" a particular record, it will be filtered out before passed to the batch action method. Note that this does not raise any `NotAuthorizedError`.
+Batch actions must be authorized in your policy if you are using Godmin's built in authorization functionality. The policy method is called with the relation containing all records to be processed.
 
 ```ruby
 class ArticlePolicy < Godmin::Authorization::Policy
   def batch_action_destroy?
-    @record.user_id == user.id
+    record.all? { |r| r.user_id == user.id }
   end
 end
 ```

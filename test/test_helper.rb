@@ -4,15 +4,16 @@ CodeClimate::TestReporter.start
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require "rails/test_help"
 require "capybara/rails"
+require "capybara/poltergeist"
 require "minitest/reporters"
 require "pry"
 
 # TODO: what to call these?
-require File.expand_path("../fakes/article.rb",  __FILE__)
-require File.expand_path("../fakes/article_service.rb",  __FILE__)
+require File.expand_path("../fakes/article.rb", __FILE__)
+require File.expand_path("../fakes/article_service.rb", __FILE__)
 
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(
   color: true
@@ -27,6 +28,21 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 if ActiveSupport::TestCase.method_defined?(:fixture_path=)
   ActiveSupport::TestCase.fixture_path = File.expand_path("../fixtures", __FILE__)
 end
+
+class ActiveRecord::Base
+  mattr_accessor :shared_connection
+  @@shared_connection = nil
+
+  def self.connection
+    @@shared_connection || retrieve_connection
+  end
+end
+
+# Forces all threads to share the same connection. This works on
+# Capybara because it starts the web server in a thread.
+ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+
+Capybara.javascript_driver = :poltergeist
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL

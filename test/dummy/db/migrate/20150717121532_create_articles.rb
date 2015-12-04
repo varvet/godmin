@@ -3,7 +3,7 @@ class CreateArticles < ActiveRecord::Migration
     create_table :articles do |t|
       t.string :title
       t.text :body
-      t.boolean :published
+      t.boolean :published, default: false
 
       t.timestamps null: false
     end

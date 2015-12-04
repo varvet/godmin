@@ -1,11 +1,14 @@
 require "godmin/helpers/batch_actions"
 require "godmin/helpers/filters"
 require "godmin/helpers/tables"
+require "godmin/resources/resource_controller/batch_actions"
 
 module Godmin
   module Resources
     module ResourceController
       extend ActiveSupport::Concern
+
+      include BatchActions
 
       included do
         helper Godmin::Helpers::BatchActions
@@ -15,7 +18,7 @@ module Godmin
         before_action :set_resource_service
         before_action :set_resource_class
         before_action :set_resources, only: :index
-        before_action :set_resource, only: [:show, :new, :edit, :create, :destroy]
+        before_action :set_resource, only: [:show, :new, :edit, :create, :update, :destroy]
       end
 
       def index
@@ -50,10 +53,6 @@ module Godmin
       end
 
       def update
-        return if perform_batch_action
-
-        set_resource
-
         respond_to do |format|
           if @resource_service.update_resource(@resource, resource_params)
             format.html { redirect_to redirect_after_update, notice: redirect_flash_message }
@@ -161,30 +160,6 @@ module Godmin
 
       def redirect_flash_message
         translate_scoped("flash.#{action_name}", resource: @resource.class.model_name.human)
-      end
-
-      def perform_batch_action
-        return false unless params[:batch_action].present?
-
-        item_ids = params[:id].split(",").map(&:to_i)
-        records = @resource_class.find(item_ids)
-        if authorization_enabled?
-          records = records.select { |r| policy(r).send("batch_action_#{params[:batch_action]}?") }
-        end
-
-        if @resource_service.batch_action(params[:batch_action], records)
-          flash[:updated_ids] = item_ids
-          flash[:notice] = translate_scoped("flash.batch_action",
-                                            number_of_affected_records: records.length,
-                                            total_number_of_records: item_ids.length,
-                                            resource: @resource_class.model_name.human(count: item_ids.length))
-
-          if respond_to?("redirect_after_batch_action_#{params[:batch_action]}", true)
-            redirect_to send("redirect_after_batch_action_#{params[:batch_action]}") and return true
-          end
-        end
-
-        redirect_to :back and return true
       end
     end
   end
