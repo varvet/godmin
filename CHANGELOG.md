@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### 1.1.0 - 2015-12-08
 Features
 - Adds locale for pt-BR (Brazilian Portuguese) (https://github.com/varvet/godmin/pull/141)
 - New sandbox template with with more examples (https://github.com/varvet/godmin/pull/135)
