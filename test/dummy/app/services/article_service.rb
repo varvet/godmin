@@ -1,9 +1,13 @@
 class ArticleService
   include Godmin::Resources::ResourceService
 
-  attrs_for_index :id, :title, :published, :created_at
-  attrs_for_show :id, :title, :body, :published
-  attrs_for_form :title, :body, :published
+  attrs_for_index :id, :title, :non_orderable_column, :admin_user, :published, :created_at
+  attrs_for_show :id, :title, :body, :admin_user, :published
+  attrs_for_form :title, :body, :admin_user, :published
+
+  def order_by_admin_user(resources, direction)
+    resources.joins(:admin_users).order("admin_users.email #{direction}")
+  end
 
   scope :unpublished
   scope :published

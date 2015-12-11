@@ -2,13 +2,15 @@ module Godmin
   module Helpers
     module Tables
       def column_header(attribute)
-        if @resource_class.column_names.include?(attribute.to_s)
+        if @resource_service.orderable_column?(attribute.to_s)
           direction =
             if params[:order].present?
               if params[:order].match(/\A#{attribute.to_s}_(asc|desc)\z/)
                 $1 == "desc" ? "asc" : "desc"
               elsif params[:order].match(/\A\w+_(asc|desc)\z/)
                 $1
+              else
+                "desc"
               end
             else
               "desc"

@@ -12,24 +12,25 @@ Godmin differs from tools like [ActiveAdmin](http://activeadmin.info/) and [Rail
 ![Screenshot](https://raw.githubusercontent.com/varvet/godmin/master/screenshot.png)
 
 - [Installation](#installation)
-	- [Standalone installation](#standalone-installation)
-	- [Engine installation](#engine-installation)
-	- [Installation artefacts](#installation-artefacts)
+  - [Standalone installation](#standalone-installation)
+  - [Engine installation](#engine-installation)
+  - [Installation artefacts](#installation-artefacts)
 - [Getting started](#getting-started)
 - [Resources](#resources)
-	- [Scopes](#scopes)
-	- [Filters](#filters)
-	- [Batch actions](#batch-actions)
-	- [Resource fetching, building and saving](#resource-fetching-building-and-saving)
-	- [Redirecting](#redirecting)
-	- [Pagination](#pagination)
-	- [Exporting](#exporting)
+  - [Scopes](#scopes)
+  - [Filters](#filters)
+  - [Batch actions](#batch-actions)
+  - [Custom ordering](#custom-ordering)
+  - [Resource fetching, building and saving](#resource-fetching-building-and-saving)
+  - [Redirecting](#redirecting)
+  - [Pagination](#pagination)
+  - [Exporting](#exporting)
 - [Views](#views)
   - [Forms](#forms)
   - [Navigation](#navigation)
 - [Authentication](#authentication)
-	- [Built in authentication](#built-in-authentication)
-	- [Shared authentication](#shared-authentication)
+  - [Built in authentication](#built-in-authentication)
+  - [Shared authentication](#shared-authentication)
 - [Authorization](#authorization)
 - [Localization](#localization)
 - [JavaScript](#javascript)
@@ -272,6 +273,24 @@ end
 ```
 
 If you are using Godmin's built in authorization functionality you must [authorize your batch actions in your policy](#batch-action-authorization).
+
+### Custom ordering
+
+By default, Godmin supports ordering of database columns in the index view table. However, it cannot automatically sort associations, custom attributes and so on.
+If you want to order something that Godmin doesn't support out of the box, or you just want to customize how a columns is ordered, you can implement your own ordering functionality in the service object by creating a `order_by_<attribute>` method.
+
+```ruby
+class ArticleService
+  include Godmin::Resources::ResourceService
+  attrs_for_index :title, :author
+
+  # resources is an ActiveRecord::Relation object
+  # direction is the order direction ("asc" or "desc")
+  def order_by_author(resources, direction)
+    resources.joins(:authors).order("authors.name #{direction}")
+  end
+end
+```
 
 ### Resource fetching, building and saving
 

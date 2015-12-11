@@ -20,4 +20,16 @@ class ColumnOrderingTest < ActionDispatch::IntegrationTest
     link = find("#table th.column-created_at a")
     assert_equal "/articles?order=created_at_desc", link[:href]
   end
+
+  def test_order_links_when_not_orderable
+    visit articles_path
+    assert has_selector?("#table th.column-non_orderable_column")
+    assert has_no_link?("#table th.column-non_orderable_column a")
+  end
+
+  def test_order_links_when_custom_orderable
+    visit articles_path
+    link = find("#table th.column-admin_user a")
+    assert_equal "/articles?order=admin_user_desc", link[:href]
+  end
 end
