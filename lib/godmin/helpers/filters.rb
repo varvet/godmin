@@ -47,7 +47,9 @@ module Godmin
 
       def multiselect_filter_field(name, options, html_options = {})
         filter_select(
-          name, options, {
+          name, {
+            include_hidden: false
+          }.deep_merge(options), {
             name: "filter[#{name}][]",
             multiple: true,
             data: {
@@ -78,14 +80,14 @@ module Godmin
           fail "A collection proc must be specified for select filters"
         end
 
-        collection = options[:collection].call
+        collection = options.delete(:collection).call
 
         choices =
           if collection.is_a? ActiveRecord::Relation
             @template.options_from_collection_for_select(
               collection,
-              options[:option_value],
-              options[:option_text],
+              options.delete(:option_value),
+              options.delete(:option_text),
               selected: default_filter_value(name)
             )
           else
@@ -101,7 +103,7 @@ module Godmin
             label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
             include_hidden: true,
             include_blank: true
-          }, {
+          }.deep_merge(options), {
             data: { behavior: "select-box" }
           }.deep_merge(html_options)
         )
