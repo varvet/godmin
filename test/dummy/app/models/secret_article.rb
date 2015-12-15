@@ -1,2 +1,0 @@
-class SecretArticle < Article
-end
