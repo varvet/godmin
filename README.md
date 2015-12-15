@@ -560,6 +560,18 @@ form_for @resource do |f|
 end
 ```
 
+The `association` method can be used to populate a select tag from a `belongs_to` association easily. For anything more complicated, revert to the standard rails form builder methods.
+
+```ruby
+# Article :belongs_to Author
+
+form_for @resource do |f|
+  f.input :article_title
+  f.association :author # [[article1.to_s, 1], [article2.to_s, 2], etc.]
+  f.collection_select :author_id, Author.whatever, :id, :name, include_blank: true
+end
+```
+
 ### Navigation
 
 Godmin comes with built in view helpers for generating the navbar.
