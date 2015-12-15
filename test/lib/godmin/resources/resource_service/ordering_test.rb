@@ -4,12 +4,6 @@ module Godmin
   module ResourceService
     class OrderingTest < ActiveSupport::TestCase
       def setup
-        resource_class = Class.new do
-          def self.table_name
-            "articles"
-          end
-        end
-
         @resources_class = Class.new do
           attr_reader :order_param
 
@@ -18,7 +12,8 @@ module Godmin
           end
         end
 
-        @article_service = ArticleService.new(resource_class: resource_class)
+        @resources = @resources_class.new
+        @article_service = Fakes::ArticleService.new(resources: @resources)
       end
 
       def test_apply_order
@@ -31,6 +26,11 @@ module Godmin
         resources = @resources_class.new
         @article_service.apply_order("", resources)
         assert_equal nil, resources.order_param
+      end
+
+      def test_apply_order_with_custom_ordering_method
+        @article_service.apply_order("foobar_desc", @resources)
+        assert_equal [@resources, "desc"], @article_service.called_methods[:ordering][:by_foobar]
       end
     end
   end

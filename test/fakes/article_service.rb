@@ -21,7 +21,7 @@ module Fakes
 
     def initialize(*)
       super
-      @called_methods = { scopes: {}, filters: {}, batch_actions: {} }
+      @called_methods = { scopes: {}, filters: {}, batch_actions: {}, ordering: {} }
     end
 
     def resource_class
@@ -30,6 +30,11 @@ module Fakes
 
     def resources_relation
       [:foo, :bar, :baz]
+    end
+
+    def order_by_foobar(resources, direction)
+      called_methods[:ordering][:by_foobar] = [resources, direction]
+      resources
     end
 
     def scope_unpublished(resources)
