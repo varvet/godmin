@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SignInTest < ActionDispatch::IntegrationTest
+class AuthorizationTest < ActionDispatch::IntegrationTest
   def test_can_index?
     visit authorized_articles_path
     assert_equal 200, page.status_code
