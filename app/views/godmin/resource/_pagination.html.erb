@@ -25,7 +25,7 @@
     </nav>
   <% end %>
 </div>
-<div class="pagination-entries pull-sm-right hidden-xs">
+<div class="pagination-entries pull-sm-right hidden-sm-down">
   <% if @resources.length == 0 %>
     <%= translate_scoped("pagination.entries.zero", {
       resource: @resource_class.model_name.human(count: @resources.length).downcase
