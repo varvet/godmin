@@ -1,31 +1,31 @@
-<div class="pull-left">
+<div class="pull-sm-left">
   <% if @resource_service.paginator.total_pages > 1 %>
     <nav>
       <ul class="pagination">
         <% unless @resource_service.paginator.pages.first == 1 && @resource_service.paginator.current_page == @resource_service.paginator.pages.first %>
-          <li><%= link_to translate_scoped("pagination.first"), params.merge(page: 1) %></li>
-          <li><%= link_to "«", params.merge(page: @resource_service.paginator.current_page - 1) %></li>
+          <li class="page-item"><%= link_to translate_scoped("pagination.first"), params.merge(page: 1), class: "page-link" %></li>
+          <li class="page-item"><%= link_to "«", params.merge(page: @resource_service.paginator.current_page - 1), class: "page-link" %></li>
         <% end %>
         <% unless @resource_service.paginator.pages.first == 1 %>
-          <li class="disabled"><%= link_to "…" %></li>
+          <li class="page-item disabled"><%= link_to "…", class: "page-link" %></li>
         <% end %>
         <% @resource_service.paginator.pages.each do |page| %>
-          <li class="<%= "active" if page == @resource_service.paginator.current_page %>">
-            <%= link_to page, params.merge(page: page) %>
+          <li class="page-item <%= "active" if page == @resource_service.paginator.current_page %>">
+            <%= link_to page, params.merge(page: page), class: "page-link" %>
           </li>
         <% end %>
         <% unless @resource_service.paginator.pages.last == @resource_service.paginator.total_pages %>
-          <li class="disabled"><%= link_to "…" %></li>
+          <li class="page-item disabled"><%= link_to "…", class: "page-link" %></li>
         <% end %>
         <% unless @resource_service.paginator.pages.last == @resource_service.paginator.total_pages && @resource_service.paginator.current_page == @resource_service.paginator.pages.last %>
-          <li><%= link_to "»", params.merge(page: @resource_service.paginator.current_page + 1) %></li>
-          <li><%= link_to translate_scoped("pagination.last"), params.merge(page: @resource_service.paginator.total_pages) %></li>
+          <li class="page-item"><%= link_to "»", params.merge(page: @resource_service.paginator.current_page + 1), class: "page-link" %></li>
+          <li class="page-item"><%= link_to translate_scoped("pagination.last"), params.merge(page: @resource_service.paginator.total_pages), class: "page-link" %></li>
         <% end %>
       </ul>
     </nav>
   <% end %>
 </div>
-<div class="pagination-entries pull-right hidden-xs">
+<div class="pagination-entries pull-sm-right hidden-xs">
   <% if @resources.length == 0 %>
     <%= translate_scoped("pagination.entries.zero", {
       resource: @resource_class.model_name.human(count: @resources.length).downcase

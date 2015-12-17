@@ -12,6 +12,7 @@
 //
 //= require jquery2
 //= require jquery_ujs
+//= require tether
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require selectize
