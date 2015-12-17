@@ -1,5 +1,19 @@
 # Changelog
 
+### 1.0.1 - Unreleased
+Features
+- Adds locale for pt-BR (Brazilian Portuguese) (https://github.com/varvet/godmin/pull/141)
+- New sandbox template with with more examples (https://github.com/varvet/godmin/pull/135)
+- Permits belongs to association by default (https://github.com/varvet/godmin/pull/149)
+- Enables responsive design (https://github.com/varvet/godmin/pull/146)
+
+Bug fixes
+- Fixes a bug that masked errors in templates with a template not found error (https://github.com/varvet/godmin/pull/142)
+- Fixes a namespace issue with the authentication generator (https://github.com/varvet/godmin/pull/150)
+
+### 1.0.0 - 2015-11-13
+Release of 1.0.0 :tada:
+
 ### 0.12.4 - 2015-10-21
 Bug fixes
 - Fixes a bug which made it impossible to override the datetimepicker locale (https://github.com/varvet/godmin/issues/132)

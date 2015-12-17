@@ -7,9 +7,16 @@ def install_standalone
     generate_model
     generate("godmin:install")
     generate("godmin:resource", "article")
+    generate("godmin:resource", "author")
 
-    modify_controller
-    modify_service
+    modify_menu
+    modify_rakefile
+    modify_routes
+    modify_locales
+    modify_models
+    modify_author_service
+    modify_article_controller
+    modify_article_service
 
     migrate_and_seed
   end
@@ -23,7 +30,7 @@ def install_engine
 
   inject_into_file "admin/admin.gemspec", before: /^end/ do
     <<-END.strip_heredoc.indent(2)
-      s.add_dependency "godmin", "> 0.12"
+      s.add_dependency "godmin", "~> 1.0.0"
     END
   end
 
@@ -33,6 +40,7 @@ def install_engine
     generate_model
     run_ruby_script("admin/bin/rails g godmin:install")
     run_ruby_script("admin/bin/rails g godmin:resource article")
+    run_ruby_script("admin/bin/rails g godmin:resource author")
 
     inject_into_file "config/routes.rb", before: /^end/ do
       <<-END.strip_heredoc.indent(2)
@@ -40,15 +48,22 @@ def install_engine
       END
     end
 
-    modify_controller("admin")
-    modify_service("admin")
+    modify_menu("admin")
+    modify_rakefile
+    modify_routes("admin")
+    modify_locales
+    modify_models
+    modify_author_service("admin")
+    modify_article_controller("admin")
+    modify_article_service("admin")
 
     migrate_and_seed
   end
 end
 
 def generate_model
-  generate(:model, "article title:string body:text author:string published:boolean published_at:datetime")
+  generate(:model, "author name:string")
+  generate(:model, "article title:string body:text author:references published:boolean published_at:datetime")
 
   append_to_file "db/seeds.rb" do
     <<-END.strip_heredoc
@@ -61,21 +76,121 @@ def generate_model
       end
 
       def author
-        ["Lorem Ipsum", "Magna Aliqua", "Commodo Consequat"].sample
+        Author.all.sample
       end
 
       def published
         [true, true, false].sample
       end
 
+      def published_at
+        Time.now - [0, 1, 2, 3, 4, 5].sample.days
+      end
+
+      ["Lorem Ipsum", "Magna Aliqua", "Commodo Consequat"].each do |name|
+        Author.create name: name
+      end
+
       35.times do |i|
-        Article.create! title: title, author: author, published: published
+        Article.create! title: title, author: author, published: published, published_at: published_at
       end
     END
   end
 end
 
-def modify_controller(namespace = nil)
+def modify_menu(namespace = nil)
+  navigation_file =
+    if namespace
+      "admin/app/views/admin/shared/_navigation_aside.html.erb"
+    else
+      "app/views/shared/_navigation_aside.html.erb"
+    end
+
+  create_file navigation_file do
+    <<-END.strip_heredoc
+      <%= navbar_dropdown "Take me places" do %>
+        <%= navbar_item "Godmin on Github", "https://github.com/varvet/godmin" %>
+        <%= navbar_item "The source of this page!", "https://github.com/varvet/godmin-sandbox" %>
+        <%= navbar_item "The blog post", "https://www.varvet.se/blog/update/2015/11/13/introducing-godmin-1-0.html" %>
+        <%= navbar_divider %>
+        <%= navbar_item "Please retweet ;)", "https://twitter.com/varvet/status/665092299995676672" %>
+      <% end %>
+    END
+  end
+end
+
+def modify_rakefile
+  append_to_file "RakeFile" do
+    <<-END.strip_heredoc
+
+      namespace :sandbox do
+        desc "Reseed the database"
+        task reseed: :environment do
+          Rake::Task["sandbox:reset"].invoke
+          Rake::Task["db:schema:load"].invoke
+          Rake::Task["db:seed"].invoke
+        end
+        desc "Reset the database"
+        task reset: :environment do
+          ActiveRecord::Base.connection.tables.each do |table|
+            if table != "schema_migrations"
+              query = "DROP TABLE IF EXISTS \#{table} CASCADE;"
+              ActiveRecord::Base.connection.execute(query)
+            end
+          end
+        end
+      end
+    END
+  end
+end
+
+def modify_locales
+  append_to_file "config/locales/en.yml" do
+    <<-END.strip_heredoc.indent(2)
+
+    activerecord:
+      models:
+        article:
+          one: Article
+          other: Articles
+        author:
+          one: Author
+          other: Authors
+    END
+  end
+end
+
+def modify_routes(namespace = nil)
+  routes_file =
+    if namespace
+      "admin/config/routes.rb"
+    else
+      "config/routes.rb"
+    end
+
+  gsub_file routes_file, "application#welcome", "articles#index"
+end
+
+def modify_models
+  inject_into_file "app/models/article.rb", before: "end" do
+    <<-END.strip_heredoc.indent(2)
+
+      def to_s
+        title
+      end
+    END
+  end
+
+  inject_into_file "app/models/author.rb", before: "end" do
+    <<-END.strip_heredoc.indent(2)
+      def to_s
+        name
+      end
+    END
+  end
+end
+
+def modify_article_controller(namespace = nil)
   articles_controller =
     if namespace
       "admin/app/controllers/admin/articles_controller.rb"
@@ -99,7 +214,7 @@ def modify_controller(namespace = nil)
   end
 end
 
-def modify_service(namespace = nil)
+def modify_article_service(namespace = nil)
   article_service =
     if namespace
       "admin/app/services/admin/article_service.rb"
@@ -127,10 +242,10 @@ def modify_service(namespace = nil)
       end
 
       filter :title
-      filter :author
+      filter :author, as: :select, collection: -> { Author.all }, option_text: "name"
 
       def filter_title(articles, value)
-        articles.where(title: value)
+        articles.where("title LIKE ?", "%\#{value}%")
       end
 
       def filter_author(articles, value)
@@ -152,17 +267,64 @@ def modify_service(namespace = nil)
       def batch_action_destroy(articles)
         articles.each { |a| a.destroy }
       end
+
+      def per_page
+        15
+      end
     END
   end
 end
 
+def modify_author_service(namespace = nil)
+  author_service =
+    if namespace
+      "admin/app/services/admin/author_service.rb"
+    else
+      "app/services/author_service.rb"
+    end
+
+  gsub_file author_service, "attrs_for_index", "attrs_for_index :name"
+  gsub_file author_service, "attrs_for_show", "attrs_for_show :name"
+  gsub_file author_service, "attrs_for_form", "attrs_for_form :name"
+
+  inject_into_file author_service, after: "attrs_for_form :name \n" do
+    <<-END.strip_heredoc.indent(namespace ? 4 : 2)
+      attrs_for_export :id, :name
+
+      filter :name
+
+      def filter_name(authors, value)
+        authors.where("name LIKE ?", "%\#{value}%")
+      end
+
+      batch_action :destroy, confirm: true
+
+      def batch_action_destroy(authors)
+        authors.each { |a| a.destroy }
+      end
+    END
+  end
+end
 def migrate_and_seed
+  rake("db:drop")
+  rake("db:create")
   rake("db:migrate")
   rake("db:seed")
 end
 
-if yes?("Place godmin in admin engine?")
-  install_engine
+with_engine = "--with-engine"
+without_engine = "--without-engine"
+
+if ARGV.count > (ARGV - [with_engine, without_engine]).count
+  if ARGV.include? with_engine
+    install_engine
+  elsif ARGV.include? without_engine
+    install_standalone
+  end
 else
-  install_standalone
+  if yes?("Place godmin in admin engine?")
+    install_engine
+  else
+    install_standalone
+  end
 end

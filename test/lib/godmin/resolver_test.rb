@@ -17,23 +17,37 @@ module Godmin
       @engine_wrapper_2 = EngineWrapper.new(Admin::Controller)
     end
 
-    def test_godmin_resolver_when_not_namespaced
-      resolver = Resolver.new("articles", @engine_wrapper_1)
+    def test_engine_resolver_when_not_namespaced
+      resolver = EngineResolver.new("articles", @engine_wrapper_1)
 
       assert_equal [
-        File.join(@engine_wrapper_1.root, "app/views/resource"),
-        File.join(Godmin::Engine.root, "app/views/godmin/articles"),
-        File.join(Godmin::Engine.root, "app/views/godmin/resource")
+        "resource"
+      ], resolver.template_paths("articles")
+    end
+
+    def test_engine_resolver_when_namespaced
+      resolver = EngineResolver.new("godmin/resolver_test/admin/articles", @engine_wrapper_2)
+
+      assert_equal [
+        "godmin/resolver_test/admin/resource"
+      ], resolver.template_paths("godmin/resolver_test/admin/articles")
+    end
+
+    def test_godmin_resolver_when_not_namespaced
+      resolver = GodminResolver.new("articles", @engine_wrapper_1)
+
+      assert_equal [
+        "articles",
+        "resource"
       ], resolver.template_paths("articles")
     end
 
     def test_godmin_resolver_when_namespaced
-      resolver = Resolver.new("godmin/resolver_test/admin/articles", @engine_wrapper_2)
+      resolver = GodminResolver.new("godmin/resolver_test/admin/articles", @engine_wrapper_2)
 
       assert_equal [
-        File.join(@engine_wrapper_2.root, "app/views/godmin/resolver_test/admin/resource"),
-        File.join(Godmin::Engine.root, "app/views/godmin/articles"),
-        File.join(Godmin::Engine.root, "app/views/godmin/resource")
+        "articles",
+        "resource"
       ], resolver.template_paths("godmin/resolver_test/admin/articles")
     end
   end
