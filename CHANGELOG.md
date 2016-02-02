@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### 1.2.0 - 2016-02-02
 Features
 - Adds support for custom ordering of columns (https://github.com/varvet/godmin/pull/168)
 - Adds passing of html options to association helper (https://github.com/varvet/godmin/pull/176)
