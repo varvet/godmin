@@ -4,6 +4,9 @@
 Features
 - Adds support for custom ordering of columns (https://github.com/varvet/godmin/pull/168)
 
+Bug fixes:
+- Fixes an issue with the template resolver and Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/175)
+
 ### 1.1.0 - 2015-12-08
 Features
 - Adds locale for pt-BR (Brazilian Portuguese) (https://github.com/varvet/godmin/pull/141)

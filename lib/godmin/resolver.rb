@@ -13,14 +13,14 @@ module Godmin
       @engine_wrapper = engine_wrapper
     end
 
-    def find_templates(name, prefix, partial, details)
+    def find_templates(name, prefix, *args)
       templates = []
 
       template_paths(prefix).each do |path|
         if templates.present?
           break
         else
-          templates = super(name, path, partial, details)
+          templates = super(name, path, *args)
         end
       end
 
