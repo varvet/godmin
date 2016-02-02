@@ -24,10 +24,12 @@ module Godmin
         end
       end
 
-      def association(attribute, options = {})
+      def association(attribute, options = {}, html_options = {})
         case association_type(attribute)
         when :belongs_to
-          select "#{attribute}_id", association_collection_for_select(attribute), options, data: { behavior: "select-box" }
+          select("#{attribute}_id", association_collection_for_select(attribute), options, html_options.deep_merge(
+            data: { behavior: "select-box" }
+          ))
         else
           input(attribute, options)
         end
