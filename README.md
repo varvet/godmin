@@ -536,8 +536,8 @@ end
 It's easy to override view templates and partials in Godmin, both globally and per resource. All you have to do is place a file with an identical name in your `app/views` directory. For instance, to override the `godmin/resource/index.html.erb` template for all resources, place a file under `app/views/resource/index.html.erb`. If you only wish to override it for articles, place it instead under `app/views/articles/index.html.erb`.
 
 You can also inherit from the default template as such:
-```ruby
-<%= render template: 'godmin/resource/show' %>
+```erb
+<%= render template: "godmin/resource/show" %>
 
 <p>Append stuff here</p>
 ```
