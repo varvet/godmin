@@ -1,4 +1,5 @@
 <% content_for :body do %>
+  <!--
   <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
@@ -20,8 +21,41 @@
       </div>
     </div>
   </nav>
+  -->
   <div class="container">
-    <%= render "layouts/godmin/content" %>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="sidebar">
+          <div class="sidebar-title">Godmin</div>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Discussions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Articles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Comments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Departments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Topics</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Newsletters</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Users</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <%= render "layouts/godmin/content" %>
+      </div>
+    </div>
   </div>
 <% end %>
 

@@ -16,29 +16,23 @@
         <% end %>
       </li>
       <% if @resource.persisted? %>
-        <li class="dropdown pull-right">
-          <a href="#" data-toggle="dropdown" role="button">
-            <%= translate_scoped("actions.label") %> <span class="caret"></span>
+        <div class="btn-group pull-sm-right hidden-sm-down">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <%= translate_scoped("actions.label") %>
           </a>
-          <ul class="dropdown-menu">
+          <div class="dropdown-menu">
             <% if policy(@resource).show? && action_name != "show" %>
-              <li>
-                <%= link_to translate_scoped("actions.show"), @resource %>
-              </li>
+              <%= link_to translate_scoped("actions.show"), @resource, class: "dropdown-item" %>
             <% end %>
             <% if policy(@resource).edit? && action_name != "edit" %>
-              <li>
-                <%= link_to translate_scoped("actions.edit"), [:edit, @resource]  %>
-              </li>
+              <%= link_to translate_scoped("actions.edit"), [:edit, @resource], class: "dropdown-item"  %>
             <% end %>
             <% if policy(@resource).destroy? %>
-              <li>
-                <%= link_to translate_scoped("actions.destroy"), @resource, method: :delete,
-                  data: { confirm: translate_scoped("actions.confirm_message") } %>
-              </li>
+              <%= link_to translate_scoped("actions.destroy"), @resource, method: :delete,
+                class: "dropdown-item", data: { confirm: translate_scoped("actions.confirm_message") } %>
             <% end %>
-          </ul>
-        </li>
+          </div>
+        </div>
       <% end %>
     <% end %>
   </ol>

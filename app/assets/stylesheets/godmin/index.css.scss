@@ -10,13 +10,21 @@
  *
  *= require_self
  */
-@import "bootstrap-sprockets";
+
+$container-max-widths: (
+  sm: 100%,
+  md: 100%,
+  lg: 100%,
+  xl: 1410px
+) !default;
+
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
 @import "selectize";
 @import "selectize.bootstrap3";
 
 body {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -35,6 +43,10 @@ body {
 }
 
 #filters {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eceeef;
+
   .filter .control-label {
     display: block;
   }
@@ -68,7 +80,7 @@ body {
 }
 
 .pagination-entries {
-  line-height: 35px;
+  line-height: 40px;
 }
 
 .highlight {
@@ -78,3 +90,37 @@ body {
 
 @-moz-keyframes highlight { from { background: #fffbcc; } to { background: none; } }
 @-webkit-keyframes highlight { from { background: #fffbcc; } to { background: none; } }
+
+
+
+
+.sidebar {
+  padding-right: 30px;
+  border-right: 1px solid #eceeef;
+  text-align: right;
+
+  .sidebar-title {
+    font-size: 1.2rem;
+    line-height: 3rem;
+  }
+
+  .nav-item {
+    padding: 6px 0;
+
+    &:first-child {
+      padding-top: 12px;
+    }
+
+    &:last-child {
+      padding-bottom: 12px;
+    }
+  }
+
+  .nav-link {
+    color: #bbb;
+
+    &.active {
+      color: #777;
+    }
+  }
+}

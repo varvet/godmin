@@ -4,11 +4,13 @@ Godmin.BatchActions = (function() {
   var $container;
   var $selectAll;
   var $selectNone;
+  var $actionLinks;
 
   function initialize() {
-    $container  = $('[data-behavior~=batch-actions-container]');
-    $selectAll  = $container.find('[data-behavior~=batch-actions-select-all]');
-    $selectNone = $container.find('[data-behavior~=batch-actions-select-none]');
+    $container   = $('[data-behavior~=batch-actions-container]');
+    $selectAll   = $container.find('[data-behavior~=batch-actions-select-all]');
+    $selectNone  = $container.find('[data-behavior~=batch-actions-select-none]');
+    $actionLinks = $container.find('[data-behavior~=batch-actions-action-link]');
 
     initializeEvents();
     initializeState();
@@ -20,16 +22,19 @@ Godmin.BatchActions = (function() {
     $(document).delegate('[data-behavior~=batch-actions-action-link]', 'mousedown', triggerAction);
   }
 
-  function initializeState() {}
+  function initializeState() {
+    $selectNone.hide();
+    $actionLinks.hide();
+  }
 
   function setSelectToAll() {
-    $selectAll.removeClass('hidden');
-    $selectNone.addClass('hidden');
+    $selectAll.show();
+    $selectNone.hide();
   }
 
   function setSelectToNone() {
-    $selectAll.addClass('hidden');
-    $selectNone.removeClass('hidden');
+    $selectAll.hide();
+    $selectNone.show();
   }
 
   function checkedCheckboxes() {
@@ -38,7 +43,9 @@ Godmin.BatchActions = (function() {
     }).toArray().join(',');
   }
 
-  function toggleCheckboxes() {
+  function toggleCheckboxes(e) {
+    e.preventDefault();
+
     if (checkedCheckboxes().length > 0) {
       $container.find('[data-behavior~=batch-actions-checkbox]').prop('checked', false).trigger('change');
       setSelectToAll();
@@ -50,10 +57,10 @@ Godmin.BatchActions = (function() {
 
   function toggleActions() {
     if (checkedCheckboxes().length) {
-      $('[data-behavior~=batch-actions-action-link]').removeClass('hidden');
+      $actionLinks.show();
       setSelectToNone();
     } else {
-      $('[data-behavior~=batch-actions-action-link]').addClass('hidden');
+      $actionLinks.hide();
       setSelectToAll();
     }
   }

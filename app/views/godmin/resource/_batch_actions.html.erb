@@ -1,12 +1,14 @@
 <% if @resource_service.batch_action_map.present? %>
-  <%= link_to translate_scoped("batch_actions.buttons.select_all"), "#", class: "btn btn-default",
-    data: { behavior: "batch-actions-select batch-actions-select-all" } %>
-  <%= link_to translate_scoped("batch_actions.buttons.deselect_all"), "#", class: "btn btn-default hidden",
-    data: { behavior: "batch-actions-select batch-actions-select-none" } %>
+  <div id="batch_actions" class="hidden-sm-down">
+    <%= link_to translate_scoped("batch_actions.buttons.select_all"), "#", class: "btn btn-secondary",
+      data: { behavior: "batch-actions-select batch-actions-select-all" } %>
+    <%= link_to translate_scoped("batch_actions.buttons.deselect_all"), "#", class: "btn btn-secondary",
+      data: { behavior: "batch-actions-select batch-actions-select-none" } %>
 
-  <div class="btn-group">
-    <% @resource_service.batch_action_map.each do |name, options| %>
-      <%= batch_action_link(name, options) %>
-    <% end %>
+    <div class="btn-group">
+      <% @resource_service.batch_action_map.each do |name, options| %>
+        <%= batch_action_link(name, options) %>
+      <% end %>
+    </div>
   </div>
 <% end %>
