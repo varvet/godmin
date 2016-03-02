@@ -29,4 +29,9 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
     page.driver.delete authorized_article_path(article)
     assert_equal 403, page.status_code
   end
+
+  def test_cannot_index_in_engine?
+    visit admin.authorized_articles_path
+    assert_equal 403, page.status_code
+  end
 end
