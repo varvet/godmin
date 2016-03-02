@@ -26,7 +26,6 @@ module Godmin
       end
 
       def resource_class_name
-        # self.class.name.demodulize.chomp("Service")
         self.class.name.chomp("Service")
       end
 
