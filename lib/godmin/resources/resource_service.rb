@@ -21,13 +21,13 @@ module Godmin
         @options = options
       end
 
-      # TODO: should this raise its own error?
       def resource_class
         @options[:resource_class] || resource_class_name.constantize
       end
 
       def resource_class_name
-        self.class.name.demodulize.chomp("Service")
+        # self.class.name.demodulize.chomp("Service")
+        self.class.name.chomp("Service")
       end
 
       def resources_relation
