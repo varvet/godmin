@@ -17,7 +17,7 @@
       <% @resources.each do |resource| %>
         <tr data-resource-id="<%= resource.id %>" class="<%= "highlight" if flash[:updated_ids] && flash[:updated_ids].include?(resource.id) %>">
           <% if @resource_service.batch_action_map.present? %>
-            <td align="center">
+            <td align="center" data-behavior="batch-actions-checkbox-container">
               <%= check_box_tag "batch_action[items][#{resource.id}]", nil, nil,
                 data: { behavior: "batch-actions-checkbox" } %>
             </td>
