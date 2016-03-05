@@ -16,7 +16,7 @@
       </li>
     <% else %>
       <li>
-        <%= link_to @resource_class.model_name.human(count: 2), @resource_class %>
+        <%= link_to @resource_class.model_name.human(count: 2), [*@resource_parents, @resource_class] %>
       </li>
       <li class="active">
         <% if @resource.new_record? %>
