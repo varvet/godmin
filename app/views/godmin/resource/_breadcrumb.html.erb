@@ -1,12 +1,14 @@
 <div id="breadcrumb">
   <ol class="breadcrumb">
-    <% if @resource_parent %>
-      <li class="active">
-        <%= link_to @resource_parent_class.model_name.human(count: 2), @resource_parent_class %>
-      </li>
-      <li class="active">
-        <%= link_to @resource_parent.to_s, @resource_parent %>
-      </li>
+    <% if @resource_parents %>
+      <% @resource_parents.each do |parent| %>
+        <li>
+          <%= link_to parent.class.model_name.human(count: 2), parent.class %>
+        </li>
+        <li>
+          <%= link_to parent.to_s, parent %>
+        </li>
+      <% end %>
     <% end %>
     <% if action_name == "index" %>
       <li class="active">

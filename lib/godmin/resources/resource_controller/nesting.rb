@@ -5,33 +5,26 @@ module Godmin
         extend ActiveSupport::Concern
 
         included do
-          prepend_before_action :set_resource_parent_class
-          prepend_before_action :set_resource_parent
+          prepend_before_action :set_resource_parents
         end
 
         protected
 
-        def set_resource_parent_class
-          @resource_parent_class = resource_parent.class
+        def set_resource_parents
+          @resource_parents = resource_parents
         end
 
-        def set_resource_parent
-          @resource_parent = resource_parent
-        end
-
-        # TODO: this one is a bit weird.. do we need all this?
-        def resource_parent
-          candidate = params.reduce([]) do |res, (name, value)|
+        def resource_parents
+          params.each_with_object([]) do |(name, value), parents|
             if name =~ /(.+)_id$/
-              res = [$1, value]
+              parents << $1.classify.constantize.find(value)
             end
           end
-          candidate[0].classify.constantize.find(candidate[1])
         end
 
         def resource_service
           service = super
-          service.options[:resource_parent] = @resource_parent
+          service.options[:resource_parent] = @resource_parents.last
           service
         end
       end
