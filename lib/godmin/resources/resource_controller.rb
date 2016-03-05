@@ -2,6 +2,7 @@ require "godmin/helpers/batch_actions"
 require "godmin/helpers/filters"
 require "godmin/helpers/tables"
 require "godmin/resources/resource_controller/batch_actions"
+require "godmin/resources/resource_controller/nesting"
 
 module Godmin
   module Resources

@@ -1,5 +1,6 @@
 require "godmin/resources/resource_service/batch_actions"
 require "godmin/resources/resource_service/filters"
+require "godmin/resources/resource_service/nesting"
 require "godmin/resources/resource_service/ordering"
 require "godmin/resources/resource_service/pagination"
 require "godmin/resources/resource_service/scopes"
