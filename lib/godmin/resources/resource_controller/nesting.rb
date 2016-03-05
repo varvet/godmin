@@ -27,6 +27,14 @@ module Godmin
           service.options[:resource_parent] = @resource_parents.last
           service
         end
+
+        def redirect_after_save
+          [*@resource_parents, @resource]
+        end
+
+        def redirect_after_destroy
+          [*@resource_parents, resource_class.model_name.route_key.to_sym]
+        end
       end
     end
   end
