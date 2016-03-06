@@ -57,7 +57,7 @@ class CrudTest < ActionDispatch::IntegrationTest
 
     visit articles_path
     within "[data-resource-id='#{article_1.id}']" do
-      click_link "Destroy"
+      click_button "Destroy"
     end
 
     assert_equal articles_path, current_path
