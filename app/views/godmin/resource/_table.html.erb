@@ -1,5 +1,6 @@
 <div id="table" class="table-responsive">
   <table class="table table-bordered table-hover">
+    <caption><%= @resource_class.model_name.human(count: 2) %></caption>
     <thead>
       <tr>
         <% if @resource_service.batch_action_map.present? %>
