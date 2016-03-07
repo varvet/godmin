@@ -1,5 +1,10 @@
 # Changelog
 
+### Unrealeased 
+
+Other
+- Fixes a deprecation warning on Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/188)
+
 ### 1.2.0 - 2016-02-02
 Features
 - Adds support for custom ordering of columns (https://github.com/varvet/godmin/pull/168)
