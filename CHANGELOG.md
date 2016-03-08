@@ -1,6 +1,8 @@
 # Changelog
 
 ### Unrealeased 
+Features
+- Increased batch action checkbox click area (https://github.com/varvet/godmin/pull/183)
 
 Other
 - Fixes a deprecation warning on Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/188)
