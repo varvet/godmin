@@ -1,6 +1,6 @@
 # Changelog
 
-### Unrealeased 
+### Unreleased 
 Features
 - Increased batch action checkbox click area (https://github.com/varvet/godmin/pull/183)
 
