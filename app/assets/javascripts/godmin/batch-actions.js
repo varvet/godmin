@@ -16,6 +16,7 @@ Godmin.BatchActions = (function() {
 
   function initializeEvents() {
     $container.find('[data-behavior~=batch-actions-select]').on('click', toggleCheckboxes);
+    $container.find('[data-behavior~=batch-actions-checkbox-container]').on('click', toggleCheckbox);
     $container.find('[data-behavior~=batch-actions-checkbox]').on('change', toggleActions);
     $(document).delegate('[data-behavior~=batch-actions-action-link]', 'mousedown', triggerAction);
   }
@@ -38,7 +39,15 @@ Godmin.BatchActions = (function() {
     }).toArray().join(',');
   }
 
-  function toggleCheckboxes() {
+  function toggleCheckbox(e) {
+    if (this == e.target) {
+      $(this).find('[data-behavior~=batch-actions-checkbox]').click();
+    }
+  }
+
+  function toggleCheckboxes(e) {
+    e.preventDefault();
+
     if (checkedCheckboxes().length > 0) {
       $container.find('[data-behavior~=batch-actions-checkbox]').prop('checked', false).trigger('change');
       setSelectToAll();
