@@ -1,7 +1,7 @@
 require "active_support/all"
 
 def install_standalone
-  gem "godmin", "> 0.12"
+  gem "godmin", "1.2.0"
 
   after_bundle do
     generate_model
