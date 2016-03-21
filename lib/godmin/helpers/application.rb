@@ -2,9 +2,16 @@ module Godmin
   module Helpers
     module Application
       # Renders the provided partial with locals if it exists, otherwise
-      # yields the given block.
+      # yields the given block. The lookup context call is cached for
+      # each partial.
       def partial_override(partial, locals = {})
-        if lookup_context.exists?(partial, nil, true)
+        @_partial_override ||= {}
+
+        if @_partial_override[partial].nil?
+          @_partial_override[partial] = lookup_context.exists?(partial, nil, true)
+        end
+
+        if @_partial_override[partial]
           render partial: partial, locals: locals
         else
           yield
