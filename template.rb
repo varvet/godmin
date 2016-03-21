@@ -65,6 +65,8 @@ def generate_model
   generate(:model, "author name:string")
   generate(:model, "article title:string body:text author:references published:boolean published_at:datetime")
 
+  gsub_file Dir.glob("db/migrate/*_create_articles.rb").first, "t.boolean :published", "t.boolean :published, default: false"
+
   append_to_file "db/seeds.rb" do
     <<-END.strip_heredoc
       def title
