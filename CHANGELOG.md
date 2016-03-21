@@ -6,6 +6,7 @@ Features
 
 Other
 - Fixes a deprecation warning on Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/188)
+- Adds caching partial overrides to increase table rendering speed (https://github.com/varvet/godmin/pull/184)
 
 ### 1.2.0 - 2016-02-02
 Features
