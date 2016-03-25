@@ -6,7 +6,7 @@
     <%= link_to translate_scoped("actions.edit"), [:edit, resource], class: "btn btn-default"  %>
   <% end %>
   <% if policy(resource).destroy? %>
-    <%= link_to translate_scoped("actions.destroy"), resource, method: :delete,
+    <%= button_to translate_scoped("actions.destroy"), resource, method: :delete,
       class: "btn btn-danger", data: { confirm: translate_scoped("actions.confirm_message") } %>
   <% end %>
 </div>
