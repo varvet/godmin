@@ -17,8 +17,11 @@ en:
     actions:
       label: Actions
       show: Show
+      show_title: Show %{resource}
       edit: Edit
+      edit_title: Edit %{resource}
       destroy: Destroy
+      destroy_title: Destroy %{resource}
       confirm_message: Are you sure?
       export: Export
       export_as: As

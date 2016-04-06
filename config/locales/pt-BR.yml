@@ -17,8 +17,11 @@ pt-BR:
     actions:
       label: Ações
       show: Exibir
+      show_ttitle: Exibir %{resource}
       edit: Editar
+      edit_title: Editar %{resource}
       destroy: Remover
+      destroy_title: Remover %{resource}
       confirm_message: Você tem certeza?
       export: Exportar
       export_as: Como
