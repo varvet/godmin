@@ -26,9 +26,9 @@ class ArticleService
     articles.where(title: value)
   end
 
+  batch_action :publish, except: [:published]
+  batch_action :unpublish, except: [:published, :unpublished]
   batch_action :destroy
-  batch_action :publish
-  batch_action :unpublish
 
   def batch_action_destroy(articles)
     articles.destroy_all
