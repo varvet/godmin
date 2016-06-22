@@ -5,6 +5,9 @@ Features
 - Increased batch action checkbox click area (https://github.com/varvet/godmin/pull/183)
 - Adds titles to action links (https://github.com/varvet/godmin/pull/185)
 
+Bug fixes
+- Use translated title on login page (https://github.com/varvet/godmin/pull/195)
+
 Other
 - Fixes a deprecation warning on Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/188)
 - Adds caching partial overrides to increase table rendering speed (https://github.com/varvet/godmin/pull/184)
