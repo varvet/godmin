@@ -60,10 +60,10 @@ class BatchActionsTest < ActionDispatch::IntegrationTest
 
     Article.create! title: "foo"
 
-    visit articles_path(scope: :unpublished)
+    visit articles_path(scope: :published)
 
-    assert_not page.has_content? "Select all"
-    assert_not page.has_css? "[data-behavior~=batch-actions-checkbox]"
+    assert page.has_no_content?("Select all")
+    assert page.has_no_css?("[data-behavior~=batch-actions-checkbox]")
 
     Capybara.use_default_driver
   end

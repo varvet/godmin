@@ -2,7 +2,7 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <% if @resource_service.batch_action_map.present? %>
+        <% if @resource_service.include_batch_actions? %>
           <th></th>
         <% end %>
         <% @resource_service.attrs_for_index.each do |attr| %>
@@ -16,7 +16,7 @@
     <tbody>
       <% @resources.each do |resource| %>
         <tr data-resource-id="<%= resource.id %>" class="<%= "highlight" if flash[:updated_ids] && flash[:updated_ids].include?(resource.id) %>">
-          <% if @resource_service.batch_action_map.present? %>
+          <% if @resource_service.include_batch_actions? %>
             <td align="center" data-behavior="batch-actions-checkbox-container">
               <%= check_box_tag "batch_action[items][#{resource.id}]", nil, nil,
                 data: { behavior: "batch-actions-checkbox" } %>

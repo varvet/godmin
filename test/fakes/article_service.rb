@@ -17,7 +17,7 @@ module Fakes
     filter :tags, as: :multiselect, collection: %w(Apple Banana)
 
     batch_action :unpublish
-    batch_action :publish, confirm: true, only: :unpublished, except: :published
+    batch_action :publish, confirm: true, only: [:unpublished], except: [:published]
 
     def initialize(*)
       super
