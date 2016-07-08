@@ -25,6 +25,17 @@ module Godmin
         end
       end
 
+      def test_filter_field_as_select
+        @output_buffer = filter_form url: "/" do |f|
+          f.filter_field :foo, as: :select, collection: -> { %w(Foo Bar) }
+        end
+
+        assert_select "label[for=foo]", 1, "No label was found"
+        assert_select "select[name=?]", "filter[foo]", 1, "No select found with name foo" do
+          assert_select "option", 3
+        end
+      end
+
       def test_filter_field_as_multiselect
         @output_buffer = filter_form url: "/" do |f|
           f.filter_field :foo, as: :multiselect, collection: -> { %w(Foo Bar) }
@@ -34,14 +45,6 @@ module Godmin
         assert_select "select[name=?]", "filter[foo][]", 1, "No select found with name foo" do
           assert_select "option", 3
         end
-        assert_select "input[type=hidden][name=?]", "filter[foo][]", 0
-      end
-
-      def test_filter_field_as_multiselect_includes_no_hidden_field
-        @output_buffer = filter_form url: "/" do |f|
-          f.filter_field :foo, as: :multiselect, collection: -> { %w(Foo Bar) }
-        end
-
         assert_select "input[type=hidden][name=?]", "filter[foo][]", 0
       end
     end

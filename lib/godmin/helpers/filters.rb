@@ -77,8 +77,13 @@ module Godmin
 
       def filter_select(name, options, html_options)
         unless options[:collection].is_a? Proc
-          fail "A collection proc must be specified for select filters"
+          raise "A collection proc must be specified for select filters"
         end
+
+        # We need to dup this here because we later delete some properties
+        # from the hash. We should consider adding an additional options
+        # param to separate filter params from select tag params.
+        options = options.dup
 
         collection = options.delete(:collection).call
 

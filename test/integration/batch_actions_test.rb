@@ -26,7 +26,7 @@ class BatchActionsTest < ActionDispatch::IntegrationTest
 
     Article.create! title: "foo"
 
-    visit articles_path
+    visit articles_path(scope: :unpublished)
 
     all("[data-behavior~=batch-actions-checkbox]").each(&:click)
     within "#actions" do
@@ -44,7 +44,7 @@ class BatchActionsTest < ActionDispatch::IntegrationTest
 
     Article.create! title: "foo"
 
-    visit articles_path
+    visit articles_path(scope: :unpublished)
 
     all("[data-behavior~=batch-actions-checkbox]").each(&:click)
     within "#actions" do
