@@ -19,6 +19,20 @@ module Godmin
           batch_action_map.key?(action.to_sym)
         end
 
+        def include_batch_action?(action)
+          options = batch_action_map[action.to_sym]
+
+          (options[:only].nil? && options[:except].nil?) ||
+            (options[:only] && options[:only].include?(scope.to_sym)) ||
+            (options[:except] && !options[:except].include?(scope.to_sym))
+        end
+
+        def include_batch_actions?
+          batch_action_map.keys.any? do |action|
+            include_batch_action?(action)
+          end
+        end
+
         module ClassMethods
           def batch_action_map
             @batch_action_map ||= {}

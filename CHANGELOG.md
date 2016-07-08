@@ -1,12 +1,13 @@
 # Changelog
 
-### Unreleased 
+### Unreleased
 Features
 - Increased batch action checkbox click area (https://github.com/varvet/godmin/pull/183)
 - Adds titles to action links (https://github.com/varvet/godmin/pull/185)
 
-Bug fixes:
-- Fixes so an empty string is not sent for multiselect filters (https://github.com/varvet/godmin/pull/169)
+Bug fixes
+- Use translated title on login page (https://github.com/varvet/godmin/pull/195)
+- Hide batch action toggle when no batch action available (https://github.com/varvet/godmin/pull/197)
 
 Other
 - Fixes a deprecation warning on Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/188)

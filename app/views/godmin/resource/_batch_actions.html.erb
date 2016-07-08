@@ -1,4 +1,4 @@
-<% if @resource_service.batch_action_map.present? %>
+<% if @resource_service.include_batch_actions? %>
   <%= link_to translate_scoped("batch_actions.buttons.select_all"), "#", class: "btn btn-default",
     data: { behavior: "batch-actions-select batch-actions-select-all" } %>
   <%= link_to translate_scoped("batch_actions.buttons.deselect_all"), "#", class: "btn btn-default hidden",
