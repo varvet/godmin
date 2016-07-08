@@ -18,4 +18,19 @@ class FiltersTest < ActionDispatch::IntegrationTest
     assert page.has_content? "foo"
     assert page.has_content? "bar"
   end
+
+  def test_select_filter
+    Article.create! title: "foo", published: true
+    Article.create! title: "bar"
+
+    visit articles_path
+
+    within "#filters" do
+      find("select").select("Published")
+    end
+    click_button "Filter"
+    assert_equal 200, page.status_code
+    assert page.has_content? "foo"
+    assert page.has_no_content? "bar"
+  end
 end
