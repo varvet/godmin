@@ -60,7 +60,7 @@ class BatchActionsTest < ActionDispatch::IntegrationTest
 
     Article.create! title: "foo"
 
-    visit articles_path(scope: :published)
+    visit articles_path(scope: :no_batch_actions)
 
     assert page.has_no_content?("Select all")
     assert page.has_no_css?("[data-behavior~=batch-actions-checkbox]")

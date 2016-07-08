@@ -11,6 +11,7 @@ class ArticleService
 
   scope :unpublished
   scope :published
+  scope :no_batch_actions
 
   def scope_unpublished(articles)
     articles.where(published: false)
@@ -20,15 +21,19 @@ class ArticleService
     articles.where(published: true)
   end
 
+  def scope_no_batch_actions(articles)
+    articles
+  end
+
   filter :title
 
   def filter_title(articles, value)
     articles.where(title: value)
   end
 
-  batch_action :publish, except: [:published]
-  batch_action :unpublish, except: [:published, :unpublished]
-  batch_action :destroy, except: [:published]
+  batch_action :publish, except: [:published, :no_batch_actions]
+  batch_action :unpublish, except: [:unpublished, :no_batch_actions]
+  batch_action :destroy, except: [:no_batch_actions]
 
   def batch_action_destroy(articles)
     articles.destroy_all
