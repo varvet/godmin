@@ -15,10 +15,9 @@ gemfile:
 matrix:
   exclude:
     - rvm: 2.0
-    - gemfile: gemfiles/rails_5.gemfile
-  exclude:
+      gemfile: gemfiles/rails_5.gemfile
     - rvm: 2.1
-    - gemfile: gemfiles/rails_5.gemfile
+      gemfile: gemfiles/rails_5.gemfile
 
 addons:
   code_climate:
