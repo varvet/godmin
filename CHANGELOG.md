@@ -21,7 +21,7 @@ Features
 - Adds passing of options to association form helper (https://github.com/varvet/godmin/pull/172)
 - Adds passing of html options to association form helper (https://github.com/varvet/godmin/pull/176)
 
-Bug fixes:
+Bug fixes
 - Fixes an issue with the template resolver and Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/175)
 
 ### 1.1.0 - 2015-12-08
