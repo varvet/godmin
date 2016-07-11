@@ -104,12 +104,12 @@ module Godmin
 
         select(
           name, choices, {
-            wrapper_class: "filter",
             label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
             include_hidden: true,
             include_blank: true
           }.deep_merge(options), {
-            data: { behavior: "select-box" }
+            data: { behavior: "select-box" },
+            wrapper_class: "filter"
           }.deep_merge(html_options)
         )
       end
