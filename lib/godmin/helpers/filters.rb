@@ -1,7 +1,7 @@
 module Godmin
   module Helpers
     module Filters
-      def filter_form(url: params)
+      def filter_form(url: params.to_unsafe_h)
         bootstrap_form_tag url: url, method: :get, layout: :inline, builder: FormBuilders::FilterFormBuilder do |f|
           yield(f)
         end
@@ -67,7 +67,7 @@ module Godmin
         @template.link_to(
           @template.translate_scoped("filters.buttons.clear"),
           @template.url_for(
-            @template.params.slice(:scope, :order)
+            @template.params.to_unsafe_h.slice(:scope, :order)
           ),
           class: "btn btn-default"
         )

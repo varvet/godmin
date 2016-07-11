@@ -3,7 +3,7 @@
     <ul class="nav nav-tabs">
       <% @resource_service.scope_map.each do |name, options| %>
         <li class="<%= "active" if @resource_service.scoped_by?(name) %>">
-          <%= link_to url_for(params.merge(scope: name, only_path: true).except(:page)) do %>
+          <%= link_to url_for(params.to_unsafe_h.merge(scope: name, only_path: true).except(:page)) do %>
             <%= translate_scoped("scopes.labels.#{name.to_s.underscore}", default: name.to_s.titleize) %>
             <span class="text-muted"> (<%= @resource_service.scope_count(name) %>)</span>
           <% end %>
