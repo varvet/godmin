@@ -14,24 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @resources.each do |resource| %>
-        <tr data-resource-id="<%= resource.id %>" class="<%= "highlight" if flash[:updated_ids] && flash[:updated_ids].include?(resource.id) %>">
-          <% if @resource_service.include_batch_actions? %>
-            <td align="center" data-behavior="batch-actions-checkbox-container">
-              <%= check_box_tag "batch_action[items][#{resource.id}]", nil, nil,
-                data: { behavior: "batch-actions-checkbox" } %>
-            </td>
-          <% end %>
-          <% @resource_service.attrs_for_index.each do |attr| %>
-            <td>
-              <%= column_value(resource, attr) %>
-            </td>
-          <% end %>
-          <td>
-            <%= render partial: "#{controller_path}/columns/actions", locals: { resource: resource } %>
-          </td>
-        </tr>
-      <% end %>
+      <%= render partial: "#{controller_path}/table_row", collection: @resources, as: :resource %>
     </tbody>
   </table>
 </div>
