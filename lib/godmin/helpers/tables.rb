@@ -15,7 +15,7 @@ module Godmin
             else
               "desc"
             end
-          link_to @resource_class.human_attribute_name(attribute.to_s), url_for(params.merge(order: "#{attribute}_#{direction}"))
+          link_to @resource_class.human_attribute_name(attribute.to_s), url_for(params.to_unsafe_h.merge(order: "#{attribute}_#{direction}"))
         else
           @resource_class.human_attribute_name(attribute.to_s)
         end

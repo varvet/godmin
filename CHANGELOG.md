@@ -1,12 +1,27 @@
 # Changelog
 
+### 1.3.0 - 2016-07-11
+Features
+- Increased batch action checkbox click area (https://github.com/varvet/godmin/pull/183)
+- Adds titles to action links (https://github.com/varvet/godmin/pull/185)
+- Rails 5 support (https://github.com/varvet/godmin/pull/199)
+
+Bug fixes
+- Use translated title on login page (https://github.com/varvet/godmin/pull/195)
+- Hide batch action toggle when no batch action available (https://github.com/varvet/godmin/pull/197)
+- Remove hidden field for multiselect filters (https://github.com/varvet/godmin/pull/169)
+
+Other
+- Fixes a deprecation warning on Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/188)
+- Adds caching partial overrides to increase table rendering speed (https://github.com/varvet/godmin/pull/184)
+
 ### 1.2.0 - 2016-02-02
 Features
 - Adds support for custom ordering of columns (https://github.com/varvet/godmin/pull/168)
 - Adds passing of options to association form helper (https://github.com/varvet/godmin/pull/172)
 - Adds passing of html options to association form helper (https://github.com/varvet/godmin/pull/176)
 
-Bug fixes:
+Bug fixes
 - Fixes an issue with the template resolver and Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/175)
 
 ### 1.1.0 - 2015-12-08

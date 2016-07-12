@@ -56,7 +56,9 @@ module Godmin
       private
 
       def attribute_type(attribute)
-        @object.column_for_attribute(attribute).try(:type)
+        if @object.has_attribute?(attribute)
+          @object.column_for_attribute(attribute).type
+        end
       end
 
       def association_type(attribute)

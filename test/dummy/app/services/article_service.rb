@@ -9,8 +9,14 @@ class ArticleService
     resources.joins(:admin_users).order("admin_users.email #{direction}")
   end
 
+  scope :all
   scope :unpublished
   scope :published
+  scope :no_batch_actions
+
+  def scope_all(articles)
+    articles
+  end
 
   def scope_unpublished(articles)
     articles.where(published: false)
@@ -20,15 +26,24 @@ class ArticleService
     articles.where(published: true)
   end
 
+  def scope_no_batch_actions(articles)
+    articles
+  end
+
   filter :title
+  filter :status, as: :select, collection: -> { [["Published", :published], ["Unpublished", :unpublished]] }
 
   def filter_title(articles, value)
     articles.where(title: value)
   end
 
-  batch_action :destroy
-  batch_action :publish
-  batch_action :unpublish
+  def filter_status(articles, value)
+    articles.where(published: value == "published")
+  end
+
+  batch_action :publish, except: [:published, :no_batch_actions]
+  batch_action :unpublish, except: [:unpublished, :no_batch_actions]
+  batch_action :destroy, except: [:no_batch_actions]
 
   def batch_action_destroy(articles)
     articles.destroy_all

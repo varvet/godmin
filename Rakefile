@@ -25,13 +25,14 @@ Rake::TestTask.new(:test) do |t|
   t.libs << "lib"
   t.libs << "test"
   t.pattern = "test/**/*_test.rb"
+  t.warning = false
   t.verbose = false
 end
 
 task default: :test
 
 namespace :sandbox do
-  desc "Push the sandbox app to GitHub which deploys it to Heroku"
+  desc "Generate the Sandbox app then push it to GitHub which deploys it to Heroku"
   task :deploy do
     message = "Generated from: https://github.com/varvet/godmin/commit/#{`git rev-parse HEAD`.strip}"
     template_path = File.expand_path("../template.rb", __FILE__)

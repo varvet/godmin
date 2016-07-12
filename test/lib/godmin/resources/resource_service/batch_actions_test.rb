@@ -31,7 +31,7 @@ module Godmin
       end
 
       def test_batch_action_map_with_custom_options
-        expected_batch_action_map = { only: :unpublished, except: :published, confirm: true }
+        expected_batch_action_map = { only: [:unpublished], except: [:published], confirm: true }
         assert_equal expected_batch_action_map, @article_service.batch_action_map[:publish]
       end
     end
