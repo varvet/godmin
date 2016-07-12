@@ -1,6 +1,8 @@
 require "active_support/all"
 
 def install_standalone
+  set_ruby_version
+
   gem "godmin", "1.3.0"
 
   after_bundle do
@@ -25,6 +27,8 @@ def install_standalone
 end
 
 def install_engine
+  set_ruby_version
+
   run_ruby_script("bin/rails plugin new admin --mountable")
 
   gsub_file "admin/admin.gemspec", "TODO: ", ""
@@ -39,6 +43,8 @@ def install_engine
   gem "admin", path: "admin"
 
   after_bundle do
+    create_database
+
     generate_models
 
     run_ruby_script("admin/bin/rails g godmin:install")
@@ -60,6 +66,12 @@ def install_engine
     modify_article_service("admin")
 
     migrate_and_seed
+  end
+end
+
+def set_ruby_version
+  prepend_to_file "Gemfile" do
+    "ruby '2.2.2'\n"
   end
 end
 
