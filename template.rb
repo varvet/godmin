@@ -4,7 +4,10 @@ def install_standalone
   gem "godmin", "1.3.0"
 
   after_bundle do
-    generate_model
+    create_database
+
+    generate_models
+
     generate("godmin:install")
     generate("godmin:resource", "article")
     generate("godmin:resource", "author")
@@ -36,7 +39,8 @@ def install_engine
   gem "admin", path: "admin"
 
   after_bundle do
-    generate_model
+    generate_models
+
     run_ruby_script("admin/bin/rails g godmin:install")
     run_ruby_script("admin/bin/rails g godmin:resource article")
     run_ruby_script("admin/bin/rails g godmin:resource author")
@@ -59,7 +63,12 @@ def install_engine
   end
 end
 
-def generate_model
+def create_database
+  rake("db:drop")
+  rake("db:create")
+end
+
+def generate_models
   generate(:model, "author name:string")
   generate(:model, "article title:string body:text author:references published:boolean published_at:datetime")
 
@@ -285,9 +294,8 @@ def modify_author_service(namespace = nil)
     END
   end
 end
+
 def migrate_and_seed
-  rake("db:drop")
-  rake("db:create")
   rake("db:migrate")
   rake("db:seed")
 end
