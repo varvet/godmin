@@ -1,3 +1,4 @@
+require "godmin/resources/resource_service/associations"
 require "godmin/resources/resource_service/batch_actions"
 require "godmin/resources/resource_service/filters"
 require "godmin/resources/resource_service/ordering"
@@ -9,6 +10,7 @@ module Godmin
     module ResourceService
       extend ActiveSupport::Concern
 
+      include Associations
       include BatchActions
       include Filters
       include Ordering

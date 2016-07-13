@@ -1,5 +1,5 @@
 <li class="dropdown pull-right">
-  <a href="#" data-toggle="dropdown" role="button">
+  <a href="#" data-toggle="dropdown">
     <%= translate_scoped("actions.label") %> <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
@@ -21,3 +21,21 @@
     <% end %>
   </ul>
 </li>
+
+<% if @resource_service.has_many_map.present? %>
+  <li class="dropdown pull-right">
+    <a href="#" data-toggle="dropdown">
+      <%= translate_scoped("associations.label") %> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <% @resource_service.has_many_map.each do |name, options| %>
+        <% if policy(options[:class_name].constantize).index? %>
+          <li>
+            <%= link_to(options[:class_name].constantize.model_name.human(count: 2),
+              send("#{@resource_class.name.underscore}_#{name}_path", @resource)) %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+<% end %>

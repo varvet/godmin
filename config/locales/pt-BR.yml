@@ -25,6 +25,8 @@ pt-BR:
       confirm_message: Você tem certeza?
       export: Exportar
       export_as: Como
+    associations:
+      label: Nested resources
     sessions:
       sign_in: Entrar
       sign_out: Sair
