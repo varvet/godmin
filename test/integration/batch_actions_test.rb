@@ -26,7 +26,7 @@ class BatchActionsTest < ActionDispatch::IntegrationTest
 
     Article.create! title: "foo"
 
-    visit articles_path
+    visit articles_path(scope: :unpublished)
 
     all("[data-behavior~=batch-actions-checkbox]").each(&:click)
     within "#actions" do
@@ -35,6 +35,35 @@ class BatchActionsTest < ActionDispatch::IntegrationTest
 
     assert_equal articles_path(scope: :published), current_path_with_params
     assert_equal 200, page.status_code
+
+    Capybara.use_default_driver
+  end
+
+  def test_batch_action_scopes
+    Capybara.current_driver = Capybara.javascript_driver
+
+    Article.create! title: "foo"
+
+    visit articles_path(scope: :unpublished)
+
+    all("[data-behavior~=batch-actions-checkbox]").each(&:click)
+    within "#actions" do
+      assert page.has_content? "Publish"
+      assert page.has_no_content? "Unpublish"
+    end
+
+    Capybara.use_default_driver
+  end
+
+  def test_batch_action_scopes_when_no_batch_actions
+    Capybara.current_driver = Capybara.javascript_driver
+
+    Article.create! title: "foo"
+
+    visit articles_path(scope: :no_batch_actions)
+
+    assert page.has_no_content?("Select all")
+    assert page.has_no_css?("[data-behavior~=batch-actions-checkbox]")
 
     Capybara.use_default_driver
   end

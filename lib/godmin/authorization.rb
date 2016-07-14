@@ -9,7 +9,7 @@ module Godmin
 
     included do
       rescue_from Pundit::NotAuthorizedError do
-        render text: "You are not authorized to do this", status: 403, layout: "godmin/login"
+        render plain: "You are not authorized to do this", status: 403, layout: "godmin/login"
       end
     end
 

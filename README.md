@@ -5,7 +5,7 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/varvet/godmin.svg)](https://codeclimate.com/github/varvet/godmin)
 [![Test Coverage](https://codeclimate.com/github/varvet/godmin/badges/coverage.svg)](https://codeclimate.com/github/varvet/godmin/coverage)
 
-Godmin is an admin framework for Rails 4+. Use it to build dedicated admin sections for your apps, or stand alone admin apps such as internal tools. It has support for common features such as scoping, filtering and performing batch actions on your models. [Try the demo](http://godmin-sandbox.herokuapp.com).
+Godmin is an admin framework for Rails 4+. Use it to build dedicated admin sections for your apps, or stand alone admin apps such as internal tools. It has support for common features such as scoping, filtering and performing batch actions on your models. Check out the [demo app](http://godmin-sandbox.herokuapp.com) and its [source code](https://github.com/varvet/godmin-sandbox) to get a feel for how it works.
 
 Godmin differs from tools like [ActiveAdmin](http://activeadmin.info/) and [RailsAdmin](https://github.com/sferik/rails_admin) in how admin sections are created. Rather than being DSL-based, Godmin is a set of opt-in modules and helpers that can be applied to regular Rails apps and engines. An admin section built with Godmin is just that, a regular Rails app or Rails engine, with regular routes, controllers and views. That means there is less to learn, because you already know most of it, and fewer constraints on what you can do. After all, administrators are users too, and what better way to provide them with a tailor made experience than building them a Rails app?
 
@@ -536,8 +536,8 @@ end
 It's easy to override view templates and partials in Godmin, both globally and per resource. All you have to do is place a file with an identical name in your `app/views` directory. For instance, to override the `godmin/resource/index.html.erb` template for all resources, place a file under `app/views/resource/index.html.erb`. If you only wish to override it for articles, place it instead under `app/views/articles/index.html.erb`.
 
 You can also inherit from the default template as such:
-```ruby
-<%= render template: 'godmin/resource/show' %>
+```erb
+<%= render template: "godmin/resource/show" %>
 
 <p>Append stuff here</p>
 ```

@@ -1,12 +1,28 @@
 <div class="btn-group btn-group-sm pull-right">
   <% if policy(resource).show? %>
-    <%= link_to translate_scoped("actions.show"), resource, class: "btn btn-default" %>
+    <%= link_to(
+      translate_scoped("actions.show"),
+      resource,
+      class: "btn btn-default",
+      title: translate_scoped("actions.show_title", resource: resource)
+    ) %>
   <% end %>
   <% if policy(resource).edit? %>
-    <%= link_to translate_scoped("actions.edit"), [:edit, resource], class: "btn btn-default"  %>
+    <%= link_to(
+      translate_scoped("actions.edit"),
+      [:edit, resource],
+      class: "btn btn-default",
+      title: translate_scoped("actions.edit_title", resource: resource)
+    ) %>
   <% end %>
   <% if policy(resource).destroy? %>
-    <%= link_to translate_scoped("actions.destroy"), resource, method: :delete,
-      class: "btn btn-danger", data: { confirm: translate_scoped("actions.confirm_message") } %>
+    <%= link_to(
+      translate_scoped("actions.destroy"),
+      resource,
+      method: :delete,
+      class: "btn btn-danger",
+      title: translate_scoped("actions.destroy_title", resource: resource),
+      data: { confirm: translate_scoped("actions.confirm_message") }
+    ) %>
   <% end %>
 </div>

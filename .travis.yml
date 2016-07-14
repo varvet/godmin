@@ -1,13 +1,20 @@
 bundler_args: --without debug
-
+cache: bundler
 script: "bundle exec rake test"
 sudo: false
-cache: bundler
 
 rvm:
-  - 2.0.0
-  - 2.1
-  - 2.2
+  - 2.1.0
+  - 2.3.1
+
+gemfile:
+  - gemfiles/rails_4.gemfile
+  - gemfiles/rails_5.gemfile
+
+matrix:
+  exclude:
+    - rvm: 2.1.0
+      gemfile: gemfiles/rails_5.gemfile
 
 addons:
   code_climate:

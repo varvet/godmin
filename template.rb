@@ -1,15 +1,19 @@
 require "active_support/all"
 
 def install_standalone
-  gem "godmin", "> 0.12"
+  set_ruby_version
+
+  gem "godmin", "1.3.0"
 
   after_bundle do
-    generate_model
+    create_database
+
+    generate_models
+
     generate("godmin:install")
     generate("godmin:resource", "article")
     generate("godmin:resource", "author")
 
-    modify_menu
     modify_rakefile
     modify_routes
     modify_locales
@@ -23,6 +27,8 @@ def install_standalone
 end
 
 def install_engine
+  set_ruby_version
+
   run_ruby_script("bin/rails plugin new admin --mountable")
 
   gsub_file "admin/admin.gemspec", "TODO: ", ""
@@ -37,7 +43,10 @@ def install_engine
   gem "admin", path: "admin"
 
   after_bundle do
-    generate_model
+    create_database
+
+    generate_models
+
     run_ruby_script("admin/bin/rails g godmin:install")
     run_ruby_script("admin/bin/rails g godmin:resource article")
     run_ruby_script("admin/bin/rails g godmin:resource author")
@@ -48,7 +57,6 @@ def install_engine
       END
     end
 
-    modify_menu("admin")
     modify_rakefile
     modify_routes("admin")
     modify_locales
@@ -61,9 +69,22 @@ def install_engine
   end
 end
 
-def generate_model
+def set_ruby_version
+  prepend_to_file "Gemfile" do
+    "ruby '2.2.2'\n"
+  end
+end
+
+def create_database
+  rake("db:drop")
+  rake("db:create")
+end
+
+def generate_models
   generate(:model, "author name:string")
   generate(:model, "article title:string body:text author:references published:boolean published_at:datetime")
+
+  gsub_file Dir.glob("db/migrate/*_create_articles.rb").first, "t.boolean :published", "t.boolean :published, default: false"
 
   append_to_file "db/seeds.rb" do
     <<-END.strip_heredoc
@@ -98,27 +119,6 @@ def generate_model
   end
 end
 
-def modify_menu(namespace = nil)
-  navigation_file =
-    if namespace
-      "admin/app/views/admin/shared/_navigation_aside.html.erb"
-    else
-      "app/views/shared/_navigation_aside.html.erb"
-    end
-
-  create_file navigation_file do
-    <<-END.strip_heredoc
-      <%= navbar_dropdown "Take me places" do %>
-        <%= navbar_item "Godmin on Github", "https://github.com/varvet/godmin" %>
-        <%= navbar_item "The source of this page!", "https://github.com/varvet/godmin-sandbox" %>
-        <%= navbar_item "The blog post", "https://www.varvet.se/blog/update/2015/11/13/introducing-godmin-1-0.html" %>
-        <%= navbar_divider %>
-        <%= navbar_item "Please retweet ;)", "https://twitter.com/varvet/status/665092299995676672" %>
-      <% end %>
-    END
-  end
-end
-
 def modify_rakefile
   append_to_file "RakeFile" do
     <<-END.strip_heredoc
@@ -130,6 +130,7 @@ def modify_rakefile
           Rake::Task["db:schema:load"].invoke
           Rake::Task["db:seed"].invoke
         end
+
         desc "Reset the database"
         task reset: :environment do
           ActiveRecord::Base.connection.tables.each do |table|
@@ -305,9 +306,8 @@ def modify_author_service(namespace = nil)
     END
   end
 end
+
 def migrate_and_seed
-  rake("db:drop")
-  rake("db:create")
   rake("db:migrate")
   rake("db:seed")
 end
