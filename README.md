@@ -25,6 +25,7 @@ Godmin differs from tools like [ActiveAdmin](http://activeadmin.info/) and [Rail
   - [Redirecting](#redirecting)
   - [Pagination](#pagination)
   - [Exporting](#exporting)
+  - [Nested resources](#nested-resources)
 - [Views](#views)
   - [Forms](#forms)
   - [Navigation](#navigation)
@@ -511,7 +512,7 @@ If you wish to change the number of resources per page, you can override the `pe
 
 ```ruby
 class ArticlesService
-  include Godmin::Resources::Service
+  include Godmin::Resources::ResourceService
 
   def per_page
     50
@@ -525,11 +526,35 @@ The `attrs_for_export` method in the service object makes it possible to mark at
 
 ```ruby
 class ArticlesService
-  include Godmin::Resources::Service
+  include Godmin::Resources::ResourceService
 
   attrs_for_export :id, :title, :created_at, :updated_at
 end
 ```
+
+### Nested resources
+
+Nested resources can be implemented by nesting your routes:
+
+```ruby
+resources :blogs do
+  resources :blog_posts
+end
+```
+
+This will set up scoping of the nested resource as well as correct links in the breadcrumb.
+
+If you want to add a link to the nested resource from the parent's show and edit pages, you can add the following to the service object:
+
+```ruby
+class BlogService
+  include Godmin::Resources::ResourceService
+
+  has_many :blog_posts
+end
+```
+
+Otherwise, simply add links as you see fit using partial overrides.
 
 ## Views
 
