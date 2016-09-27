@@ -1,5 +1,12 @@
 # Changelog
 
+### 1.3.1 - 2016-09-27
+Bug fixes
+- Fix FileSystemResolver issue (https://github.com/varvet/godmin/pull/202)
+
+Other
+- Update template for Rails 5 (https://github.com/varvet/godmin/commit/95e0a7917dd9767d77c3bfc876ebbf0a6036f347)
+
 ### 1.3.0 - 2016-07-11
 Features
 - Increased batch action checkbox click area (https://github.com/varvet/godmin/pull/183)
