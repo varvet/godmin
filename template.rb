@@ -127,6 +127,7 @@ def modify_rakefile
         desc "Reseed the database"
         task reseed: :environment do
           Rake::Task["sandbox:reset"].invoke
+          Rake::Task["db:environment:set"].invoke
           Rake::Task["db:schema:load"].invoke
           Rake::Task["db:seed"].invoke
         end

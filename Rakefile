@@ -53,12 +53,4 @@ namespace :sandbox do
       end
     end
   end
-
-  desc "Empty and reseed the database on Heroku"
-  task :reseed do
-    app = "godmin-sandbox"
-    Bundler.with_clean_env do
-      system("heroku run rake sandbox:reseed --app #{app}")
-    end
-  end
 end
