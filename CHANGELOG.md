@@ -1,5 +1,9 @@
 # Changelog
 
+### Unreleased
+Other
+- Remove authentication alert (https://github.com/varvet/godmin/pull/207)
+
 ### 1.3.1 - 2016-09-27
 Bug fixes
 - Fix FileSystemResolver issue (https://github.com/varvet/godmin/pull/202)
