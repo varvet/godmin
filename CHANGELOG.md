@@ -1,5 +1,9 @@
 # Changelog
 
+### Unreleased
+Features
+- Support group queries in scopes and filters (https://github.com/varvet/godmin/pull/208)
+
 ### 1.3.1 - 2016-09-27
 Bug fixes
 - Fix FileSystemResolver issue (https://github.com/varvet/godmin/pull/202)
