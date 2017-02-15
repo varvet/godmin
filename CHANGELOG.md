@@ -6,6 +6,7 @@ Bug fixes
 
 Other
 - Remove authentication alert (https://github.com/varvet/godmin/pull/207)
+- Add table caption for tests (https://github.com/varvet/godmin/pull/187)
 
 ### 1.3.1 - 2016-09-27
 Bug fixes
