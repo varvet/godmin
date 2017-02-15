@@ -3,9 +3,14 @@
 ### Unreleased
 Features
 - Support group queries in scopes and filters (https://github.com/varvet/godmin/pull/208)
+- Change color of remove buttons, so they're not grabbing all the attention (https://github.com/varvet/godmin/pull/212)
 
 Bug fixes
 - Fix permitted params in sessions controller to work with models other than `AdminUser` (https://github.com/varvet/godmin/pull/210)
+
+Other
+- Remove authentication alert (https://github.com/varvet/godmin/pull/207)
+- Add table caption for tests (https://github.com/varvet/godmin/pull/187)
 
 ### 1.3.1 - 2016-09-27
 Bug fixes

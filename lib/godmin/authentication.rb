@@ -14,7 +14,7 @@ module Godmin
 
     def authenticate_admin_user
       unless admin_user_signed_in? || controller_name == "sessions"
-        redirect_to new_session_path, alert: "Authentication needed"
+        redirect_to new_session_path
       end
     end
 
