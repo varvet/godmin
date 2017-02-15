@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### 1.4.0 - 2017-02-15
 Features
 - Support group queries in scopes and filters (https://github.com/varvet/godmin/pull/208)
 - Change color of remove buttons, so they're not grabbing all the attention (https://github.com/varvet/godmin/pull/212)
