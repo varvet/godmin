@@ -1,6 +1,9 @@
 # Changelog
 
 ### Unreleased
+Bug fixes
+- Fix permitted params in sessions controller to work with models other than `AdminUser` (https://github.com/varvet/godmin/pull/210)
+
 Other
 - Remove authentication alert (https://github.com/varvet/godmin/pull/207)
 

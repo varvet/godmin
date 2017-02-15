@@ -25,7 +25,7 @@ module Godmin
       def test_apply_order_without_order
         resources = @resources_class.new
         @article_service.apply_order("", resources)
-        assert_equal nil, resources.order_param
+        assert_nil resources.order_param
       end
 
       def test_apply_order_with_custom_ordering_method

@@ -25,7 +25,7 @@ module Godmin
 
       def test_does_not_call_filter_when_empty_multiselect
         @article_service.apply_filters({ tags: [""] }, :resources)
-        assert_equal nil, @article_service.called_methods[:filters][:tags]
+        assert_nil @article_service.called_methods[:filters][:tags]
       end
 
       def test_filter_map_with_default_options

@@ -637,6 +637,14 @@ class AdminUser < ActiveRecord::Base
 end
 ```
 
+By default the user model is called `AdminUser`. If you'd like to change this, you can pass an argument to the authentication generator:
+
+```
+$ bin/rails generate godmin:authentication SuperUser
+or for an engine:
+$ admin/bin/rails generate godmin:authentication SuperUser
+```
+
 By default the model is generated with an `email` field as the login column. This can changed in the migration prior to migrating if, for instance, a `username` column is more appropriate.
 
 The following route is generated:
