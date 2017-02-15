@@ -1,6 +1,9 @@
 # Changelog
 
 ### Unreleased
+Features
+- Change color of remove buttons, so they're not grabbing all the attention
+
 Bug fixes
 - Fix permitted params in sessions controller to work with models other than `AdminUser` (https://github.com/varvet/godmin/pull/210)
 
