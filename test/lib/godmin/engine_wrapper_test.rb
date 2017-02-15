@@ -22,7 +22,7 @@ module Godmin
 
     def test_default_namespace
       engine_wrapper = EngineWrapper.new(Controller)
-      assert_equal nil, engine_wrapper.namespace
+      assert_nil engine_wrapper.namespace
     end
 
     def test_default_namespaced?
