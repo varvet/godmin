@@ -4,6 +4,9 @@
 Features
 - Support group queries in scopes and filters (https://github.com/varvet/godmin/pull/208)
 
+Bug fixes
+- Fix permitted params in sessions controller to work with models other than `AdminUser` (https://github.com/varvet/godmin/pull/210)
+
 ### 1.3.1 - 2016-09-27
 Bug fixes
 - Fix FileSystemResolver issue (https://github.com/varvet/godmin/pull/202)
