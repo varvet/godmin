@@ -2,6 +2,7 @@
 
 ### Unreleased
 Features
+- Support group queries in scopes and filters (https://github.com/varvet/godmin/pull/208)
 - Change color of remove buttons, so they're not grabbing all the attention (https://github.com/varvet/godmin/pull/212)
 
 Bug fixes
