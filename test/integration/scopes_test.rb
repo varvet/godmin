@@ -6,7 +6,7 @@ class ScopesTest < ActionDispatch::IntegrationTest
     Article.create! title: "bar"
     Article.create! title: "baz", published: true
 
-    visit articles_path
+    visit articles_path(scope: :unpublished)
 
     assert page.has_content? "foo"
     assert page.has_content? "bar"

@@ -1,3 +1,6 @@
+require "action_view"
+require "action_view/template/resolver"
+
 module Godmin
   class Resolver < ::ActionView::FileSystemResolver
     def self.resolvers(controller_path, engine_wrapper)

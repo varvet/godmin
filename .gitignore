@@ -25,3 +25,5 @@ config/initializers/secret_token.rb
 /test/dummy/db/*.sqlite3
 Gemfile.lock
 .tags
+gemfiles/.bundle
+gemfiles/*.lock

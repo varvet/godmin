@@ -17,8 +17,11 @@ sv:
     actions:
       label: Alternativ
       show: Visa
+      show_title: Visa %{resource}
       edit: Ändra
+      edit_title: Ändra %{resource}
       destroy: Ta bort
+      destroy_title: Ta bort %{resource}
       confirm_message: Är du säker?
       export: Exportera
       export_as: Som

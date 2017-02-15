@@ -3,23 +3,23 @@
     <nav>
       <ul class="pagination">
         <% unless @resource_service.paginator.pages.first == 1 && @resource_service.paginator.current_page == @resource_service.paginator.pages.first %>
-          <li><%= link_to translate_scoped("pagination.first"), params.merge(page: 1) %></li>
-          <li><%= link_to "«", params.merge(page: @resource_service.paginator.current_page - 1) %></li>
+          <li><%= link_to translate_scoped("pagination.first"), params.to_unsafe_h.merge(page: 1) %></li>
+          <li><%= link_to "«", params.to_unsafe_h.merge(page: @resource_service.paginator.current_page - 1) %></li>
         <% end %>
         <% unless @resource_service.paginator.pages.first == 1 %>
           <li class="disabled"><%= link_to "…" %></li>
         <% end %>
         <% @resource_service.paginator.pages.each do |page| %>
           <li class="<%= "active" if page == @resource_service.paginator.current_page %>">
-            <%= link_to page, params.merge(page: page) %>
+            <%= link_to page, params.to_unsafe_h.merge(page: page) %>
           </li>
         <% end %>
         <% unless @resource_service.paginator.pages.last == @resource_service.paginator.total_pages %>
           <li class="disabled"><%= link_to "…" %></li>
         <% end %>
         <% unless @resource_service.paginator.pages.last == @resource_service.paginator.total_pages && @resource_service.paginator.current_page == @resource_service.paginator.pages.last %>
-          <li><%= link_to "»", params.merge(page: @resource_service.paginator.current_page + 1) %></li>
-          <li><%= link_to translate_scoped("pagination.last"), params.merge(page: @resource_service.paginator.total_pages) %></li>
+          <li><%= link_to "»", params.to_unsafe_h.merge(page: @resource_service.paginator.current_page + 1) %></li>
+          <li><%= link_to translate_scoped("pagination.last"), params.to_unsafe_h.merge(page: @resource_service.paginator.total_pages) %></li>
         <% end %>
       </ul>
     </nav>

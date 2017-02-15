@@ -33,7 +33,7 @@ module Godmin
             end
           end
 
-          redirect_to :back
+          redirect_back
         end
 
         def batch_action_ids
