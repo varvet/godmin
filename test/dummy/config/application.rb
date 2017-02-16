@@ -7,6 +7,5 @@ require "godmin"
 
 module Dummy
   class Application < Rails::Application
-    ENV["DISABLE_DATABASE_ENVIRONMENT_CHECK"] = "1"
   end
 end
