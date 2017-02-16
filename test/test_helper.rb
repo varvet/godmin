@@ -1,11 +1,6 @@
-# TODO: This does not work anymore. We need to update this according to:
-# https://docs.codeclimate.com/docs/ruby
-#
-# require "codeclimate-test-reporter"
-# CodeClimate::TestReporter.start
-
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
+ENV["DISABLE_DATABASE_ENVIRONMENT_CHECK"] = "1"
 
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require "rails/test_help"
