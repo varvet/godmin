@@ -18,7 +18,6 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   def test_sign_in_with_non_default_user
     AnotherAdminUser.create!(email: "another_admin@example.com", password: "password")
     post another_admin_session_path, another_admin_user: { email: "another_admin@example.com", password: "password" }
-
     assert_redirected_to root_path
   end
 end
