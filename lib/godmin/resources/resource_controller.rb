@@ -121,7 +121,7 @@ module Godmin
       end
 
       def resource_parents
-        params.each_with_object([]) do |(name, value), parents|
+        params.to_unsafe_h.each_with_object([]) do |(name, value), parents|
           if name =~ /(.+)_id$/
             parents << $1.classify.constantize.find(value)
           end
