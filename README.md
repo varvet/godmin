@@ -3,7 +3,6 @@
 [![Gem Version](http://img.shields.io/gem/v/godmin.svg)](https://rubygems.org/gems/godmin)
 [![Build Status](https://img.shields.io/travis/varvet/godmin/master.svg)](https://travis-ci.org/varvet/godmin)
 [![Code Climate](https://img.shields.io/codeclimate/github/varvet/godmin.svg)](https://codeclimate.com/github/varvet/godmin)
-[![Test Coverage](https://codeclimate.com/github/varvet/godmin/badges/coverage.svg)](https://codeclimate.com/github/varvet/godmin/coverage)
 
 Godmin is an admin framework for Rails 4+. Use it to build dedicated admin sections for your apps, or stand alone admin apps such as internal tools. It has support for common features such as scoping, filtering and performing batch actions on your models. Check out the [demo app](http://godmin-sandbox.herokuapp.com) and its [source code](https://github.com/varvet/godmin-sandbox) to get a feel for how it works.
 

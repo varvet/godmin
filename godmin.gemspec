@@ -26,16 +26,15 @@ Gem::Specification.new do |gem|
   gem.add_dependency "csv_builder", "~> 2.1"
   gem.add_dependency "jquery-rails", [">= 3.0", "< 5.0"]
   gem.add_dependency "momentjs-rails", "~> 2.8"
-  gem.add_dependency "rails", [">= 4.0", "< 6.0"]
+  gem.add_dependency "rails", [">= 4.2.0", "< 6.0"]
   gem.add_dependency "sass-rails", [">= 4.0", "< 6.0"]
   gem.add_dependency "selectize-rails", "~> 0.12"
 
-  gem.add_development_dependency "appraisal", "~> 2.1"
-  gem.add_development_dependency "capybara", "~> 2.4"
-  gem.add_development_dependency "m", "~> 1.3"
-  gem.add_development_dependency "minitest-reporters", "~> 1.0"
-  gem.add_development_dependency "minitest", "~> 5.5"
-  gem.add_development_dependency "poltergeist", "~> 1.7"
-  gem.add_development_dependency "pry", "~> 0.10"
-  gem.add_development_dependency "sqlite3", "~> 1.3"
+  gem.add_development_dependency "appraisal"
+  gem.add_development_dependency "capybara"
+  gem.add_development_dependency "minitest-reporters"
+  gem.add_development_dependency "minitest"
+  gem.add_development_dependency "poltergeist"
+  gem.add_development_dependency "pry"
+  gem.add_development_dependency "sqlite3"
 end
