@@ -48,7 +48,7 @@ Godmin supports two common admin scenarios:
 
 If you want to set up an example app that you can play around with, run the following:
 ```sh
-rails new sandbox -m https://raw.githubusercontent.com/varvet/godmin/master/template.rb
+rails new sandbox --skip-spring -m https://raw.githubusercontent.com/varvet/godmin/master/template.rb
 ```
 
 ### Standalone installation
@@ -660,6 +660,14 @@ class AdminUser < ActiveRecord::Base
     :email
   end
 end
+```
+
+By default the user model is called `AdminUser`. If you'd like to change this, you can pass an argument to the authentication generator:
+
+```
+$ bin/rails generate godmin:authentication SuperUser
+or for an engine:
+$ admin/bin/rails generate godmin:authentication SuperUser
 ```
 
 By default the model is generated with an `email` field as the login column. This can changed in the migration prior to migrating if, for instance, a `username` column is more appropriate.

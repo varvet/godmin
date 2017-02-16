@@ -1,10 +1,15 @@
 require "active_support/all"
 
 def install_standalone
-  gem "godmin", "1.2.0"
+  set_ruby_version
+
+  gem "godmin", "1.3.1"
 
   after_bundle do
-    generate_model
+    create_database
+
+    generate_models
+
     generate("godmin:install")
     generate("godmin:resource", "article")
     generate("godmin:resource", "author")
@@ -22,6 +27,8 @@ def install_standalone
 end
 
 def install_engine
+  set_ruby_version
+
   run_ruby_script("bin/rails plugin new admin --mountable")
 
   gsub_file "admin/admin.gemspec", "TODO: ", ""
@@ -29,14 +36,17 @@ def install_engine
 
   inject_into_file "admin/admin.gemspec", before: /^end/ do
     <<-END.strip_heredoc.indent(2)
-      s.add_dependency "godmin", "~> 1.0.0"
+      s.add_dependency "godmin", "~> 1.3.1"
     END
   end
 
   gem "admin", path: "admin"
 
   after_bundle do
-    generate_model
+    create_database
+
+    generate_models
+
     run_ruby_script("admin/bin/rails g godmin:install")
     run_ruby_script("admin/bin/rails g godmin:resource article")
     run_ruby_script("admin/bin/rails g godmin:resource author")
@@ -59,7 +69,18 @@ def install_engine
   end
 end
 
-def generate_model
+def set_ruby_version
+  prepend_to_file "Gemfile" do
+    "ruby '2.2.2'\n"
+  end
+end
+
+def create_database
+  rake("db:drop")
+  rake("db:create")
+end
+
+def generate_models
   generate(:model, "author name:string")
   generate(:model, "article title:string body:text author:references published:boolean published_at:datetime")
 
@@ -106,6 +127,7 @@ def modify_rakefile
         desc "Reseed the database"
         task reseed: :environment do
           Rake::Task["sandbox:reset"].invoke
+          Rake::Task["db:environment:set"].invoke
           Rake::Task["db:schema:load"].invoke
           Rake::Task["db:seed"].invoke
         end
@@ -285,9 +307,8 @@ def modify_author_service(namespace = nil)
     END
   end
 end
+
 def migrate_and_seed
-  rake("db:drop")
-  rake("db:create")
   rake("db:migrate")
   rake("db:seed")
 end

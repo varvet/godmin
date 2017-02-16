@@ -34,7 +34,7 @@ module Godmin
       end
 
       def admin_user_params
-        params.require(:admin_user).permit(
+        params.require(admin_user_class.model_name.param_key.to_sym).permit(
           admin_user_class.login_column,
           :password,
           :password_confirm
