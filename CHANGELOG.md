@@ -1,5 +1,9 @@
 # Changelog
 
+### Unreleased
+Features
+- Support for nested resources (https://github.com/varvet/godmin/pull/189)
+
 ### 1.4.0 - 2017-02-15
 Features
 - Support group queries in scopes and filters (https://github.com/varvet/godmin/pull/208)
