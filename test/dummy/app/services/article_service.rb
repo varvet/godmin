@@ -5,6 +5,8 @@ class ArticleService
   attrs_for_show :id, :title, :body, :admin_user, :published
   attrs_for_form :title, :body, :admin_user, :published
 
+  has_many :comments
+
   def order_by_admin_user(resources, direction)
     resources.joins(:admin_users).order("admin_users.email #{direction}")
   end

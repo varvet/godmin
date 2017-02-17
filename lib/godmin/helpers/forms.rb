@@ -2,7 +2,11 @@ module Godmin
   module Helpers
     module Forms
       def form_for(record, options = {}, &block)
-        super(record, { builder: FormBuilders::FormBuilder, inline_errors: false }.merge(options), &block)
+        super(record, {
+          url: [*@resource_parents, record],
+          builder: FormBuilders::FormBuilder,
+          inline_errors: false
+        }.merge(options), &block)
       end
     end
   end

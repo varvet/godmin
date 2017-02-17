@@ -9,7 +9,6 @@ require "capybara/poltergeist"
 require "minitest/reporters"
 require "pry"
 
-# TODO: what to call these?
 require File.expand_path("../fakes/article.rb", __FILE__)
 require File.expand_path("../fakes/article_service.rb", __FILE__)
 

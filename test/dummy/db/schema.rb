@@ -35,4 +35,11 @@ ActiveRecord::Schema.define(version: 20170207081043) do
     t.datetime "updated_at",                    null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.integer "article_id"
+    t.string  "title"
+    t.text    "body"
+    t.index ["article_id"], name: "index_comments_on_article_id"
+  end
+
 end
