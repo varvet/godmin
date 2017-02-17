@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### 1.5.0 - 2017-02-17
 Features
 - Support for nested resources (https://github.com/varvet/godmin/pull/189)
 
