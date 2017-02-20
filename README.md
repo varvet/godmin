@@ -3,7 +3,6 @@
 [![Gem Version](http://img.shields.io/gem/v/godmin.svg)](https://rubygems.org/gems/godmin)
 [![Build Status](https://img.shields.io/travis/varvet/godmin/master.svg)](https://travis-ci.org/varvet/godmin)
 [![Code Climate](https://img.shields.io/codeclimate/github/varvet/godmin.svg)](https://codeclimate.com/github/varvet/godmin)
-[![Test Coverage](https://codeclimate.com/github/varvet/godmin/badges/coverage.svg)](https://codeclimate.com/github/varvet/godmin/coverage)
 
 Godmin is an admin framework for Rails 4+. Use it to build dedicated admin sections for your apps, or stand alone admin apps such as internal tools. It has support for common features such as scoping, filtering and performing batch actions on your models. Check out the [demo app](http://godmin-sandbox.herokuapp.com) and its [source code](https://github.com/varvet/godmin-sandbox) to get a feel for how it works.
 
@@ -25,6 +24,7 @@ Godmin differs from tools like [ActiveAdmin](http://activeadmin.info/) and [Rail
   - [Redirecting](#redirecting)
   - [Pagination](#pagination)
   - [Exporting](#exporting)
+  - [Nested resources](#nested-resources)
 - [Views](#views)
   - [Forms](#forms)
   - [Navigation](#navigation)
@@ -47,7 +47,7 @@ Godmin supports two common admin scenarios:
 
 If you want to set up an example app that you can play around with, run the following:
 ```sh
-rails new sandbox -m https://raw.githubusercontent.com/varvet/godmin/master/template.rb
+rails new sandbox --skip-spring -m https://raw.githubusercontent.com/varvet/godmin/master/template.rb
 ```
 
 ### Standalone installation
@@ -511,7 +511,7 @@ If you wish to change the number of resources per page, you can override the `pe
 
 ```ruby
 class ArticlesService
-  include Godmin::Resources::Service
+  include Godmin::Resources::ResourceService
 
   def per_page
     50
@@ -525,11 +525,35 @@ The `attrs_for_export` method in the service object makes it possible to mark at
 
 ```ruby
 class ArticlesService
-  include Godmin::Resources::Service
+  include Godmin::Resources::ResourceService
 
   attrs_for_export :id, :title, :created_at, :updated_at
 end
 ```
+
+### Nested resources
+
+Nested resources can be implemented by nesting your routes:
+
+```ruby
+resources :blogs do
+  resources :blog_posts
+end
+```
+
+This will set up scoping of the nested resource as well as correct links in the breadcrumb.
+
+If you want to add a link to the nested resource from the parent's show and edit pages, you can add the following to the service object:
+
+```ruby
+class BlogService
+  include Godmin::Resources::ResourceService
+
+  has_many :blog_posts
+end
+```
+
+Otherwise, simply add links as you see fit using partial overrides.
 
 ## Views
 
@@ -635,6 +659,14 @@ class AdminUser < ActiveRecord::Base
     :email
   end
 end
+```
+
+By default the user model is called `AdminUser`. If you'd like to change this, you can pass an argument to the authentication generator:
+
+```
+$ bin/rails generate godmin:authentication SuperUser
+or for an engine:
+$ admin/bin/rails generate godmin:authentication SuperUser
 ```
 
 By default the model is generated with an `email` field as the login column. This can changed in the migration prior to migrating if, for instance, a `username` column is more appropriate.

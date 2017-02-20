@@ -14,4 +14,17 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     visit authenticated_articles_path
     assert_not_equal authenticated_articles_path, current_path
   end
+
+  def test_sign_in_with_non_default_user
+    AnotherAdminUser.create!(email: "another_admin@example.com", password: "password")
+
+    case Rails::VERSION::MAJOR
+    when 4
+      post another_admin_session_path, another_admin_user: { email: "another_admin@example.com", password: "password" }
+    when 5
+      post another_admin_session_path, params: { another_admin_user: { email: "another_admin@example.com", password: "password" } }
+    end
+
+    assert_redirected_to root_path
+  end
 end

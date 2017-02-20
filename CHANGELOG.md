@@ -1,5 +1,28 @@
 # Changelog
 
+### 1.5.0 - 2017-02-17
+Features
+- Support for nested resources (https://github.com/varvet/godmin/pull/189)
+
+### 1.4.0 - 2017-02-15
+Features
+- Support group queries in scopes and filters (https://github.com/varvet/godmin/pull/208)
+- Change color of remove buttons, so they're not grabbing all the attention (https://github.com/varvet/godmin/pull/212)
+
+Bug fixes
+- Fix permitted params in sessions controller to work with models other than `AdminUser` (https://github.com/varvet/godmin/pull/210)
+
+Other
+- Remove authentication alert (https://github.com/varvet/godmin/pull/207)
+- Add table caption for tests (https://github.com/varvet/godmin/pull/187)
+
+### 1.3.1 - 2016-09-27
+Bug fixes
+- Fix FileSystemResolver issue (https://github.com/varvet/godmin/pull/202)
+
+Other
+- Update template for Rails 5 (https://github.com/varvet/godmin/commit/95e0a7917dd9767d77c3bfc876ebbf0a6036f347)
+
 ### 1.3.0 - 2016-07-11
 Features
 - Increased batch action checkbox click area (https://github.com/varvet/godmin/pull/183)

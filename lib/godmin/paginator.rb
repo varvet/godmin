@@ -1,12 +1,12 @@
 module Godmin
   class Paginator
-    WINDOW_SIZE = 7.freeze
+    WINDOW_SIZE = 7
 
     attr_reader :per_page, :current_page
 
     def initialize(resources, per_page: 25, current_page: nil)
-      @resources    = resources
-      @per_page     = per_page
+      @resources = resources
+      @per_page = per_page
       @current_page = current_page ? current_page.to_i : 1
     end
 
@@ -35,7 +35,15 @@ module Godmin
     end
 
     def total_resources
-      @total_resources ||= @resources.count
+      @total_resources ||= begin
+        count = @resources.count
+
+        if count.respond_to?(:count)
+          count.count
+        else
+          count
+        end
+      end
     end
 
     private

@@ -1,0 +1,41 @@
+<li class="dropdown pull-right">
+  <a href="#" data-toggle="dropdown">
+    <%= translate_scoped("actions.label") %> <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <% if policy(@resource).show? && action_name != "show" %>
+      <li>
+        <%= link_to translate_scoped("actions.show"), [*@resource_parents, @resource] %>
+      </li>
+    <% end %>
+    <% if policy(@resource).edit? && action_name != "edit" %>
+      <li>
+        <%= link_to translate_scoped("actions.edit"), [:edit, *@resource_parents, @resource]  %>
+      </li>
+    <% end %>
+    <% if policy(@resource).destroy? %>
+      <li>
+        <%= link_to translate_scoped("actions.destroy"), [*@resource_parents, @resource], method: :delete,
+          data: { confirm: translate_scoped("actions.confirm_message") } %>
+      </li>
+    <% end %>
+  </ul>
+</li>
+
+<% if @resource_service.has_many_map.present? %>
+  <li class="dropdown pull-right">
+    <a href="#" data-toggle="dropdown">
+      <%= translate_scoped("associations.label") %> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <% @resource_service.has_many_map.each do |name, options| %>
+        <% if policy(options[:class_name].constantize).index? %>
+          <li>
+            <%= link_to(options[:class_name].constantize.model_name.human(count: 2),
+              send("#{@resource_class.name.underscore}_#{name}_path", @resource)) %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+<% end %>

@@ -80,5 +80,16 @@ module Godmin
       paginator = Paginator.new(@resources)
       assert_equal 50, paginator.total_resources
     end
+
+    def test_total_resource_with_grouped_count
+      resources_class = Class.new do
+        def count
+          { 1 => 1, 2 => 2 }
+        end
+      end
+
+      paginator = Paginator.new(resources_class.new)
+      assert_equal 2, paginator.total_resources
+    end
   end
 end

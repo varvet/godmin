@@ -1,3 +1,4 @@
+require "godmin/resources/resource_service/associations"
 require "godmin/resources/resource_service/batch_actions"
 require "godmin/resources/resource_service/filters"
 require "godmin/resources/resource_service/ordering"
@@ -9,6 +10,7 @@ module Godmin
     module ResourceService
       extend ActiveSupport::Concern
 
+      include Associations
       include BatchActions
       include Filters
       include Ordering
@@ -30,7 +32,11 @@ module Godmin
       end
 
       def resources_relation
-        resource_class.all
+        if options[:resource_parent].present?
+          resource_class.where(options[:resource_parent].class.name.underscore => options[:resource_parent])
+        else
+          resource_class.all
+        end
       end
 
       def resources(params)

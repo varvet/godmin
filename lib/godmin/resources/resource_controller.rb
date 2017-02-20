@@ -17,6 +17,7 @@ module Godmin
 
         before_action :set_resource_service
         before_action :set_resource_class
+        before_action :set_resource_parents
         before_action :set_resources, only: :index
         before_action :set_resource, only: [:show, :new, :edit, :create, :update, :destroy]
       end
@@ -83,6 +84,10 @@ module Godmin
         @resource_class = resource_class
       end
 
+      def set_resource_parents
+        @resource_parents = resource_parents
+      end
+
       def set_resources
         @resources = resources
         authorize(@resources) if authorization_enabled?
@@ -98,15 +103,29 @@ module Godmin
       end
 
       def resource_service
+        resource_service = resource_service_class.new
+
         if authentication_enabled?
-          resource_service_class.new(admin_user: admin_user)
-        else
-          resource_service_class.new
+          resource_service.options[:admin_user] = admin_user
         end
+
+        if resource_parents.present?
+          resource_service.options[:resource_parent] = resource_parents.last
+        end
+
+        resource_service
       end
 
       def resource_class
         @resource_service.resource_class
+      end
+
+      def resource_parents
+        params.to_unsafe_h.each_with_object([]) do |(name, value), parents|
+          if name =~ /(.+)_id$/
+            parents << $1.classify.constantize.find(value)
+          end
+        end
       end
 
       def resources
@@ -151,11 +170,11 @@ module Godmin
       end
 
       def redirect_after_save
-        @resource
+        [*@resource_parents, @resource]
       end
 
       def redirect_after_destroy
-        resource_class.model_name.route_key.to_sym
+        [*@resource_parents, resource_class.model_name.route_key.to_sym]
       end
 
       def redirect_flash_message

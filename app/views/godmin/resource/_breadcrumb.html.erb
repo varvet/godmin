@@ -1,12 +1,22 @@
 <div id="breadcrumb">
   <ol class="breadcrumb">
+    <% if @resource_parents %>
+      <% @resource_parents.each do |parent| %>
+        <li>
+          <%= link_to parent.class.model_name.human(count: 2), parent.class %>
+        </li>
+        <li>
+          <%= link_to parent.to_s, parent %>
+        </li>
+      <% end %>
+    <% end %>
     <% if action_name == "index" %>
       <li class="active">
         <%= @resource_class.model_name.human(count: 2) %>
       </li>
     <% else %>
       <li>
-        <%= link_to @resource_class.model_name.human(count: 2), @resource_class %>
+        <%= link_to @resource_class.model_name.human(count: 2), [*@resource_parents, @resource_class] %>
       </li>
       <li class="active">
         <% if @resource.new_record? %>
@@ -16,29 +26,7 @@
         <% end %>
       </li>
       <% if @resource.persisted? %>
-        <li class="dropdown pull-right">
-          <a href="#" data-toggle="dropdown" role="button">
-            <%= translate_scoped("actions.label") %> <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <% if policy(@resource).show? && action_name != "show" %>
-              <li>
-                <%= link_to translate_scoped("actions.show"), @resource %>
-              </li>
-            <% end %>
-            <% if policy(@resource).edit? && action_name != "edit" %>
-              <li>
-                <%= link_to translate_scoped("actions.edit"), [:edit, @resource]  %>
-              </li>
-            <% end %>
-            <% if policy(@resource).destroy? %>
-              <li>
-                <%= link_to translate_scoped("actions.destroy"), @resource, method: :delete,
-                  data: { confirm: translate_scoped("actions.confirm_message") } %>
-              </li>
-            <% end %>
-          </ul>
-        </li>
+        <%= render partial: "breadcrumb_actions" %>
       <% end %>
     <% end %>
   </ol>

@@ -3,7 +3,7 @@ require "active_support/all"
 def install_standalone
   set_ruby_version
 
-  gem "godmin", "1.3.0"
+  gem "godmin", "1.3.1"
 
   after_bundle do
     create_database
@@ -36,7 +36,7 @@ def install_engine
 
   inject_into_file "admin/admin.gemspec", before: /^end/ do
     <<-END.strip_heredoc.indent(2)
-      s.add_dependency "godmin", "~> 1.0.0"
+      s.add_dependency "godmin", "~> 1.3.1"
     END
   end
 
@@ -127,6 +127,7 @@ def modify_rakefile
         desc "Reseed the database"
         task reseed: :environment do
           Rake::Task["sandbox:reset"].invoke
+          Rake::Task["db:environment:set"].invoke
           Rake::Task["db:schema:load"].invoke
           Rake::Task["db:seed"].invoke
         end

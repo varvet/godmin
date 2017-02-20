@@ -2,7 +2,7 @@
   <% if policy(resource).show? %>
     <%= link_to(
       translate_scoped("actions.show"),
-      resource,
+      [*@resource_parents, resource],
       class: "btn btn-default",
       title: translate_scoped("actions.show_title", resource: resource)
     ) %>
@@ -10,7 +10,7 @@
   <% if policy(resource).edit? %>
     <%= link_to(
       translate_scoped("actions.edit"),
-      [:edit, resource],
+      [:edit, *@resource_parents, resource],
       class: "btn btn-default",
       title: translate_scoped("actions.edit_title", resource: resource)
     ) %>
@@ -18,9 +18,9 @@
   <% if policy(resource).destroy? %>
     <%= link_to(
       translate_scoped("actions.destroy"),
-      resource,
+      [*@resource_parents, resource],
       method: :delete,
-      class: "btn btn-danger",
+      class: "btn btn-default",
       title: translate_scoped("actions.destroy_title", resource: resource),
       data: { confirm: translate_scoped("actions.confirm_message") }
     ) %>
