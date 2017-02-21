@@ -71,7 +71,7 @@ end
 
 def set_ruby_version
   prepend_to_file "Gemfile" do
-    "ruby '2.2.2'\n"
+    "ruby '2.3.3'\n"
   end
 end
 
