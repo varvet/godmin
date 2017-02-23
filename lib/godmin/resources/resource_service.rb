@@ -4,6 +4,9 @@ require "godmin/resources/resource_service/filters"
 require "godmin/resources/resource_service/ordering"
 require "godmin/resources/resource_service/pagination"
 require "godmin/resources/resource_service/scopes"
+require "godmin/filter/base"
+require "godmin/filter/string"
+require "godmin/filter/boolean"
 
 module Godmin
   module Resources

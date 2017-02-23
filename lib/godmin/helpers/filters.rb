@@ -11,33 +11,33 @@ module Godmin
 
   module FormBuilders
     class FilterFormBuilder < BootstrapForm::FormBuilder
-      def filter_field(name, options, html_options = {})
-        case options[:as]
-        when :string
-          string_filter_field(name, options, html_options)
-        when :select
-          select_filter_field(name, options, html_options)
-        when :multiselect
-          multiselect_filter_field(name, options, html_options)
-        end
-      end
+      # def filter_field(name, options, html_options = {})
+      #   case options[:as]
+      #   when :string
+      #     string_filter_field(name, options, html_options)
+      #   when :select
+      #     select_filter_field(name, options, html_options)
+      #   when :multiselect
+      #     multiselect_filter_field(name, options, html_options)
+      #   end
+      # end
 
-      def string_filter_field(name, _options, html_options = {})
+      def string_filter_field(filter, html_options = {})
         text_field(
-          name, {
-            name: "filter[#{name}]",
-            label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
-            value: default_filter_value(name),
-            placeholder: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
+          filter.identifier, {
+            name: "filter[#{filter.identifier}]",
+            label: @template.translate_scoped("filters.labels.#{filter.identifier}", default: filter.identifier.to_s.titleize),
+            value: default_filter_value(filter.identifier),
+            placeholder: @template.translate_scoped("filters.labels.#{filter.identifier}", default: filter.identifier.to_s.titleize),
             wrapper_class: "filter"
           }.deep_merge(html_options)
         )
       end
 
-      def select_filter_field(name, options, html_options = {})
+      def select_filter_field(filter, options = {}, html_options = {})
         filter_select(
-          name, options, {
-            name: "filter[#{name}]",
+          filter, options, {
+            name: "filter[#{filter.identifier}]",
             data: {
               placeholder: @template.translate_scoped("filters.select.placeholder.one")
             }
@@ -45,12 +45,12 @@ module Godmin
         )
       end
 
-      def multiselect_filter_field(name, options, html_options = {})
+      def multiselect_filter_field(filter, options = {}, html_options = {})
         filter_select(
-          name, {
+          filter.identifier, {
             include_hidden: false
           }.deep_merge(options), {
-            name: "filter[#{name}][]",
+            name: "filter[#{filter.identifier}][]",
             multiple: true,
             data: {
               placeholder: @template.translate_scoped("filters.select.placeholder.many")
@@ -75,36 +75,27 @@ module Godmin
 
       private
 
-      def filter_select(name, options, html_options)
-        unless options[:collection].is_a? Proc
-          raise "A collection proc must be specified for select filters"
-        end
-
-        # We need to dup this here because we later delete some properties
-        # from the hash. We should consider adding an additional options
-        # param to separate filter params from select tag params.
-        options = options.dup
-
-        collection = options.delete(:collection).call
+      def filter_select(filter, options, html_options)
+        collection = filter.collection
 
         choices =
           if collection.is_a? ActiveRecord::Relation
             @template.options_from_collection_for_select(
               collection,
-              options.delete(:option_value),
-              options.delete(:option_text),
-              selected: default_filter_value(name)
+              :to_s,
+              :id,
+              selected: default_filter_value(filter.identifier)
             )
           else
             @template.options_for_select(
               collection,
-              selected: default_filter_value(name)
+              selected: default_filter_value(filter.identifier)
             )
           end
 
         select(
-          name, choices, {
-            label: @template.translate_scoped("filters.labels.#{name}", default: name.to_s.titleize),
+          filter.identifier, choices, {
+            label: @template.translate_scoped("filters.labels.#{filter.identifier}", default: filter.identifier.to_s.titleize),
             include_hidden: true,
             include_blank: true
           }.deep_merge(options), {

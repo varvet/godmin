@@ -1,14 +1,12 @@
-<% if @resource_service.filter_map.present? %>
+<% if @resource_service.filters.present? %>
   <div id="filters" class="panel panel-default">
     <div class="panel-body">
       <%= filter_form do |f| %>
         <%= f.hidden_field :scope, value: params[:scope] %>
         <%= f.hidden_field :order, value: params[:order] %>
 
-        <% @resource_service.filter_map.each do |name, options| %>
-          <%= partial_override "#{controller_path}/filters/#{name}", f: f, name: name, options: options do %>
-            <%= f.filter_field(name, options) %>
-          <% end %>
+        <% @resource_service.filters.each do |_name, filter| %>
+          <%= render partial: filter, locals: { form: f, filter: filter } %>
         <% end %>
 
         <div class="form-group pull-right">
