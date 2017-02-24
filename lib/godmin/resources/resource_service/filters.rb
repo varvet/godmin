@@ -8,7 +8,7 @@ module Godmin
           if filter_params.present?
             filter_params.each do |name, value|
               filter = filters[name]
-              resources = filter.call(resources, value) if filter
+              resources = filter.call(resources, value) if filter && value.present?
             end
           end
           resources
