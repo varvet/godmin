@@ -6,13 +6,15 @@ module Godmin
     extend ActiveSupport::Concern
 
     included do
-      before_action :authenticate_admin_user
+      before_action :authenticate
 
       helper_method :admin_user
       helper_method :admin_user_signed_in?
     end
 
-    def authenticate_admin_user
+    def authenticate
+      return unless authentication_enabled?
+
       unless admin_user_signed_in? || controller_name == "sessions"
         redirect_to new_session_path
       end

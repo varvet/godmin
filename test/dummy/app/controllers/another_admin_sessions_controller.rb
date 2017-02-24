@@ -2,7 +2,7 @@ class AnotherAdminSessionsController < ApplicationController
   include Godmin::Authentication::SessionsController
   include Godmin::Authentication
 
-  skip_before_action :authenticate_admin_user
+  skip_before_action :enable_authentication
 
   def admin_user_class
     AnotherAdminUser
