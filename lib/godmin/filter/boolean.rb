@@ -1,16 +1,15 @@
 module Godmin
   module Filter
-    class Boolean < Base
+    class Boolean < Select
       attr_reader :collection
 
-      def initialize(identifier, collection: [["True", 1], ["False", 0]], **)
+      def initialize(identifier, true_label: "True", false_label: "False", **)
         super
-        @collection = collection
+        @collection = [[true_label, 1], [false_label, 0]]
       end
 
-      def call(value, scope)
-        value = value == "0" ? false : true
-        scope.where(column => value)
+      def call(resources, value)
+        super(resources, value == "1")
       end
     end
   end

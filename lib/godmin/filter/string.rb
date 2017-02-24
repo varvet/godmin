@@ -8,7 +8,7 @@ module Godmin
         @wildcard = wildcard
       end
 
-      def call(value, resources)
+      def call(resources, value)
         if wildcard == :none
           resources.where(column => value)
         else

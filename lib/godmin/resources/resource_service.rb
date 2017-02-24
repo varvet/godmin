@@ -6,6 +6,8 @@ require "godmin/resources/resource_service/pagination"
 require "godmin/resources/resource_service/scopes"
 require "godmin/filter/base"
 require "godmin/filter/string"
+require "godmin/filter/select"
+require "godmin/filter/multi_select"
 require "godmin/filter/boolean"
 
 module Godmin

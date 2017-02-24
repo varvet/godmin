@@ -11,17 +11,6 @@ module Godmin
 
   module FormBuilders
     class FilterFormBuilder < BootstrapForm::FormBuilder
-      # def filter_field(name, options, html_options = {})
-      #   case options[:as]
-      #   when :string
-      #     string_filter_field(name, options, html_options)
-      #   when :select
-      #     select_filter_field(name, options, html_options)
-      #   when :multiselect
-      #     multiselect_filter_field(name, options, html_options)
-      #   end
-      # end
-
       def string_filter_field(filter, html_options = {})
         text_field(
           filter.identifier, {
@@ -47,7 +36,7 @@ module Godmin
 
       def multiselect_filter_field(filter, options = {}, html_options = {})
         filter_select(
-          filter.identifier, {
+          filter, {
             include_hidden: false
           }.deep_merge(options), {
             name: "filter[#{filter.identifier}][]",
@@ -82,8 +71,8 @@ module Godmin
           if collection.is_a? ActiveRecord::Relation
             @template.options_from_collection_for_select(
               collection,
-              :to_s,
-              :id,
+              filter.option_value,
+              filter.option_text,
               selected: default_filter_value(filter.identifier)
             )
           else
