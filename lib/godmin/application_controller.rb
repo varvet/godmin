@@ -20,8 +20,6 @@ module Godmin
       helper_method :engine_wrapper
 
       before_action :append_view_paths
-      before_action :enable_authentication
-      before_action :enable_authorization
 
       layout "godmin/application"
     end
@@ -49,20 +47,20 @@ module Godmin
       append_view_path Godmin::Resolver.resolvers(controller_path, engine_wrapper)
     end
 
-    def enable_authentication
-      @_enable_authentication = true
+    def disable_authentication
+      @_disable_authentication = true
     end
 
-    def enable_authorization
-      @_enable_authorization = true
+    def disable_authorization
+      @_disable_authorization = true
     end
 
     def authentication_enabled?
-      @_enable_authentication && singleton_class.include?(Godmin::Authentication)
+      !@_disable_authentication && singleton_class.include?(Godmin::Authentication)
     end
 
     def authorization_enabled?
-      @_enable_authorization && singleton_class.include?(Godmin::Authorization)
+      !@_disable_authorization && singleton_class.include?(Godmin::Authorization)
     end
   end
 end

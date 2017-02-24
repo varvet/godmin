@@ -14,20 +14,19 @@ module Godmin
 
     def authenticate
       return unless authentication_enabled?
+      return if admin_user_signed_in?
+      return if controller_name == "sessions"
 
-      unless admin_user_signed_in? || controller_name == "sessions"
-        redirect_to new_session_path
-      end
+      redirect_to new_session_path
     end
 
-    def admin_user_class
-      raise NotImplementedError, "Must define the admin user class"
-    end
+    def admin_user_class; end
 
     def admin_user
-      if session[:admin_user_id]
-        @admin_user ||= admin_user_class.find_by(id: session[:admin_user_id])
-      end
+      return unless admin_user_class
+      return unless session[:admin_user_id]
+
+      @_admin_user ||= admin_user_class.find_by(id: session[:admin_user_id])
     end
 
     def admin_user_signed_in?
