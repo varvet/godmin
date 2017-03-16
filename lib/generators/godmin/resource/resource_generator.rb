@@ -2,12 +2,13 @@ require "godmin/generators/named_base"
 
 class Godmin::ResourceGenerator < Godmin::Generators::NamedBase
   argument :attributes, type: :array, default: [], banner: "attribute attribute"
-
+  class_option :"skip-navigation", :type => :boolean, :default => false, :description => "Skips extending navigation partial with new link"
   def add_route
     route "resources :#{file_name.pluralize}"
   end
 
   def add_navigation
+    return if options["skip-navigation"]
     append_to_file File.join("app/views", namespaced_path, "shared/_navigation.html.erb") do
       <<-END.strip_heredoc
         <%= navbar_item #{class_name} %>
