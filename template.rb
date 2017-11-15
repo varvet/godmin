@@ -3,7 +3,7 @@ require "active_support/all"
 def install_standalone
   set_ruby_version
 
-  gem "godmin", "1.3.1"
+  gem "godmin", "1.5.0"
 
   after_bundle do
     create_database
@@ -36,7 +36,7 @@ def install_engine
 
   inject_into_file "admin/admin.gemspec", before: /^end/ do
     <<-END.strip_heredoc.indent(2)
-      s.add_dependency "godmin", "~> 1.3.1"
+      s.add_dependency "godmin", "~> 1.5.0"
     END
   end
 
@@ -71,7 +71,7 @@ end
 
 def set_ruby_version
   prepend_to_file "Gemfile" do
-    "ruby '2.2.2'\n"
+    "ruby '2.3.3'\n"
   end
 end
 

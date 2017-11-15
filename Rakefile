@@ -39,11 +39,11 @@ namespace :sandbox do
     Bundler.with_clean_env do
       Dir.mktmpdir do |dir|
         Dir.chdir(dir)
-        system("git clone git@github.com:varvet/godmin-sandbox.git")
+        system("git clone https://github.com/varvet/godmin-sandbox.git")
         if $CHILD_STATUS.success?
           Dir.chdir("godmin-sandbox")
           system("rm -rf *")
-          system("rails new . -d postgresql -m #{template_path} --without-engine")
+          system("rails new . -d postgresql -m #{template_path} --without-engine --skip-spring")
           if $CHILD_STATUS.success?
             system("git add --all")
             system("git commit -m '#{message}'")
