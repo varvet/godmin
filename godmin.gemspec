@@ -26,7 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "csv_builder", "~> 2.1"
   gem.add_dependency "jquery-rails", [">= 3.0", "< 5.0"]
   gem.add_dependency "momentjs-rails", "~> 2.8"
-  gem.add_dependency "pundit", "~> 1.0"
+  gem.add_dependency "pundit", [">= 1.1", "< 2.0"]
   gem.add_dependency "rails", [">= 4.2.0", "< 6.0"]
   gem.add_dependency "sass-rails", [">= 4.0", "< 6.0"]
   gem.add_dependency "selectize-rails", "~> 0.12"
