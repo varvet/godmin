@@ -15,6 +15,12 @@ class Godmin::ResourceGenerator < Godmin::Generators::NamedBase
     end
   end
 
+  def create_model
+    if namespaced?
+      template "resource_model.rb", File.join("app/models", class_path, "#{file_name}.rb")
+    end
+  end
+
   def create_controller
     template "resource_controller.rb", File.join("app/controllers", class_path, "#{file_name.pluralize}_controller.rb")
   end

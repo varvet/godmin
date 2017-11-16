@@ -8,7 +8,7 @@ module Godmin
       private
 
       def full_class_name
-        if namespace
+        if namespaced?
           "#{namespace}::#{class_name}"
         else
           class_name

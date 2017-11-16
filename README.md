@@ -143,6 +143,15 @@ It inserts a `navbar_item` in the `app/views/shared/_navigation.html.erb` partia
 <%= navbar_item Article %>
 ```
 
+If Godmin was installed inside an engine, it creates a model class:
+
+```ruby
+module Admin
+  class Article < ::Article
+  end
+end
+```
+
 It creates a controller:
 
 ```ruby
@@ -742,7 +751,7 @@ The admin section is now authenticated using Devise.
 
 ## Authorization
 
-In order to enable authorization, authentication must first be enabled. See the previous section. The Godmin authorization system is heavily inspired by [Pundit](https://github.com/elabs/pundit) and implements the same interface.
+In order to enable authorization, authentication must first be enabled. See the previous section. The Godmin authorization system uses [Pundit](https://github.com/elabs/pundit).
 
 Add the authorization module to the application controller:
 
@@ -802,8 +811,8 @@ end
 That is, everyone can list and view articles, only editors can create them, and only unpublished articles can be updated and destroyed.
 
 ### Handle unauthorized access
-When a user is not authorized to access a resource, a `NotAuthorizedError` is raised. By default this error is rescued by Godmin and turned into a status code `403 Forbidden` response.
-If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`:
+
+When a user is not authorized to access a resource, a `Pundit::NotAuthorizedError` is raised. By default this error is rescued by Godmin and turned into a status code `403 Forbidden` response. If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`:
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -812,13 +821,14 @@ class ApplicationController < ActionController::Base
   include Godmin::Authorization
 
   # Renders 404 page and returns status code 404.
-  rescue_from NotAuthorizedError do
+  rescue_from Pundit::NotAuthorizedError do
     render file: "#{Rails.root}/public/404.html", status: 404, layout: false
   end
 end
 ```
 
 ### Override policy object
+
 If you wish to specify what policy to use manually, override the following method in your model. It does not have to be an ActiveRecord object, but any object will do.
 
 ```ruby
@@ -830,6 +840,7 @@ end
 ```
 
 ### Batch action authorization
+
 Batch actions must be authorized in your policy if you are using Godmin's built in authorization functionality. The policy method is called with the relation containing all records to be processed.
 
 ```ruby
