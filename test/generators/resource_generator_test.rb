@@ -8,9 +8,10 @@ module Godmin
     setup :prepare_destination
 
     def test_something
-      binding.pry
-      # FileUtils.cp_r File.expand_path("../../../../dummy", __FILE__), File.expand_path("../../../../tmp", __FILE__)
-      # run_generator %w[foo]
+      system "cd test/tmp && rails new . --skip-test --skip-spring --skip-bundle --skip-git --skip-keeps --quiet"
+      system "cd test/tmp && rails generate godmin:install --quiet"
+
+      run_generator %w[foo]
     end
   end
 end
