@@ -4,7 +4,7 @@ class Godmin::ResourceGenerator < Godmin::Generators::NamedBase
   argument :attributes, type: :array, default: [], banner: "attribute attribute"
 
   def add_route
-    route "resources :#{file_name.pluralize}"
+    invoke "resource_route"
   end
 
   def add_navigation
