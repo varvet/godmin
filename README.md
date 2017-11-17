@@ -740,6 +740,16 @@ end
 
 The admin section is now authenticated using Devise.
 
+### Disable authentication
+
+If you want to disable authentication for a single controller or controller action, use the following `before_action`:
+
+```ruby
+class ArticlesController < ApplicationController
+  prepend_before_action :disable_authentication
+end
+```
+
 ## Authorization
 
 In order to enable authorization, authentication must first be enabled. See the previous section. The Godmin authorization system is heavily inspired by [Pundit](https://github.com/elabs/pundit) and implements the same interface.
@@ -837,6 +847,16 @@ class ArticlePolicy < Godmin::Authorization::Policy
   def batch_action_destroy?
     record.all? { |r| r.user_id == user.id }
   end
+end
+```
+
+### Disable authorization
+
+If you want to disable authorization for a single controller or controller action, use the following `before_action`:
+
+```ruby
+class ArticlesController < ApplicationController
+  prepend_before_action :disable_authorization
 end
 ```
 
