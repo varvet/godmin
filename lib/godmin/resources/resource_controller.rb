@@ -15,11 +15,17 @@ module Godmin
         helper Godmin::Helpers::Filters
         helper Godmin::Helpers::Tables
 
-        before_action :set_resource_service
-        before_action :set_resource_class
-        before_action :set_resource_parents
-        before_action :set_resources, only: :index
-        before_action :set_resource, only: [:show, :new, :edit, :create, :update, :destroy]
+        helper_method :resource_class
+        helper_method :resource_service
+        helper_method :resource_parents
+        helper_method :resources
+        helper_method :resource
+
+        # before_action :set_resource_service
+        # before_action :set_resource_class
+        # before_action :set_resource_parents
+        # before_action :set_resources, only: :index
+        # before_action :set_resource, only: [:show, :new, :edit, :create, :update, :destroy]
       end
 
       def index
@@ -76,27 +82,27 @@ module Godmin
 
       protected
 
-      def set_resource_service
-        @resource_service = resource_service
-      end
-
-      def set_resource_class
-        @resource_class = resource_class
-      end
-
-      def set_resource_parents
-        @resource_parents = resource_parents
-      end
-
-      def set_resources
-        @resources = resources
-        authorize(@resources) if authorization_enabled?
-      end
-
-      def set_resource
-        @resource = resource
-        authorize(@resource) if authorization_enabled?
-      end
+      # def set_resource_service
+      #   @resource_service = resource_service
+      # end
+      #
+      # def set_resource_class
+      #   @resource_class = resource_class
+      # end
+      #
+      # def set_resource_parents
+      #   @resource_parents = resource_parents
+      # end
+      #
+      # def set_resources
+      #   @resources = resources
+      #   authorize(@resources) if authorization_enabled? # TODO: MOVE!
+      # end
+      #
+      # def set_resource
+      #   @resource = resource
+      #   authorize(@resource) if authorization_enabled? # TODO: MOVE!
+      # end
 
       def resource_service_class
         "#{controller_path.singularize}_service".classify.constantize
@@ -117,7 +123,7 @@ module Godmin
       end
 
       def resource_class
-        @resource_service.resource_class
+        resource_service.resource_class
       end
 
       def resource_parents
@@ -129,29 +135,29 @@ module Godmin
       end
 
       def resources
-        @resource_service.resources(params)
+        resource_service.resources(params)
       end
 
       def resource
         if params[:id]
-          @resource_service.find_resource(params[:id])
+          resource_service.find_resource(params[:id])
         else
           case action_name
           when "create"
-            @resource_service.build_resource(resource_params)
+            resource_service.build_resource(resource_params)
           when "new"
-            @resource_service.build_resource(nil)
+            resource_service.build_resource(nil)
           end
         end
       end
 
       def resource_params
-        params.require(@resource_class.model_name.param_key.to_sym).permit(resource_params_defaults)
+        params.require(resource_class.model_name.param_key.to_sym).permit(resource_params_defaults)
       end
 
       def resource_params_defaults
-        @resource_service.attrs_for_form.map do |attribute|
-          association = @resource_class.reflect_on_association(attribute)
+        resource_service.attrs_for_form.map do |attribute|
+          association = resource_class.reflect_on_association(attribute)
 
           if association && association.macro == :belongs_to
             association.foreign_key.to_sym
@@ -170,15 +176,15 @@ module Godmin
       end
 
       def redirect_after_save
-        [*@resource_parents, @resource]
+        [*resource_parents, resource]
       end
 
       def redirect_after_destroy
-        [*@resource_parents, resource_class.model_name.route_key.to_sym]
+        [*resource_parents, resource_class.model_name.route_key.to_sym]
       end
 
       def redirect_flash_message
-        translate_scoped("flash.#{action_name}", resource: @resource.class.model_name.human)
+        translate_scoped("flash.#{action_name}", resource: resource.class.model_name.human)
       end
     end
   end
