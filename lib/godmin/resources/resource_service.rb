@@ -23,12 +23,8 @@ module Godmin
         @options = options
       end
 
-      def resource_class_name
-        self.class.name.demodulize.chomp("Service")
-      end
-
       def resource_class
-        resource_class_name.constantize
+        self.class.name.demodulize.chomp("Service").constantize
       end
 
       def resources_relation
