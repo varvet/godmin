@@ -13,17 +13,14 @@ module Godmin
         def perform_batch_action
           return unless params[:batch_action].present?
 
-          set_resource_service
-          set_resource_class
-
           if authorization_enabled?
             authorize(batch_action_records, "batch_action_#{params[:batch_action]}?")
           end
 
-          if @resource_service.batch_action(params[:batch_action], batch_action_records)
+          if resource_service.batch_action(params[:batch_action], batch_action_records)
             flash[:notice] = translate_scoped(
               "flash.batch_action", number_of_records: batch_action_ids.length,
-                                    resource: @resource_class.model_name.human(count: batch_action_ids.length)
+                                    resource: resource_class.model_name.human(count: batch_action_ids.length)
             )
             flash[:updated_ids] = batch_action_ids
 
@@ -41,7 +38,7 @@ module Godmin
         end
 
         def batch_action_records
-          @_batch_action_records ||= @resource_class.where(id: batch_action_ids)
+          @_batch_action_records ||= resource_class.where(id: batch_action_ids)
         end
       end
     end

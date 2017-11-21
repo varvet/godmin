@@ -2,7 +2,7 @@ module Godmin
   module Helpers
     module Tables
       def column_header(attribute)
-        if @resource_service.orderable_column?(attribute.to_s)
+        if resource_service.orderable_column?(attribute.to_s)
           direction =
             if params[:order].present?
               if params[:order].match(/\A#{attribute.to_s}_(asc|desc)\z/)
@@ -15,9 +15,9 @@ module Godmin
             else
               "desc"
             end
-          link_to @resource_class.human_attribute_name(attribute.to_s), url_for(params.to_unsafe_h.merge(order: "#{attribute}_#{direction}"))
+          link_to resource_class.human_attribute_name(attribute.to_s), url_for(params.to_unsafe_h.merge(order: "#{attribute}_#{direction}"))
         else
-          @resource_class.human_attribute_name(attribute.to_s)
+          resource_class.human_attribute_name(attribute.to_s)
         end
       end
 
