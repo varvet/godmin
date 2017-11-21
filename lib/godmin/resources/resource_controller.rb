@@ -22,11 +22,11 @@ module Godmin
 
         # TODO: helper methods are available everywhere to all partials, try using
         # locals instead so we only pass the stuff we need...
-        helper_method :resource_class
-        helper_method :resource_service
-        helper_method :resource_parents
-        helper_method :resources
-        helper_method :resource
+        # helper_method :resource_class
+        # helper_method :resource_service
+        # helper_method :resource_parents
+        # helper_method :resources
+        # helper_method :resource
       end
 
       def index
@@ -34,8 +34,15 @@ module Godmin
         resource_service
         resources
 
+        locals = {
+          resource_class: resource_class,
+          resource_service: resource_service,
+          resource_parents: resource_parents,
+          resources: resources
+        }
+
         respond_to do |format|
-          format.html
+          format.html { render :index, locals: locals }
           format.json
           format.csv
         end
