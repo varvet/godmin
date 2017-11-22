@@ -14,7 +14,7 @@ def install_standalone
     generate("godmin:resource", "article")
     generate("godmin:resource", "author")
 
-    modify_rakefile
+    # modify_rakefile
     modify_routes
     modify_locales
     modify_models
@@ -57,7 +57,7 @@ def install_engine
       END
     end
 
-    modify_rakefile
+    # modify_rakefile
     modify_routes("admin")
     modify_locales
     modify_models
@@ -71,7 +71,7 @@ end
 
 def set_ruby_version
   prepend_to_file "Gemfile" do
-    "ruby '2.3.3'\n"
+    "ruby '2.3.5'\n"
   end
 end
 
@@ -88,6 +88,9 @@ def generate_models
 
   append_to_file "db/seeds.rb" do
     <<-END.strip_heredoc
+      ActiveRecord::Base.connection.execute("TRUNCATE TABLE articles RESTART IDENTITY CASCADE")
+      ActiveRecord::Base.connection.execute("TRUNCATE TABLE authors RESTART IDENTITY CASCADE")
+
       def title
         5.times.map { lorem.sample }.join(" ").capitalize
       end
@@ -119,32 +122,32 @@ def generate_models
   end
 end
 
-def modify_rakefile
-  append_to_file "RakeFile" do
-    <<-END.strip_heredoc
-
-      namespace :sandbox do
-        desc "Reseed the database"
-        task reseed: :environment do
-          Rake::Task["sandbox:reset"].invoke
-          Rake::Task["db:environment:set"].invoke
-          Rake::Task["db:schema:load"].invoke
-          Rake::Task["db:seed"].invoke
-        end
-
-        desc "Reset the database"
-        task reset: :environment do
-          ActiveRecord::Base.connection.tables.each do |table|
-            if table != "schema_migrations"
-              query = "DROP TABLE IF EXISTS \#{table} CASCADE;"
-              ActiveRecord::Base.connection.execute(query)
-            end
-          end
-        end
-      end
-    END
-  end
-end
+# def modify_rakefile
+#   append_to_file "RakeFile" do
+#     <<-END.strip_heredoc
+#
+#       namespace :sandbox do
+#         desc "Reseed the database"
+#         task reseed: :environment do
+#           Rake::Task["sandbox:reset"].invoke
+#           Rake::Task["db:environment:set"].invoke
+#           Rake::Task["db:schema:load"].invoke
+#           Rake::Task["db:seed"].invoke
+#         end
+#
+#         desc "Reset the database"
+#         task reset: :environment do
+#           ActiveRecord::Base.connection.tables.each do |table|
+#             if table != "schema_migrations"
+#               query = "DROP TABLE IF EXISTS \#{table} CASCADE;"
+#               ActiveRecord::Base.connection.execute(query)
+#             end
+#           end
+#         end
+#       end
+#     END
+#   end
+# end
 
 def modify_locales
   append_to_file "config/locales/en.yml" do
