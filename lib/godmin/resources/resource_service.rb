@@ -24,11 +24,7 @@ module Godmin
       end
 
       def resource_class
-        @options[:resource_class] || resource_class_name.constantize
-      end
-
-      def resource_class_name
-        self.class.name.chomp("Service")
+        self.class.name.chomp("Service").constantize
       end
 
       def resources_relation
