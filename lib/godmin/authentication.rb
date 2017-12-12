@@ -15,7 +15,6 @@ module Godmin
     def authenticate
       return unless authentication_enabled?
       return if admin_user_signed_in?
-      return if controller_name == "sessions"
 
       redirect_to new_session_path
     end
