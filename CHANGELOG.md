@@ -1,10 +1,32 @@
 # Changelog
 
+### 2.0.0 - Unreleased
+
+Features
+- Allow skipping authorization per action (https://github.com/varvet/godmin/pull/231)
+
+Bug fixes
+- Support namespaced models when generating resources (https://github.com/varvet/godmin/issues/181)
+
+Other
+- Drop support for Rails 4 (https://github.com/varvet/godmin/pull/239)
+- Better policy lookups for namespaced models (https://github.com/varvet/godmin/pull/180)
+- Use Pundit for authorization (https://github.com/varvet/godmin/pull/180)
+
+In order to upgrade
+- Upgrade to Rails 5 and Ruby 2.2.2
+- If using an admin engine, create a namespaced model for every resource, inheriting from the main app model
+- Replace any `authenticate_admin_user` with `authenticate`
+- Replace any `skip_before_action :authenticate_admin_user` with `prepend_before_action :disable_authentication`
+- Replace any `rescue_from NotAuthorizedError` with `rescue_from Pundit::NotAuthorizedError`
+
 ### 1.5.0 - 2017-02-17
+
 Features
 - Support for nested resources (https://github.com/varvet/godmin/pull/189)
 
 ### 1.4.0 - 2017-02-15
+
 Features
 - Support group queries in scopes and filters (https://github.com/varvet/godmin/pull/208)
 - Change color of remove buttons, so they're not grabbing all the attention (https://github.com/varvet/godmin/pull/212)
@@ -17,6 +39,7 @@ Other
 - Add table caption for tests (https://github.com/varvet/godmin/pull/187)
 
 ### 1.3.1 - 2016-09-27
+
 Bug fixes
 - Fix FileSystemResolver issue (https://github.com/varvet/godmin/pull/202)
 
@@ -24,6 +47,7 @@ Other
 - Update template for Rails 5 (https://github.com/varvet/godmin/commit/95e0a7917dd9767d77c3bfc876ebbf0a6036f347)
 
 ### 1.3.0 - 2016-07-11
+
 Features
 - Increased batch action checkbox click area (https://github.com/varvet/godmin/pull/183)
 - Adds titles to action links (https://github.com/varvet/godmin/pull/185)
@@ -39,6 +63,7 @@ Other
 - Adds caching partial overrides to increase table rendering speed (https://github.com/varvet/godmin/pull/184)
 
 ### 1.2.0 - 2016-02-02
+
 Features
 - Adds support for custom ordering of columns (https://github.com/varvet/godmin/pull/168)
 - Adds passing of options to association form helper (https://github.com/varvet/godmin/pull/172)
@@ -48,6 +73,7 @@ Bug fixes
 - Fixes an issue with the template resolver and Rails 4.2.5.1 (https://github.com/varvet/godmin/pull/175)
 
 ### 1.1.0 - 2015-12-08
+
 Features
 - Adds locale for pt-BR (Brazilian Portuguese) (https://github.com/varvet/godmin/pull/141)
 - New sandbox template with with more examples (https://github.com/varvet/godmin/pull/135)
@@ -60,22 +86,27 @@ Bug fixes
 - Fixes a namespace issue with the authentication generator (https://github.com/varvet/godmin/pull/150)
 
 ### 1.0.0 - 2015-11-13
+
 Release of 1.0.0 :tada:
 
 ### 0.12.4 - 2015-10-21
+
 Bug fixes
 - Fixes a bug which made it impossible to override the datetimepicker locale (https://github.com/varvet/godmin/issues/132)
 
 ### 0.12.3 - 2015-09-18
+
 Bug fixes
 - Adds support for plural engines (https://github.com/varvet/godmin/pull/128)
 - Remove turbolinks from application.js if present (https://github.com/varvet/godmin/issues/129)
 
 ### 0.12.2 - 2015-09-07
+
 Bug fixes
 - Fixes broken sign in page
 
 ### 0.12.1 - 2015-09-07
+
 Bug fixes
 - Fixes issue where column ordering on index table didn't work (https://github.com/varvet/godmin/issues/124)
 
@@ -83,17 +114,18 @@ Other
 - Adds integration tests
 - Removes the namespace config in `initializers/godmin.rb`
 
-In order to upgrade:
+In order to upgrade
 - Remove the `initializers/godmin.rb` file
 
 ### 0.12.0 - 2015-06-30
+
 Features
 - Adds new navigation helpers for building a custom navbar (https://github.com/varvet/godmin/issues/54)
 
 Other
 - Removes the godmin router method
 
-In order to upgrade:
+In order to upgrade
 - Remove the `godmin do` block from the `config/routes.rb` file
 - Specify a root route if there is none already
 - Create a `shared/_navigation.html.erb` partial if there is none already
@@ -102,10 +134,12 @@ Bug fixes
 - Fixes issue with authentication generator not modifying the application controller
 
 ### 0.11.2 - 2015-06-22
+
 Bug fixes
 - Fixes broken collection select helper
 
 ### 0.11.1 - 2015-05-20
+
 Features
 - Adds `destroy_resource` method to `ResourceService`
 - Adds query param to authorize
@@ -119,6 +153,7 @@ Bug fixes
 - Fixes a regression where filter labels were not translated
 
 ### 0.11.0 - 2015-04-13
+
 Other
 - Split resources into controllers and service objects (https://github.com/varvet/godmin/pull/79)
 - Renames the following modules:
@@ -127,18 +162,22 @@ Other
   - Godmin::Sessions -> Godmin::SessionsController
 
 ### 0.10.3 - 2015-02-18
+
 Bug fixes
 - Adds the possibility to pass options to the `date_field` and `datetime_field` form helpers
 
 ### 0.10.2 - 2015-02-16
+
 Bug fixes
 - Fixes standard resource params for multi-word models
 
 ### 0.10.1 - 2015-02-13
+
 Bug fixes
 - Fixes multi-select selectize issue (https://github.com/varvet/godmin/issues/71)
 
 ### 0.10.0 - 2015-02-11
+
 Features
 - Shows the number of items in each scope in the scope tab (https://github.com/varvet/godmin/issues/16)
 - Two new overridable methods for resources: `build_resource` and `find_resource`
@@ -155,21 +194,25 @@ Other
 - Restructured the locale files a bit
 
 ### 0.9.9 - 2015-01-23
+
 Features
 - Bump bootstrap to 3.3.3
 - Extracted button actions partial
 
 ### 0.9.8 - 2015-01-12
+
 Bug fixes
 - Created resources are now properly scoped by `resources_relation`
 - Fixes broken signin form
 
 ### 0.9.7 - 2015-01-07
+
 Features
 - Support for Rails 4.2
 - New form system (https://github.com/varvet/godmin/pull/50)
 
 ### 0.9.6 - 2014-12-18
+
 Features
 - Bundled [datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker/)
 - Exposed JavaScript API
@@ -179,18 +222,22 @@ Notes
 - You can no longer use the `select-tag` class to initialize a select box
 
 ### 0.9.5 - 2014-12-15
+
 Bug fixes
 - Fixes Godmin::FormBuilder issue
 
 ### 0.9.4 - 2014-12-15
+
 Features
 - Added Godmin::FormBuilder
 
 ### 0.9.3 - 2014-12-10
+
 Bug fixes
 - Pagination offset fix
 
 ### 0.9.2 - 2014-12-09
+
 Features
 - Replaces select2 with [selectize](http://brianreavis.github.io/selectize.js/)
 - Adds flash messages (https://github.com/varvet/godmin/issues/26)
@@ -203,6 +250,7 @@ Bug fixes
 - Fixes default permitted params to work with multiword models.
 
 ### 0.9.1 - 2014-11-18
+
 Bug fixes
 - Removed rails executable from /bin folder.
 
