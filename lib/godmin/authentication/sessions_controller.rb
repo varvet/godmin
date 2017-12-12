@@ -5,6 +5,7 @@ module Godmin
 
       included do
         layout "godmin/login"
+        prepend_before_action :disable_authentication
       end
 
       def new

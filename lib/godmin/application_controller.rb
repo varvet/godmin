@@ -38,12 +38,20 @@ module Godmin
       append_view_path Godmin::Resolver.resolvers(controller_path, engine_wrapper)
     end
 
+    def disable_authentication
+      @_disable_authentication = true
+    end
+
+    def disable_authorization
+      @_disable_authorization = true
+    end
+
     def authentication_enabled?
-      singleton_class.include?(Godmin::Authentication)
+      !@_disable_authentication && singleton_class.include?(Godmin::Authentication)
     end
 
     def authorization_enabled?
-      singleton_class.include?(Godmin::Authorization)
+      !@_disable_authorization && singleton_class.include?(Godmin::Authorization)
     end
   end
 end
