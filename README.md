@@ -4,7 +4,7 @@
 [![Build Status](https://img.shields.io/travis/varvet/godmin/master.svg)](https://travis-ci.org/varvet/godmin)
 [![Code Climate](https://img.shields.io/codeclimate/github/varvet/godmin.svg)](https://codeclimate.com/github/varvet/godmin)
 
-Godmin is an admin framework for Rails 4+. Use it to build dedicated admin sections for your apps, or stand alone admin apps such as internal tools. It has support for common features such as scoping, filtering and performing batch actions on your models. Check out the [demo app](http://godmin-sandbox.herokuapp.com) and its [source code](https://github.com/varvet/godmin-sandbox) to get a feel for how it works.
+Godmin is an admin framework for Rails 5+. Use it to build dedicated admin sections for your apps, or stand alone admin apps such as internal tools. It has support for common features such as scoping, filtering and performing batch actions on your models. Check out the [demo app](http://godmin-sandbox.herokuapp.com) and its [source code](https://github.com/varvet/godmin-sandbox) to get a feel for how it works.
 
 Godmin differs from tools like [ActiveAdmin](http://activeadmin.info/) and [RailsAdmin](https://github.com/sferik/rails_admin) in how admin sections are created. Rather than being DSL-based, Godmin is a set of opt-in modules and helpers that can be applied to regular Rails apps and engines. An admin section built with Godmin is just that, a regular Rails app or Rails engine, with regular routes, controllers and views. That means there is less to learn, because you already know most of it, and fewer constraints on what you can do. After all, administrators are users too, and what better way to provide them with a tailor made experience than building them a Rails app?
 
@@ -141,6 +141,15 @@ It inserts a `navbar_item` in the `app/views/shared/_navigation.html.erb` partia
 
 ```erb
 <%= navbar_item Article %>
+```
+
+If Godmin was installed inside an engine, it creates a model class:
+
+```ruby
+module Admin
+  class Article < ::Article
+  end
+end
 ```
 
 It creates a controller:
@@ -742,7 +751,7 @@ The admin section is now authenticated using Devise.
 
 ## Authorization
 
-In order to enable authorization, authentication must first be enabled. See the previous section. The Godmin authorization system is heavily inspired by [Pundit](https://github.com/elabs/pundit) and implements the same interface.
+In order to enable authorization, authentication must first be enabled. See the previous section. The Godmin authorization system uses [Pundit](https://github.com/elabs/pundit).
 
 Add the authorization module to the application controller:
 
@@ -802,8 +811,8 @@ end
 That is, everyone can list and view articles, only editors can create them, and only unpublished articles can be updated and destroyed.
 
 ### Handle unauthorized access
-When a user is not authorized to access a resource, a `NotAuthorizedError` is raised. By default this error is rescued by Godmin and turned into a status code `403 Forbidden` response.
-If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`:
+
+When a user is not authorized to access a resource, a `Pundit::NotAuthorizedError` is raised. By default this error is rescued by Godmin and turned into a status code `403 Forbidden` response. If you want to change this behaviour you can rescue the error yourself in the appropriate `ApplicationController`:
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -812,13 +821,14 @@ class ApplicationController < ActionController::Base
   include Godmin::Authorization
 
   # Renders 404 page and returns status code 404.
-  rescue_from NotAuthorizedError do
+  rescue_from Pundit::NotAuthorizedError do
     render file: "#{Rails.root}/public/404.html", status: 404, layout: false
   end
 end
 ```
 
 ### Override policy object
+
 If you wish to specify what policy to use manually, override the following method in your model. It does not have to be an ActiveRecord object, but any object will do.
 
 ```ruby
@@ -830,6 +840,7 @@ end
 ```
 
 ### Batch action authorization
+
 Batch actions must be authorized in your policy if you are using Godmin's built in authorization functionality. The policy method is called with the relation containing all records to be processed.
 
 ```ruby

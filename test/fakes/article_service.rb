@@ -13,8 +13,8 @@ module Fakes
     scope :published
 
     filter :title
-    filter :country, as: :select, collection: %w(Sweden Canada)
-    filter :tags, as: :multiselect, collection: %w(Apple Banana)
+    filter :country, as: :select, collection: %w[Sweden Canada]
+    filter :tags, as: :multiselect, collection: %w[Apple Banana]
 
     batch_action :unpublish
     batch_action :publish, confirm: true, only: [:unpublished], except: [:published]
@@ -24,12 +24,8 @@ module Fakes
       @called_methods = { scopes: {}, filters: {}, batch_actions: {}, ordering: {} }
     end
 
-    def resource_class
-      Fakes::Article
-    end
-
     def resources_relation
-      [:foo, :bar, :baz]
+      %i[foo bar baz]
     end
 
     def order_by_foobar(resources, direction)

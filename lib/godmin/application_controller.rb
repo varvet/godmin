@@ -28,15 +28,6 @@ module Godmin
 
     protected
 
-    def redirect_back
-      case Rails::VERSION::MAJOR
-      when 4
-        redirect_to :back
-      when 5
-        super(fallback_location: root_path)
-      end
-    end
-
     private
 
     def engine_wrapper
