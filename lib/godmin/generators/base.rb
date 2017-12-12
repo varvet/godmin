@@ -4,7 +4,7 @@ module Godmin
   module Generators
     class Base < Rails::Generators::Base
       def self.source_paths
-        %w(authentication install policy resource).map do |path|
+        %w[authentication install policy resource].map do |path|
           File.expand_path("../../../generators/godmin/#{path}/templates", __FILE__)
         end
       end
@@ -12,15 +12,15 @@ module Godmin
       private
 
       def namespace
-        @namespace ||= Rails::Generators.namespace
+        @_namespace ||= Rails::Generators.namespace
       end
 
       def namespaced?
-        @namespaced ||= namespace.present?
+        @_namespaced ||= namespace.present?
       end
 
       def namespaced_path
-        @namespaced_path ||= begin
+        @_namespaced_path ||= begin
           if namespaced?
             namespace.name.split("::").map(&:underscore)
           else

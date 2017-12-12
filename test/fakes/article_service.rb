@@ -24,10 +24,6 @@ module Fakes
       @called_methods = { scopes: {}, filters: {}, batch_actions: {}, ordering: {} }
     end
 
-    def resource_class
-      Fakes::Article
-    end
-
     def resources_relation
       [:foo, :bar, :baz]
     end
