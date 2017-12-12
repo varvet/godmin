@@ -5,7 +5,7 @@ module Fakes
     end
 
     def self.column_names
-      ["id", "title"]
+      %w[id title]
     end
   end
 end
