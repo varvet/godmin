@@ -8,7 +8,7 @@ module Godmin
       private
 
       def full_class_name
-        if namespace
+        if namespaced?
           "#{namespace}::#{class_name}"
         else
           class_name
@@ -16,15 +16,15 @@ module Godmin
       end
 
       def class_name
-        @class_name ||= name.classify
+        @_class_name ||= name.classify
       end
 
       def class_path
-        @class_path ||= namespaced_path + name.classify.deconstantize.split("::").map(&:underscore)
+        @_class_path ||= namespaced_path + name.classify.deconstantize.split("::").map(&:underscore)
       end
 
       def file_name
-        @file_name ||= class_name.demodulize.underscore
+        @_file_name ||= class_name.demodulize.underscore
       end
     end
   end
