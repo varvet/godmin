@@ -1,10 +1,10 @@
-<%= render partial: "breadcrumb" %>
-<%= render partial: "scopes" %>
-<%= render partial: "filters" %>
+<%= render "breadcrumb", resource_class: resource_class, resource_parents: resource_parents %>
+<%= render "scopes", resource_service: resource_service %>
+<%= render "filters", resource_service: resource_service, resource_parents: resource_parents %>
 
 <div data-behavior="batch-actions-container">
-  <%= render partial: "actions" %>
-  <%= render partial: "table" %>
+  <%= render "actions" %>
+  <%= render "table" %>
 </div>
 
-<%= render partial: "pagination" %>
+<%= render "pagination" %>
