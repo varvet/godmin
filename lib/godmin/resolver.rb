@@ -16,6 +16,19 @@ module Godmin
       @engine_wrapper = engine_wrapper
     end
 
+    def _find_all(name, prefix, partial, details, key, locals)
+      templates = []
+
+      template_paths(prefix).each do |p|
+        break if templates.present?
+
+        path = Path.build(name, "#{@path}/#{p}", partial)
+        templates = query(path, details, details[:formats], locals, cache: !!key)
+      end
+
+      templates
+    end
+
     def find_templates(name, prefix, *args)
       templates = []
 
