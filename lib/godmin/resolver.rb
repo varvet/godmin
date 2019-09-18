@@ -16,15 +16,30 @@ module Godmin
       @engine_wrapper = engine_wrapper
     end
 
+    # This function is for Rails 6 and up since the `find_templates` function
+    # is deprecated. It does the same thing, just a little differently. It's
+    # not being run by versions previous to Rails 6.
+    def _find_all(name, prefix, partial, details, key, locals)
+      templates = []
+
+      template_paths(prefix).each do |p|
+        break if templates.present?
+
+        path = Path.build(name, "#{@path}/#{p}", partial)
+        templates = query(path, details, details[:formats], locals, cache: !!key)
+      end
+
+      templates
+    end
+
+    # This is how we find templates in Rails 5 and below.
     def find_templates(name, prefix, *args)
       templates = []
 
       template_paths(prefix).each do |path|
-        if templates.present?
-          break
-        else
-          templates = super(name, path, *args)
-        end
+        break if templates.present?
+
+        templates = super(name, path, *args)
       end
 
       templates
