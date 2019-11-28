@@ -6,9 +6,18 @@ sudo: false
 rvm:
   - 2.2.2
   - 2.3.5
+  - 2.5.1
 
 gemfile:
   - gemfiles/rails_5.gemfile
+  - gemfiles/rails_6.gemfile
+
+matrix:
+  exclude:
+    - rvm: 2.2.2
+      gemfile: gemfiles/rails_6.gemfile
+    - rvm: 2.3.5
+      gemfile: gemfiles/rails_6.gemfile
 
 addons:
   code_climate:

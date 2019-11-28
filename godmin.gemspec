@@ -27,7 +27,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "momentjs-rails", "~> 2.8"
   gem.add_dependency "pundit", [">= 1.1", "< 2.0"]
   gem.add_dependency "rails", [">= 5.0", "< 7.0"]
-  gem.add_dependency "sass-rails", [">= 5.0", "< 6.0"]
+  gem.add_dependency "sass-rails", [">= 5.0", "< 7.0"]
   gem.add_dependency "selectize-rails", "~> 0.12"
 
   gem.add_development_dependency "appraisal"
