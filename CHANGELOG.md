@@ -1,6 +1,6 @@
 # Changelog
 
-### 2.0.0 - Unreleased
+### 2.0.0 - 2019-12-06
 
 Features
 - Allow skipping authorization per action (https://github.com/varvet/godmin/pull/231)
@@ -12,9 +12,10 @@ Other
 - Drop support for Rails 4 (https://github.com/varvet/godmin/pull/239)
 - Better policy lookups for namespaced models (https://github.com/varvet/godmin/pull/180)
 - Use Pundit for authorization (https://github.com/varvet/godmin/pull/180)
+- Rails 6 support (https://github.com/varvet/godmin/pull/248) and (https://github.com/varvet/godmin/pull/250)
 
 In order to upgrade
-- Upgrade to Rails 5 and Ruby 2.2.2
+- Upgrade to at least Rails 5 and Ruby 2.2.2
 - If using an admin engine, create a namespaced model for every resource, inheriting from the main app model
 - Replace any `authenticate_admin_user` with `authenticate`
 - Replace any `skip_before_action :authenticate_admin_user` with `prepend_before_action :disable_authentication`
