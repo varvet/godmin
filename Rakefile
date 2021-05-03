@@ -36,14 +36,14 @@ namespace :sandbox do
   task :deploy do
     message = "Generated from: https://github.com/varvet/godmin/commit/#{`git rev-parse HEAD`.strip}"
     template_path = File.expand_path("../template.rb", __FILE__)
-    Bundler.with_clean_env do
+    Bundler.with_unbundled_env do
       Dir.mktmpdir do |dir|
         Dir.chdir(dir)
-        system("git clone https://github.com/varvet/godmin-sandbox.git")
+        system("git clone git@github.com:varvet/godmin-sandbox.git")
         if $CHILD_STATUS.success?
           Dir.chdir("godmin-sandbox")
           system("rm -rf *")
-          system("rails new . -d postgresql -m #{template_path} --without-engine --skip-spring")
+          system("rails _5.2.5_ new . -d postgresql -m #{template_path} --without-engine --skip-spring")
           if $CHILD_STATUS.success?
             system("git add --all")
             system("git commit -m '#{message}'")
