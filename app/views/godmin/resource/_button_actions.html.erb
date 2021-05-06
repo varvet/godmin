@@ -1,3 +1,3 @@
 <% if policy(@resource_service.build_resource({})).new? %>
-  <%= link_to t("helpers.submit.create", model: @resource_class.model_name.human), [:new, *@resource_parents, @resource_class.model_name.singular_route_key], class: "btn btn-default" %>
+  <%= link_to t("helpers.submit.create", model: @resource_class.model_name.human), [:new, *@resource_parents, @resource_class.model_name.singular_route_key.to_sym], class: "btn btn-default" %>
 <% end %>
