@@ -1,6 +1,6 @@
 # Changelog
 
-### Next Release
+### 2.1.0 - 2021-05-10
 
 Bug fixes
 - Use symbol in path for compatibility with the latest Rails security patches (https://github.com/varvet/godmin/pull/256)
