@@ -1,5 +1,14 @@
 # Changelog
 
+### Next Release
+
+Bug fixes
+- Use symbol in path for compatibility with the latest Rails security patches (https://github.com/varvet/godmin/pull/256)
+
+Other
+- Build and test against Ruby 2.6 and 2.7
+- Stop building and testing against unsupported rubies (2.5 and older). These may still work and PRs may still be accepted.
+
 ### 2.0.0 - 2019-12-06
 
 Features

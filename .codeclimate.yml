@@ -6,8 +6,6 @@ engines:
     enabled: true
   csslint:
     enabled: true
-  bundler-audit:
-    enabled: true
 ratings:
   paths:
   - "**.rb"

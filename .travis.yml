@@ -1,24 +1,13 @@
-bundler_args: --without debug
+bundler_args: "--without debug"
 cache: bundler
-script: "bundle exec rake test"
-sudo: false
-
+script: bundle exec rake test
 rvm:
-  - 2.2.2
-  - 2.3.5
-  - 2.5.1
-
+  - 2.6.7
+  - 2.7.3
 gemfile:
   - gemfiles/rails_5.gemfile
   - gemfiles/rails_6.gemfile
-
-matrix:
-  exclude:
-    - rvm: 2.2.2
-      gemfile: gemfiles/rails_6.gemfile
-    - rvm: 2.3.5
-      gemfile: gemfiles/rails_6.gemfile
-
 addons:
   code_climate:
-    repo_token: 7e7ee66c976bdfe7a0d40d41958b97a1cf8a03b0462df5cba415f624c07c2071
+    repo_token:
+      secure: WBszVdtEvWM2KugFre9BpwkCduY6hjrmK7xo1GLiru4NMqr4ZoRXruQ5ijhZE79YqduR6zudKr72g9yG4R+4CK7ghYu4x5JB76IW8gFWpI9teTWrF4hdSbJgwxSH5JNkqWF4f6ic4Xr1Vgc43agzt+1KmA9imoGs2Q0EbAY3H2M=
