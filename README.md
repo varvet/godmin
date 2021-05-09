@@ -2,7 +2,8 @@
 
 [![Gem Version](http://img.shields.io/gem/v/godmin.svg)](https://rubygems.org/gems/godmin)
 [![Build Status](https://img.shields.io/travis/varvet/godmin/master.svg)](https://travis-ci.org/varvet/godmin)
-[![Code Climate](https://img.shields.io/codeclimate/github/varvet/godmin.svg)](https://codeclimate.com/github/varvet/godmin)
+[![Code Climate](https://api.codeclimate.com/v1/badges/d8e5c7c54c1dba073689/maintainability)](https://codeclimate.com/github/varvet/godmin)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d8e5c7c54c1dba073689/test_coverage)](https://codeclimate.com/github/varvet/godmin)
 
 **If you are looking for the current stable version, which is Rails 4+ compatible, see the [v1.5](https://github.com/varvet/godmin/tree/v1.5) branch**
 
