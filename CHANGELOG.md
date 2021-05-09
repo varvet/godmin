@@ -2,6 +2,9 @@
 
 ### Next release
 
+Other
+- Build and test against Ruby 3.0
+
 Bug fixes
 - Regression: within an Engine, always look for Pundit policies in the engine (https://github.com/varvet/godmin/pull/259)
 
