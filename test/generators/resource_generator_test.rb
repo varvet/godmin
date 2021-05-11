@@ -6,6 +6,7 @@ module Godmin
     tests ResourceGenerator
     destination File.expand_path("../../tmp", __FILE__)
     setup :prepare_destination
+    teardown :prepare_destination
 
     def test_resource_generator_in_standalone_install
       system "cd #{destination_root} && rails new . --skip-test --skip-spring --skip-bundle --skip-git --quiet"
