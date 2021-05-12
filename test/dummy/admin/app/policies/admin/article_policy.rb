@@ -3,5 +3,9 @@ module Admin
     def index?
       false
     end
+
+    def new?
+      true
+    end
   end
 end

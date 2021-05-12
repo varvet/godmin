@@ -874,6 +874,51 @@ class ArticlesController < ApplicationController
 end
 ```
 
+### Authorization in Engines
+
+When Godmin is installed as an engine, it expects policies to be defined
+within the engine: eg. `Admin::ArticlePolicy` defined in
+`admin/app/policies/article_policy.rb`.
+
+If your admin application is itself broken up into several engines, then
+either
+
+1. the policies for those engines need to live in the main engine, or
+2. those engines need to be namespaced under the namespace of the main engine.
+
+Here is one example of a directory structure for approach 2:
+
+```
+admin
+  ├── app
+  │   └── policies
+  │       └── admin
+  │           └── article_policy.rb
+  └── engines
+      └── content
+          └── policies
+              └── admin
+                  └── content
+                      └── text_block_policy.rb
+app
+  └── models
+      └── article.rb
+engines
+  └── content
+        └── models
+            └── content
+                └── text_block.rb
+```
+```ruby
+# admin/engines/content/policies/admin/content/text_block_policy.rb
+module Admin
+  module Content
+    class TextBlockPolicy < ::Admin::ApplicationPolicy
+    end
+  end
+end
+```
+
 ## Localization
 
 Godmin supports localization out of the box. For a list of translatable strings, [look here](https://github.com/varvet/godmin/blob/master/config/locales/en.yml).
