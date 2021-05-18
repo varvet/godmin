@@ -1,6 +1,6 @@
 # Changelog
 
-### Next release
+### 2.2.0 - 2021-05-20
 
 Other
 - Build and test against Ruby 3.0
