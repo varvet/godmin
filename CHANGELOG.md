@@ -1,5 +1,10 @@
 # Changelog
 
+### Next release
+
+Bug fixes
+- Regression: within an Engine, always look for Pundit policies in the engine (https://github.com/varvet/godmin/pull/259)
+
 ### 2.1.0 - 2021-05-10
 
 Bug fixes

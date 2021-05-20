@@ -1,1 +1,6 @@
 <%= navbar_item Article %>
+<% if policy(Article).index? %>
+  Can index
+<% else %>
+  Can't index
+<% end %>

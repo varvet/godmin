@@ -34,4 +34,12 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
     visit admin.authorized_articles_path
     assert_equal 403, page.status_code
   end
+
+  def test_uses_engine_policy_in_engine?
+    visit admin.new_authorized_article_path
+
+    assert_equal 200, page.status_code
+
+    assert page.has_content?("Can't index"), "when used in an engine, the `policy` method is using the policy from the main app, not the engine"
+  end
 end
