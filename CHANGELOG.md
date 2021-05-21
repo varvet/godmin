@@ -1,5 +1,10 @@
 # Changelog
 
+### 2.2.1 - 2021-05-20
+
+Fix
+- Use Pundit >= 2.0.0 so that namespaces are handled correctly (https://github.com/varvet/godmin/pull/260)
+
 ### 2.2.0 - 2021-05-20
 
 Other
