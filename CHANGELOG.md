@@ -1,5 +1,11 @@
 # Changelog
 
+### 2.2.2 - 2021-11-08
+
+Fix
+- Render values in columns (https://github.com/varvet/godmin/pull/263)
+- Correct README to match Godmin 2 (https://github.com/varvet/godmin/pull/262)
+
 ### 2.2.1 - 2021-05-20
 
 Fix
