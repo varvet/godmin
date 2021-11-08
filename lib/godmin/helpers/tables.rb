@@ -33,7 +33,7 @@ module Godmin
             column_value = t(column_value.to_s)
           end
 
-          column_value
+          return column_value
         end
       end
     end
