@@ -733,7 +733,7 @@ module Admin
     include Godmin::ApplicationController
     include Godmin::Authentication
 
-    def authenticate_admin_user
+    def authenticate
       authenticate_user!
     end
 
