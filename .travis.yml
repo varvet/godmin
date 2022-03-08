@@ -9,6 +9,7 @@ rvm:
 gemfile:
   - gemfiles/rails_5.gemfile
   - gemfiles/rails_6.gemfile
+  - gemfiles/rails_7.gemfile
 
 matrix:
   exclude:
