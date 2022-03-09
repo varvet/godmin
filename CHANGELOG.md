@@ -1,5 +1,10 @@
 # Changelog
 
+### 2.3.0 - 2022-03-09
+
+Other
+- Upgrade to latest Pundit: 2.2.0 (https://github.com/varvet/godmin/pull/266)
+
 ### 2.2.2 - 2021-11-08
 
 Fix
