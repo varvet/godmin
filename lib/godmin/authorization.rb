@@ -5,7 +5,7 @@ module Godmin
   module Authorization
     extend ActiveSupport::Concern
 
-    include Pundit
+    include Pundit::Authorization
 
     included do
       rescue_from Pundit::NotAuthorizedError do
