@@ -8,10 +8,14 @@ module Godmin
     setup :prepare_destination
     teardown :prepare_destination
 
+    def system!(cmd)
+      system(cmd) or fail("Failed to execute: #{cmd}")
+    end
+
     def test_resource_generator_in_standalone_install
-      system "cd #{destination_root} && rails new . --skip-test --skip-spring --skip-bundle --skip-git --quiet"
-      system "cd #{destination_root} && bin/rails generate godmin:install --quiet"
-      system "cd #{destination_root} && bin/rails generate godmin:resource foo bar --quiet"
+      system! "cd #{destination_root} && rails new . --skip-test --skip-spring --skip-bundle --skip-git --quiet"
+      system! "cd #{destination_root} && bin/rails generate godmin:install --quiet"
+      system! "cd #{destination_root} && bin/rails generate godmin:resource foo bar --quiet"
 
       assert_file "config/routes.rb", /resources :foos/
       assert_file "app/views/shared/_navigation.html.erb", /<%= navbar_item Foo %>/
@@ -40,10 +44,10 @@ module Godmin
     end
 
     def test_resource_generator_in_engine_install
-      system "cd #{destination_root} && rails new . --skip-test --skip-spring --skip-bundle --skip-git --quiet"
-      system "cd #{destination_root} && bin/rails plugin new fakemin --mountable --quiet"
-      system "cd #{destination_root} && fakemin/bin/rails generate godmin:install --quiet"
-      system "cd #{destination_root} && fakemin/bin/rails generate godmin:resource foo bar --quiet"
+      system! "cd #{destination_root} && rails new . --skip-test --skip-spring --skip-bundle --skip-git --quiet"
+      system! "cd #{destination_root} && bin/rails plugin new fakemin --mountable --quiet"
+      system! "cd #{destination_root} && fakemin/bin/rails generate godmin:install --quiet"
+      system! "cd #{destination_root} && fakemin/bin/rails generate godmin:resource foo bar --quiet"
 
       assert_file "fakemin/config/routes.rb", /resources :foos/
       assert_file "fakemin/app/views/fakemin/shared/_navigation.html.erb", /<%= navbar_item Foo %>/
