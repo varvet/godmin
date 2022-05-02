@@ -22,11 +22,10 @@ module Godmin
     def _find_all(name, prefix, partial, details, key, locals)
       templates = []
 
-      template_paths(prefix).each do |p|
+      template_paths(prefix).each do |template_path|
         break if templates.present?
 
-        path = Path.build(name, "#{@path}/#{p}", partial)
-        templates = query(path, details, details[:formats], locals, cache: !!key)
+        templates = super(name, template_path, partial, details, key, locals)
       end
 
       templates
