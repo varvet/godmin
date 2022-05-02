@@ -8,6 +8,15 @@ module Godmin
     setup :prepare_destination
     teardown :prepare_destination
 
+    setup do
+      @__env_ci = ENV["CI"]
+      ENV.delete("CI")
+    end
+
+    teardown do
+      ENV["CI"] = @__env_ci if @__env_ci
+    end
+
     def system!(cmd)
       system(cmd) or fail("Failed to execute: #{cmd}")
     end
