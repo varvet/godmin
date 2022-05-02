@@ -34,6 +34,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "bootsnap"
   gem.add_development_dependency "byebug"
   gem.add_development_dependency "capybara"
+  gem.add_development_dependency "cuprite"
   gem.add_development_dependency "minitest"
   gem.add_development_dependency "minitest-reporters"
   gem.add_development_dependency "poltergeist"
