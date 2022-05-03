@@ -4,5 +4,8 @@ source "https://rubygems.org"
 
 gem "admin", path: "../test/dummy/admin", group: [:test, :development]
 gem "rails", "~> 6.1"
+gem "net-imap", require: false
+gem "net-pop", require: false
+gem "net-smtp", require: false
 
 gemspec path: "../"
