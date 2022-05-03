@@ -37,7 +37,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "cuprite"
   gem.add_development_dependency "minitest"
   gem.add_development_dependency "minitest-reporters"
-  gem.add_development_dependency "poltergeist"
   gem.add_development_dependency "pry"
   gem.add_development_dependency "puma"
   gem.add_development_dependency "sqlite3"
