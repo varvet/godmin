@@ -5,7 +5,6 @@ ENV["DISABLE_DATABASE_ENVIRONMENT_CHECK"] = "1"
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require "rails/test_help"
 require "capybara/rails"
-require "capybara/poltergeist"
 require "minitest/reporters"
 require "pry"
 
@@ -39,7 +38,11 @@ end
 # Capybara because it starts the web server in a thread.
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
-Capybara.javascript_driver = :poltergeist
+require "capybara/cuprite"
+Capybara.javascript_driver = :cuprite
+Capybara.register_driver(:cuprite) do |app|
+  Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
+end
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
