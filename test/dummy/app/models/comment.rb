@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  belongs_to :article
+  belongs_to :article, optional: true
 
   def to_s
     title
