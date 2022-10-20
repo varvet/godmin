@@ -24,6 +24,8 @@ class Godmin::InstallGenerator < Godmin::Generators::Base
   def modify_application_js
     application_js = File.join("app/assets/javascripts", namespaced_path, "application.js")
 
+    create_file(application_js, "//= require_tree .") unless File.exists?(application_js)
+
     inject_into_file application_js, before: "//= require_tree ." do
       <<-END.strip_heredoc
         //= require moment
